@@ -1,8 +1,8 @@
 // ==UserScript==
 // @name        Stripchat Enhanced
 // @namespace   https://github.com/mewcrazy/StripChat-Enhanced
-// @version     1.0
-// @author      Dennis "mewcrazy" Bitsch
+// @version     1.56
+// @author      Dennis Bitsch
 // @description A browser extension to enhance the features on the StripChat website
 // @match       *://*.stripchat.com/*
 // @match       *://stripchat.com/*
@@ -16,22 +16,33 @@
 // @inject-into page
 // ==/UserScript==
 
+
+
 (function () {
 
     // add flags css (https://github.com/lipis/flag-icons)
     GM_addElement('link', { rel: 'stylesheet', href: 'https://cdn.jsdelivr.net/gh/lipis/flag-icons@7.3.2/css/flag-icons.min.css' });
 
     /* A Google API Key (for the Cloud Translation API) is needed to get this script to work */
-    var googleApiKey = "";
+    var googleApiKey = "AIzaSyA8m0bay1Sg545_mrZKkmEFIh5bJw7A4a8";
     var prefTranslationLang = localStorage.getItem("prefTranslationLang")
     const translationLanguages = []
+
 
     // Hide Age Verification Modal, Cookie Notice, Ultimate Ads
     GM_addStyle(`
         #agreement-root { display: none !important }
         .cookies-reminder { display: none !important }
         [class^="SidebarBanners"] { display: none !important }
-    `)
+    `);
+
+
+    // Make video frame resizable
+    GM_addStyle(`
+      resize: horizontal;
+      overflow: overlay;
+    `);
+
 
     // Block Websockets
     WebSocket2 = WebSocket
@@ -67,43 +78,43 @@
     waitForKeyElements(".personal-notifications-modal-panel", addOptionsMenu);
     function addOptionsMenu() {
 
-        // Output website time in header
-        setInterval(function() {
-            let time = $.ajax({async: false}).getResponseHeader('Date');
-            if(!$('.personal-notifications-modal-panel .current-time').length) {
-                $('.personal-notifications-modal-panel').prepend('<small class="current-time">'+new Date(time).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit' })+'</small>')
-            } else {
-                $('.personal-notifications-modal-panel .current-time').html(new Date(time).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit' }))
-            }
-        }, 1000)
-
-        // Add global options flyout
-        if(!$('.personal-notifications-modal-panel .open-enhanced-options').length) {
-
-            GM_xmlhttpRequest({
-                method: "GET",
-                url: "//stripchat-enhanced.247camming.com/update/html_enhanced-options.html",
-                onerror: function(xhr) {
-                    console.log("addOptionsMenu: could not fetch dom html.")
-                },
-                onload: function(xhr) {
-
-                    // add button
-                    $('.personal-notifications-modal-panel').prepend('<button class="a11y-button dropdown-link open-enhanced-options" type="button"><span>E</span></button>')
-                    $('#personal-notifications-portal-container').append(xhr.responseText)
-
-                    // process options
-                    processOptions()
-                }
-            });
+      // Output website time in header
+      setInterval(function() {
+        let time = $.ajax({async: false}).getResponseHeader('Date');
+        if(!$('.personal-notifications-modal-panel .current-time').length) {
+          $('.personal-notifications-modal-panel').prepend('<small class="current-time">'+new Date(time).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit' })+'</small>')
+        } else {
+          $('.personal-notifications-modal-panel .current-time').html(new Date(time).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit' }))
         }
-        $('#body').on('click', '.open-enhanced-options', function(e) {
-            $('.enhanced-options-modal').toggleClass('hidden')
-        })
-        $('#body').on('click', '.enhanced-options-close', function(e) {
-            $('.personal-notifications-modal').remove()
-            $('.enhanced-options-modal').toggleClass('hidden')
-        })
+      }, 1000)
+
+      // Add global options flyout
+      if(!$('.personal-notifications-modal-panel .open-enhanced-options').length) {
+
+          GM_xmlhttpRequest({
+              method: "GET",
+              url: "//stripchat-enhanced.247camming.com/update/html_enhanced-options.html",
+              onerror: function(xhr) {
+                  console.log("addOptionsMenu: could not fetch dom html.")
+              },
+              onload: function(xhr) {
+
+                  // add button
+                  $('.personal-notifications-modal-panel').prepend('<button class="a11y-button dropdown-link open-enhanced-options" type="button"><span>E</span></button>')
+                  $('#personal-notifications-portal-container').append(xhr.responseText)
+
+                  // process options
+                  processOptions()
+              }
+          });
+      }
+      $('#body').on('click', '.open-enhanced-options', function(e) {
+          $('.enhanced-options-modal').toggleClass('hidden')
+      })
+      $('#body').on('click', '.enhanced-options-close', function(e) {
+          $('.personal-notifications-modal').remove()
+          $('.enhanced-options-modal').toggleClass('hidden')
+      })
     }
     function processOptions() {
 
@@ -115,7 +126,6 @@
       `);
 
         // hide widgets: battleship
-
         GM_addStyle ( `
             .viewcam-widget-panel--battleships { display: none !important; }
         ` );
@@ -206,7 +216,6 @@
         })
 
 
-        var transButton = '<span class="translate-line"><button class="a11y-button TranslateButton#ZN TranslateButton_outline#qg chat-message-translate-button" style="float: none; display: inline-block;" type="button"><svg style="height: 14px; width: 14px;" class="IconV2__icon#YR" viewBox="0 0 16 14"><path fill="currentColor" fill-rule="evenodd" d="M10.28 1.72V3h-1.5a18.53 18.53 0 0 1-2.6 4.52l.05.05c.43.46.86.93 1.3 1.38l-.9.9c-.37-.36-.72-.74-1.07-1.13l-.2-.21c-.9.99-1.9 1.88-3 2.67l-.77-1.02.03-.02a17.36 17.36 0 0 0 2.87-2.58c-.52-.6-1.03-1.19-1.52-1.8L2.1 4.68l1-.8.86 1.08c.44.54.9 1.07 1.36 1.6C6.15 5.46 6.84 4.27 7.4 3H.68V1.72h4.48V.44h1.28v1.28h3.84Zm5.04 11.84h-1.38L13 11.32H9.48l-.93 2.24H7.17l3.32-8H12l3.33 8ZM11.24 7.1l-1.22 2.94h2.45L11.24 7.1Z" clip-rule="evenodd"></path></svg></button></span>'
 
         // observe messages div
         var observer = new MutationObserver(function(e) {
@@ -219,6 +228,8 @@
                 // $.each(hiddenChatUsers, function(index, item) {
                 //     // do something with `item` (or `this` is also `item` if you like)
                 // });
+                let transButton = '<span class="translate-line"><button class="a11y-button TranslateButton#ZN TranslateButton_outline#qg chat-message-translate-button" style="float: none; display: inline-block;" type="button"><svg style="height: 14px; width: 14px;" class="IconV2__icon#YR" viewBox="0 0 16 14"><path fill="currentColor" fill-rule="evenodd" d="M10.28 1.72V3h-1.5a18.53 18.53 0 0 1-2.6 4.52l.05.05c.43.46.86.93 1.3 1.38l-.9.9c-.37-.36-.72-.74-1.07-1.13l-.2-.21c-.9.99-1.9 1.88-3 2.67l-.77-1.02.03-.02a17.36 17.36 0 0 0 2.87-2.58c-.52-.6-1.03-1.19-1.52-1.8L2.1 4.68l1-.8.86 1.08c.44.54.9 1.07 1.36 1.6C6.15 5.46 6.84 4.27 7.4 3H.68V1.72h4.48V.44h1.28v1.28h3.84Zm5.04 11.84h-1.38L13 11.32H9.48l-.93 2.24H7.17l3.32-8H12l3.33 8ZM11.24 7.1l-1.22 2.94h2.45L11.24 7.1Z" clip-rule="evenodd"></path></svg></button></span>'
+
 
                 // add translation button to regular messages
                 $(jNode).find('.regular-message.message__more-menu--hidden').each(function(index, item) {
@@ -261,19 +272,18 @@
 
 
 
-    waitForKeyElements('.ViewCamShutterWrapper__status\#__', addTransButtonCamGroup);
+    waitForKeyElements('[class*="ViewCamShutterWrapper__status"]', addTransButtonCamGroup);
     function addTransButtonCamGroup() {
-        alert("ok item da")
+      let transButton = '<span class="translate-line"><button class="a11y-button TranslateButton#ZN TranslateButton_outline#qg chat-message-translate-button" style="float: none; display: inline-block;" type="button"><svg style="height: 14px; width: 14px;" class="IconV2__icon#YR" viewBox="0 0 16 14"><path fill="currentColor" fill-rule="evenodd" d="M10.28 1.72V3h-1.5a18.53 18.53 0 0 1-2.6 4.52l.05.05c.43.46.86.93 1.3 1.38l-.9.9c-.37-.36-.72-.74-1.07-1.13l-.2-.21c-.9.99-1.9 1.88-3 2.67l-.77-1.02.03-.02a17.36 17.36 0 0 0 2.87-2.58c-.52-.6-1.03-1.19-1.52-1.8L2.1 4.68l1-.8.86 1.08c.44.54.9 1.07 1.36 1.6C6.15 5.46 6.84 4.27 7.4 3H.68V1.72h4.48V.44h1.28v1.28h3.84Zm5.04 11.84h-1.38L13 11.32H9.48l-.93 2.24H7.17l3.32-8H12l3.33 8ZM11.24 7.1l-1.22 2.94h2.45L11.24 7.1Z" clip-rule="evenodd"></path></svg></button></span>'
 
-        // add translation button to regular messages
-        var observerCamGroup = new MutationObserver(function(e) {
-            alert("ok item d2222a")
+      // add translation button to regular messages
+      var observerCamGroup = new MutationObserver(function(e) {
 
-            if(!$(this).find('[class^="ViewCamGroup__description#rQ"] .translate-line').length) {
-                $(this).find('[class^="ViewCamGroup__description#rQ"]').append(transButton)
-            }
-        });
-        observerCamGroup.observe($('.ViewCamShutterWrapper__status#__')[0], {characterData: true, childList: true, subtree: true});
+        if(!$('[class*="ViewCamGroup__description#rQ"] .translate-line').length) {
+            $('[class*="ViewCamGroup__description#rQ"]').append(transButton)
+        }
+      });
+      observerCamGroup.observe($('[class*="ViewCamShutterWrapper__status"]')[0], {characterData: true, childList: true, subtree: true});
     }
 
 
@@ -358,6 +368,8 @@
       #language-picker-select { opacity: .6; text-align: center; width: 24px; height: 24px; position: absolute; bottom: 1.25em; left: 1.25em; z-index: 1 }
       #language-picker-select:hover { opacity: 1; }
       #language-picker-select option { text-align: center; font-size: 1.35em }
+      #language-picker-select .fi { margin-top: 5px; border: 1px solid rgba(255, 255, 255, .25); }
+      #language-picker-select span+svg { display: none !important }
       .model-chat-input input, .chat-input textarea { padding-left: 25px }
 
       /* language chooser */
@@ -415,7 +427,7 @@
             // preselect if choosen before
             setTimeout(function() {
                 let prefTranslationLang = JSON.parse(localStorage.getItem("prefTranslationLang"))
-                $('#language-picker-select').val(prefTranslationLang).change()
+                $('#language-picker-select').attr('data-active', prefTranslationLang.toString())
             }, 1500);
         }
 
@@ -433,8 +445,8 @@
                 e.stopImmediatePropagation()
                 e.stopPropagation()
 
-                if($('#language-picker-select').val()) {
-                    let lang = $('#language-picker-select').data('active').toLowerCase()
+                if($('#language-picker-select').attr('data-active')) {
+                    let lang = $('#language-picker-select').attr('data-active').toLowerCase()
 
                     translateGoogle(modelChatInput.val(), lang).then(function(data) {
                         // TODO: console.log missing/wrong languages
@@ -463,11 +475,11 @@
                 // add all languages
                 populateLanguageDropdowns()
 
-                setTimeout(function() {
-                    $('.language-chooser .flag.active').removeClass('active')
-                    $('.flag[data-lang="'+JSON.parse(prefTranslationLang)+'"]').addClass("active")
-                    $('#language-picker-select').attr('data-active', JSON.parse(prefTranslationLang))
-                }, 300);
+                // setTimeout(function() {
+                //   $('.language-chooser .flag.active').removeClass('active')
+                //   $('.flag[data-lang="'+JSON.parse(prefTranslationLang)+'"]').addClass("active")
+                //   $('#language-picker-select').attr('data-active', JSON.parse(prefTranslationLang))
+                // }, 300);
             } else {
                 $('.model-chat-public .language-chooser').toggleClass('hidden')
             }
@@ -479,8 +491,9 @@
         $("#language-picker-select").on("contextmenu",function(){ return false; });
         $('#body').on('mousedown', '#language-picker-select', function(e) {
             if( e.button == 2 ) {
+                $('#language-picker-select .fi').remove()
                 $('.language-chooser .flag').removeClass('active')
-                $('#language-picker-select').data('active', '')
+                $('#language-picker-select').attr('data-active', '')
                 return false;
             }
             return true;
@@ -495,14 +508,17 @@
         $('.model-chat-public').on('click', '.flag', function(e) {
 
             if($(this).hasClass('active')) {
+                $('#language-picker-select .fi').remove()
                 $(this).removeClass('active')
-                $('#language-picker-select').data('active', '')
+                $('#language-picker-select').attr('data-active', '')
                 localStorage.setItem('prefTranslationLang', "")
             } else {
+                $('#language-picker-select .fi').remove()
+                $('#language-picker-select').prepend($(this).html())
                 $('.language-chooser .flag.active').removeClass('active')
                 $(this).addClass('active')
-                $('#language-picker-select').data('active', $(this).data('lang'))
-                localStorage.setItem('prefTranslationLang', JSON.stringify($(this).data('lang')))
+                $('#language-picker-select').attr('data-active', $(this).attr('data-lang'))
+                localStorage.setItem('prefTranslationLang', JSON.stringify($(this).attr('data-lang')))
             }
             $('.language-chooser').toggleClass("hidden")
         })
@@ -571,20 +587,20 @@
     // populate languages to dropdowns and language lists
     function populateLanguageDropdowns() {
 
-        if(translationLanguages.length === 0) {
+      if(translationLanguages.length === 0) {
 
-            GM_xmlhttpRequest({
-                method: "GET",
-                url: "https://translation.googleapis.com/language/translate/v2/languages?key="+googleApiKey,
-                onload: function(xhr) {
-                    var data = eval("(" + xhr.responseText + ")");
-                    $.each(data.data.languages, function(index, val) {
-                        val = val.language
-                        $('.language-list').append( '<button aria-label="'+val+'" class="SmilersWidgetSpicyList__smile#mG flag" type="button" title="'+val+'" data-search="'+val+'|'+val+'" data-lang="'+val+'"><span class="fi fi-'+val.toLowerCase()+'" title="'+val+'"></span></button>');
-                    })
-                }
-            });
-        }
+        GM_xmlhttpRequest({
+            method: "GET",
+            url: "https://translation.googleapis.com/language/translate/v2/languages?key="+googleApiKey,
+            onload: function(xhr) {
+              var data = eval("(" + xhr.responseText + ")");
+              $.each(data.data.languages, function(index, val) {
+                val = val.language
+                $('.language-list').append( '<button aria-label="'+val+'" class="SmilersWidgetSpicyList__smile#mG flag" type="button" title="'+val+'" data-search="'+val+'|'+val+'" data-lang="'+val+'"><span class="fi fi-'+val.toLowerCase()+'" title="'+val+'"></span></button>');
+              })
+            }
+        });
+      }
     }
 
 
@@ -651,6 +667,7 @@
 
         $('[class^="SmilesWidgetContainer__content#"]').after('<div class="SmilesWidget__content_default-emojis"></div>')
 
+
         GM_xmlhttpRequest({
             method: "GET",
             url: "https://raw.githubusercontent.com/chalda-pnuzig/emojis.json/refs/heads/master/dist/list.min.json",
@@ -664,6 +681,11 @@
     })
 
     $('#body').on('click', '.SmilesWidget__content_default-emojis .active-smile', function(e) {
+        // let that = $(this)
+        // $('.model-chat-input input').val(function() {
+        //     return this.value + that.text();
+        // })
+
         let text = $('.model-chat-input input').val()
         $('.model-chat-input input').val('').focus()
         document.execCommand('insertText', false, text+$(this).text())

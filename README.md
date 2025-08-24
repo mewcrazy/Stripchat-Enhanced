@@ -7,8 +7,9 @@
 ## Features:
 - Translates public and private chat messages, as well as tip goals on-the-fly in over different 100 languages with just 1 click
 - Open stream in a true fullscreen which is not limited to your browser
-- Hide users in chat rooms to avoid distracting messages
+- Hide chat users and set your font size for chat rooms
 - Regular emojis in chat rooms and private messages
+- Resizable video frame
 - Filter your favorites by country, age, private prices and more
 - Removes the "Age Verification Popup", "Cookie Notices" and "Ultimate Ads"
 - Hide the "Quick Refill" & "Auto-Refill" feature to avoid accidental charges
