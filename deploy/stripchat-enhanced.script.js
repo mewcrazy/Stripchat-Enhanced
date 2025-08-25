@@ -24,7 +24,7 @@
     GM_addElement('link', { rel: 'stylesheet', href: 'https://cdn.jsdelivr.net/gh/lipis/flag-icons@7.3.2/css/flag-icons.min.css' });
 
     /* A Google API Key (for the Cloud Translation API) is needed to get this script to work */
-    var googleApiKey = "AIzaSyA8m0bay1Sg545_mrZKkmEFIh5bJw7A4a8";
+    var googleApiKey = "";
     var prefTranslationLang = localStorage.getItem("prefTranslationLang")
     const translationLanguages = []
 
