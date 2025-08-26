@@ -62,6 +62,10 @@
         .fi-fa { background-image: url(https://raw.githubusercontent.com/mewcrazy/StripChat-Enhanced/refs/heads/main/flags/fa.svg) }
         .fi-fy { background-image: url(https://raw.githubusercontent.com/mewcrazy/StripChat-Enhanced/refs/heads/main/flags/fy.svg) }
         .fi-gaa { background-image: url(https://raw.githubusercontent.com/mewcrazy/StripChat-Enhanced/refs/heads/main/flags/gaa.svg) }
+        .fi-el { background-image: url(https://raw.githubusercontent.com/mewcrazy/StripChat-Enhanced/refs/heads/main/flags/el.svg) }
+        .fi-eo { background-image: url(https://raw.githubusercontent.com/mewcrazy/StripChat-Enhanced/refs/heads/main/flags/eo.svg) }
+        .fi-ha { background-image: url(https://raw.githubusercontent.com/mewcrazy/StripChat-Enhanced/refs/heads/main/flags/ha.svg) }
+        .fi-haw { background-image: url(https://raw.githubusercontent.com/mewcrazy/StripChat-Enhanced/refs/heads/main/flags/haw.svg) }
     `);
 
 
