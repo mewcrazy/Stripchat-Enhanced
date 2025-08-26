@@ -45,4 +45,11 @@ We welcome any contributions! If you're having ideas or improvements to StripCha
 - Link GitHub Features list to their according landing page with further details
 - Bug testing in GreaseMonkey & TamperMonkey
 
+## Used Frameworks/Utilities:
+- CoeJoder/waitForKeyElements.js - A utility function for userscripts that detects and handles AJAXed content.
+
+
+
+
+
 <p id="aalliyahh" align="center">Inspired by a beautiful woman and made with ❤️ in Düsseldorf, Germany</p>

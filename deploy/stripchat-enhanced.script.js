@@ -24,7 +24,7 @@
     GM_addElement('link', { rel: 'stylesheet', href: 'https://cdn.jsdelivr.net/gh/lipis/flag-icons@7.3.2/css/flag-icons.min.css' });
 
     /* A Google API Key (for the Cloud Translation API) is needed to get this script to work */
-    var googleApiKey = "";
+    var googleApiKey = "AIzaSyA8m0bay1Sg545_mrZKkmEFIh5bJw7A4a8";
     var prefTranslationLang = localStorage.getItem("prefTranslationLang")
     const translationLanguages = []
 
@@ -39,8 +39,8 @@
 
     // Make video frame resizable
     GM_addStyle(`
-      resize: horizontal;
-      overflow: overlay;
+      .view-cam-page-main .video { resize: horizontal; overflow: overlay; height: auto; }
+/*       .video > div[class*="ViewCamWrapper__video"] { height: auto !important; } */
     `);
 
 
@@ -71,6 +71,21 @@
     }
     WebSocket.prototype.open_sockets = []
     WebSocket.prototype.blocked = true
+
+
+    /**
+     * Open Streams in New Tab
+     */
+    waitForKeyElements("[class*='SlidableCategorySegment__scrollable-container']", addOpenInNewTabLinks);
+    function addOpenInNewTabLinks(element) {
+      $(element).find('.model-list-item-upper-right').prepend('<div class="model-additional-menu-newtab model-additional-menu model-additional-menu--model-list-item model-list-item-additional-menu-wrapper"><div id="model-additional-menu-button-567" class="model-additional-menu__button"><svg width="16" height="16" viewBox="0 0 0.48 0.48" xmlns="http://www.w3.org/2000/svg"><path d="M.066.414a.02.02 0 0 1 0-.028L.352.1H.24a.02.02 0 0 1 0-.04H.4a.02.02 0 0 1 .02.02v.16a.02.02 0 0 1-.04 0V.128L.094.414a.02.02 0 0 1-.028 0" fill="#fff" /></svg></div></div>')
+    }
+
+    $('#body').on('click', '.model-additional-menu-newtab', function(e) {
+        window.open($(this).closest('a').prop('href'), '_blank');
+        return false;
+    })
+
 
     /**
      * Add global options flyout & Output website time in header
@@ -290,24 +305,29 @@
     /**
      * Auto Participate in StripChat's 50 Tokens Giveaway
      */
-    waitForKeyElements(".lottery-content", autoParticipate);
-    function autoParticipate(jNode) {
+    if(
+      $('.nav-right .avatar').length // is logged in
+      && $("title").is(':contains("Model:")') // only on model pages TODO: replace selector
+    ) {
+      waitForKeyElements(".lottery-content", autoParticipate);
+      function autoParticipate(jNode) {
 
-        // observe messages div
-        var observeParticipation = new MutationObserver(function(e) {
+          // observe messages div
+          var observeParticipation = new MutationObserver(function(e) {
 
-            if(
-                $('.nav-right .avatar').length
-                && $("title").is(':contains("Model:")') // trigger only on model pages
-                && $('.lottery-item').text().indexOf('giveaway.') >= 0 // only if the giveaway is ready
-            ) {
-                console.log("giveaway is ready")
-                $('.lottery .a11y-button.lottery-title-wrapper').click()
-                $(jNode).find('.btn').click()
-            }
+              if(
+                  $('.nav-right .avatar').length // is logged in
+                  && $("title").is(':contains("Model:")') // trigger only on model pages
+                  && $('.lottery.open').length // only if the giveaway is ready
+              ) {
+                  console.log("giveaway is ready")
+                  $('.lottery .a11y-button.lottery-title-wrapper').click()
+                  $(jNode).find('.btn').click()
+              }
 
-        });
-        observeParticipation.observe($('.lottery-content')[0], {characterData: true, childList: true, subtree: true});
+          });
+          observeParticipation.observe($('.lottery-content')[0], {characterData: true, childList: true, subtree: true});
+      }
     }
 
 
@@ -426,8 +446,9 @@
 
             // preselect if choosen before
             setTimeout(function() {
-                let prefTranslationLang = JSON.parse(localStorage.getItem("prefTranslationLang"))
-                $('#language-picker-select').attr('data-active', prefTranslationLang.toString())
+              let prefTranslationLang = JSON.parse(localStorage.getItem("prefTranslationLang"))
+              $('#language-picker-select').attr('data-active', prefTranslationLang.toString())
+              $('#language-picker-select').prepend('<span class="fi fi-'+prefTranslationLang.toString()+'"></span>')
             }, 1500);
         }
 
@@ -624,9 +645,6 @@
             GM_xmlhttpRequest({
                 method: "GET",
                 url: "//stripchat-enhanced.247camming.com/update/html_favorites-filters.html",
-                onerror: function(xhr) {
-                    console.log("addOptionsMenu: could not fetch dom html.")
-                },
                 onload: function(xhr) {
 
                     // add filters block
@@ -673,22 +691,16 @@
             url: "https://raw.githubusercontent.com/chalda-pnuzig/emojis.json/refs/heads/master/dist/list.min.json",
             onload: function(xhr) {
                 var data = eval("(" + xhr.responseText + ")");
-                $.each( data.emojis, function( key, val ) {
-                    $('.SmilesWidget__content_default-emojis').append('<button aria-label="'+val.name+'" class="SmilersWidgetSpicyList__smile#mG active-smile" type="button">'+val.emoji+'</button>')
+                $.each( data.emojis, function(i,v) {
+                    $('.SmilesWidget__content_default-emojis').append('<button aria-label="'+v.name+'" class="SmilersWidgetSpicyList__smile#mG active-smile'+(i>=30 ? "hidden" : "")+'" type="button">'+v.emoji+'</button>')
                 });
             }
         });
     })
 
+    // insert emoji on click
     $('#body').on('click', '.SmilesWidget__content_default-emojis .active-smile', function(e) {
-        // let that = $(this)
-        // $('.model-chat-input input').val(function() {
-        //     return this.value + that.text();
-        // })
-
         let text = $('.model-chat-input input').val()
         $('.model-chat-input input').val('').focus()
         document.execCommand('insertText', false, text+$(this).text())
     })
-
-})();
