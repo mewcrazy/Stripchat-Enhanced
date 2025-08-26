@@ -22,6 +22,17 @@
 
     // add flags css (https://github.com/lipis/flag-icons)
     GM_addElement('link', { rel: 'stylesheet', href: 'https://cdn.jsdelivr.net/gh/lipis/flag-icons@7.3.2/css/flag-icons.min.css' });
+    GM_addStyle(`
+        .fi-ab { background-image: url(https://raw.githubusercontent.com/mewcrazy/StripChat-Enhanced/refs/heads/main/flags/ab.svg) }
+        .fi-ace { background-image: url(https://raw.githubusercontent.com/mewcrazy/StripChat-Enhanced/refs/heads/main/flags/ace.svg) }
+        .fi-ach { background-image: url(https://raw.githubusercontent.com/mewcrazy/StripChat-Enhanced/refs/heads/main/flags/ach.svg) }
+        .fi-alz { background-image: url(https://raw.githubusercontent.com/mewcrazy/StripChat-Enhanced/refs/heads/main/flags/alz.gif) }
+        .fi-ak { background-image: url(https://raw.githubusercontent.com/mewcrazy/StripChat-Enhanced/refs/heads/main/flags/ak.svg) }
+        .fi-awa { background-image: url(https://raw.githubusercontent.com/mewcrazy/StripChat-Enhanced/refs/heads/main/flags/awa.svg) }
+        .fi-ban { background-image: url(https://raw.githubusercontent.com/mewcrazy/StripChat-Enhanced/refs/heads/main/flags/ban.svg) }
+    `);
+
+
 
     /* A Google API Key (for the Cloud Translation API) is needed to get this script to work */
     var googleApiKey = "AIzaSyA8m0bay1Sg545_mrZKkmEFIh5bJw7A4a8";
@@ -377,7 +388,7 @@
     GM_addStyle ( `
 
       /* emoji */
-      .SmilesWidget__content_default-emojis { overflow: scroll }
+      .SmilesWidget__content_default-emojis { overflow-y: scroll; }
       .SmilesWidget__content_default-emojis .active-smile { font-size: 24px }
 
       /* enhanced options */
@@ -683,19 +694,23 @@
     $('#body').on('click', '.switch-emoji-style', function(e) {
         e.preventDefault
 
-        $('[class^="SmilesWidgetContainer__content#"]').after('<div class="SmilesWidget__content_default-emojis"></div>')
+        $('[class^="SmilesWidgetContainer__content#"]').after('<div class="SmilesWidget__content_default-emojis hidden"></div>')
 
-
-        GM_xmlhttpRequest({
-            method: "GET",
-            url: "https://raw.githubusercontent.com/chalda-pnuzig/emojis.json/refs/heads/master/dist/list.min.json",
-            onload: function(xhr) {
-                var data = eval("(" + xhr.responseText + ")");
-                $.each( data.emojis, function(i,v) {
-                    $('.SmilesWidget__content_default-emojis').append('<button aria-label="'+v.name+'" class="SmilersWidgetSpicyList__smile#mG active-smile'+(i>=30 ? "hidden" : "")+'" type="button">'+v.emoji+'</button>')
-                });
-            }
-        });
+        if($(this).find('.SmilesWidget__content_default-emojis').length) {
+          $('.SmilesWidget__content_default-emojis').toggleClass('hidden').prev().toggleClass('hidden')
+        } else {
+          GM_xmlhttpRequest({
+              method: "GET",
+              url: "https://raw.githubusercontent.com/chalda-pnuzig/emojis.json/refs/heads/master/dist/list.min.json",
+              onload: function(xhr) {
+                  var data = eval("(" + xhr.responseText + ")");
+                  $('.SmilesWidget__content_default-emojis').toggleClass('hidden').prev().toggleClass('hidden')
+                  $.each( data.emojis, function(i,v) {
+                    $('.SmilesWidget__content_default-emojis').append('<button aria-label="'+v.name+'" class="SmilersWidgetSpicyList__smile#mG active-smile'+(i>=50 ? " hidden" : "")+'" type="button">'+v.emoji+'</button>')
+                  });
+              }
+          });
+        }
     })
 
     // insert emoji on click
@@ -704,3 +719,5 @@
         $('.model-chat-input input').val('').focus()
         document.execCommand('insertText', false, text+$(this).text())
     })
+
+})();
