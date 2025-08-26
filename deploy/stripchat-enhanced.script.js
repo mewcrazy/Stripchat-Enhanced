@@ -36,14 +36,15 @@
         .fi-bew { background-image: url(https://raw.githubusercontent.com/mewcrazy/StripChat-Enhanced/refs/heads/main/flags/bew.png) }
         .fi-bho { background-image: url(https://raw.githubusercontent.com/mewcrazy/StripChat-Enhanced/refs/heads/main/flags/bho.webp) }
         .fi-bik { background-image: url(https://raw.githubusercontent.com/mewcrazy/StripChat-Enhanced/refs/heads/main/flags/bik.svg) }
-
-        .fi-bts { background-image: url(https://raw.githubusercontent.com/mewcrazy/StripChat-Enhanced/refs/heads/main/flags/.svg) }
-        .fi-btx { background-image: url(https://raw.githubusercontent.com/mewcrazy/StripChat-Enhanced/refs/heads/main/flags/.svg) }
-        .fi-xh { background-image: url(https://raw.githubusercontent.com/mewcrazy/StripChat-Enhanced/refs/heads/main/flags/.svg) }
-        .fi-yi { background-image: url(https://raw.githubusercontent.com/mewcrazy/StripChat-Enhanced/refs/heads/main/flags/.svg) }
-        .fi-yo { background-image: url(https://raw.githubusercontent.com/mewcrazy/StripChat-Enhanced/refs/heads/main/flags/.svg) }
-        .fi-yua { background-image: url(https://raw.githubusercontent.com/mewcrazy/StripChat-Enhanced/refs/heads/main/flags/.svg) }
-        .fi-yue { background-image: url(https://raw.githubusercontent.com/mewcrazy/StripChat-Enhanced/refs/heads/main/flags/.svg) }
+        .fi-bts { background-image: url(https://raw.githubusercontent.com/mewcrazy/StripChat-Enhanced/refs/heads/main/flags/bts.svg) }
+        .fi-btx { background-image: url(https://raw.githubusercontent.com/mewcrazy/StripChat-Enhanced/refs/heads/main/flags/btx.svg) }
+        .fi-xh { background-image: url(https://raw.githubusercontent.com/mewcrazy/StripChat-Enhanced/refs/heads/main/flags/xh.svg) }
+        .fi-yi { background-image: url(https://raw.githubusercontent.com/mewcrazy/StripChat-Enhanced/refs/heads/main/flags/yi.svg) }
+        .fi-yo { background-image: url(https://raw.githubusercontent.com/mewcrazy/StripChat-Enhanced/refs/heads/main/flags/yo.jpg) }
+        .fi-yua { background-image: url(https://raw.githubusercontent.com/mewcrazy/StripChat-Enhanced/refs/heads/main/flags/yua.svg) }
+        .fi-zu { background-image: url(https://raw.githubusercontent.com/mewcrazy/StripChat-Enhanced/refs/heads/main/flags/zu.svg) }
+        .fi-zh-TW { background-image: url(https://raw.githubusercontent.com/mewcrazy/StripChat-Enhanced/refs/heads/main/flags/zh-TW.svg) }
+        .fi-zh-CN { background-image: url(https://raw.githubusercontent.com/mewcrazy/StripChat-Enhanced/refs/heads/main/flags/zh-CN.svg) }
     `);
 
 
