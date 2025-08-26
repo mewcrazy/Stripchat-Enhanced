@@ -40,6 +40,16 @@
     const translationLanguages = []
 
 
+    // Hide Favorites From "Featured Model" Listings
+    waitForKeyElements(".featured-model-list", hideFavoritesFromFeaturedListings);
+    function hideFavoritesFromFeaturedListings(element) {
+      $(element).find('.model-list-item').each(function() {
+        if($(this).find('.ModelListItemBadge__favorite#vd')) {
+          $(this).remove()
+        }
+      })
+    }
+
     // Hide Age Verification Modal, Cookie Notice, Ultimate Ads
     GM_addStyle(`
         #agreement-root { display: none !important }
@@ -476,6 +486,7 @@
                 e.preventDefault()
                 e.stopImmediatePropagation()
                 e.stopPropagation()
+                $('.language-chooser').addClass("hidden")
 
                 if($('#language-picker-select').attr('data-active')) {
                     let lang = $('#language-picker-select').attr('data-active').toLowerCase()
@@ -483,7 +494,6 @@
                     translateGoogle(modelChatInput.val(), lang).then(function(data) {
                         // TODO: console.log missing/wrong languages
                         modelChatInput.val('').focus()
-                        $('.language-chooser').addClass("hidden")
                         document.execCommand('insertText', false, data.data.translations[0].translatedText)
                         modelChatSubmit.click()
                     });
@@ -558,9 +568,20 @@
         // search language by html attributes
         $(".model-chat").on("keyup", ".language-search", function() {
             var value = this.value.toLowerCase().trim();
+          if(value.length) {
             $(".language-list button").show().filter(function() {
                 return $(this).attr("data-search").toLowerCase().trim().indexOf(value) == -1;
             }).hide();
+          } else {
+            $(".language-list button").show();
+          }
+        });
+
+        // clear search input
+        $('.model-chat').on('search', '.language-search', function() {
+          if(this.value === "") {
+            $(".language-list button").show()
+          }
         });
 
     }
