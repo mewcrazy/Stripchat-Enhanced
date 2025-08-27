@@ -73,7 +73,7 @@
     /* A Google API Key (for the Cloud Translation API) is needed to get this script to work */
     var googleApiKey = "AIzaSyA8m0bay1Sg545_mrZKkmEFIh5bJw7A4a8";
     var prefTranslationLang = localStorage.getItem("prefTranslationLang")
-    const translationLanguages = []
+    var translationLanguages = []
 
 
     // Hide Favorites From "Featured Model" Listings
@@ -81,7 +81,7 @@
     function hideFavoritesFromFeaturedListings(element) {
       $(element).find('.model-list-item').each(function() {
         if($(this).find('.ModelListItemBadge__favorite#vd')) {
-          $(this).remove()
+          // $(this).remove()
         }
       })
     }
@@ -343,6 +343,27 @@
     }
 
 
+    waitForKeyElements('.view-cam-info-topic', addTransButtonCamInfo);
+    function addTransButtonCamInfo() {
+      let transButton = '<span class="translate-line"><button class="a11y-button TranslateButton#ZN TranslateButton_outline#qg chat-message-translate-button" style="float: none; display: inline-block;" type="button"><svg style="height: 14px; width: 14px;" class="IconV2__icon#YR" viewBox="0 0 16 14"><path fill="currentColor" fill-rule="evenodd" d="M10.28 1.72V3h-1.5a18.53 18.53 0 0 1-2.6 4.52l.05.05c.43.46.86.93 1.3 1.38l-.9.9c-.37-.36-.72-.74-1.07-1.13l-.2-.21c-.9.99-1.9 1.88-3 2.67l-.77-1.02.03-.02a17.36 17.36 0 0 0 2.87-2.58c-.52-.6-1.03-1.19-1.52-1.8L2.1 4.68l1-.8.86 1.08c.44.54.9 1.07 1.36 1.6C6.15 5.46 6.84 4.27 7.4 3H.68V1.72h4.48V.44h1.28v1.28h3.84Zm5.04 11.84h-1.38L13 11.32H9.48l-.93 2.24H7.17l3.32-8H12l3.33 8ZM11.24 7.1l-1.22 2.94h2.45L11.24 7.1Z" clip-rule="evenodd"></path></svg></button></span>'
+
+        if(!$('.view-cam-info-topic .translate-line').length) {
+            $('.view-cam-info-goal').append(transButton)
+        }
+
+        $('#body').on('click', '.translate-line button', function(e) {
+            let ell = $(this).closest('.message-body').clone()
+            ell.find('.username,.message-body-mention,.message-timestamp,>span,button,.goal-block').remove()
+            let text = ell.text().trim()
+            let that = $(this)
+
+            translateGoogle(text, 'en_US').then(function(data) {
+                if(!that.closest('.message-body').find('.translated-line').length) {
+                    that.closest('.message-body').find('.translate-line').before('<small class="translated-line">'+data.data.translations[0].translatedText+'</small>')
+                }
+            })
+        })
+    }
 
     waitForKeyElements('[class*="ViewCamShutterWrapper__status"]', addTransButtonCamGroup);
     function addTransButtonCamGroup() {
@@ -504,8 +525,8 @@
             // preselect if choosen before
             setTimeout(function() {
               let prefTranslationLang = JSON.parse(localStorage.getItem("prefTranslationLang"))
-              $('#language-picker-select').attr('data-active', prefTranslationLang.toString())
-              $('#language-picker-select').prepend('<span class="fi fi-'+prefTranslationLang.toString()+'"></span>')
+              $('#language-picker-select').attr('data-active', prefTranslationLang.toLowerCase().toString())
+              $('#language-picker-select').prepend('<span class="fi fi-'+prefTranslationLang.toLowerCase().toString()+'"></span>')
             }, 1500);
         }
 
@@ -552,12 +573,6 @@
 
                 // add all languages
                 populateLanguageDropdowns()
-
-                // setTimeout(function() {
-                //   $('.language-chooser .flag.active').removeClass('active')
-                //   $('.flag[data-lang="'+JSON.parse(prefTranslationLang)+'"]').addClass("active")
-                //   $('#language-picker-select').attr('data-active', JSON.parse(prefTranslationLang))
-                // }, 300);
             } else {
                 $('.model-chat-public .language-chooser').toggleClass('hidden')
             }
@@ -660,7 +675,6 @@
                 populateLanguageDropdowns()
 
                 setTimeout(function() {
-                    console.log(prefTranslationLang, '.flag[data-lang="'+JSON.parse(prefTranslationLang)+'"]')
                     $('.flag[data-lang="'+JSON.parse(prefTranslationLang)+'"]').addClass("active")
                 }, 300);
             } else {
@@ -680,16 +694,31 @@
 
         GM_xmlhttpRequest({
             method: "GET",
-            url: "https://translation.googleapis.com/language/translate/v2/languages?key="+googleApiKey,
+            url: "https://raw.githubusercontent.com/mewcrazy/StripChat-Enhanced/refs/heads/main/json/iso639-1.json",
             onload: function(xhr) {
-              var data = eval("(" + xhr.responseText + ")");
-              $.each(data.data.languages, function(index, val) {
-                val = val.language
-                $('.language-list').append( '<button aria-label="'+val+'" class="SmilersWidgetSpicyList__smile#mG flag" type="button" title="'+val+'" data-search="'+val+'|'+val+'" data-lang="'+val+'"><span class="fi fi-'+val.toLowerCase()+'" title="'+val+'"></span></button>');
-              })
+              translationLanguages = eval("(" + xhr.responseText + ")");
+
+              GM_xmlhttpRequest({
+                  method: "GET",
+                  url: "https://translation.googleapis.com/language/translate/v2/languages?key="+googleApiKey,
+                  onload: function(xhr) {
+                    var data = eval("(" + xhr.responseText + ")");
+
+                    $.each(data.data.languages, function(index, val) {
+                      if(translationLanguages[val.language]) translationLanguages[val.language]["active"] = 1
+                    })
+                  }
+              });
+
             }
         });
       }
+
+      $.each(translationLanguages, function(key, val) {
+        if(val.active === 1) {
+          $('.language-list').append( '<button aria-label="'+val.name+'" class="SmilersWidgetSpicyList__smile#mG flag" type="button" title="'+val.name+'" data-search="'+val.name+'|'+key+'" data-lang="'+val+'"><span class="fi fi-'+key+'" title="'+val.name+'"></span></button>');
+        }
+      })
     }
 
 
