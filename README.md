@@ -1,4 +1,4 @@
-# <p align="center">StripChat</p>
+# <p align="center">StripChat Enhanced</p>
 <p align="center">An user script for ViolentMonkey, Tampermonkey & Greasemonkey to extend StripChat with new useful features like translations of public chat and private chat messages.</p>
 
 [![Downloads per month](https://shields.io/github/downloads/mewcrazy/StripChat-Enhanced/total)]((https://github.com/mewcrazy/StripChat-Enhanced/archive/refs/heads/main.zip))
