@@ -6,9 +6,9 @@
 // @description A browser extension to enhance the features on the StripChat website
 // @match       *://*.stripchat.com/*
 // @match       *://stripchat.com/*
-// @icon        https://github.com/mewcrazy/StripChat-Enhanced/blob/main/icon.svg
-// @require     https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js
-// @require     https://gist.github.com/raw/2625891/waitForKeyElements.js
+// @icon        https://raw.githubusercontent.com/mewcrazy/StripChat-Enhanced/refs/heads/main/icon.svg
+// @require     https://raw.githubusercontent.com/mewcrazy/StripChat-Enhanced/refs/heads/main/deploy/jquery.min.js
+// @require     https://raw.githubusercontent.com/mewcrazy/StripChat-Enhanced/refs/heads/main/deploy/waitForKeyElements.js
 // @downloadURL https://raw.githubusercontent.com/mewcrazy/StripChat-Enhanced/refs/heads/main/deploy/stripchat-enhanced.script.js
 // @grant       GM_addStyle
 // @grant       GM_xmlhttpRequest
