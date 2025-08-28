@@ -9,6 +9,7 @@
 
 ## Features:
 - Translates public and private chat messages, as well as tip goals on-the-fly in over different 100 languages with just 1 click
+- Hide distracting chat notice messages (tip goals, interactive toy, welcome bot & fan club discount messages)
 - Open stream in a true fullscreen which is not limited to your browser
 - Hide chat users and set your font size for chat rooms
 - Regular emojis in chat rooms and private messages

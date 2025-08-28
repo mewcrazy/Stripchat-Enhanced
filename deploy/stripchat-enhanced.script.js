@@ -23,6 +23,7 @@
     // add flags css (https://github.com/lipis/flag-icons)
     GM_addElement('link', { rel: 'stylesheet', href: 'https://cdn.jsdelivr.net/gh/lipis/flag-icons@7.3.2/css/flag-icons.min.css' });
     GM_addStyle(`
+      .fi { background-repeat: no-repeat; background-size: cover; }
       .fi-ab { background-image: url(https://raw.githubusercontent.com/mewcrazy/StripChat-Enhanced/refs/heads/main/flags/ab.svg) }
       .fi-ace { background-image: url(https://raw.githubusercontent.com/mewcrazy/StripChat-Enhanced/refs/heads/main/flags/ace.svg) }
       .fi-ach { background-image: url(https://raw.githubusercontent.com/mewcrazy/StripChat-Enhanced/refs/heads/main/flags/ach.svg) }
@@ -87,15 +88,10 @@
       .fi-su { background-image: url(https://raw.githubusercontent.com/mewcrazy/StripChat-Enhanced/refs/heads/main/flags/su.webp) }
       .fi-sw { background-image: url(https://raw.githubusercontent.com/mewcrazy/StripChat-Enhanced/refs/heads/main/flags/sw.gif) }
       .fi-ta { background-image: url(https://raw.githubusercontent.com/mewcrazy/StripChat-Enhanced/refs/heads/main/flags/ta.svg) }
-      .fi-ny { background-image: url(https://raw.githubusercontent.com/mewcrazy/StripChat-Enhanced/refs/heads/main/flags/ny.svg) }
-      .fi-ig { background-image: url(https://raw.githubusercontent.com/mewcrazy/StripChat-Enhanced/refs/heads/main/flags/ig.svg) }
-      .fi-ku { background-image: url(https://raw.githubusercontent.com/mewcrazy/StripChat-Enhanced/refs/heads/main/flags/ku.svg) }
-      .fi-ga { background-image: url(https://raw.githubusercontent.com/mewcrazy/StripChat-Enhanced/refs/heads/main/flags/ga.svg) }
-      .fi-lg { background-image: url(https://raw.githubusercontent.com/mewcrazy/StripChat-Enhanced/refs/heads/main/flags/lg.jpg) }
-      .fi-qu { background-image: url(https://raw.githubusercontent.com/mewcrazy/StripChat-Enhanced/refs/heads/main/flags/qu.svg) }
+
 
       /* loading spinner */
-      .loader {
+      .se-loader {
         position: absolute;
         top: calc(50% - 24px);
         left: calc(50% - 24px);
@@ -108,7 +104,7 @@
         box-sizing: border-box;
         animation: rotation 1s linear infinite;
       }
-      button + .loader { display: none; }
+      button + .se-loader { display: none; }
       @keyframes rotation {
         0% { transform: rotate(0deg); }
         100% { transform: rotate(360deg); }
@@ -122,6 +118,18 @@
     var prefTranslationLang = localStorage.getItem("prefTranslationLang")
     var translationLanguages = []
 
+    var htmlLangChooser = '<div class="language-chooser SmilesWidgetPosition#kX model-chat__smiles-block"><div class="SmilesWidgetContainer#AW SmilesWidgetContainer__chat#mq visible-enter-done"><div class="SmilesWidgetContainer__titleBlock#Uy title-block"><span class="SmilesWidgetContainer__title#wG">Translate To Language</span><div class="search"><input class="ModelSearch__input#st inline-block input text-default theme-default language-search" type="search" placeholder="Search Language"></div><button type="button" class="close-language-chooser SmilesWidgetContainer__closeBtn#GV" title="Close Languages"><svg style="height: 20px; width: 20px;" class="IconV2__icon#YR"><use xlink:href="#icons-close-ds"></use></svg></button></div><div class="SmilesWidgetContainer__content#uS" data-scroll="lock-ignore"><div class="language-list SmilesWidget__content#Ml"><span class="se-loader"></span></div></div></div></div>'
+    var htmlLangPicker = '<div id="language-picker-select" title="Switch language" class=""><svg width="24" height="24" viewBox="0 0 3 3" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="iconify iconify--gis" fill="currentColor"><path d="M1.575.17v.606h.53a1.6 1.6 0 0 0-.102-.232c-.119-.216-.27-.346-.428-.373m-.15.006c-.148.037-.288.164-.4.367Q.967.65.923.776h.502zm-.346.04A1.35 1.35 0 0 0 .36.776h.404Q.818.609.893.471q.081-.148.186-.254m.882.014q.096.103.173.24.076.138.129.305h.377a1.35 1.35 0 0 0-.678-.545M.278.926a1.3 1.3 0 0 0-.126.499h.504q.01-.265.066-.499zm.599 0c-.04.152-.065.321-.071.499h.619V.926zm.698 0v.499h.647a2.3 2.3 0 0 0-.071-.499zm.731 0q.056.234.066.499h.476a1.3 1.3 0 0 0-.126-.499zm-2.154.649a1.3 1.3 0 0 0 .126.499h.437a2.5 2.5 0 0 1-.06-.499zm.653 0c.004.177.027.346.064.499h.556v-.499zm.77 0v.499h.583q.057-.23.064-.499zm.797 0a2.5 2.5 0 0 1-.06.499h.41a1.3 1.3 0 0 0 .126-.499zM.36 2.224c.159.249.396.443.679.545a1.2 1.2 0 0 1-.146-.211 1.7 1.7 0 0 1-.139-.335zm.552 0q.048.145.113.263c.105.191.235.314.373.359l.028.002v-.624zm.663 0v.624l.064-.005c.135-.047.261-.17.364-.356q.065-.117.113-.263zm.698 0a1.7 1.7 0 0 1-.139.335 1 1 0 0 1-.132.194 1.35 1.35 0 0 0 .637-.529z" /></svg></div>'
+
+    // Hide distracting notice messages
+    GM_addStyle(`
+      .messages .goal-message:not(:last-of-type){ display: none !important; }
+      .messages [class*="goal-threshold"]:last-of-type { display: inline-flex !important; }
+      .messages .m-bg-fan-club-tip-discount { display: none; }
+      .messages .public-menu-announcement-message { display: none; }
+      .messages .toy-message-interactive { display: none; }
+      .messages .welcome-bot-message { display: none; }
+    `);
 
     // Hide Favorites From "Featured Model" Listings
     waitForKeyElements(".featured-model-list", hideFavoritesFromFeaturedListings);
@@ -561,7 +569,7 @@
 
         // add dropdown html
         if(!$(jNode).children('div').find('.language-picker').length) {
-            $(jNode).children('div').before('<div id="language-picker-select" title="Switch language" class=""><svg width="24" height="24" viewBox="0 0 3 3" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="iconify iconify--gis" fill="currentColor"><path d="M1.575.17v.606h.53a1.6 1.6 0 0 0-.102-.232c-.119-.216-.27-.346-.428-.373m-.15.006c-.148.037-.288.164-.4.367Q.967.65.923.776h.502zm-.346.04A1.35 1.35 0 0 0 .36.776h.404Q.818.609.893.471q.081-.148.186-.254m.882.014q.096.103.173.24.076.138.129.305h.377a1.35 1.35 0 0 0-.678-.545M.278.926a1.3 1.3 0 0 0-.126.499h.504q.01-.265.066-.499zm.599 0c-.04.152-.065.321-.071.499h.619V.926zm.698 0v.499h.647a2.3 2.3 0 0 0-.071-.499zm.731 0q.056.234.066.499h.476a1.3 1.3 0 0 0-.126-.499zm-2.154.649a1.3 1.3 0 0 0 .126.499h.437a2.5 2.5 0 0 1-.06-.499zm.653 0c.004.177.027.346.064.499h.556v-.499zm.77 0v.499h.583q.057-.23.064-.499zm.797 0a2.5 2.5 0 0 1-.06.499h.41a1.3 1.3 0 0 0 .126-.499zM.36 2.224c.159.249.396.443.679.545a1.2 1.2 0 0 1-.146-.211 1.7 1.7 0 0 1-.139-.335zm.552 0q.048.145.113.263c.105.191.235.314.373.359l.028.002v-.624zm.663 0v.624l.064-.005c.135-.047.261-.17.364-.356q.065-.117.113-.263zm.698 0a1.7 1.7 0 0 1-.139.335 1 1 0 0 1-.132.194 1.35 1.35 0 0 0 .637-.529z" /></svg></div>');
+            $(jNode).children('div').before(htmlLangPicker);
 
             // prepopulate
             populateLanguageDropdowns()
@@ -613,7 +621,7 @@
         // click language button
         $('.model-chat-public').off().on('click', '#language-picker-select', function(e) {
             if(!$('.model-chat .language-chooser').length) {
-                $('.model-chat .model-chat-content').before('<div class="language-chooser SmilesWidgetPosition#kX model-chat__smiles-block"><div class="SmilesWidgetContainer#AW SmilesWidgetContainer__chat#mq visible-enter-done"><div class="SmilesWidgetContainer__titleBlock#Uy title-block"><span class="SmilesWidgetContainer__title#wG">Translate To Language</span><div class="search"><input class="ModelSearch__input#st inline-block input text-default theme-default language-search" type="search" placeholder="Search Language"></div><button type="button" class="close-language-chooser SmilesWidgetContainer__closeBtn#GV" title="Close Languages"><svg style="height: 20px; width: 20px;" class="IconV2__icon#YR"><use xlink:href="#icons-close-ds"></use></svg></button></div><div class="SmilesWidgetContainer__content#uS" data-scroll="lock-ignore"><div class="language-list SmilesWidget__content#Ml"><span class="loader"></span></div></div></div></div>');
+                $('.model-chat .model-chat-content').before(htmlLangChooser);
 
                 // add all languages
                 populateLanguageDropdowns()
@@ -704,7 +712,7 @@
 
                 // add language picker overlay
                 if(!$(jNode).find('.language-chooser').length) {
-                    $(jNode).find('.content-messages').append('<div class="SmilesWidgetPosition#kX content__smiles-block content__smiles-block--opened language-chooser hidden"><div class="SmilesWidgetContainer#AW SmilesWidgetContainer__chat#mq visible-enter-done"><div class="SmilesWidgetContainer__titleBlock#Uy title-block"><span class="SmilesWidgetContainer__title#wG">Translate To Language</span><div class="search"><input class="ModelSearch__input#st inline-block input text-default theme-default language-search" type="search" placeholder="Search Language"></div><button type="button" class="close-language-chooser SmilesWidgetContainer__closeBtn#GV" title="Close Languages"><svg style="height: 20px; width: 20px;" class="IconV2__icon#YR"><use xlink:href="#icons-close-ds"></use></svg></button></div><div class="SmilesWidgetContainer__content#uS" data-scroll="lock-ignore"><div class="language-list SmilesWidget__content#Ml"></div></div></div></div>');
+                    $(jNode).find('.content-messages').append(htmlLangChooser);
                 }
             })
         });
@@ -714,7 +722,7 @@
 
             if(!$(this).closest('.model-chat').find('.language-chooser').length) {
                 alert("ok add")
-                $(this).closest('.model-chat').find('.model-chat-content').before('<div class="language-chooser SmilesWidgetPosition#kX model-chat__smiles-block"><div class="SmilesWidgetContainer#AW SmilesWidgetContainer__chat#mq visible-enter-done"><div class="SmilesWidgetContainer__titleBlock#Uy title-block"><span class="SmilesWidgetContainer__title#wG">Translate To Language</span><div class="search"><input class="ModelSearch__input#st inline-block input text-default theme-default language-search" type="search" placeholder="Search Language"></div><button type="button" class="close-language-chooser SmilesWidgetContainer__closeBtn#GV" title="Close Languages"><svg style="height: 20px; width: 20px;" class="IconV2__icon#YR"><use xlink:href="#icons-close-ds"></use></svg></button></div><div class="SmilesWidgetContainer__content#uS" data-scroll="lock-ignore"><div class="language-list SmilesWidget__content#Ml"></div></div></div></div>');
+                //$(this).closest('.model-chat').find('.model-chat-content').before('<div class="language-chooser SmilesWidgetPosition#kX model-chat__smiles-block"><div class="SmilesWidgetContainer#AW SmilesWidgetContainer__chat#mq visible-enter-done"><div class="SmilesWidgetContainer__titleBlock#Uy title-block"><span class="SmilesWidgetContainer__title#wG">Translate To Language</span><div class="search"><input class="ModelSearch__input#st inline-block input text-default theme-default language-search" type="search" placeholder="Search Language"></div><button type="button" class="close-language-chooser SmilesWidgetContainer__closeBtn#GV" title="Close Languages"><svg style="height: 20px; width: 20px;" class="IconV2__icon#YR"><use xlink:href="#icons-close-ds"></use></svg></button></div><div class="SmilesWidgetContainer__content#uS" data-scroll="lock-ignore"><div class="language-list SmilesWidget__content#Ml"></div></div></div></div>');
 
                 // add all languages
                 populateLanguageDropdowns()
@@ -763,7 +771,7 @@
 
       $.each(translationLanguages, function(key, val) {
         if(val.active === 1) {
-          $('.language-list').prepend( '<button aria-label="'+val.name+'" class="SmilersWidgetSpicyList__smile#mG flag" type="button" title="'+val.name+'" data-search="'+val.name+'|'+key+'" data-lang="'+key+'"><span class="fi fi-'+key+'" title="'+val.name+'"></span></button>');
+          $('.language-list').prepend( '<button aria-label="'+val.name+'" class="SmilersWidgetSpicyList__smile#mG flag" type="button" title="'+val.name+'" data-search="'+val.name+'|'+val.nativeName+'|'+key+'" data-lang="'+key+'"><span class="fi fi-'+key+'" title="'+val.name+' ('+val.nativeName+')"></span></button>');
         }
       })
     }
