@@ -6,10 +6,10 @@
 // @description A browser extension to enhance the features on the StripChat website
 // @match       *://*.stripchat.com/*
 // @match       *://stripchat.com/*
-// @icon        https://raw.githubusercontent.com/mewcrazy/StripChat-Enhanced/refs/heads/main/icon.svg
-// @require     https://raw.githubusercontent.com/mewcrazy/StripChat-Enhanced/refs/heads/main/deploy/jquery.min.js
-// @require     https://raw.githubusercontent.com/mewcrazy/StripChat-Enhanced/refs/heads/main/deploy/waitForKeyElements.js
-// @downloadURL https://raw.githubusercontent.com/mewcrazy/StripChat-Enhanced/refs/heads/main/deploy/stripchat-enhanced.script.js
+// @icon        https://mewcrazy.github.io/StripChat-Enhanced/icon.svg
+// @require     https://mewcrazy.github.io/StripChat-Enhanced/deploy/jquery.min.js
+// @require     https://mewcrazy.github.io/StripChat-Enhanced/deploy/waitForKeyElements.js
+// @downloadURL https://mewcrazy.github.io/StripChat-Enhanced/deploy/stripchat-enhanced.script.js
 // @grant       GM_addStyle
 // @grant       GM_xmlhttpRequest
 // @grant       GM_addElement
@@ -22,7 +22,7 @@
 
     // add flags css (https://github.com/lipis/flag-icons)
     GM_addElement('link', { rel: 'stylesheet', href: 'https://cdn.jsdelivr.net/gh/lipis/flag-icons@7.3.2/css/flag-icons.min.css' });
-    GM_addElement('link', { rel: 'stylesheet', href: 'https://raw.githubusercontent.com/mewcrazy/StripChat-Enhanced/refs/heads/main/deploy/flags.css' }); // TODO minify css
+    GM_addElement('link', { rel: 'stylesheet', href: 'hhttps://mewcrazy.github.io/StripChat-Enhanced/deploy/flags.css' }); // TODO minify css
     GM_addStyle(`
 
       /* loading spinner */
@@ -682,7 +682,7 @@
 
         GM_xmlhttpRequest({
             method: "GET",
-            url: "https://raw.githubusercontent.com/mewcrazy/StripChat-Enhanced/refs/heads/main/json/iso639-1.json",
+            url: "https://mewcrazy.github.io/StripChat-Enhanced/json/iso639-1.json",
             onload: function(xhr) {
               translationLanguages = eval("(" + xhr.responseText + ")");
 
