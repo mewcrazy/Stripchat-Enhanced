@@ -29,7 +29,7 @@ Probably the easiest way to install.
 
 1. Open the Dashboard of your User Script Manager (ViolentMonkey, TamperMonkey or GreaseMonkey)
 2. Click on + (New) -> Install by URL
-3. Enter the URL to the plugins file in this repository
+3. Enter the URL to the plugins file in this repository: `https://mewcrazy.github.io/StripChat-Enhanced/deploy/stripchat-enhanced.script.js`
 
 Please note that this script requires an API Key for the Google Cloud Translation API. Simply log in your Google account, and create a New Project for the Cloud Translation API. After you can click on "Login Credentials" and create a new API Key which you can use in this script.
 
