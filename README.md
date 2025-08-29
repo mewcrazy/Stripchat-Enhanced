@@ -41,7 +41,6 @@ We welcome any contributions! If you're having ideas or improvements to StripCha
 - Add new favorite filtesr: In Private, In Group Show, In Ticket Show, New Models
 - Follow on all listing pages (without the need to visit the room itself)
 - Extend XHR calls with proper promises
-- Upgrade flags to ISO 639 conform flags
 - Add "Auto Translate" feature (no need to translate each line individually)
 - Link GitHub Features list to their according landing page with further details
 - Bug testing in GreaseMonkey & TamperMonkey
