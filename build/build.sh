@@ -1,13 +1,12 @@
 #!/bin/bash
 
-# Download CoeJoder/waitForKeyElements.js
+# Download waitForKeyElements.js & move to ~/deploy/
 git clone https://github.com/CoeJoder/waitForKeyElements.js.git git_waitForKeyElements
+mv -f git_waitForKeyElements/waitForKeyElements.js deploy/waitForKeyElements.min.js
 
-# Download jquery/jquery
+# Download jquery/jquery & Move to directory
 npm i jquery
 
-
-
 ls -l
-ls -l git_waitForKeyElements
-ls -l node_modules/jquery
+ls -l git_waitForKeyElements # git_waitForKeyElements/waitForKeyElements.js
+ls -l node_modules/jquery/dist #node_modules/jquery/dist
