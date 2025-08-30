@@ -10,6 +10,8 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write           # 'write' access to repository contents
 
     steps:
       # Step 1: Download waitForKeyElements.js
@@ -18,12 +20,10 @@ jobs:
           fetch-depth: 0
       - name: Downloading waitForKeyElements.js
         run: build/build.sh
-        env:
-          job: dl_waitforkeyelements.js
 
       # Commit
       - name: Commit files
-        run:
+        run: |
           git config --local user.name mewcrazy
           git config --local user.email "kontakt@dennis-bitsch.de"      
           git fetch
@@ -34,4 +34,7 @@ jobs:
 
       # Push
       - name: Push to GitHub
-        uses: ad-m/github-push-action@master
+        uses: ad-m/github-push-action@main
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          force: true
