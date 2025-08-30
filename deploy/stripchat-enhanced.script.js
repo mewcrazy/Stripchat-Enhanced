@@ -38,32 +38,9 @@
     // text = text.replace("; script-src 'self' *", "; style-src 'self' mewcrazy.github.io *");
     // $('meta[http-equiv="Content-Security-Policy"]').attr("content", text);
 
+    /* Include css stylsheets */
     GM_addElement('link', { rel: 'stylesheet', href: 'https://mewcrazy.github.io/StripChat-Enhanced/deploy/global.css' }); // TODO minify css
     GM_addElement('link', { rel: 'stylesheet', href: 'https://mewcrazy.github.io/StripChat-Enhanced/deploy/flags.css' }); // TODO minify css
-
-    GM_addStyle(`
-
-      /* loading spinner */
-      .se-loader {
-        position: absolute;
-        top: calc(50% - 24px);
-        left: calc(50% - 24px);
-        width: 48px;
-        height: 48px;
-        border: 5px solid #aaa;
-        border-bottom-color: transparent;
-        border-radius: 50%;
-        display: inline-block;
-        box-sizing: border-box;
-        animation: rotation 1s linear infinite;
-      }
-      button + .se-loader { display: none; }
-      @keyframes rotation {
-        0% { transform: rotate(0deg); }
-        100% { transform: rotate(360deg); }
-      }
-    `);
-
 
 
     /* A Google API Key (for the Cloud Translation API) is needed to get this script to work */
