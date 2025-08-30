@@ -25,7 +25,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-        name: Commit files & Push
+      - name: Commit files & Push
         run:
           git config --local user.name mewcrazy
           git config --local user.email "kontakt@dennis-bitsch.de"      
