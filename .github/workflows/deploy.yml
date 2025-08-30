@@ -30,7 +30,8 @@ jobs:
           git config --local user.name mewcrazy
           git config --local user.email "kontakt@dennis-bitsch.de"      
           git fetch
-          git add *
+          git add deploy\waitForKeyElements.min.js
+          git add deploy\jquery.min.js
           git commit -am "Update repository files [$(date)]" 
           git push -f origin main
 
