@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        Stripchat Enhanced
 // @namespace   https://github.com/mewcrazy/StripChat-Enhanced
-// @version     1.8
+// @version     1.9
 // @author      Dennis Bitsch
 // @description A browser extension to enhance the features on the StripChat website
 // @match       *://*.stripchat.com/*
@@ -11,8 +11,9 @@
 // @require     https://gist.github.com/raw/2625891/waitForKeyElements.js
 // @resource    IMPORTED_CSS https://mewcrazy.github.io/StripChat-Enhanced/deploy/global.css
 // @resource    CSS_FLAGS https://mewcrazy.github.io/StripChat-Enhanced/deploy/flags.css
-// @resource    ISO639_FLAGS https://mewcrazy.github.io/StripChat-Enhanced/json/iso639-1.json
+// @resource    ISO639_FLAGS https://mewcrazy.github.io/StripChat-Enhanced/json/iso639-1.json?v=2
 // @resource    HTML_ENHANCED_OPTIONS https://mewcrazy.github.io/StripChat-Enhanced/html/enhanced-options.html
+// @resource    HTML_FAVORITES_FILTERS https://mewcrazy.github.io/StripChat-Enhanced/html/favorites-filters.html
 // @downloadURL https://mewcrazy.github.io/StripChat-Enhanced/deploy/stripchat-enhanced.script.js
 // @grant       GM_addStyle
 // @grant       GM_xmlhttpRequest
@@ -31,8 +32,6 @@
 
     // const iso639_langs = $.parseJSON(GM_getResourceText("ISO639_FLAGS"))
     const iso639_langs = eval("(" + GM_getResourceText("ISO639_FLAGS") + ")")
-    const google_langs = $.parseJSON('{"data":{"languages":[{"language":"ab"},{"language":"ace"},{"language":"ach"},{"language":"af"},{"language":"ak"},{"language":"alz"},{"language":"am"},{"language":"ar"},{"language":"as"},{"language":"awa"},{"language":"ay"},{"language":"az"},{"language":"ba"},{"language":"ban"},{"language":"bbc"},{"language":"be"},{"language":"bem"},{"language":"bew"},{"language":"bg"},{"language":"bho"},{"language":"bik"},{"language":"bm"},{"language":"bn"},{"language":"br"},{"language":"bs"},{"language":"bts"},{"language":"btx"},{"language":"bua"},{"language":"ca"},{"language":"ceb"},{"language":"cgg"},{"language":"chm"},{"language":"ckb"},{"language":"cnh"},{"language":"co"},{"language":"crh"},{"language":"crs"},{"language":"cs"},{"language":"cv"},{"language":"cy"},{"language":"da"},{"language":"de"},{"language":"din"},{"language":"doi"},{"language":"dov"},{"language":"dv"},{"language":"dz"},{"language":"ee"},{"language":"el"},{"language":"en"},{"language":"eo"},{"language":"es"},{"language":"et"},{"language":"eu"},{"language":"fa"},{"language":"ff"},{"language":"fi"},{"language":"fj"},{"language":"fr"},{"language":"fy"},{"language":"ga"},{"language":"gaa"},{"language":"gd"},{"language":"gl"},{"language":"gn"},{"language":"gom"},{"language":"gu"},{"language":"ha"},{"language":"haw"},{"language":"he"},{"language":"hi"},{"language":"hil"},{"language":"hmn"},{"language":"hr"},{"language":"hrx"},{"language":"ht"},{"language":"hu"},{"language":"hy"},{"language":"id"},{"language":"ig"},{"language":"ilo"},{"language":"is"},{"language":"it"},{"language":"iw"},{"language":"ja"},{"language":"jv"},{"language":"jw"},{"language":"ka"},{"language":"kk"},{"language":"km"},{"language":"kn"},{"language":"ko"},{"language":"kri"},{"language":"ktu"},{"language":"ku"},{"language":"ky"},{"language":"la"},{"language":"lb"},{"language":"lg"},{"language":"li"},{"language":"lij"},{"language":"lmo"},{"language":"ln"},{"language":"lo"},{"language":"lt"},{"language":"ltg"},{"language":"luo"},{"language":"lus"},{"language":"lv"},{"language":"mai"},{"language":"mak"},{"language":"mg"},{"language":"mi"},{"language":"min"},{"language":"mk"},{"language":"ml"},{"language":"mn"},{"language":"mni-Mtei"},{"language":"mr"},{"language":"ms"},{"language":"ms-Arab"},{"language":"mt"},{"language":"my"},{"language":"ne"},{"language":"new"},{"language":"nl"},{"language":"no"},{"language":"nr"},{"language":"nso"},{"language":"nus"},{"language":"ny"},{"language":"oc"},{"language":"om"},{"language":"or"},{"language":"pa"},{"language":"pa-Arab"},{"language":"pag"},{"language":"pam"},{"language":"pap"},{"language":"pl"},{"language":"ps"},{"language":"pt"},{"language":"qu"},{"language":"rn"},{"language":"ro"},{"language":"rom"},{"language":"ru"},{"language":"rw"},{"language":"sa"},{"language":"scn"},{"language":"sd"},{"language":"sg"},{"language":"shn"},{"language":"si"},{"language":"sk"},{"language":"sl"},{"language":"sm"},{"language":"sn"},{"language":"so"},{"language":"sq"},{"language":"sr"},{"language":"ss"},{"language":"st"},{"language":"su"},{"language":"sv"},{"language":"sw"},{"language":"szl"},{"language":"ta"},{"language":"te"},{"language":"tet"},{"language":"tg"},{"language":"th"},{"language":"ti"},{"language":"tk"},{"language":"tl"},{"language":"tn"},{"language":"tr"},{"language":"ts"},{"language":"tt"},{"language":"ug"},{"language":"uk"},{"language":"ur"},{"language":"uz"},{"language":"vi"},{"language":"xh"},{"language":"yi"},{"language":"yo"},{"language":"yua"},{"language":"yue"},{"language":"zh"},{"language":"zh-CN"},{"language":"zh-TW"},{"language":"zu"}]}}')
-
 
     // modify content security policy
     // var text = $('meta[http-equiv="Content-Security-Policy"]').attr("content");
@@ -434,73 +433,6 @@
     /**
      * Add language/translation dropdown to main chat
      */
-    function insertTextAtCursor(element, text) {
-        element.focus();
-        const startPos = element.selectionStart;
-        const endPos = element.selectionEnd;
-        element.value =
-            element.value.substring(0, startPos) +
-            text +
-            element.value.substring(endPos, element.value.length);
-        element.selectionStart = element.selectionEnd = startPos + text.length;
-    }
-
-
-    GM_addStyle ( `
-
-      /* emoji */
-      .SmilesWidget__content_default-emojis { overflow-y: scroll; }
-      .SmilesWidget__content_default-emojis .active-smile { font-size: 24px }
-
-      /* enhanced options */
-      .enhanced-options-content { align-items: center; padding: 20px }
-      .enhanced-options-content label { text-align: left; }
-
-      /* language picker */
-      #language-picker-select { opacity: .6; text-align: center; width: 24px; height: 24px; position: absolute; bottom: 1.25em; left: 1.25em; z-index: 1 }
-      #language-picker-select:hover { opacity: 1; }
-      #language-picker-select option { text-align: center; font-size: 1.35em }
-      #language-picker-select .fi { margin-top: 5px; border: 1px solid rgba(255, 255, 255, .25); }
-      #language-picker-select span+svg { display: none !important }
-      .model-chat-input input, .chat-input textarea { padding-left: 25px }
-
-      /* language chooser */
-      .language-chooser { bottom: 60px; display: flex; max-height: 80%; position: absolute; width: 100%; z-index: 2; overflow: hidden }
-      .language-chooser > div { height: 275px }
-      .language-chooser .title-block { justify-content: none; gap: 30px }
-      .language-chooser .title-block .search { flex-grow: 1 }
-
-      .language-list > .flag {
-        background: none;
-        outline: 0;
-        border: 0;
-        font-size: 1.35em;
-        margin: 3px;
-        cursor: pointer;
-        line-height: 1;
-        padding: 4px 6px 3px 6px;
-      }
-      .language-list > .flag.active { border: 1px solid #fff }
-      input[type="search"].input.language-search { background: rgba(0,0,0,.2); padding: 10px 15px; height: 30px; border-radius: 15px }
-      input[type="search"].input.language-search:hover { background: rgba(0,0,0,1) }
-
-
-      .HideUserButton { height: 20px; width: 20px; }
-
-      .message-body .translate-line button { display: inline; }
-      .message-body .translated-line { padding: 0 0 0 10px; }
-      .message-body .translated-line + .translate-line { visibility: hidden !important; pointer-events: none; }
-      .m-bg-public-tip .translate-line button { margin: 0 10px; }
-      /*.message-body .translate-line button svg, .message-body .translate-line button svg path { fill: #fff; }*/
-      .message-body .translate-line { visibility: hidden; }
-      .message-body:hover .translate-line { visibility: visible; }
-
-      .personal-notifications-modal.enhanced-options-modal { z-index: 314 }
-      .personal-notifications-modal-panel .current-time { padding: 0 14px; }
-
-  ` );
-
-
     waitForKeyElements(".model-chat-input", addLangDropdown);
     function addLangDropdown(jNode) {
         let modelChatInput = $(jNode).find('input')
@@ -687,19 +619,12 @@
 
     // populate languages to dropdowns and language lists
     function populateLanguageDropdowns() {
-//       if(!iso639_flags) alert("errorrrrrr")
 
-        // translationLanguages = Object.assign(iso639_langs);
-        // $.each(google_langs.data.languages, function(index, val) {
-        //   if(translationLanguages[val.language]) translationLanguages[val.language]["active"] = 1
-        // })
-        console.log(iso639_langs)
-        $.each(iso639_langs, function(key, val) {
-          console.log("val", val)
-          if(val.active === 1) {
-            $('.language-list').prepend( '<button aria-label="'+val.name+'" class="SmilersWidgetSpicyList__smile#mG flag" type="button" title="'+val.name+'" data-search="'+val.name+'|'+val.nativeName+'|'+key+'" data-lang="'+key+'"><span class="fi fi-'+key+'" title="'+val.name+' ('+val.nativeName+')"></span></button>');
-          }
-        });
+      $.each(iso639_langs, function(key, val) {
+        if(val.active === 1) {
+          $('.language-list').prepend( '<button aria-label="'+val.name+'" class="SmilersWidgetSpicyList__smile#mG flag" type="button" title="'+val.name+'" data-search="'+val.name+'|'+val.nativeName+'|'+key+'" data-lang="'+key+'"><span class="fi fi-'+key+'" title="'+val.name+' ('+val.nativeName+')"></span></button>');
+        }
+      });
     }
 
 
@@ -710,30 +635,16 @@
     waitForKeyElements(".favorites h1.title-ds", addFavoritesFilters);
     function addFavoritesFilters() {
 
-        GM_addStyle(`
-
-          .favorites-filters select option:first-child {
-            color: red !important;
-          }
-
-        `);
-
         // add country filter
         if(!$('.model-chat .filters-favorites.page-block').length) {
-            GM_xmlhttpRequest({
-                method: "GET",
-                url: "//stripchat-enhanced.247camming.com/update/html_favorites-filters.html",
-                onload: function(xhr) {
 
-                    // add filters block
-                    $(".favorites [class^='FavoritesHeaderWithActions__title_wrapper']").after(xhr.responseText)
+          // add filters block
+          $(".favorites [class^='FavoritesHeaderWithActions__title_wrapper']").after(GM_getResourceText("HTML_FAVORITES_FILTERS"))
 
-                    // populate country filter
-                    $('.model-list-item .country-flag').each(function() {
-                        $('select[name="filters[country]"]').append('<option value="'+$(this).attr('title')+'">'+$(this).attr('title')+'</option')
-                    })
-                }
-            });
+          // populate country filter
+          $('.model-list-item .country-flag').each(function() {
+              $('select[name="filters[country]"]').append('<option value="'+$(this).attr('title')+'">'+$(this).attr('title')+'</option')
+          })
         }
 
         $('#body').on('input search', '.favorites-filters-search input', function(e) {
@@ -787,4 +698,15 @@
         document.execCommand('insertText', false, text+$(this).text())
     })
 
+
+  /**
+   * Helper functions
+   */
+  function insertTextAtCursor(element, text) {
+    element.focus();
+    const startPos = element.selectionStart;
+    const endPos = element.selectionEnd;
+    element.value = element.value.substring(0, startPos) + text + element.value.substring(endPos, element.value.length);
+    element.selectionStart = element.selectionEnd = startPos + text.length;
+  }
 })();
