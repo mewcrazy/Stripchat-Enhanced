@@ -13,8 +13,24 @@ jobs:
 
     steps:
       # Step 1: Download waitForKeyElements.js
-      - name: Download waitForKeyElements.js
-        run: wget https://raw.githubusercontent.com/CoeJoder/waitForKeyElements.js/refs/heads/master/waitForKeyElements.js
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Downloading waitForKeyElements.js
+        run: build/build.sh
+        env:
+          job: dl_waitforkeyelements.js
+
+      # Commit & Push changes
+      - id: push_commits
+        name: Commit files & Push
+        run:
+          git config --local user.name mewcrazy
+          git config --local user.email "kontakt@dennis-bitsch.de"      
+          git fetch
+          git add *
+          git commit -am "Update repository files [$(date)]" 
+          git push -f origin main
 
       # Step 2: Set up SSH for server access
       #- name: Setup SSH

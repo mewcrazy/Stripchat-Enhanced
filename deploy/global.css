@@ -1,21 +1,21 @@
 /* loading spinner */
 .se-loader {
-position: absolute;
-top: calc(50% - 24px);
-left: calc(50% - 24px);
-width: 48px;
-height: 48px;
-border: 5px solid #aaa;
-border-bottom-color: transparent;
-border-radius: 50%;
-display: inline-block;
-box-sizing: border-box;
-animation: rotation 1s linear infinite;
+    position: absolute;
+    top: calc(50% - 24px);
+    left: calc(50% - 24px);
+    width: 48px;
+    height: 48px;
+    border: 5px solid #aaa;
+    border-bottom-color: transparent;
+    border-radius: 50%;
+    display: inline-block;
+    box-sizing: border-box;
+    animation: rotation 1s linear infinite;
 }
 button + .se-loader { display: none; }
 @keyframes rotation {
-0% { transform: rotate(0deg); }
-100% { transform: rotate(360deg); }
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }
 
 
@@ -31,7 +31,7 @@ button + .se-loader { display: none; }
 #language-picker-select { opacity: .6; text-align: center; width: 24px; height: 24px; position: absolute; bottom: 1.25em; left: 1.25em; z-index: 1 }
 #language-picker-select:hover { opacity: 1; }
 #language-picker-select option { text-align: center; font-size: 1.35em }
-#language-picker-select .fi { margin-top: 5px; border: 1px solid rgba(255, 255, 255, .25); }
+#language-picker-select .fi { margin-top: 4px; border: 1px solid rgba(255, 255, 255, .25); }
 #language-picker-select span+svg { display: none !important }
 .model-chat-input input, .chat-input textarea { padding-left: 25px }
 
@@ -40,6 +40,7 @@ button + .se-loader { display: none; }
 .language-chooser > div { height: 275px }
 .language-chooser .title-block { justify-content: none; gap: 30px }
 .language-chooser .title-block .search { flex-grow: 1 }
+.language-list { margin: 0 -10px; }
 .language-list > .flag { background: none; outline: 0; border: 0; font-size: 1.35em; margin: 3px; cursor: pointer; line-height: 1; padding: 4px 6px 3px 6px; }
 .language-list > .flag.active { border: 1px solid #fff }
 input[type="search"].input.language-search { background: rgba(0,0,0,.2); padding: 10px 15px; height: 30px; border-radius: 15px }
@@ -49,12 +50,17 @@ input[type="search"].input.language-search:hover { background: rgba(0,0,0,1) }
 .HideUserButton { height: 20px; width: 20px; }
 
 /* Translate chat */
+.translated-line + .translate-line { visibility: hidden !important; pointer-events: none; }
 .message-body .translate-line button { display: inline; }
-.message-body .translated-line { padding: 0 0 0 10px; }
-.message-body .translated-line + .translate-line { visibility: hidden !important; pointer-events: none; }
+.translated-line { padding-left: 7px; }
 .m-bg-public-tip .translate-line button { margin: 0 10px; }
 .message-body .translate-line { visibility: hidden; }
 .message-body:hover .translate-line { visibility: visible; }
+[class*="ViewCamGroup__description"] .translate-line { padding-left: 5px; }
+
+/* translate topic */
+.view-cam-info-goal__title.view-cam-info-topic { display: inline-block }
+.view-cam-info-goal .translated-line { display: block }
 
 /* Show time in website header */
 .personal-notifications-modal.enhanced-options-modal { z-index: 314 }

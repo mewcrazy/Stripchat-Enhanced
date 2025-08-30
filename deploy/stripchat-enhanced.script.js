@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        Stripchat Enhanced
 // @namespace   https://github.com/mewcrazy/StripChat-Enhanced
-// @version     1.7
+// @version     1.8
 // @author      Dennis Bitsch
 // @description A browser extension to enhance the features on the StripChat website
 // @match       *://*.stripchat.com/*
@@ -9,18 +9,35 @@
 // @icon        https://mewcrazy.github.io/StripChat-Enhanced/icon.svg
 // @require     https://mewcrazy.github.io/StripChat-Enhanced/deploy/jquery.min.js
 // @require     https://gist.github.com/raw/2625891/waitForKeyElements.js
+// @resource    IMPORTED_CSS https://mewcrazy.github.io/StripChat-Enhanced/deploy/global.css
+// @resource    CSS_FLAGS https://mewcrazy.github.io/StripChat-Enhanced/deploy/flags.css
+// @resource    ISO639_FLAGS https://mewcrazy.github.io/StripChat-Enhanced/json/iso639-1.json
 // @downloadURL https://mewcrazy.github.io/StripChat-Enhanced/deploy/stripchat-enhanced.script.js
 // @grant       GM_addStyle
 // @grant       GM_xmlhttpRequest
 // @grant       GM_addElement
+// @grant       GM_getResourceText
 // @inject-into page
 // ==/UserScript==
 
 
 
 (function () {
+    const my_css = GM_getResourceText("IMPORTED_CSS");
+    GM_addStyle(my_css);
+    const css_flags = GM_getResourceText("CSS_FLAGS");
+    GM_addStyle(css_flags);
 
-    // add flags css (https://github.com/lipis/flag-icons)
+    const iso639_langs = eval("(" + GM_getResourceText("ISO639_FLAGS") + ")")
+    const google_langs = $.parseJSON('{"data":{"languages":[{"language":"ab"},{"language":"ace"},{"language":"ach"},{"language":"af"},{"language":"ak"},{"language":"alz"},{"language":"am"},{"language":"ar"},{"language":"as"},{"language":"awa"},{"language":"ay"},{"language":"az"},{"language":"ba"},{"language":"ban"},{"language":"bbc"},{"language":"be"},{"language":"bem"},{"language":"bew"},{"language":"bg"},{"language":"bho"},{"language":"bik"},{"language":"bm"},{"language":"bn"},{"language":"br"},{"language":"bs"},{"language":"bts"},{"language":"btx"},{"language":"bua"},{"language":"ca"},{"language":"ceb"},{"language":"cgg"},{"language":"chm"},{"language":"ckb"},{"language":"cnh"},{"language":"co"},{"language":"crh"},{"language":"crs"},{"language":"cs"},{"language":"cv"},{"language":"cy"},{"language":"da"},{"language":"de"},{"language":"din"},{"language":"doi"},{"language":"dov"},{"language":"dv"},{"language":"dz"},{"language":"ee"},{"language":"el"},{"language":"en"},{"language":"eo"},{"language":"es"},{"language":"et"},{"language":"eu"},{"language":"fa"},{"language":"ff"},{"language":"fi"},{"language":"fj"},{"language":"fr"},{"language":"fy"},{"language":"ga"},{"language":"gaa"},{"language":"gd"},{"language":"gl"},{"language":"gn"},{"language":"gom"},{"language":"gu"},{"language":"ha"},{"language":"haw"},{"language":"he"},{"language":"hi"},{"language":"hil"},{"language":"hmn"},{"language":"hr"},{"language":"hrx"},{"language":"ht"},{"language":"hu"},{"language":"hy"},{"language":"id"},{"language":"ig"},{"language":"ilo"},{"language":"is"},{"language":"it"},{"language":"iw"},{"language":"ja"},{"language":"jv"},{"language":"jw"},{"language":"ka"},{"language":"kk"},{"language":"km"},{"language":"kn"},{"language":"ko"},{"language":"kri"},{"language":"ktu"},{"language":"ku"},{"language":"ky"},{"language":"la"},{"language":"lb"},{"language":"lg"},{"language":"li"},{"language":"lij"},{"language":"lmo"},{"language":"ln"},{"language":"lo"},{"language":"lt"},{"language":"ltg"},{"language":"luo"},{"language":"lus"},{"language":"lv"},{"language":"mai"},{"language":"mak"},{"language":"mg"},{"language":"mi"},{"language":"min"},{"language":"mk"},{"language":"ml"},{"language":"mn"},{"language":"mni-Mtei"},{"language":"mr"},{"language":"ms"},{"language":"ms-Arab"},{"language":"mt"},{"language":"my"},{"language":"ne"},{"language":"new"},{"language":"nl"},{"language":"no"},{"language":"nr"},{"language":"nso"},{"language":"nus"},{"language":"ny"},{"language":"oc"},{"language":"om"},{"language":"or"},{"language":"pa"},{"language":"pa-Arab"},{"language":"pag"},{"language":"pam"},{"language":"pap"},{"language":"pl"},{"language":"ps"},{"language":"pt"},{"language":"qu"},{"language":"rn"},{"language":"ro"},{"language":"rom"},{"language":"ru"},{"language":"rw"},{"language":"sa"},{"language":"scn"},{"language":"sd"},{"language":"sg"},{"language":"shn"},{"language":"si"},{"language":"sk"},{"language":"sl"},{"language":"sm"},{"language":"sn"},{"language":"so"},{"language":"sq"},{"language":"sr"},{"language":"ss"},{"language":"st"},{"language":"su"},{"language":"sv"},{"language":"sw"},{"language":"szl"},{"language":"ta"},{"language":"te"},{"language":"tet"},{"language":"tg"},{"language":"th"},{"language":"ti"},{"language":"tk"},{"language":"tl"},{"language":"tn"},{"language":"tr"},{"language":"ts"},{"language":"tt"},{"language":"ug"},{"language":"uk"},{"language":"ur"},{"language":"uz"},{"language":"vi"},{"language":"xh"},{"language":"yi"},{"language":"yo"},{"language":"yua"},{"language":"yue"},{"language":"zh"},{"language":"zh-CN"},{"language":"zh-TW"},{"language":"zu"}]}}')
+
+
+    // modify content security policy
+    // var text = $('meta[http-equiv="Content-Security-Policy"]').attr("content");
+    // text = text.replace("; style-src 'self' *", "; style-src 'self' mewcrazy.github.io *");
+    // text = text.replace("; script-src 'self' *", "; style-src 'self' mewcrazy.github.io *");
+    // $('meta[http-equiv="Content-Security-Policy"]').attr("content", text);
+
     GM_addElement('link', { rel: 'stylesheet', href: 'https://mewcrazy.github.io/StripChat-Enhanced/deploy/global.css' }); // TODO minify css
     GM_addElement('link', { rel: 'stylesheet', href: 'https://mewcrazy.github.io/StripChat-Enhanced/deploy/flags.css' }); // TODO minify css
 
@@ -337,19 +354,19 @@
     waitForKeyElements('.view-cam-info-topic', addTransButtonCamInfo);
     function addTransButtonCamInfo() {
 
-        if(!$('.view-cam-info-topic .translate-line').length) {
-            $('.view-cam-info-goal').append(htmlTranslateButton)
+        if(!$('.view-cam-info-goal .translate-line').length) {
+            $('.view-cam-info-topic').after(htmlTranslateButton)
         }
 
         $('#body').on('click', '.view-cam-info-topic .translate-line button', function(e) {
-            let ell = $(this).closest('.message-body').clone()
-            ell.find('.username,.message-body-mention,.message-timestamp,>span,button,.goal-block').remove()
+            let ell = $(this).closest('.view-cam-info-topic').clone()
+            // ell.find('.username,.message-body-mention,.message-timestamp,>span,button,.goal-block').remove()
             let text = ell.text().trim()
             let that = $(this)
 
             translateGoogle(text, 'en_US').then(function(data) {
-                if(!that.closest('.message-body').find('.translated-line').length) {
-                    that.closest('.message-body').find('.translate-line').before('<small class="translated-line">'+data.data.translations[0].translatedText+'</small>')
+                if(!that.closest('.view-cam-info-goal .translated-line').length) {
+                    that.closest('.view-cam-info-topic').after('<small class="translated-line">'+data.data.translations[0].translatedText+'</small>')
                 }
             })
         })
@@ -682,46 +699,18 @@
 
     // populate languages to dropdowns and language lists
     function populateLanguageDropdowns() {
-      console.log("pre", translationLanguages)
+//       if(!iso639_flags) alert("errorrrrrr")
 
-      if(translationLanguages.length === 0) {
-
-        GM_xmlhttpRequest({
-            method: "GET",
-            url: "https://mewcrazy.github.io/StripChat-Enhanced/json/iso639-1.json",
-            onload: function(xhr) {
-              let translationLanguages = eval("(" + xhr.responseText + ")");
-
-              GM_xmlhttpRequest({
-                  method: "GET",
-                  url: "https://translation.googleapis.com/language/translate/v2/languages?key="+googleApiKey,
-                  onload: function(xhr) {
-                    var data = eval("(" + xhr.responseText + ")");
-
-                    $.each(data.data.languages, function(index, val) {
-                      if(translationLanguages[val.language]) translationLanguages[val.language]["active"] = 1
-                    })
-
-
-                    $.each(Object.assign(translationLanguages), function(key, val) {
-                      if(val.active === 1) {
-                        $('.language-list').prepend( '<button aria-label="'+val.name+'" class="SmilersWidgetSpicyList__smile#mG flag" type="button" title="'+val.name+'" data-search="'+val.name+'|'+val.nativeName+'|'+key+'" data-lang="'+key+'"><span class="fi fi-'+key+'" title="'+val.name+' ('+val.nativeName+')"></span></button>');
-                      }
-                    });
-                  }
-              });
-            }
-        });
-
-      } else {
+        translationLanguages = Object.assign(iso639_langs);
+        $.each(google_langs.data.languages, function(index, val) {
+          if(translationLanguages[val.language]) translationLanguages[val.language]["active"] = 1
+        })
 
         $.each(translationLanguages, function(key, val) {
-            console.log("ok val", val)
           if(val.active === 1) {
             $('.language-list').prepend( '<button aria-label="'+val.name+'" class="SmilersWidgetSpicyList__smile#mG flag" type="button" title="'+val.name+'" data-search="'+val.name+'|'+val.nativeName+'|'+key+'" data-lang="'+key+'"><span class="fi fi-'+key+'" title="'+val.name+' ('+val.nativeName+')"></span></button>');
           }
         });
-      }
     }
 
 
