@@ -22,7 +22,9 @@ jobs:
           job: dl_waitforkeyelements.js
 
       # Commit & Push changes
-      - id: push_commits
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
         name: Commit files & Push
         run:
           git config --local user.name mewcrazy
