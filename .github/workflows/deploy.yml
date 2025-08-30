@@ -21,8 +21,15 @@ jobs:
       - name: Downloading waitForKeyElements.js
         run: build/build.sh
 
+      # Check for any changes
+      - name: Check for any changes
+        id: verify_diff
+        run: |
+          git diff --quiet . || echo "changed=true" >> $GITHUB_OUTPUT
+
       # Commit
       - name: Commit files
+        if: steps.verify_diff.outputs.changed == 'true'
         run: |
           git config --local user.name mewcrazy
           git config --local user.email "kontakt@dennis-bitsch.de"      
@@ -34,7 +41,9 @@ jobs:
 
       # Push
       - name: Push to GitHub
+        if: steps.verify_diff.outputs.changed == 'true'
         uses: ad-m/github-push-action@master
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ github.ref }}
           force: true
