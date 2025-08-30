@@ -9,6 +9,7 @@
 // @icon        https://mewcrazy.github.io/StripChat-Enhanced/icon.svg
 // @require     https://mewcrazy.github.io/StripChat-Enhanced/deploy/jquery.min.js
 // @require     https://gist.github.com/raw/2625891/waitForKeyElements.js
+// @require     https://cdn.jsdelivr.net/npm/emoji-mart@latest/dist/browser.js
 // @resource    IMPORTED_CSS https://mewcrazy.github.io/StripChat-Enhanced/deploy/global.css
 // @resource    CSS_FLAGS https://mewcrazy.github.io/StripChat-Enhanced/deploy/flags.css
 // @resource    ISO639_FLAGS https://mewcrazy.github.io/StripChat-Enhanced/json/iso639-1.json?v=2
@@ -29,6 +30,13 @@
     GM_addStyle(my_css);
     const css_flags = GM_getResourceText("CSS_FLAGS");
     GM_addStyle(css_flags);
+
+
+    const pickerOptions = { onEmojiSelect: console.log }
+    const picker = new EmojiMart.Picker(pickerOptions)
+
+    document.body.appendChild(picker)
+
 
     // const iso639_langs = $.parseJSON(GM_getResourceText("ISO639_FLAGS"))
     const iso639_langs = eval("(" + GM_getResourceText("ISO639_FLAGS") + ")")
@@ -331,7 +339,7 @@
             $('.view-cam-info-topic').after(htmlTranslateButton)
         }
 
-        $('#body').on('click', '.view-cam-info-goal .translate-line button', function(e) {
+        $('.view-cam-info-goal').off().on('click', '.translate-line button', function(e) {
             let ell = $(this).closest('.view-cam-info-goal').find('.view-cam-info-topic').clone()
             let text = ell.text().trim()
             let that = $(this)
