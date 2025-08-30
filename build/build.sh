@@ -7,9 +7,3 @@ mv -f git_waitForKeyElements/waitForKeyElements.js deploy/waitForKeyElements.min
 # Download jquery/jquery & Move to directory
 npm i jquery
 mv -f node_modules/jquery/dist/jquery.min.js deploy/jquery.min.js
-
-
-
-ls -l
-ls -l git_waitForKeyElements # git_waitForKeyElements/waitForKeyElements.js
-ls -l node_modules/jquery/dist #node_modules/jquery/dist
