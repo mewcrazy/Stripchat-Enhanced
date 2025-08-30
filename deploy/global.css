@@ -60,7 +60,7 @@ input[type="search"].input.language-search:hover { background: rgba(0,0,0,1) }
 
 /* translate topic */
 .view-cam-info-goal__title.view-cam-info-topic { display: inline-block }
-.view-cam-info-goal .translated-line { display: block }
+.view-cam-info-goal .translated-line { padding: 0; display: inline-block; color: rgba(248, 248, 248, 0.8) }
 
 /* Show time in website header */
 .personal-notifications-modal.enhanced-options-modal { z-index: 314 }
