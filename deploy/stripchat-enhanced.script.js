@@ -474,12 +474,14 @@
                 e.stopImmediatePropagation()
                 e.stopPropagation()
                 $('.language-chooser').addClass("hidden")
+                $('[class*="ChatInput__inputBlock"]').append('<span class="se-loader-line"></span>') // TODO please as before
 
                 if($('#language-picker-select').attr('data-active')) {
                     let lang = $('#language-picker-select').attr('data-active').toLowerCase()
 
                     translateGoogle(modelChatInput.val(), lang).then(function(data) {
                         // TODO: console.log missing/wrong languages
+                        $('.se-loader-line').remove()
                         modelChatInput.val('').focus()
                         document.execCommand('insertText', false, data.data.translations[0].translatedText)
                         modelChatSubmit.click()

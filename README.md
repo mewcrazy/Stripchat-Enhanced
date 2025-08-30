@@ -37,10 +37,9 @@ Please note that this script requires an API Key for the Google Cloud Translatio
 We welcome any contributions! If you're having ideas or improvements to StripChat Enhanced, simply create a meaningful push request or open an issue and we will take care of it.
 
 ## Roadmap:
-- Add loading icons (for slow internet connections)
-- Add new favorite filtesr: In Private, In Group Show, In Ticket Show, New Models
-- Follow on all listing pages (without the need to visit the room itself)
-- Extend XHR calls with proper promises
+- Add Emoji Picker module
+- Add additional Favorites filters: In Private, In Group Show, In Ticket Show, New Models
+- Unfollow on all listing pages (without the need to visit the room itself)
 - Add "Auto Translate" feature (no need to translate each line individually)
 - Link GitHub Features list to their according landing page with further details
 - Bug testing in GreaseMonkey & TamperMonkey
