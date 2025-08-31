@@ -49,6 +49,8 @@ button + .se-loader { display: none; }
 .language-chooser > div { height: 275px }
 .language-chooser .title-block { justify-content: none; gap: 30px }
 .language-chooser .title-block .search { flex-grow: 1 }
+.messenger-chats .language-chooser { bottom: 0; }
+.messenger-chats [class*="SmilesWidgetContainer__closeBtn"] { margin: -6px -6px -6px -10px }
 .language-list { margin: 0 -10px; }
 .language-list > .flag { background: none; outline: 0; border: 0; font-size: 1.35em; margin: 3px; cursor: pointer; line-height: 1; padding: 4px 6px 3px 6px; }
 .language-list > .flag.active { border: 1px solid #fff }
