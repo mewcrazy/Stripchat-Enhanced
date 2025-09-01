@@ -9,6 +9,7 @@
 // @icon        https://mewcrazy.github.io/StripChat-Enhanced/icon.svg
 // @require     https://mewcrazy.github.io/StripChat-Enhanced/deploy/jquery.min.js
 // @require     https://gist.github.com/raw/2625891/waitForKeyElements.js
+// @require     https://raw.githubusercontent.com/JanST123/emoji-picker/refs/heads/master/dist/picker.js
 // @resource    IMPORTED_CSS https://mewcrazy.github.io/StripChat-Enhanced/deploy/global.css?v=3
 // @resource    CSS_FLAGS https://mewcrazy.github.io/StripChat-Enhanced/deploy/flags.css?v=3
 // @resource    ISO639_FLAGS https://mewcrazy.github.io/StripChat-Enhanced/json/iso639-1.json?v=3
@@ -55,7 +56,7 @@
 
 
     /* A Google API Key (for the Cloud Translation API) is needed to get this script to work */
-    var googleApiKey = "";
+    var googleApiKey = "AIzaSyA8m0bay1Sg545_mrZKkmEFIh5bJw7A4a8";
     var prefTranslationLang = localStorage.getItem("prefTranslationLang")
     var translationLanguages = []
 
@@ -461,17 +462,12 @@
      */
     waitForKeyElements(".model-chat-input", addLangDropdown);
     function addLangDropdown(jNode) {
+        let modelChat = $(jNode).closest('.model-chat-public')
         let modelChatInput = $(jNode).find('input')
         let modelChatSubmit = $(jNode).find('.a11y-button')
 
-        // remove default StripChat event listeners (TODO: CHECK IF UNNECCESSARY)
-
-        modelChatInput.unbind('focusout');
-        modelChatInput.unbind('invalid');
-        modelChatInput.removeAttr('enterkeyhint')
-
         // add dropdown html
-        if(!$(jNode).children('div').find('.language-picker').length) {
+        if(!modelChat.find('.language-picker').length) {
             $(jNode).children('div').before(htmlLangPicker);
 
             // prepopulate
@@ -520,10 +516,8 @@
             }
         })
 
-        // hide language chooser on send button click
-        $('[class^="ChatInput__sendBtn"]').on('submit', function(e) {
-            $('.language-chooser').addClass("hidden")
-        })
+        // hide language chooser on send button && smiles button click
+        $('[class*="ChatInput__sendBtn"], [class*="SmilesButton"]').on('click', () => { $('.language-chooser').addClass("hidden") })
 
         // click language button
         $('.model-chat-public').off().on('click', '.se-langpicker', function(e) {
@@ -537,10 +531,8 @@
             }
         })
 
-
-
         // reset language on right click
-        $(".se-langpicker").on("contextmenu",function(){ return false; });
+        $(".se-langpicker").on("contextmenu", function() { return false; });
         $('#body').on('mousedown', '.se-langpicker', function(e) {
             if( e.button == 2 ) {
                 $('.se-langpicker .fi').remove()
@@ -650,7 +642,7 @@
           if(!privateChat.find('.language-chooser').length) {
 
             // add language picker overlay
-            if(!$(jNode).closest('.chat-input').find('.language-chooser').length) {
+            if(!privateChat.find('.language-chooser').length) {
                 privateChat.find('.content-messages').append(htmlLangChooserPrivates);
             }
 
@@ -660,8 +652,8 @@
             // preselect if choosen before
             if(prefTranslationLang) {
               setTimeout(function() {
-                $(jNode).find('.se-langpicker').attr('data-active', prefTranslationLang)
-                $(jNode).find('.se-langpicker').prepend('<span class="fi fi-'+prefTranslationLang+'"></span>')
+                privateChat.find('.se-langpicker').attr('data-active', prefTranslationLang)
+                privateChat.find('.se-langpicker').prepend('<span class="fi fi-'+prefTranslationLang+'"></span>')
               }, 500);
             }
 
@@ -725,7 +717,7 @@
         // add country filter
         if(!$('.model-chat .filters-favorites.page-block').length) {
 
-          // add filters block
+          // add filters block html
           $(".favorites [class^='FavoritesHeaderWithActions__title_wrapper']").after(GM_getResourceText("HTML_FAVORITES_FILTERS"))
 
           // populate country filter
@@ -746,48 +738,42 @@
     /**
      * Normal Emojis
      */
-    waitForKeyElements(".model-chat-public", addFavoritesFilters);
-    function addFavoritesFilters() {
+    waitForKeyElements('[class*="SmilesWidgetContainer__closeBtn"]', addDefaultEmojis);
+    function addDefaultEmojis(jNode) {
+      let modelChat = $(jNode).closest('.model-chat-public')
 
-      $('.model-chat-public').on('click', '.model-chat-controls__smiles-button', function(e) {
+      // add switch emoji style button
+      $(jNode).before('<a class="switch-emoji-style" href="#" aria-label="White" class="btn-tags-inline-badge inline-badge inline-badge__button inline-badge__override model-filter-link"><span class="">Switch Emoji Style</span></a>')
 
-          // setTimeout, executes on every open
-          setTimeout(function() {
-              $('.language-chooser').addClass("hidden")
-              $('.model-chat__smiles-block:not(.language-chooser) [class^="SmilesWidgetContainer__title"]').after('<a class="switch-emoji-style" href="#" aria-label="White" class="btn-tags-inline-badge inline-badge inline-badge__button inline-badge__override model-filter-link"><span class="">Switch Emoji Style</span></a>')
-          }, 300);
+      modelChat.on('click', '.switch-emoji-style', function(e) {
+          e.preventDefault
+
+          $('[class^="SmilesWidgetContainer__content#"]').after('<div id="suckittt" class="SmilesWidget__content_default-emojis hidden"></div>')
+
+          if($(this).find('.SmilesWidget__content_default-emojis').length) {
+            $('.SmilesWidget__content_default-emojis').toggleClass('hidden').prev().toggleClass('hidden')
+          } else {
+            GM_xmlhttpRequest({
+                method: "GET",
+                url: "https://raw.githubusercontent.com/chalda-pnuzig/emojis.json/refs/heads/master/dist/list.min.json",
+                onload: function(xhr) {
+                    var data = eval("(" + xhr.responseText + ")");
+                    $('.SmilesWidget__content_default-emojis').toggleClass('hidden').prev().toggleClass('hidden')
+                    $.each(data.emojis, function(i,v) {
+                      $('.SmilesWidget__content_default-emojis').append('<button aria-label="'+v.name+'" class="SmilersWidgetSpicyList__smile#mG active-smile'+(i>=50 ? " hidden" : "")+'" type="button">'+v.emoji+'</button>')
+                    });
+                }
+            });
+          }
+      })
+
+      // insert emoji on click
+      $('#body').on('click', '.SmilesWidget__content_default-emojis .active-smile', function(e) {
+          let text = $('.model-chat-input input').val()
+          $('.model-chat-input input').val('').focus()
+          document.execCommand('insertText', false, text+$(this).text())
       })
     }
-
-    $('#body').on('click', '.switch-emoji-style', function(e) {
-        e.preventDefault
-
-        $('[class^="SmilesWidgetContainer__content#"]').after('<div class="SmilesWidget__content_default-emojis hidden"></div>')
-
-        if($(this).find('.SmilesWidget__content_default-emojis').length) {
-          $('.SmilesWidget__content_default-emojis').toggleClass('hidden').prev().toggleClass('hidden')
-        } else {
-          GM_xmlhttpRequest({
-              method: "GET",
-              url: "https://raw.githubusercontent.com/chalda-pnuzig/emojis.json/refs/heads/master/dist/list.min.json",
-              onload: function(xhr) {
-                  var data = eval("(" + xhr.responseText + ")");
-                  $('.SmilesWidget__content_default-emojis').toggleClass('hidden').prev().toggleClass('hidden')
-                  $.each(data.emojis, function(i,v) {
-                    $('.SmilesWidget__content_default-emojis').append('<button aria-label="'+v.name+'" class="SmilersWidgetSpicyList__smile#mG active-smile'+(i>=50 ? " hidden" : "")+'" type="button">'+v.emoji+'</button>')
-                  });
-              }
-          });
-        }
-    })
-
-    // insert emoji on click
-    $('#body').on('click', '.SmilesWidget__content_default-emojis .active-smile', function(e) {
-        let text = $('.model-chat-input input').val()
-        $('.model-chat-input input').val('').focus()
-        document.execCommand('insertText', false, text+$(this).text())
-    })
-
 
   /**
    * Helper functions
