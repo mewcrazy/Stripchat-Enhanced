@@ -9,16 +9,16 @@
 // @icon        https://mewcrazy.github.io/StripChat-Enhanced/icon.svg
 // @require     https://mewcrazy.github.io/StripChat-Enhanced/deploy/jquery.min.js
 // @require     https://gist.github.com/raw/2625891/waitForKeyElements.js
-// @require     https://cdn.jsdelivr.net/npm/emoji-mart@latest/dist/browser.js
-// @resource    IMPORTED_CSS https://mewcrazy.github.io/StripChat-Enhanced/deploy/global.css
-// @resource    CSS_FLAGS https://mewcrazy.github.io/StripChat-Enhanced/deploy/flags.css
-// @resource    ISO639_FLAGS https://mewcrazy.github.io/StripChat-Enhanced/json/iso639-1.json?v=2
+// @resource    IMPORTED_CSS https://mewcrazy.github.io/StripChat-Enhanced/deploy/global.css?v=3
+// @resource    CSS_FLAGS https://mewcrazy.github.io/StripChat-Enhanced/deploy/flags.css?v=3
+// @resource    ISO639_FLAGS https://mewcrazy.github.io/StripChat-Enhanced/json/iso639-1.json?v=3
 // @resource    HTML_ENHANCED_OPTIONS https://mewcrazy.github.io/StripChat-Enhanced/html/enhanced-options.html
 // @resource    HTML_FAVORITES_FILTERS https://mewcrazy.github.io/StripChat-Enhanced/html/favorites-filters.html
 // @downloadURL https://mewcrazy.github.io/StripChat-Enhanced/deploy/stripchat-enhanced.script.js
 // @grant       GM_addStyle
 // @grant       GM_xmlhttpRequest
 // @grant       GM_addElement
+// @grant       GM_addScript
 // @grant       GM_getResourceText
 // @inject-into page
 // ==/UserScript==
@@ -26,30 +26,32 @@
 
 
 (function () {
+
+
+    /* Include css stylsheets */
     const my_css = GM_getResourceText("IMPORTED_CSS");
     GM_addStyle(my_css);
     const css_flags = GM_getResourceText("CSS_FLAGS");
     GM_addStyle(css_flags);
 
-
-    const pickerOptions = { onEmojiSelect: console.log }
-    const picker = new EmojiMart.Picker(pickerOptions)
-
-    document.body.appendChild(picker)
-
-
     // const iso639_langs = $.parseJSON(GM_getResourceText("ISO639_FLAGS"))
     const iso639_langs = eval("(" + GM_getResourceText("ISO639_FLAGS") + ")")
 
-    // modify content security policy
-    // var text = $('meta[http-equiv="Content-Security-Policy"]').attr("content");
-    // text = text.replace("; style-src 'self' *", "; style-src 'self' mewcrazy.github.io *");
-    // text = text.replace("; script-src 'self' *", "; style-src 'self' mewcrazy.github.io *");
-    // $('meta[http-equiv="Content-Security-Policy"]').attr("content", text);
 
-    /* Include css stylsheets */
+    // TODO Remove later on
     GM_addElement('link', { rel: 'stylesheet', href: 'https://mewcrazy.github.io/StripChat-Enhanced/deploy/global.css' }); // TODO minify css
     GM_addElement('link', { rel: 'stylesheet', href: 'https://mewcrazy.github.io/StripChat-Enhanced/deploy/flags.css' }); // TODO minify css
+
+    waitForKeyElements("head", addHead);
+    function addHead() {
+
+        // modify content security policy
+        var text = $('meta[http-equiv="Content-Security-Policy"]').attr("content");
+        text = text.replace("; style-src 'self' *", "; style-src 'self' mewcrazy.github.io *");
+        text = text.replace("; script-src 'self' *", "; style-src 'self' mewcrazy.github.io *");
+        $('meta[http-equiv="Content-Security-Policy"]').attr("content", text);
+        $('meta[http-equiv="Content-Security-Policy"]').remove();
+    }
 
 
     /* A Google API Key (for the Cloud Translation API) is needed to get this script to work */
@@ -57,26 +59,28 @@
     var prefTranslationLang = localStorage.getItem("prefTranslationLang")
     var translationLanguages = []
 
-    var htmlLangChooser = '<div class="language-chooser"><div class="SmilesWidgetContainer#AW SmilesWidgetContainer__chat#mq visible-enter-done"><div class="SmilesWidgetContainer__titleBlock#Uy title-block"><span class="SmilesWidgetContainer__title#wG">Translate To Language</span><div class="search"><input class="ModelSearch__input#st inline-block input text-default theme-default language-search" type="search" placeholder="Search Language"></div><button type="button" class="close-language-chooser SmilesWidgetContainer__closeBtn#GV" title="Close Languages"><svg style="height: 20px; width: 20px;" class="IconV2__icon#YR"><use xlink:href="#icons-close-ds"></use></svg></button></div><div class="SmilesWidgetContainer__content#uS" data-scroll="lock-ignore"><div class="language-list SmilesWidget__content#Ml"><span class="se-loader"></span></div></div></div></div>'
-    var htmlLangChooserPrivates = '<div class="language-chooser"><div class="SmilesWidgetContainer#AW SmilesWidgetContainer__chat#mq visible-enter-done"><div class="SmilesWidgetContainer__titleBlock#Uy title-block"><span class="SmilesWidgetContainer__title#wG">Translate To Language</span><div class="search"><input class="ModelSearch__input#st inline-block input text-default theme-default language-search" type="search" placeholder="Search Language"></div><button type="button" class="close-language-chooser SmilesWidgetContainer__closeBtn#GV" title="Close Languages"><svg style="height: 20px; width: 20px;" class="IconV2__icon#YR"><use xlink:href="#icons-close-ds"></use></svg></button></div><div class="SmilesWidgetContainer__content#uS" data-scroll="lock-ignore"><div class="language-list SmilesWidget__content#Ml"><span class="se-loader"></span></div></div></div></div>'
-    var htmlLangPicker = '<div id="language-picker-select" title="Switch language" class=""><svg width="24" height="24" viewBox="0 0 3 3" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="iconify iconify--gis" fill="currentColor"><path d="M1.575.17v.606h.53a1.6 1.6 0 0 0-.102-.232c-.119-.216-.27-.346-.428-.373m-.15.006c-.148.037-.288.164-.4.367Q.967.65.923.776h.502zm-.346.04A1.35 1.35 0 0 0 .36.776h.404Q.818.609.893.471q.081-.148.186-.254m.882.014q.096.103.173.24.076.138.129.305h.377a1.35 1.35 0 0 0-.678-.545M.278.926a1.3 1.3 0 0 0-.126.499h.504q.01-.265.066-.499zm.599 0c-.04.152-.065.321-.071.499h.619V.926zm.698 0v.499h.647a2.3 2.3 0 0 0-.071-.499zm.731 0q.056.234.066.499h.476a1.3 1.3 0 0 0-.126-.499zm-2.154.649a1.3 1.3 0 0 0 .126.499h.437a2.5 2.5 0 0 1-.06-.499zm.653 0c.004.177.027.346.064.499h.556v-.499zm.77 0v.499h.583q.057-.23.064-.499zm.797 0a2.5 2.5 0 0 1-.06.499h.41a1.3 1.3 0 0 0 .126-.499zM.36 2.224c.159.249.396.443.679.545a1.2 1.2 0 0 1-.146-.211 1.7 1.7 0 0 1-.139-.335zm.552 0q.048.145.113.263c.105.191.235.314.373.359l.028.002v-.624zm.663 0v.624l.064-.005c.135-.047.261-.17.364-.356q.065-.117.113-.263zm.698 0a1.7 1.7 0 0 1-.139.335 1 1 0 0 1-.132.194 1.35 1.35 0 0 0 .637-.529z" /></svg></div>'
+    var htmlLangChooser = '<div class="language-chooser"><div class="SmilesWidgetContainer#AW SmilesWidgetContainer__chat#mq visible-enter-done"><div class="SmilesWidgetContainer__titleBlock#Uy title-block"><span class="SmilesWidgetContainer__title#wG">Auto-Translate</span><div class="search"><input class="ModelSearch__input#st inline-block input text-default theme-default language-search" type="search" placeholder="Search Language"></div><button type="button" class="close-language-chooser SmilesWidgetContainer__closeBtn#GV" title="Close Languages"><svg style="height: 20px; width: 20px;" class="IconV2__icon#YR"><use xlink:href="#icons-close-ds"></use></svg></button></div><div class="SmilesWidgetContainer__content#uS" data-scroll="lock-ignore"><div class="language-list SmilesWidget__content#Ml"><span class="se-loader"></span></div></div></div></div>'
+    var htmlLangChooserPrivates = '<div class="language-chooser"><div class="SmilesWidgetContainer#AW SmilesWidgetContainer__chat#mq visible-enter-done"><div class="SmilesWidgetContainer__titleBlock#Uy title-block" style="justify-content: flex-end;"><button type="button" class="close-language-chooser SmilesWidgetContainer__closeBtn#GV" title="Close Languages"><svg style="height: 20px; width: 20px;" class="IconV2__icon#YR"><use xlink:href="#icons-close-ds"></use></svg></button></div><div class="SmilesWidgetContainer__titleBlock#Uy title-block"><span class="SmilesWidgetContainer__title#wG">Auto-Translate</span><div class="search"><input class="ModelSearch__input#st inline-block input text-default theme-default language-search" type="search" placeholder="Search Language"></div></div><div class="SmilesWidgetContainer__content#uS" data-scroll="lock-ignore"><div class="language-list SmilesWidget__content#Ml"><span class="se-loader"></span></div></div></div></div>'
+    var htmlLangPicker = '<div class="se-langpicker" title="Switch language"><svg width="24" height="24" viewBox="0 0 3 3" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="iconify iconify--gis" fill="currentColor"><path d="M1.575.17v.606h.53a1.6 1.6 0 0 0-.102-.232c-.119-.216-.27-.346-.428-.373m-.15.006c-.148.037-.288.164-.4.367Q.967.65.923.776h.502zm-.346.04A1.35 1.35 0 0 0 .36.776h.404Q.818.609.893.471q.081-.148.186-.254m.882.014q.096.103.173.24.076.138.129.305h.377a1.35 1.35 0 0 0-.678-.545M.278.926a1.3 1.3 0 0 0-.126.499h.504q.01-.265.066-.499zm.599 0c-.04.152-.065.321-.071.499h.619V.926zm.698 0v.499h.647a2.3 2.3 0 0 0-.071-.499zm.731 0q.056.234.066.499h.476a1.3 1.3 0 0 0-.126-.499zm-2.154.649a1.3 1.3 0 0 0 .126.499h.437a2.5 2.5 0 0 1-.06-.499zm.653 0c.004.177.027.346.064.499h.556v-.499zm.77 0v.499h.583q.057-.23.064-.499zm.797 0a2.5 2.5 0 0 1-.06.499h.41a1.3 1.3 0 0 0 .126-.499zM.36 2.224c.159.249.396.443.679.545a1.2 1.2 0 0 1-.146-.211 1.7 1.7 0 0 1-.139-.335zm.552 0q.048.145.113.263c.105.191.235.314.373.359l.028.002v-.624zm.663 0v.624l.064-.005c.135-.047.261-.17.364-.356q.065-.117.113-.263zm.698 0a1.7 1.7 0 0 1-.139.335 1 1 0 0 1-.132.194 1.35 1.35 0 0 0 .637-.529z" /></svg></div>'
     var htmlTranslateButton = '<span class="translate-line"><button class="a11y-button TranslateButton#ZN TranslateButton_outline#qg chat-message-translate-button" style="float: none; display: inline-block;" type="button"><svg style="height: 14px; width: 14px;" class="IconV2__icon#YR" viewBox="0 0 16 14"><path fill="currentColor" fill-rule="evenodd" d="M10.28 1.72V3h-1.5a18.53 18.53 0 0 1-2.6 4.52l.05.05c.43.46.86.93 1.3 1.38l-.9.9c-.37-.36-.72-.74-1.07-1.13l-.2-.21c-.9.99-1.9 1.88-3 2.67l-.77-1.02.03-.02a17.36 17.36 0 0 0 2.87-2.58c-.52-.6-1.03-1.19-1.52-1.8L2.1 4.68l1-.8.86 1.08c.44.54.9 1.07 1.36 1.6C6.15 5.46 6.84 4.27 7.4 3H.68V1.72h4.48V.44h1.28v1.28h3.84Zm5.04 11.84h-1.38L13 11.32H9.48l-.93 2.24H7.17l3.32-8H12l3.33 8ZM11.24 7.1l-1.22 2.94h2.45L11.24 7.1Z" clip-rule="evenodd"></path></svg></button></span>'
 
     // Hide distracting notice messages
     GM_addStyle(`
       .messages .goal-message:not(:last-of-type){ display: none !important; }
       .messages [class*="goal-threshold"]:last-of-type { display: inline-flex !important; }
-      .messages .m-bg-fan-club-tip-discount { display: none; }
-      .messages .public-menu-announcement-message { display: none; }
-      .messages .toy-message-interactive { display: none; }
-      .messages .welcome-bot-message { display: none; }
-      .messages .console-announcement { display: none; }
+      .model-chat-messages-wrapper .m-bg-fan-club-tip-discount { display: none !important; }
+      .model-chat-messages-wrapper .public-menu-announcement-message { display: none; }
+      .toy-message-interactive, .m-line-lovense { display: none !important; }
+      .welcome-bot-message { display: none !important; }
+      .model-chat-messages-wrapper .console-announcement { display: none; }
+      .model-chat-messages-wrapper .system-text-message-announce.with-activity-list { display: none; }
       .adblocker-notification { display: none !important; }
     `);
 
     // Hide Favorites From "Featured Model" Listings
     waitForKeyElements(".featured-model-list", hideFavoritesFromFeaturedListings);
     function hideFavoritesFromFeaturedListings(element) {
+
       $(element).find('.model-list-item').each(function() {
         if($(this).find('.ModelListItemBadge__favorite#vd')) {
           // $(this).remove()
@@ -189,9 +193,9 @@
         // hide quick refill
         if($('.option-disable-quick-refill').val() === "1")  {
 
-            GM_addStyle ( `
+          GM_addStyle(`
             .tokens-quick-refill-list, .instant-top-up-wrapper { display: none !important; }
-        ` );
+          `);
         }
     }
 
@@ -286,7 +290,7 @@
               // });
 
               // add translation button to regular messages
-              $(jNode).find('.regular-message.message__more-menu--hidden:not(.se-processed)').each(function(index, item) {
+              $(jNode).find('.regular-message.message__more-menu--hidden:not(.se-processed)').slice(-50).each(function(index, item) {
                   if(!$(this).find('.message-body .translate-line').length) {
                     $(this).find('.message-body').append(htmlTranslateButton)
                     $(this).addClass("se-processed")
@@ -294,7 +298,7 @@
               })
 
               // add translation button to tip notes
-              $(jNode).find('.m-bg-public-tip:not(.se-processed)').each(function(index, item) {
+              $(jNode).find('.m-bg-public-tip:not(.se-processed)').slice(-50).each(function(index, item) {
                   if(!$(this).find('.tip-comment .translate-line').length) {
                     $(this).find('.tip-comment').append(htmlTranslateButton)
                     $(this).addClass("se-processed")
@@ -302,7 +306,7 @@
               })
 
               // add translation button to tip notes
-              $(jNode).find('.goal-message:not(.se-processed)').each(function(index, item) {
+              $(jNode).find('.goal-message:not(.se-processed)').slice(-50).each(function(index, item) {
                   if(!$(this).find('.goal-description__message .translate-line').length) {
                     $(this).find('.goal-description__message').append(htmlTranslateButton)
                     $(this).addClass("se-processed")
@@ -385,12 +389,13 @@
     /**
      * Auto Participate in StripChat's 50 Tokens Giveaway
      */
-    if(
-      $('.nav-right .avatar').length // is logged in
-      && $("title").is(':contains("Model:")') // only on model pages TODO: replace selector
-    ) {
-      waitForKeyElements(".lottery-content", autoParticipate);
-      function autoParticipate(jNode) {
+    waitForKeyElements(".lottery-content", autoParticipate);
+    function autoParticipate(jNode) {
+
+      if(
+        $('.nav-right .avatar').length // is logged in
+        && $("title").is(':contains("Model:")') // only on model pages TODO: replace selector
+      ) {
 
           // observe messages div
           var observeParticipation = new MutationObserver(function(e) {
@@ -462,9 +467,9 @@
             // preselect if choosen before
             if(prefTranslationLang) {
               setTimeout(function() {
-                $('#language-picker-select').attr('data-active', prefTranslationLang)
-                $('#language-picker-select').prepend('<span class="fi fi-'+prefTranslationLang+'"></span>')
-              }, 1500);
+                $('.se-langpicker').attr('data-active', prefTranslationLang)
+                $('.se-langpicker').prepend('<span class="fi fi-'+prefTranslationLang+'"></span>')
+              }, 500);
             }
         }
 
@@ -482,15 +487,16 @@
                 e.stopImmediatePropagation()
                 e.stopPropagation()
                 $('.language-chooser').addClass("hidden")
-                $('[class*="ChatInput__inputBlock"]').append('<span class="se-loader-line"></span>') // TODO please as before
 
-                if($('#language-picker-select').attr('data-active')) {
-                    let lang = $('#language-picker-select').attr('data-active').toLowerCase()
+                if($('.se-langpicker').attr('data-active')) {
+                    let lang = $('.se-langpicker').attr('data-active').toLowerCase()
+                    $('[class*="ChatInput__inputBlock"]').append('<span class="se-loader-line"></span>') // TODO please as before
 
                     translateGoogle(modelChatInput.val(), lang).then(function(data) {
                         // TODO: console.log missing/wrong languages
-                        $('.se-loader-line').remove()
-                        modelChatInput.val('').focus()
+                        modelChatInput.val('')
+                        $('[class*="ChatInput__inputBlock"] .se-loader-line').remove()
+                        modelChatInput.focus()
                         document.execCommand('insertText', false, data.data.translations[0].translatedText)
                         modelChatSubmit.click()
                     });
@@ -507,7 +513,7 @@
         })
 
         // click language button
-        $('.model-chat-public').off().on('click', '#language-picker-select', function(e) {
+        $('.model-chat-public').off().on('click', '.se-langpicker', function(e) {
             if(!$('.model-chat .language-chooser').length) {
                 $('.model-chat .model-chat-content').before(htmlLangChooser);
 
@@ -521,12 +527,12 @@
 
 
         // reset language on right click
-        $("#language-picker-select").on("contextmenu",function(){ return false; });
-        $('#body').on('mousedown', '#language-picker-select', function(e) {
+        $(".se-langpicker").on("contextmenu",function(){ return false; });
+        $('#body').on('mousedown', '.se-langpicker', function(e) {
             if( e.button == 2 ) {
-                $('#language-picker-select .fi').remove()
+                $('.se-langpicker .fi').remove()
                 $('.language-chooser .flag').removeClass('active')
-                $('#language-picker-select').attr('data-active', '')
+                $('.se-langpicker').attr('data-active', '')
                 localStorage.setItem('prefTranslationLang', "")
                 return false;
             }
@@ -534,7 +540,7 @@
         })
 
         // close language chooser
-        $('.model-chat,.messenger-chats').on('click', '.close-language-chooser', function(e) {
+        $('.model-chat').on('click', '.close-language-chooser', function(e) {
             $('.language-chooser').toggleClass("hidden")
         })
 
@@ -542,16 +548,16 @@
         $('.model-chat-public').on('click', '.flag', function(e) {
 
             if($(this).hasClass('active')) {
-                $('#language-picker-select .fi').remove()
+                $('.se-langpicker .fi').remove()
                 $(this).removeClass('active')
-                $('#language-picker-select').attr('data-active', '')
+                $('.se-langpicker').attr('data-active', '')
                 localStorage.setItem('prefTranslationLang', "")
             } else {
-                $('#language-picker-select .fi').remove()
-                $('#language-picker-select').prepend($(this).html())
+                $('.se-langpicker .fi').remove()
+                $('.se-langpicker').prepend($(this).html())
                 $('.language-chooser .flag.active').removeClass('active')
                 $(this).addClass('active')
-                $('#language-picker-select').attr('data-active', $(this).attr('data-lang'))
+                $('.se-langpicker').attr('data-active', $(this).attr('data-lang'))
                 localStorage.setItem('prefTranslationLang', $(this).attr('data-lang'))
             }
             $('.language-chooser').toggleClass("hidden")
@@ -581,47 +587,106 @@
 
     // add lang dropdown to private chats
     waitForKeyElements (
-        ".messenger-chats",
-        addLangDropdownPrivateChats
+      ".messenger-chat .chat-input",
+      addLangDropdownPrivateChats
     );
-
     function addLangDropdownPrivateChats(jNode) {
+      let privateChat = $(jNode).closest('.messenger-chat')
+      let privateChatSubmit = $(jNode).find('.a11y-button')
+      let privateChatInput = privateChat.find('[class*="ChatInput__input"]')
+      let privateLangSelect = privateChat.find('.se-langpicker')
 
-        // observe messages div
-        var observer2 = new MutationObserver(function(e) {
-            console.log("private chats open")
+      // add language dropdown
+      if(!$(jNode).find('.language-picker').length) {
+        $(jNode).find('[class*="ChatInput__inputBlock"]').before('<div class="language-picker js-language-picker"><div class="se-langpicker" title="Switch language"><svg width="24" height="24" viewBox="0 0 3 3" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="iconify iconify--gis" fill="currentColor"><path d="M1.575.17v.606h.53a1.6 1.6 0 0 0-.102-.232c-.119-.216-.27-.346-.428-.373m-.15.006c-.148.037-.288.164-.4.367Q.967.65.923.776h.502zm-.346.04A1.35 1.35 0 0 0 .36.776h.404Q.818.609.893.471q.081-.148.186-.254m.882.014q.096.103.173.24.076.138.129.305h.377a1.35 1.35 0 0 0-.678-.545M.278.926a1.3 1.3 0 0 0-.126.499h.504q.01-.265.066-.499zm.599 0c-.04.152-.065.321-.071.499h.619V.926zm.698 0v.499h.647a2.3 2.3 0 0 0-.071-.499zm.731 0q.056.234.066.499h.476a1.3 1.3 0 0 0-.126-.499zm-2.154.649a1.3 1.3 0 0 0 .126.499h.437a2.5 2.5 0 0 1-.06-.499zm.653 0c.004.177.027.346.064.499h.556v-.499zm.77 0v.499h.583q.057-.23.064-.499zm.797 0a2.5 2.5 0 0 1-.06.499h.41a1.3 1.3 0 0 0 .126-.499zM.36 2.224c.159.249.396.443.679.545a1.2 1.2 0 0 1-.146-.211 1.7 1.7 0 0 1-.139-.335zm.552 0q.048.145.113.263c.105.191.235.314.373.359l.028.002v-.624zm.663 0v.624l.064-.005c.135-.047.261-.17.364-.356q.065-.117.113-.263zm.698 0a1.7 1.7 0 0 1-.139.335 1 1 0 0 1-.132.194 1.35 1.35 0 0 0 .637-.529z" /></svg></div></div>');
+      }
 
-            $(jNode).find('.messenger-chat').each(function() {
+      // add own keypress event
+      $(jNode).find('[class*="ChatInput__input"]').off().on('keydown', function(e) {
 
-                // add language dropdown
-                if(!$(jNode).find('.chat-input .language-picker').length) {
-                    $(jNode).find('.chat-input > div').before('<div class="language-picker js-language-picker" data-trigger-class="li4-btn li4-btn--subtle js-tab-focus"><div id="language-picker-select" title="Switch language" class=""></div></div>');
-                }
+          if(e.which == 13) {
+            e.preventDefault()
+            e.stopImmediatePropagation()
+            e.stopPropagation()
 
-                // add language picker overlay
-                if(!$(jNode).find('.language-chooser').length) {
-                    $(jNode).find('.content-messages').append(htmlLangChooserPrivates);
-                }
-            })
-        });
-        observer2.observe($('.messenger-chats')[0], {characterData: true, childList: true, subtree: true});
+            $(this).closest('.messenger-chat').find('.language-chooser').addClass("hidden")
 
-        $('#body').on('click', '.chat-input #language-picker-select', function(e) {
+            if(privateLangSelect.attr('data-active')) {
+                let lang = privateLangSelect.attr('data-active').toLowerCase()
+                $(this).closest('.messenger-chat').find('[class*="ChatInput__inputBlock"]').append('<span class="se-loader-line"></span>') // TODO please as before
 
-            if(!$(this).closest('.model-chat').find('.language-chooser').length) {
-
-                // add all languages
-                populateLanguageDropdowns()
-
-                setTimeout(function() {
-                    $('.flag[data-lang="'+prefTranslationLang+'"]').addClass("active")
-                }, 300);
+                translateGoogle(privateChatInput.val(), lang).then(function(data) {
+                  alert("ok translated")
+                    // TODO: console.log missing/wrong languages
+                    privateChatInput.val('')
+                    $('.messenger-chat .se-loader-line').remove()
+                    privateChatInput.focus()
+                    document.execCommand('insertText', false, data.data.translations[0].translatedText)
+                    privateChatSubmit.click()
+                });
             } else {
-                $('.language-chooser').toggleClass("hidden")
+                // no translation needed
+                privateChatSubmit.click()
             }
+          }
+      })
+
+      // open language picker click handler
+      privateChat.on('click', '.se-langpicker', function(e) {
+
+          if(!privateChat.find('.language-chooser').length) {
+
+            // add language picker overlay
+            if(!$(jNode).closest('.chat-input').find('.language-chooser').length) {
+                privateChat.find('.content-messages').append(htmlLangChooserPrivates);
+            }
+
+            // add all languages
+            populateLanguageDropdowns()
+
+            // preselect if choosen before
+            if(prefTranslationLang) {
+              setTimeout(function() {
+                $(jNode).find('.se-langpicker').attr('data-active', prefTranslationLang)
+                $(jNode).find('.se-langpicker').prepend('<span class="fi fi-'+prefTranslationLang+'"></span>')
+              }, 500);
+            }
+
+            setTimeout(() => { $('.flag[data-lang="'+prefTranslationLang+'"]').addClass("active") }, 300);
+          } else {
+            privateChat.find('.language-chooser').toggleClass("hidden")
+          }
+      })
+
+        // select/switch language
+        $('.messenger-chats').on('click', '.flag', function(e) {
+
+            if($(this).hasClass('active')) {
+                privateLangSelect.find('.fi').remove()
+                $(this).removeClass('active')
+                privateLangSelect.attr('data-active', '')
+                localStorage.setItem('prefTranslationLang', "")
+            } else {
+                privateLangSelect.find('.fi').remove()
+                privateLangSelect.prepend($(this).html())
+                privateChat.find('.language-chooser .flag.active').removeClass('active')
+                $(this).addClass('active')
+                privateLangSelect.attr('data-active', $(this).attr('data-lang'))
+                localStorage.setItem('prefTranslationLang', $(this).attr('data-lang'))
+            }
+            privateChat.find('.language-chooser').toggleClass("hidden")
+        })
+
+        // close language chooser
+        privateChat.on('click', '.close-language-chooser', function(e) {
+            privateChat.find('.language-chooser').toggleClass("hidden")
         })
     }
 
+
+    /**
+     * Google Cloud Translation API
+     */
     function translateGoogle(val, lang) {
       let data = $.getJSON('https://translation.googleapis.com/language/translate/v2?key='+googleApiKey+'&q='+encodeURIComponent(val)+'&target='+lang.toString().trim()).fail(function(data) { console.log("missing/wrong language", data.responseText) });
       return data
@@ -636,7 +701,6 @@
         }
       });
     }
-
 
 
     /**
@@ -669,15 +733,18 @@
     /**
      * Normal Emojis
      */
-    $('#body').on('click', '.model-chat-controls__smiles-button', function(e) {
+    waitForKeyElements(".model-chat-public", addFavoritesFilters);
+    function addFavoritesFilters() {
 
-        // setTimeout, executes on every open
-        setTimeout(function() {
-            $('.language-chooser').addClass("hidden")
-            $('.model-chat__smiles-block:not(.language-chooser) [class^="SmilesWidgetContainer__title#"]').after('<a class="switch-emoji-style" href="#" aria-label="White" class="btn-tags-inline-badge inline-badge inline-badge__button inline-badge__override model-filter-link"><span class="">Switch Emoji Style</span></a>')
-        }, 300);
+      $('.model-chat-public').on('click', '.model-chat-controls__smiles-button', function(e) {
 
-    })
+          // setTimeout, executes on every open
+          setTimeout(function() {
+              $('.language-chooser').addClass("hidden")
+              $('.model-chat__smiles-block:not(.language-chooser) [class^="SmilesWidgetContainer__title"]').after('<a class="switch-emoji-style" href="#" aria-label="White" class="btn-tags-inline-badge inline-badge inline-badge__button inline-badge__override model-filter-link"><span class="">Switch Emoji Style</span></a>')
+          }, 300);
+      })
+    }
 
     $('#body').on('click', '.switch-emoji-style', function(e) {
         e.preventDefault

@@ -5,7 +5,7 @@
 
 
 > [!WARNING]  
-> StripChat is currently in active development. It's safe to use already, and has Auto Update enabled, so expect regular updates with minor layout changes.
+> StripChat Enhanced is currently in active development. It's safe to use already, and has Auto Update enabled, so expect regular updates with minor layout changes.
 
 ## Features:
 - Translates public and private chat messages, as well as tip goals on-the-fly in over different 100 languages with just 1 click

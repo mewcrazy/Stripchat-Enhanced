@@ -37,11 +37,11 @@ button + .se-loader { display: none; }
 .enhanced-options-content label { text-align: left; }
 
 /* language picker */
-#language-picker-select { opacity: .6; text-align: center; width: 24px; height: 24px; position: absolute; bottom: 1.25em; left: 1.25em; z-index: 1 }
-#language-picker-select:hover { opacity: 1; }
-#language-picker-select option { text-align: center; font-size: 1.35em }
-#language-picker-select .fi { margin-top: 3px; border: 1px solid rgba(255, 255, 255, .25); }
-#language-picker-select span+svg { display: none !important }
+.se-langpicker { opacity: .6; text-align: center; width: 24px; height: 24px; position: absolute; bottom: 1.25em; left: 1.25em; z-index: 1 }
+.se-langpicker:hover { opacity: 1; }
+.se-langpicker option { text-align: center; font-size: 1.35em }
+.se-langpicker .fi { margin-top: 3px; border: 1px solid rgba(255, 255, 255, .25); }
+.se-langpicker span+svg { display: none !important }
 .model-chat-input input, .chat-input textarea { padding-left: 25px }
 
 /* language chooser */
