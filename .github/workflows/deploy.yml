@@ -21,13 +21,18 @@ jobs:
       - name: Downloading waitForKeyElements.js
         run: build/build.sh
 
-      # Check for any changes
+      # Step 2: Remove Google API Key from codebase
+      - name: Remove Google API Key from codebase
+        id: remove_api_keys
+        run: sed -i -e 's/var googleApiKey = "AIzaSyA8m0bay1Sg545_mrZKkmEFIh5bJw7A4a8"/var googleApiKey = ""/g' /deploy/stripchat-enhanced.script.js
+
+      # Step 3: Check for any changes
       - name: Check for any changes
         id: verify_diff
         run: |
           git diff --quiet . || echo "changed=true" >> $GITHUB_OUTPUT
 
-      # Commit
+      # Step 4: Commit
       - name: Commit files
         if: steps.verify_diff.outputs.changed == 'true'
         run: |
