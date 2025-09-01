@@ -55,7 +55,7 @@
 
 
     /* A Google API Key (for the Cloud Translation API) is needed to get this script to work */
-    var googleApiKey = "AIzaSyA8m0bay1Sg545_mrZKkmEFIh5bJw7A4a8";
+    var googleApiKey = "";
     var prefTranslationLang = localStorage.getItem("prefTranslationLang")
     var translationLanguages = []
 
