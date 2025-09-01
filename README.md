@@ -14,6 +14,7 @@
 - Hide chat users and set your font size for chat rooms
 - Regular emojis in chat rooms and private messages
 - Resizable video frame
+- Hide unneeded links in the site's sidebar
 - Filter your favorites by country, age, private prices and more
 - Removes the "Age Verification Popup", "Cookie Notices" and "Ultimate Ads"
 - Hide the "Quick Refill" & "Auto-Refill" feature to avoid accidental charges
