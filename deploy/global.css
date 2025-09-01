@@ -68,9 +68,10 @@ input[type="search"].input.language-search:hover { background: rgba(0,0,0,1) }
 .message-body .translate-line { visibility: hidden; }
 .message-body:hover .translate-line { visibility: visible; }
 [class*="ViewCamGroup__description"] .translate-line { padding-left: 5px; }
+[class*="ViewCamGroup__description"] .translate-line + .translated-line { display: none; }
 
 /* translate topic */
-.view-cam-info-goal__title.view-cam-info-topic { display: inline-block }
+.view-cam-info-goal__title.view-cam-info-topic { display: inline !important }
 .view-cam-info-goal .translated-line { padding: 0; display: inline-block; color: rgba(248, 248, 248, 0.8) }
 
 /* Show time in website header */

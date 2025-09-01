@@ -9,7 +9,6 @@
 // @icon        https://mewcrazy.github.io/StripChat-Enhanced/icon.svg
 // @require     https://mewcrazy.github.io/StripChat-Enhanced/deploy/jquery.min.js
 // @require     https://gist.github.com/raw/2625891/waitForKeyElements.js
-// @require     https://raw.githubusercontent.com/JanST123/emoji-picker/refs/heads/master/dist/picker.js
 // @resource    IMPORTED_CSS https://mewcrazy.github.io/StripChat-Enhanced/deploy/global.css?v=3
 // @resource    CSS_FLAGS https://mewcrazy.github.io/StripChat-Enhanced/deploy/flags.css?v=3
 // @resource    ISO639_FLAGS https://mewcrazy.github.io/StripChat-Enhanced/json/iso639-1.json?v=3
@@ -337,11 +336,13 @@
               ell.find('.username,.message-body-mention,.message-timestamp,>span,button,.goal-block').remove()
               let text = ell.text().trim()
               let that = $(this)
+              $(this).prop('disabled', true)
 
               translateGoogle(text, 'en_US').then(function(data) {
-                  if(!that.closest('.message-body').find('.translated-line').length) {
-                      that.closest('.message-body').find('.translate-line').before('<small class="translated-line">'+data.data.translations[0].translatedText+'</small>')
-                  }
+                if(!that.closest('.message-body').find('.translated-line').length) {
+                    that.closest('.message-body').find('.translate-line').before('<small class="translated-line">'+data.data.translations[0].translatedText+'</small>')
+                }
+                $(this).prop('disabled', false)
               })
           })
       }
@@ -358,14 +359,15 @@
         }
 
         $('.view-cam-info-goal').off().on('click', '.translate-line button', function(e) {
-            let ell = $(this).closest('.view-cam-info-goal').find('.view-cam-info-topic').clone()
-            let text = ell.text().trim()
+            let text = $(this).closest('.view-cam-info-goal').find('.view-cam-info-topic').clone().text().trim()
             let that = $(this)
+            $(this).prop('disabled', true)
 
             translateGoogle(text, 'en_US').then(function(data) {
-                if(!that.closest('.view-cam-info-goal .translated-line').length) {
-                    that.closest('.view-cam-info-goal').find('.view-cam-info-topic').after('<small class="translated-line">'+data.data.translations[0].translatedText+'</small>')
-                }
+              if(!that.closest('.view-cam-info-goal .translated-line').length) {
+                  that.closest('.view-cam-info-goal').find('.view-cam-info-topic').after('<small class="translated-line">'+data.data.translations[0].translatedText+'</small>')
+              }
+              $(this).prop('disabled', false)
             })
         })
     }
@@ -387,14 +389,15 @@
 
       // add event click handler
       $('[class*="ViewCamShutterWrapper__status"]').off().on('click', '.translate-line button', function(e) {
-          let ell = $(this).closest('[class*="ViewCamGroup__description"]').clone()
-          let text = ell.text().trim()
+          let text = $(this).closest('[class*="ViewCamGroup__description"]').clone().text().trim()
           let that = $(this)
+          $(this).prop('disabled', true)
 
           translateGoogle(text, 'en_US').then(function(data) {
-              if(!that.closest('[class*="ViewCamGroup__description"] .translated-line').length) {
-                  that.closest('[class*="ViewCamGroup__description"]').find('.translate-line').before('<small class="translated-line">'+data.data.translations[0].translatedText+'</small>')
-              }
+            if(!that.closest('[class*="ViewCamGroup__description"] .translated-line').length) {
+                that.closest('[class*="ViewCamGroup__description"]').find('.translate-line').before('<small class="translated-line">'+data.data.translations[0].translatedText+'</small>')
+            }
+            $(this).prop('disabled', false)
           })
       })
     }
@@ -749,6 +752,7 @@
           e.preventDefault
 
           $('[class^="SmilesWidgetContainer__content#"]').after('<div id="suckittt" class="SmilesWidget__content_default-emojis hidden"></div>')
+
 
           if($(this).find('.SmilesWidget__content_default-emojis').length) {
             $('.SmilesWidget__content_default-emojis').toggleClass('hidden').prev().toggleClass('hidden')
