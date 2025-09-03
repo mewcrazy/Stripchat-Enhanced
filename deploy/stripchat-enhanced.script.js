@@ -6,12 +6,14 @@
 // @description A browser extension to enhance the features on the StripChat website
 // @match       *://*.stripchat.com/*
 // @match       *://stripchat.com/*
+// @match       *://stripchat.com/
 // @icon        https://mewcrazy.github.io/StripChat-Enhanced/icon.svg
 // @require     https://mewcrazy.github.io/StripChat-Enhanced/deploy/jquery.min.js
 // @require     https://gist.github.com/raw/2625891/waitForKeyElements.js
 // @resource    IMPORTED_CSS https://mewcrazy.github.io/StripChat-Enhanced/deploy/global.css?v=3
 // @resource    CSS_FLAGS https://mewcrazy.github.io/StripChat-Enhanced/deploy/flags.css?v=3
 // @resource    ISO639_FLAGS https://mewcrazy.github.io/StripChat-Enhanced/json/iso639-1.json?v=3
+// @resource    EMOJIS https://cdn.jsdelivr.net/npm/@emoji-mart/data@1.2.1/sets/2/native.json?v=2
 // @resource    HTML_ENHANCED_OPTIONS https://mewcrazy.github.io/StripChat-Enhanced/html/enhanced-options.html
 // @resource    HTML_FAVORITES_FILTERS https://mewcrazy.github.io/StripChat-Enhanced/html/favorites-filters.html
 // @downloadURL https://mewcrazy.github.io/StripChat-Enhanced/deploy/stripchat-enhanced.script.js
@@ -27,12 +29,16 @@
 
 (function () {
 
-
-    /* Include css stylsheets */
+    // Include css stylsheets
     const my_css = GM_getResourceText("IMPORTED_CSS");
     GM_addStyle(my_css);
     const css_flags = GM_getResourceText("CSS_FLAGS");
     GM_addStyle(css_flags);
+
+    // Preload emojis
+    const emojis = eval("(" + GM_getResourceText("EMOJIS") + ")")
+    console.log(emojis)
+
 
     // const iso639_langs = $.parseJSON(GM_getResourceText("ISO639_FLAGS"))
     const iso639_langs = eval("(" + GM_getResourceText("ISO639_FLAGS") + ")")
@@ -67,7 +73,7 @@
 
     // Slim sidebar links
     GM_addStyle(`
-      aside [aria-label="personalized"] { display: none !important; }
+      /*aside [aria-label="personalized"] { display: none !important; }*/
       aside [aria-label="age"] { display: none !important; }
       aside [aria-label="ethnicity"] { display: none !important; }
       aside [aria-label="bodyType"] { display: none !important; }
@@ -103,7 +109,7 @@
 
     // Hide Age Verification Modal, Cookie Notice, Ultimate Ads
     GM_addStyle(`
-        #agreement-root { display: none !important }
+        .visitors-agreement-modal { display: none !important }
         .cookies-reminder { display: none !important }
         [class^="SidebarBanners"] { display: none !important }
     `);
@@ -160,16 +166,6 @@
     waitForKeyElements(".personal-notifications-modal-panel", addOptionsMenu);
     function addOptionsMenu() {
 
-      // Output website time in header
-      setInterval(function() {
-        let time = $.ajax({async: false}).getResponseHeader('Date');
-        if(!$('.personal-notifications-modal-panel .current-time').length) {
-          $('.personal-notifications-modal-panel').prepend('<small class="current-time">'+new Date(time).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit' })+'</small>')
-        } else {
-          $('.personal-notifications-modal-panel .current-time').html(new Date(time).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit' }))
-        }
-      }, 1000)
-
       // Add global options flyout
       if(!$('.personal-notifications-modal-panel .open-enhanced-options').length) {
 
@@ -180,6 +176,12 @@
         // process options
         processOptions()
       }
+
+      // Output once and refresh time in website header
+      updateTime()
+      setInterval(() => { updateTime() }, 1000)
+
+
       $('#body').on('click', '.open-enhanced-options', function(e) {
           $('.enhanced-options-modal').toggleClass('hidden')
       })
@@ -188,6 +190,17 @@
           $('.enhanced-options-modal').toggleClass('hidden')
       })
     }
+
+    function updateTime() {
+
+      let time = $.ajax({async: false}).getResponseHeader('Date');
+      if(!$('.personal-notifications-modal-panel .current-time').length) {
+        $('.personal-notifications-modal-panel').prepend('<small class="current-time">'+new Date(time).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit' })+'</small>')
+      } else {
+        $('.personal-notifications-modal-panel .current-time').html(new Date(time).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit' }))
+      }
+    }
+
     function processOptions() {
 
         // enable translation
@@ -594,10 +607,7 @@
 
 
     // add lang dropdown to private chats
-    waitForKeyElements (
-      ".messenger-chat .chat-input",
-      addLangDropdownPrivateChats
-    );
+    waitForKeyElements(".messenger-chat .chat-input", addLangDropdownPrivateChats);
     function addLangDropdownPrivateChats(jNode) {
       let privateChat = $(jNode).closest('.messenger-chat')
       let privateChatSubmit = $(jNode).find('.a11y-button')
@@ -669,25 +679,25 @@
         // select/switch language
         $('.messenger-chats').on('click', '.flag', function(e) {
 
-            if($(this).hasClass('active')) {
-                privateLangSelect.find('.fi').remove()
-                $(this).removeClass('active')
-                privateLangSelect.attr('data-active', '')
-                localStorage.setItem('prefTranslationLang', "")
-            } else {
-                privateLangSelect.find('.fi').remove()
-                privateLangSelect.prepend($(this).html())
-                privateChat.find('.language-chooser .flag.active').removeClass('active')
-                $(this).addClass('active')
-                privateLangSelect.attr('data-active', $(this).attr('data-lang'))
-                localStorage.setItem('prefTranslationLang', $(this).attr('data-lang'))
-            }
-            privateChat.find('.language-chooser').toggleClass("hidden")
+          if($(this).hasClass('active')) {
+              privateLangSelect.find('.fi').remove()
+              $(this).removeClass('active')
+              privateLangSelect.attr('data-active', '')
+              localStorage.setItem('prefTranslationLang', "")
+          } else {
+              privateLangSelect.find('.fi').remove()
+              privateLangSelect.prepend($(this).html())
+              privateChat.find('.language-chooser .flag.active').removeClass('active')
+              $(this).addClass('active')
+              privateLangSelect.attr('data-active', $(this).attr('data-lang'))
+              localStorage.setItem('prefTranslationLang', $(this).attr('data-lang'))
+          }
+          privateChat.find('.language-chooser').toggleClass("hidden")
         })
 
         // close language chooser
         privateChat.on('click', '.close-language-chooser', function(e) {
-            privateChat.find('.language-chooser').toggleClass("hidden")
+          privateChat.find('.language-chooser').toggleClass("hidden")
         })
     }
 
@@ -717,24 +727,24 @@
     waitForKeyElements(".favorites h1.title-ds", addFavoritesFilters);
     function addFavoritesFilters() {
 
-        // add country filter
-        if(!$('.model-chat .filters-favorites.page-block').length) {
+      // add country filter
+      if(!$('.model-chat .filters-favorites.page-block').length) {
 
-          // add filters block html
-          $(".favorites [class^='FavoritesHeaderWithActions__title_wrapper']").after(GM_getResourceText("HTML_FAVORITES_FILTERS"))
+        // add filters block html
+        $(".favorites [class^='FavoritesHeaderWithActions__title_wrapper']").after(GM_getResourceText("HTML_FAVORITES_FILTERS"))
 
-          // populate country filter
-          $('.model-list-item .country-flag').each(function() {
-              $('select[name="filters[country]"]').append('<option value="'+$(this).attr('title')+'">'+$(this).attr('title')+'</option')
-          })
-        }
-
-        $('#body').on('input search', '.favorites-filters-search input', function(e) {
-            let username = $(this).val().toLowerCase()
-            var filteredNames = $('.model-list-item').show().filter(function() {
-                return $(this).find('[class^="ModelThumbUsername"]').text().toLowerCase().indexOf(username) === -1
-            }).hide();
+        // populate country filter
+        $('.model-list-item .country-flag').each(function() {
+            $('select[name="filters[country]"]').append('<option value="'+$(this).attr('title')+'">'+$(this).attr('title')+'</option')
         })
+      }
+
+      $('#body').on('input search', '.favorites-filters-search input', function(e) {
+        let username = $(this).val().toLowerCase()
+        var filteredNames = $('.model-list-item').show().filter(function() {
+          return $(this).find('[class^="ModelThumbUsername"]').text().toLowerCase().indexOf(username) === -1
+        }).hide();
+      })
     }
 
 
@@ -748,27 +758,29 @@
       // add switch emoji style button
       $(jNode).before('<a class="switch-emoji-style" href="#" aria-label="White" class="btn-tags-inline-badge inline-badge inline-badge__button inline-badge__override model-filter-link"><span class="">Switch Emoji Style</span></a>')
 
-      modelChat.on('click', '.switch-emoji-style', function(e) {
-          e.preventDefault
+      $(jNode).closest('.model-chat-content').off().on('click', '.switch-emoji-style', function(e) {
+        e.preventDefault
 
-          $('[class^="SmilesWidgetContainer__content#"]').after('<div id="suckittt" class="SmilesWidget__content_default-emojis hidden"></div>')
+        $('[class^="SmilesWidgetContainer__content#"]').after('<div class="SmilesWidget__content_default-emojis hidden"><ul class="emoji-categories"></ul><div class="emoji-list"></div></div>')
 
+        if($(this).find('.SmilesWidget__content_default-emojis').length && $(this).find('.emoji-categories').length) {
+          $('.SmilesWidget__content_default-emojis').toggleClass('hidden').prev().toggleClass('hidden')
+        } else {
 
-          if($(this).find('.SmilesWidget__content_default-emojis').length) {
-            $('.SmilesWidget__content_default-emojis').toggleClass('hidden').prev().toggleClass('hidden')
-          } else {
-            GM_xmlhttpRequest({
-                method: "GET",
-                url: "https://raw.githubusercontent.com/chalda-pnuzig/emojis.json/refs/heads/master/dist/list.min.json",
-                onload: function(xhr) {
-                    var data = eval("(" + xhr.responseText + ")");
-                    $('.SmilesWidget__content_default-emojis').toggleClass('hidden').prev().toggleClass('hidden')
-                    $.each(data.emojis, function(i,v) {
-                      $('.SmilesWidget__content_default-emojis').append('<button aria-label="'+v.name+'" class="SmilersWidgetSpicyList__smile#mG active-smile'+(i>=50 ? " hidden" : "")+'" type="button">'+v.emoji+'</button>')
-                    });
-                }
-            });
-          }
+          $('.SmilesWidget__content_default-emojis').toggleClass('hidden').prev().toggleClass('hidden')
+          $.each(emojis.categories, (k, v) => {
+            $('.emoji-categories').append('<li class="se-emoji-cat_'+k+'"><a href="#">'+v.id+'</a></li>')
+
+            // all emojis of category
+            let cat = $('<div class="cat-'+v.id+''+(k>0 ? " hidden" : "")+'"></div>')
+            $.each(v.emojis, (k, v) => {
+              if([v.matchAll(/\p{RGI_Emoji}/vg)].length) {
+                cat.append('<button aria-label="'+v+'" class="SmilersWidgetSpicyList__smile#mG active-smile" type="button">&#x'+emojis.emojis[v].skins[0].unified.split("-").join("")+';</button>')
+              }
+            })
+            $('.emoji-list').append(cat)
+          })
+        }
       })
 
       // insert emoji on click
@@ -778,15 +790,4 @@
           document.execCommand('insertText', false, text+$(this).text())
       })
     }
-
-  /**
-   * Helper functions
-   */
-  function insertTextAtCursor(element, text) {
-    element.focus();
-    const startPos = element.selectionStart;
-    const endPos = element.selectionEnd;
-    element.value = element.value.substring(0, startPos) + text + element.value.substring(endPos, element.value.length);
-    element.selectionStart = element.selectionEnd = startPos + text.length;
-  }
 })();

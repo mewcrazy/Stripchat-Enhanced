@@ -1,5 +1,5 @@
 .fi { background-size: cover; background-position: 50%; background-repeat: no-repeat; }
-.fi { display: inline-block; width: 25px; height: 17px; }
+.fi { display: inline-block; width: 25px; height: 17px; border-radius: 3px; }
 .fi:before { content: " "; }
 .fi { background-repeat: no-repeat; background-size: cover; }
 .fi-ab { background-image: url(https://mewcrazy.github.io/StripChat-Enhanced/flags/ab.svg) }

@@ -30,7 +30,7 @@ button + .se-loader { display: none; }
 
 /* emoji */
 .SmilesWidget__content_default-emojis { overflow-y: scroll; }
-.SmilesWidget__content_default-emojis .active-smile { font-size: 24px }
+.SmilesWidget__content_default-emojis .active-smile { font-size: 24px; font-family: emoji; font-variant-emoji: unicode; }
 
 /* enhanced options */
 .enhanced-options-content { align-items: center; padding: 20px }

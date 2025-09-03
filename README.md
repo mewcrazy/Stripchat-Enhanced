@@ -48,10 +48,7 @@ We welcome any contributions! If you're having ideas or improvements to StripCha
 ## Used Frameworks/Utilities:
 - CoeJoder/waitForKeyElements.js - A utility function for userscripts that detects and handles AJAXed content.
 - jquery/jQuery - JavaScript Framework to ease the DOM traversing.
-
-
-
-Thanks to [Wiktionary](https://en.wiktionary.org/wiki/Wiktionary:Language_flags_list)] for the curated list of language flags.
+- Thanks to [Wiktionary](https://en.wiktionary.org/wiki/Wiktionary:Language_flags_list) for the curated list of language flags.
 
 
 <p id="aalliyahh" align="center">Inspired by a beautiful woman and made with ❤️ in Düsseldorf, Germany</p>
