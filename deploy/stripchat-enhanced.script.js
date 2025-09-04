@@ -10,8 +10,8 @@
 // @icon        https://mewcrazy.github.io/StripChat-Enhanced/icon.svg
 // @require     https://mewcrazy.github.io/StripChat-Enhanced/deploy/jquery.min.js
 // @require     https://gist.github.com/raw/2625891/waitForKeyElements.js
-// @resource    IMPORTED_CSS https://mewcrazy.github.io/StripChat-Enhanced/deploy/global.css?v=3
-// @resource    CSS_FLAGS https://mewcrazy.github.io/StripChat-Enhanced/deploy/flags.css?v=3
+// @resource    IMPORTED_CSS https://mewcrazy.github.io/StripChat-Enhanced/deploy/global.css?v=4
+// @resource    CSS_FLAGS https://mewcrazy.github.io/StripChat-Enhanced/deploy/flags.css?v=4
 // @resource    ISO639_FLAGS https://mewcrazy.github.io/StripChat-Enhanced/json/iso639-1.json?v=3
 // @resource    EMOJIS https://cdn.jsdelivr.net/npm/@emoji-mart/data@1.2.1/sets/2/native.json?v=2
 // @resource    HTML_ENHANCED_OPTIONS https://mewcrazy.github.io/StripChat-Enhanced/html/enhanced-options.html
@@ -37,8 +37,6 @@
 
     // Preload emojis
     const emojis = eval("(" + GM_getResourceText("EMOJIS") + ")")
-    console.log(emojis)
-
 
     // const iso639_langs = $.parseJSON(GM_getResourceText("ISO639_FLAGS"))
     const iso639_langs = eval("(" + GM_getResourceText("ISO639_FLAGS") + ")")
@@ -61,7 +59,7 @@
 
 
     /* A Google API Key (for the Cloud Translation API) is needed to get this script to work */
-    var googleApiKey = "";
+    var googleApiKey = "AIzaSyA8m0bay1Sg545_mrZKkmEFIh5bJw7A4a8";
     var prefTranslationLang = localStorage.getItem("prefTranslationLang")
     var translationLanguages = []
 
@@ -94,6 +92,7 @@
       .model-chat-messages-wrapper .console-announcement { display: none; }
       .model-chat-messages-wrapper .system-text-message-announce.with-activity-list { display: none; }
       .adblocker-notification { display: none !important; }
+      [class*="LoadableErrorBoundary"] { display: none !important; }
     `);
 
     // Hide Favorites From "Featured Model" Listings
@@ -274,18 +273,9 @@
     waitForKeyElements(".messages", hideChatUsers);
     function hideChatUsers(jNode) {
 
-      if($("title").is(':contains("Model:")')) {
-
-          // add "Hide User" button
-          $('#body').on('click', '.message-more-menu', function() {
-
-              setTimeout(function() {
-                  $('.message-more-menu__dropdown .dropdown-content').append('<button class="a11y-button MessageModeMenuItem#rq HideUserButton" type="button"><svg class="icon icon-warning-triangle-outline-ds"><use xlink:href="#icons-warning-triangle-outline-ds"></use></svg><span>Hide User</span></button>');
-              }, 50);
-          })
-
           // "Hide User" button click event
           $('#body').on('click', '.HideUserButton', function(e) {
+              alert("hmmm")
               let username = $(this).closest('.user-info-popup').find('.user-levels-username-text').html()
 
               // get localStorage
@@ -300,6 +290,18 @@
 
               // save localStorage
               localStorage.setItem('hiddenChatUsers', JSON.stringify(hiddenChatUsers))
+          })
+
+      if($("title").is(':contains("Model:")')) {
+
+          // add "Hide User" button
+          $('#body').on('click', '.message-more-menu', function() {
+
+              setTimeout(function() {
+                if(!$('.message-more-menu__dropdown .HideUserButton').length) {
+                  $('.message-more-menu__dropdown .dropdown-content').append('<button class="a11y-button MessageModeMenuItem#rq ReportButton#X2 ReportButton__text#IV HideUserButton" type="button"><svg class="icon icon-warning-triangle-outline-ds" style="height: 20px; width: 20px;"><use xlink:href="#icons-warning-triangle-outline-ds"></use></svg><span>Hide User</span></button>');
+                }
+              }, 50);
           })
 
 
@@ -368,7 +370,7 @@
     function addTransButtonCamInfo() {
 
         if(!$('.view-cam-info-goal .translate-line').length) {
-            $('.view-cam-info-topic').after(htmlTranslateButton)
+            $('.view-cam-info-topic:not(.view-cam-info-topic__in-player)').after(htmlTranslateButton)
         }
 
         $('.view-cam-info-goal').off().on('click', '.translate-line button', function(e) {
@@ -566,7 +568,7 @@
         })
 
         // select/switch language
-        $('.model-chat-public').on('click', '.flag', function(e) {
+        $('.model-chat-public').on('click', '.language-chooser .flag', function(e) {
 
             if($(this).hasClass('active')) {
                 $('.se-langpicker .fi').remove()
@@ -758,7 +760,7 @@
       // add switch emoji style button
       $(jNode).before('<a class="switch-emoji-style" href="#" aria-label="White" class="btn-tags-inline-badge inline-badge inline-badge__button inline-badge__override model-filter-link"><span class="">Switch Emoji Style</span></a>')
 
-      $(jNode).closest('.model-chat-content').off().on('click', '.switch-emoji-style', function(e) {
+      $('#body').on('click', '.switch-emoji-style', function(e) {
         e.preventDefault
 
         $('[class^="SmilesWidgetContainer__content#"]').after('<div class="SmilesWidget__content_default-emojis hidden"><ul class="emoji-categories"></ul><div class="emoji-list"></div></div>')
@@ -769,10 +771,10 @@
 
           $('.SmilesWidget__content_default-emojis').toggleClass('hidden').prev().toggleClass('hidden')
           $.each(emojis.categories, (k, v) => {
-            $('.emoji-categories').append('<li class="se-emoji-cat_'+k+'"><a href="#">'+v.id+'</a></li>')
+            $('.emoji-categories').append('<li class="se-emoji-cat se-emoji-cat_'+v+'"><a class="se-emoji se-emoji-'+v.id+'" data-tab="'+v.id+'" href="#">'+v.id+'</a></li>')
 
             // all emojis of category
-            let cat = $('<div class="cat-'+v.id+''+(k>0 ? " hidden" : "")+'"></div>')
+            let cat = $('<div class="se-emoji-list se-emoji-list-'+v.id+''+(k>0 ? " hidden" : "")+'"></div>')
             $.each(v.emojis, (k, v) => {
               if([v.matchAll(/\p{RGI_Emoji}/vg)].length) {
                 cat.append('<button aria-label="'+v+'" class="SmilersWidgetSpicyList__smile#mG active-smile" type="button">&#x'+emojis.emojis[v].skins[0].unified.split("-").join("")+';</button>')
@@ -783,11 +785,18 @@
         }
       })
 
-      // insert emoji on click
-      $('#body').on('click', '.SmilesWidget__content_default-emojis .active-smile', function(e) {
-          let text = $('.model-chat-input input').val()
-          $('.model-chat-input input').val('').focus()
-          document.execCommand('insertText', false, text+$(this).text())
+      // simple emoji category tabbing
+      $('#body').on('click', '.emoji-categories .se-emoji', function(e) {
+        $('.se-emoji-list').addClass('hidden')
+        $('.se-emoji-list-'+$(this).attr('data-tab')).removeClass('hidden')
       })
     }
+
+
+    // insert emoji on click
+    $('.model-chat-content').on('click', '.SmilesWidget__content_default-emojis .active-smile', function(e) {
+        let text = $('.model-chat-input input').val()
+        $('.model-chat-input input').val('').focus()
+        document.execCommand('insertText', false, text+$(this).text())
+    })
 })();
