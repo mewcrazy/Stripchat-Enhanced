@@ -148,6 +148,110 @@
   --pico-badge-css-background-color: rgba(156, 167, 250, 0.125);
   --pico-badge-css-color: #9ca7fa;
 }
+
+html {
+    --pico-header-height: calc(4.5rem + var(--pico-border-width))
+}
+
+body>header {
+    z-index: 4;
+    position: relative;
+    padding: .5rem 0;
+    border-bottom: var(--pico-border-width) solid transparent
+}
+
+body>header .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between
+}
+
+body>header .container>a {
+    margin: calc(var(--pico-spacing) * -.125) calc(var(--pico-spacing) * -.25);
+    padding: calc(var(--pico-spacing) * .125) calc(var(--pico-spacing) * .25);
+    border-radius: var(--pico-border-radius)
+}
+
+body>header .container>a svg.pico-logo {
+    transform: translateY(-10%)
+}
+
+body>header .container nav svg {
+    display: inline-block;
+    width: auto;
+    height: 1.125rem;
+    transform: translateY(-.0625rem)
+}
+
+body>header .container nav svg.theme-toggle {
+    transform: scale(1.125) translateY(-.0625rem)
+}
+
+@media (max-width: 575px) {
+    body>header .container nav ul li.hide-before-sm {
+        display:none
+    }
+}
+
+@media (min-width: 576px) {
+    body>header .container nav ul.icons:before {
+        display:block;
+        height: 1.125rem;
+        margin-inline:var(--pico-nav-element-spacing-horizontal);border-left: var(--pico-border-width) solid var(--pico-form-element-border-color);
+        content: ""
+    }
+}
+
+body>header .container nav details[class=dropdown] {
+    display: inline-block;
+    margin: calc(var(--pico-nav-element-spacing-vertical) * -1) calc(var(--pico-nav-element-spacing-horizontal) * -1)
+}
+
+body>header .container nav details[class=dropdown] summary:not(:hover,:focus,:focus-visible),body>header .container nav details[class=dropdown]:not(:focus-within) summary {
+    border-color: transparent;
+    background-color: transparent
+}
+
+body>header .container nav details[class=dropdown] summary:focus,body>header .container nav details[class=dropdown] summary:focus-visible,body>header .container nav details[class=dropdown] summary:hover {
+    color: var(--pico-secondary-hover)
+}
+
+body>header .container nav details[class=dropdown] summary:focus {
+    border: var(--pico-border-width) solid var(--pico-dropdown-border-color);
+    box-shadow: none
+}
+
+body>header .container nav details[class=dropdown] summary:focus-visible {
+    box-shadow: 0 0 0 var(--pico-outline-width) var(--pico-primary-focus)
+}
+
+body>header .container nav details[class=dropdown] summary:after {
+    transform: rotate(0) translate(.2rem) translateY(.0625rem)
+}
+
+body>header .container nav details[class=dropdown] ul li a svg {
+    stroke: var(--pico-current-version-checkmark);
+    margin-left: .25rem;
+    transform: scale(.75)
+}
+
+@media (min-width: 1024px) {
+    body>header.is-fixed-above-lg {
+        z-index:2;
+        position: sticky;
+        top: 0;
+        -webkit-backdrop-filter: blur(1rem);
+        backdrop-filter: blur(1rem);
+        background-color: var(--pico-header-background);
+        transition: border-top-color .4s ease-in-out,box-shadow .4s ease-in-out
+    }
+
+    body>header.is-fixed-above-lg.is-fixed {
+        border-bottom-color: var(--pico-header-border-color);
+        box-shadow: var(--pico-card-box-shadow)
+    }
+}
+
 body {
   overflow: hidden;
 }
@@ -2044,11 +2148,11 @@ mark {
       <section class="hero">
         <div class="hook">
           <h1>
-            <mark>Minimal CSS Framework</mark>
+            <mark>StripChat Enhanced</mark>
             <br />for Semantic HTML
           </h1>
-          <p class="secondary">A minimalist and lightweight starter kit that prioritizes semantic syntax, making every HTML element responsive and elegant by default.</p>
-          <p>Write HTML, Add Pico CSS, and Voilà!</p>
+          <p class="secondary">An user script for ViolentMonkey, Tampermonkey & Greasemonkey to extend StripChat with new useful features like translations of public chat and private chat messages.</p>
+          <p>And all totally free.</p>
           <div class="grid ctas">
             <a role="button" data-discover="true" href="/docs">Get Started <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" class="icon-arrow-right">
                 <g class="head">
