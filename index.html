@@ -1,0 +1,3284 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charSet="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="theme-color" content="#2a3140" />
+    <meta name="color-scheme" content="light dark" />
+    <link rel="canonical" href="https://picocss.com" />
+    <meta property="og:image" content="https://picocss.com/opengraph.png" />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:site_name" content="Pico CSS" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://v2.picocss.com/" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@picocss" />
+    <title>Pico CSS • Minimal CSS Framework for semantic HTML</title>
+    <meta name="description" content="Minimalist and lightweight starter kit that prioritizes semantic syntax, making every HTML element responsive and elegant by default." />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon-32x32.png" type="image/png" sizes="32x32" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" type="image/png" sizes="180x180" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css" />
+    <style>
+        :host:not([data-theme="dark"]),
+:root:not([data-theme="dark"]),
+[data-theme="light"] {
+  --pico-demo-border-gradient-colors: transparent 33%,
+    rgb(232.5, 202.75, 231.75), rgb(220.8, 205.8, 244.3),
+    rgb(208.35, 210.5, 242.25), rgb(202.8, 211.6, 245.4);
+  --pico-card-box-shadow: var(--pico-box-shadow);
+  --pico-card-component-outline-width: 0.0625rem;
+  --pico-card-component-outline-color: transparent;
+  --pico-mark-gradient: linear-gradient(
+    to right,
+    rgb(132, 38, 108.5),
+    rgb(111.2, 57.1, 132.9),
+    rgb(93.45, 63.5, 153.8),
+    rgb(67.2, 71.6, 157.4)
+  );
+  --pico-stats-color: #2a628a;
+  --pico-features-icon-color: rgb(146.9, 76.9, 174.8);
+  --pico-comparison-gradient-valid: linear-gradient(
+    var(--pico-comparison-gradient-direction, to bottom),
+    rgb(122.5, 177.5, 197.75),
+    rgb(90, 166.25, 163.75),
+    rgb(100, 154.5, 102)
+  );
+  --pico-comparison-gradient-invalid: linear-gradient(
+    var(--pico-comparison-gradient-direction, to bottom),
+    rgb(207.5, 160.5, 99.5),
+    rgb(207.125, 126.125, 109.375),
+    rgb(212.25, 108.25, 99.25)
+  );
+  --pico-badge-html-background-color: rgba(168, 52, 16, 0.125);
+  --pico-badge-html-color: #a83410;
+  --pico-badge-react-background-color: rgba(34.5, 113.875, 142.75, 0.125);
+  --pico-badge-react-color: rgb(34.5, 113.875, 142.75);
+  --pico-badge-sass-background-color: rgba(149.5, 44.75, 123.5, 0.125);
+  --pico-badge-sass-color: rgb(149.5, 44.75, 123.5);
+  --pico-badge-javascript-background-color: rgba(129.5, 83.5, 0, 0.125);
+  --pico-badge-javascript-color: rgb(129.5, 83.5, 0);
+  --pico-badge-css-background-color: rgba(29, 89, 208, 0.125);
+  --pico-badge-css-color: #1d59d0;
+}
+@media only screen and (prefers-color-scheme: dark) {
+  :host:not([data-theme]),
+  :root:not([data-theme]) {
+    --pico-demo-border-gradient-colors: transparent 33%, rgb(74.2, 20.8, 68.4),
+      rgb(58.5, 32.5, 85.75), rgb(45, 36.6, 100.9), rgb(26.4, 42.9, 106.7);
+    --pico-card-box-shadow: none;
+    --pico-card-background-color: rgb(21.5, 25.25, 33.75);
+    --pico-card-component-outline-width: 0.0625rem;
+    --pico-card-component-outline-color: rgb(28, 33, 43.5);
+    --pico-card-border-color: var(--pico-card-component-outline-color);
+    --pico-mark-gradient: linear-gradient(
+      to right,
+      rgb(215.4, 140.8, 210.2),
+      rgb(184.5, 153, 237.75),
+      rgb(156.6, 165.3, 232.6),
+      rgb(142.75, 168.95, 240.05)
+    );
+    --pico-stats-color: rgb(120.5, 176, 227);
+    --pico-features-icon-color: rgb(184.5, 153, 237.75);
+    --pico-comparison-gradient-valid: linear-gradient(
+      var(--pico-comparison-gradient-direction, to bottom),
+      rgb(79.25, 123.5, 148.25),
+      rgb(58.125, 112.625, 115.625),
+      rgb(63, 101.5, 67)
+    );
+    --pico-comparison-gradient-invalid: linear-gradient(
+      var(--pico-comparison-gradient-direction, to bottom),
+      rgb(138.5, 110, 76.5),
+      rgb(153, 77.625, 63.25),
+      rgb(151.75, 54.5, 52.25)
+    );
+    --pico-badge-html-background-color: rgba(224.5, 149.5, 127.75, 0.125);
+    --pico-badge-html-color: rgb(224.5, 149.5, 127.75);
+    --pico-badge-react-background-color: rgba(78.375, 167.75, 195.125, 0.125);
+    --pico-badge-react-color: rgb(78.375, 167.75, 195.125);
+    --pico-badge-sass-background-color: rgba(204.5, 151.5, 199, 0.125);
+    --pico-badge-sass-color: rgb(204.5, 151.5, 199);
+    --pico-badge-javascript-background-color: rgba(188, 166.5, 99.5, 0.125);
+    --pico-badge-javascript-color: rgb(188, 166.5, 99.5);
+    --pico-badge-css-background-color: rgba(156, 167, 250, 0.125);
+    --pico-badge-css-color: #9ca7fa;
+  }
+}
+[data-theme="dark"] {
+  --pico-demo-border-gradient-colors: transparent 33%, rgb(74.2, 20.8, 68.4),
+    rgb(58.5, 32.5, 85.75), rgb(45, 36.6, 100.9), rgb(26.4, 42.9, 106.7);
+  --pico-card-box-shadow: none;
+  --pico-card-background-color: rgb(21.5, 25.25, 33.75);
+  --pico-card-component-outline-width: 0.0625rem;
+  --pico-card-component-outline-color: rgb(28, 33, 43.5);
+  --pico-card-border-color: var(--pico-card-component-outline-color);
+  --pico-mark-gradient: linear-gradient(
+    to right,
+    rgb(215.4, 140.8, 210.2),
+    rgb(184.5, 153, 237.75),
+    rgb(156.6, 165.3, 232.6),
+    rgb(142.75, 168.95, 240.05)
+  );
+  --pico-stats-color: rgb(120.5, 176, 227);
+  --pico-features-icon-color: rgb(184.5, 153, 237.75);
+  --pico-comparison-gradient-valid: linear-gradient(
+    var(--pico-comparison-gradient-direction, to bottom),
+    rgb(79.25, 123.5, 148.25),
+    rgb(58.125, 112.625, 115.625),
+    rgb(63, 101.5, 67)
+  );
+  --pico-comparison-gradient-invalid: linear-gradient(
+    var(--pico-comparison-gradient-direction, to bottom),
+    rgb(138.5, 110, 76.5),
+    rgb(153, 77.625, 63.25),
+    rgb(151.75, 54.5, 52.25)
+  );
+  --pico-badge-html-background-color: rgba(224.5, 149.5, 127.75, 0.125);
+  --pico-badge-html-color: rgb(224.5, 149.5, 127.75);
+  --pico-badge-react-background-color: rgba(78.375, 167.75, 195.125, 0.125);
+  --pico-badge-react-color: rgb(78.375, 167.75, 195.125);
+  --pico-badge-sass-background-color: rgba(204.5, 151.5, 199, 0.125);
+  --pico-badge-sass-color: rgb(204.5, 151.5, 199);
+  --pico-badge-javascript-background-color: rgba(188, 166.5, 99.5, 0.125);
+  --pico-badge-javascript-color: rgb(188, 166.5, 99.5);
+  --pico-badge-css-background-color: rgba(156, 167, 250, 0.125);
+  --pico-badge-css-color: #9ca7fa;
+}
+body {
+  overflow: hidden;
+}
+body > main {
+  --pico-homepage-spacing-vertical: calc(var(--pico-spacing) * 5);
+  --pico-homepage-spacing-horizontal: calc(var(--pico-spacing) * 3.5);
+  padding: 0;
+}
+@media (min-width: 576px) {
+  body > main {
+    --pico-homepage-spacing-vertical: calc(var(--pico-spacing) * 6);
+    --pico-homepage-spacing-horizontal: calc(var(--pico-spacing) * 4);
+  }
+}
+@media (min-width: 768px) {
+  body > main {
+    --pico-homepage-spacing-vertical: calc(var(--pico-spacing) * 7);
+    --pico-homepage-spacing-horizontal: calc(var(--pico-spacing) * 4.5);
+  }
+}
+@media (min-width: 1024px) {
+  body > main {
+    --pico-homepage-spacing-vertical: calc(var(--pico-spacing) * 8);
+    --pico-homepage-spacing-horizontal: calc(var(--pico-spacing) * 4);
+  }
+}
+@media (min-width: 1280px) {
+  body > main {
+    --pico-homepage-spacing-vertical: calc(var(--pico-spacing) * 9);
+    --pico-homepage-spacing-horizontal: calc(var(--pico-spacing) * 5.5);
+  }
+}
+@media (min-width: 1536px) {
+  body > main {
+    --pico-homepage-spacing-vertical: calc(var(--pico-spacing) * 10);
+    --pico-homepage-spacing-horizontal: calc(var(--pico-spacing) * 6);
+  }
+}
+body > main.is-loading {
+  animation-duration: 1s;
+  animation-fill-mode: forwards;
+  animation-name: page-loading;
+  opacity: 0.5;
+}
+@keyframes page-loading {
+  0% {
+    opacity: 1;
+  }
+}
+section {
+  margin-block: var(--pico-homepage-spacing-vertical);
+}
+body > main.homepage > .hero {
+  display: grid;
+  grid-template-columns: 1fr;
+  -moz-column-gap: var(--pico-homepage-spacing-horizontal);
+  column-gap: var(--pico-homepage-spacing-horizontal);
+  row-gap: calc(var(--pico-homepage-spacing-vertical) / 2);
+  justify-items: center;
+  margin-top: calc(var(--pico-homepage-spacing-vertical) / 2);
+  margin-bottom: 0;
+}
+body > main.homepage > .hero .demo,
+body > main.homepage > .hero .hook {
+  width: 100%;
+  min-width: 0;
+}
+body > main.homepage > .hero .hook {
+  z-index: 1;
+  position: relative;
+}
+@media (min-width: 1024px) {
+  body > main.homepage > .hero .hook {
+    max-width: 700px;
+  }
+}
+@media (min-width: 1280px) {
+  body > main.homepage > .hero .hook {
+    max-width: 950px;
+  }
+}
+body > main.homepage > .hero .hook h1,
+body > main.homepage > .hero .hook p {
+  text-wrap: balance;
+}
+@media (min-width: 576px) {
+  body > main.homepage > .hero .hook h1,
+  body > main.homepage > .hero .hook p {
+    text-align: center;
+  }
+}
+body > main.homepage > .hero .hook h1 {
+  margin-bottom: calc(var(--pico-spacing) * 2);
+}
+body > main.homepage > .hero .hook .grid.ctas {
+  --pico-form-element-spacing-horizontal: 2rem;
+  margin-top: calc(var(--pico-spacing) * 4);
+  margin-bottom: calc(var(--pico-spacing) * 0.5);
+}
+@media (min-width: 576px) {
+  body > main.homepage > .hero .hook .grid.ctas {
+    display: flex;
+    justify-content: center;
+  }
+}
+body > main.homepage > .hero .hook .grid.ctas a[role="button"] svg {
+  width: auto;
+  height: 1rem;
+  margin-left: calc(var(--pico-spacing) * 0.25);
+}
+body > main.homepage > .hero > .demo {
+  --angle: 0deg;
+  --demo-border-gradient: linear-gradient(
+    var(--angle),
+    var(--pico-demo-border-gradient-colors)
+  );
+  display: flex;
+  position: relative;
+  flex-direction: column;
+}
+@supports (-webkit-hyphens: none) {
+  body > main.homepage > .hero > .demo {
+    animation: none;
+  }
+}
+@media (min-width: 768px) {
+  body > main.homepage > .hero > .demo {
+    max-width: 700px;
+  }
+}
+@media (min-width: 1280px) {
+  body > main.homepage > .hero > .demo {
+    max-width: 950px;
+  }
+}
+body > main.homepage > .hero > .demo article.component {
+  --pico-block-spacing-horizontal: var(--pico-spacing) !important;
+  --pico-block-spacing-vertical: calc(var(--pico-spacing) * 1.5) !important;
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  justify-content: flex-start;
+  width: 100%;
+  min-width: 0;
+  height: 100%;
+  height: calc(22.8125rem + var(--pico-block-spacing-vertical));
+  margin-bottom: 0;
+  margin-inline: auto;
+  overflow: visible;
+  outline: 0;
+  background-color: var(--pico-background-color);
+  box-shadow: none;
+  pointer-events: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+}
+@media (min-width: 576px) {
+  body > main.homepage > .hero > .demo article.component {
+    --pico-block-spacing-horizontal: calc(var(--pico-spacing) * 1.5) !important;
+    --pico-block-spacing-vertical: calc(var(--pico-spacing) * 2) !important;
+    height: calc(24.5rem + var(--pico-block-spacing-vertical));
+  }
+}
+@media (min-width: 768px) {
+  body > main.homepage > .hero > .demo article.component {
+    height: calc(24.5rem + var(--pico-block-spacing-vertical));
+  }
+}
+@media (min-width: 1024px) {
+  body > main.homepage > .hero > .demo article.component {
+    height: calc(24rem + var(--pico-block-spacing-vertical));
+  }
+}
+@media (min-width: 1280px) {
+  body > main.homepage > .hero > .demo article.component {
+    --pico-block-spacing-horizontal: calc(var(--pico-spacing) * 3) !important;
+    --pico-block-spacing-vertical: calc(var(--pico-spacing) * 3) !important;
+    height: 24rem;
+  }
+}
+@media (min-width: 1536px) {
+  body > main.homepage > .hero > .demo article.component {
+    height: calc(23.5rem + var(--pico-block-spacing-vertical));
+  }
+}
+body > main.homepage > .hero > .demo article.component form button,
+body > main.homepage > .hero > .demo article.component form input:only-child,
+body
+  > main.homepage
+  > .hero
+  > .demo
+  article.component
+  form
+  input[aria-invalid="true"],
+body > main.homepage > .hero > .demo article.component form[role="group"],
+body > main.homepage > .hero > .demo article.component form[role="search"] {
+  margin-bottom: 0;
+}
+body > main.homepage > .hero > .demo article.component form small {
+  margin-top: 0.25rem;
+  margin-bottom: 0;
+}
+body > main.homepage > .hero > .demo article.component form label {
+  margin-bottom: 0;
+}
+body
+  > main.homepage
+  > .hero
+  > .demo
+  article.component
+  form[role="group"].is-focused,
+body
+  > main.homepage
+  > .hero
+  > .demo
+  article.component
+  form[role="search"].is-focused {
+  --pico-group-box-shadow: var(--pico-group-box-shadow-focus-with-button);
+}
+body
+  > main.homepage
+  > .hero
+  > .demo
+  article.component
+  form[role="group"].is-focused
+  input:not([type="checkbox"], [type="radio"]),
+body
+  > main.homepage
+  > .hero
+  > .demo
+  article.component
+  form[role="group"].is-focused
+  select,
+body
+  > main.homepage
+  > .hero
+  > .demo
+  article.component
+  form[role="search"].is-focused
+  input:not([type="checkbox"], [type="radio"]),
+body
+  > main.homepage
+  > .hero
+  > .demo
+  article.component
+  form[role="search"].is-focused
+  select {
+  border-color: transparent;
+}
+body
+  > main.homepage
+  > .hero
+  > .demo
+  article.component
+  form[role="group"].is-focused
+  button,
+body
+  > main.homepage
+  > .hero
+  > .demo
+  article.component
+  form[role="search"].is-focused
+  button {
+  box-shadow: none;
+}
+body > main.homepage > .hero > .demo article.component form input {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+}
+body
+  > main.homepage
+  > .hero
+  > .demo
+  article.component
+  form
+  input:not([type="range"]).is-focused {
+  --pico-border-color: var(--pico-form-element-active-border-color);
+  --pico-box-shadow: 0 0 0 var(--pico-outline-width)
+    var(--pico-form-element-focus-color);
+}
+body
+  > main.homepage
+  > .hero
+  > .demo
+  article.component
+  form
+  input:not([type="checkbox"]).is-focused {
+  --pico-background-color: var(--pico-form-element-active-background-color);
+}
+body
+  > main.homepage
+  > .hero
+  > .demo
+  article.component
+  form
+  input[type="range"].is-focused {
+  --pico-range-border-color: var(--pico-range-active-border-color);
+  --pico-range-thumb-color: var(--pico-range-thumb-active-color);
+}
+body
+  > main.homepage
+  > .hero
+  > .demo
+  article.component
+  form
+  input[type="range"].is-focused::-webkit-slider-thumb {
+  transform: scale(1.25);
+}
+body
+  > main.homepage
+  > .hero
+  > .demo
+  article.component
+  form
+  input[type="range"].is-focused::-moz-range-thumb {
+  transform: scale(1.25);
+}
+body
+  > main.homepage
+  > .hero
+  > .demo
+  article.component
+  form
+  input[type="range"].is-focused::-ms-thumb {
+  transform: scale(1.25);
+}
+body > main.homepage > .hero > .demo article.component form button.is-focused {
+  --pico-background-color: var(--pico-primary-hover-background);
+  --pico-border-color: var(--pico-primary-hover-border);
+  --pico-color: var(--pico-primary-inverse);
+  --pico-box-shadow: var(--pico-button-hover-box-shadow, 0 0 0 rgba(0, 0, 0, 0)),
+    0 0 0 var(--pico-outline-width) var(--pico-primary-focus);
+}
+body > main.homepage > .hero > .demo article.component form * {
+  transition: border-radius var(--pico-transition);
+}
+body > main.homepage > .hero > .demo article.component footer.code {
+  background: 0 0;
+}
+body > main.homepage > .hero > .demo article.component footer.code pre {
+  overflow: hidden;
+}
+body
+  > main.homepage
+  > .hero
+  > .demo
+  article.component
+  footer.code
+  [data-typeit-id]
+  .ti-cursor {
+  transform: translate(-0.25em);
+  color: inherit;
+  font-style: inherit;
+  font-weight: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  font-family: inherit;
+}
+body > main.homepage > .hero > .demo article.component .controls {
+  display: grid;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  grid-auto-flow: column;
+  padding: var(--pico-spacing);
+  pointer-events: all;
+  transition: opacity var(--pico-transition);
+  grid-gap: calc(var(--pico-spacing) * 0.25);
+}
+@media (min-width: 1280px) {
+  body > main.homepage > .hero > .demo article.component .controls {
+    opacity: 0;
+  }
+}
+body > main.homepage > .hero > .demo article.component .controls svg {
+  width: auto;
+  height: 1rem;
+  color: var(--pico-muted-color);
+  cursor: pointer;
+  transition: color var(--pico-transition);
+}
+body > main.homepage > .hero > .demo article.component .controls svg:hover {
+  color: var(--pico-secondary-hover);
+}
+body > main.homepage > .hero > .demo article.component:hover .controls {
+  opacity: 1;
+}
+body > main.homepage > .hero > .demo.is-maximized {
+  z-index: 999;
+  position: fixed;
+  max-width: none;
+  inset: 0;
+  transform: none;
+  background: var(--pico-background-color);
+}
+body > main.homepage > .hero > .demo.is-maximized article.component {
+  position: unset;
+  max-width: none;
+  border-radius: 0;
+  outline: 0;
+}
+@media (min-width: 576px) {
+  body > main.homepage > .hero > .demo.is-maximized article.component {
+    max-width: 510px;
+    height: auto;
+    margin: auto;
+  }
+}
+@media (min-width: 1024px) {
+  body > main.homepage > .hero > .demo.is-maximized article.component {
+    max-width: 700px;
+  }
+}
+@media (min-width: 1280px) {
+  body > main.homepage > .hero > .demo.is-maximized article.component {
+    max-width: 950px;
+  }
+}
+body > main.homepage > .hero > .demo.is-maximized article.component .controls {
+  opacity: 1;
+}
+body > main.homepage > .hero > .demo:before {
+  z-index: 0;
+  position: absolute;
+  inset: -3rem;
+  border-radius: var(--pico-border-radius);
+  background: var(--demo-border-gradient);
+  content: "";
+  filter: blur(3rem);
+  opacity: 0.25;
+}
+body > main.homepage > .hero > .demo:after {
+  z-index: -1;
+  position: absolute;
+  inset: -1px;
+  border-radius: var(--pico-border-radius);
+  background: var(--demo-border-gradient);
+  content: "";
+}
+body > main.homepage > .stats {
+  margin-top: calc(var(--pico-homepage-spacing-vertical) * 0.25);
+}
+body > main.homepage > .stats ul {
+  display: grid;
+  -moz-column-gap: calc(var(--pico-spacing) * 2);
+  column-gap: calc(var(--pico-spacing) * 2);
+  row-gap: calc(var(--pico-spacing) * 2);
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 0;
+}
+@media (min-width: 576px) {
+  body > main.homepage > .stats ul {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+body > main.homepage > .stats ul li {
+  margin: 0;
+  list-style-type: none;
+}
+@media (min-width: 576px) {
+  body > main.homepage > .stats ul li {
+    text-align: center;
+  }
+}
+body > main.homepage > .stats ul li p {
+  margin: 0;
+}
+body > main.homepage > .stats ul li p.count {
+  margin-bottom: calc(var(--pico-spacing) * 0.25);
+  color: var(--pico-stats-color);
+  font-size: 1.75rem;
+  line-height: 1.15;
+  font-family: Figtree, var(--pico-font-family);
+}
+body > main.homepage > .stats ul li p.label a {
+  text-decoration: none;
+}
+body > main.homepage > .stats ul li p.label a svg {
+  display: inline-block;
+  width: auto;
+  height: 1em;
+  margin-right: calc(var(--pico-spacing) * 0.375);
+  transform: translateY(-0.125em);
+}
+@media (min-width: 576px) {
+  body > main.homepage > .stats ul li p.label a svg {
+    display: none;
+  }
+}
+@media (min-width: 768px) {
+  body > main.homepage > .stats ul li p.label a svg {
+    display: inline-block;
+  }
+}
+@media (min-width: 576px) {
+  body > main.homepage > .stats ul li p.label a span.period-prefix {
+    display: none;
+  }
+}
+body > main.homepage > .stats ul li p.period-suffix {
+  display: none;
+  margin-bottom: 0;
+  color: var(--pico-secondary);
+  font-size: 14px;
+}
+@media (min-width: 576px) {
+  body > main.homepage > .stats ul li p.period-suffix {
+    display: block;
+  }
+}
+body > main.homepage > .features > hgroup {
+  max-width: 950px;
+  margin-bottom: calc(var(--pico-homepage-spacing-vertical) * 0.75);
+  margin-inline: auto;
+}
+@media (min-width: 576px) {
+  body > main.homepage > .features > hgroup {
+    text-align: center;
+  }
+}
+body > main.homepage > .features > hgroup > h2 {
+  margin-bottom: calc(var(--pico-spacing) * 1);
+}
+body > main.homepage > .features > hgroup > :not(:first-child):last-child {
+  --pico-color: var(--pico-color);
+  text-wrap: pretty;
+}
+body > main.homepage > .features > .grid {
+  -moz-column-gap: calc(var(--pico-homepage-spacing-horizontal) / 2);
+  column-gap: calc(var(--pico-homepage-spacing-horizontal) / 2);
+  row-gap: calc(var(--pico-homepage-spacing-vertical) / 2);
+}
+@media (min-width: 768px) {
+  body > main.homepage > .features > .grid {
+    grid-template-columns: 1fr;
+  }
+}
+@media (min-width: 1024px) {
+  body > main.homepage > .features > .grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+body > main.homepage > .features > .grid article {
+  margin-bottom: 0;
+  margin-block: 0;
+  border: var(--pico-card-component-outline-width) solid
+    var(--pico-card-component-outline-color);
+}
+body > main.homepage > .features > .grid article > svg {
+  width: auto;
+  height: 1.125rem;
+  margin-bottom: calc(var(--pico-spacing) * 0.75);
+  color: var(--pico-features-icon-color);
+}
+body > main.homepage > .features > .grid article > svg.pico-icon path {
+  fill: currentColor;
+}
+body > main.homepage > .features > .grid article h3 {
+  font-size: 1.25rem;
+  line-height: 1.2;
+}
+body > main.homepage > .features > .grid article p {
+  margin-bottom: calc(var(--pico-spacing) * 1);
+  color: var(--pico-muted-color);
+  text-wrap: pretty;
+}
+body > main.homepage > .features > .grid article p:last-child {
+  margin-bottom: 0;
+}
+body > main.homepage > .features > .grid article p:last-child a svg {
+  width: auto;
+  height: 1rem;
+  margin-left: calc(var(--pico-spacing) * 0.25);
+}
+body > main.homepage > .comparison > hgroup {
+  max-width: 700px;
+  margin-bottom: calc(var(--pico-homepage-spacing-vertical) * 0.75);
+  margin-inline: auto;
+}
+@media (min-width: 576px) {
+  body > main.homepage > .comparison > hgroup {
+    text-align: center;
+  }
+}
+@media (min-width: 768px) {
+  body > main.homepage > .comparison > hgroup {
+    margin-bottom: calc(var(--pico-homepage-spacing-vertical) / 3);
+  }
+}
+body > main.homepage > .comparison > hgroup > h2 {
+  margin-bottom: calc(var(--pico-spacing) * 1);
+}
+@media (min-width: 768px) {
+  body > main.homepage > .comparison > hgroup > h2 {
+    margin-bottom: calc(var(--pico-spacing) / 2);
+  }
+}
+body > main.homepage > .comparison > hgroup > :not(:first-child):last-child {
+  --pico-color: var(--pico-color);
+  text-wrap: pretty;
+}
+body > main.homepage > .comparison > .grid {
+  -moz-column-gap: calc(var(--pico-homepage-spacing-horizontal) / 2);
+  column-gap: calc(var(--pico-homepage-spacing-horizontal) / 2);
+  row-gap: calc(var(--pico-homepage-spacing-vertical) / 2);
+}
+@media (min-width: 768px) {
+  body > main.homepage > .comparison > .grid {
+    grid-template-columns: 1fr;
+  }
+}
+@media (min-width: 1024px) {
+  body > main.homepage > .comparison > .grid {
+    grid-template-columns: repeat(auto-fit, minmax(0%, 1fr));
+  }
+}
+body > main.homepage > .comparison > .grid > div {
+  display: flex;
+  flex-direction: column;
+}
+body > main.homepage > .comparison > .grid > div p .emoji {
+  font-size: 1.25rem;
+}
+body > main.homepage > .comparison > .grid > div .code {
+  height: 100%;
+  margin-bottom: 0;
+  border: var(--pico-card-component-outline-width) solid
+    var(--pico-card-component-outline-color);
+  background-color: var(--pico-card-background-color);
+}
+body > main.homepage > .comparison > .grid > div .code:before {
+  display: block;
+  position: absolute;
+  width: 0.25rem;
+  height: 100%;
+  inset: 0 auto 0 0;
+  content: "";
+}
+body > main.homepage > .comparison > .grid > div .code pre {
+  height: 100%;
+}
+@media (min-width: 1024px) {
+  body > main.homepage > .comparison > .grid > div .code {
+    --pico-comparison-gradient-direction: to right;
+  }
+  body > main.homepage > .comparison > .grid > div .code:before {
+    width: 100%;
+    height: 0.25rem;
+    inset: 0 0 auto;
+  }
+}
+body > main.homepage > .comparison > .grid > div.pico .code:before {
+  background: var(--pico-comparison-gradient-valid);
+}
+body
+  > main.homepage
+  > .comparison
+  > .grid
+  > div.utility-framework
+  .code:before {
+  background: var(--pico-comparison-gradient-invalid);
+}
+body > main.examples > .examples-hero {
+  margin-top: calc(var(--pico-homepage-spacing-vertical) / 2);
+  margin-bottom: 0;
+}
+@media (min-width: 576px) {
+  body > main.examples > .examples-hero {
+    text-align: center;
+  }
+}
+body > main.examples > .examples-list {
+  display: grid;
+  -moz-column-gap: calc(var(--pico-homepage-spacing-horizontal) / 2);
+  column-gap: calc(var(--pico-homepage-spacing-horizontal) / 2);
+  row-gap: calc(var(--pico-homepage-spacing-vertical) / 2);
+  margin-top: calc(var(--pico-homepage-spacing-vertical) / 2);
+}
+@media (min-width: 1024px) {
+  body > main.examples > .examples-list {
+    grid-template-columns: 1fr 1fr;
+    row-gap: calc(var(--pico-homepage-spacing-horizontal) / 2);
+  }
+}
+@media (min-width: 1536px) {
+  body > main.examples > .examples-list {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+body > main.examples > .examples-list article {
+  margin: 0;
+  outline-color: var(--pico-card-component-outline-color);
+  outline-style: solid;
+  outline-width: var(--pico-card-component-outline-width);
+}
+@media (min-width: 1280px) {
+  body > main.examples > .examples-list article {
+    --pico-block-spacing-vertical: calc(var(--pico-spacing) * 1.75);
+    --pico-block-spacing-horizontal: calc(var(--pico-spacing) * 1.75);
+  }
+}
+body > main.examples > .examples-list article .badges {
+  display: flex;
+  margin-bottom: calc(var(--pico-spacing) / 2);
+}
+body > main.examples > .examples-list article .badges .badge {
+  padding: 0.125rem 0.25rem;
+  border-radius: 0.125rem;
+  font-weight: 600;
+  font-size: 12px;
+  text-transform: uppercase;
+  vertical-align: text-bottom;
+}
+body > main.examples > .examples-list article .badges .badge:not(:last-child) {
+  margin-right: calc(var(--pico-spacing) / 2);
+}
+body > main.examples > .examples-list article .badges .badge.html {
+  background-color: var(--pico-badge-html-background-color);
+  color: var(--pico-badge-html-color);
+}
+body > main.examples > .examples-list article .badges .badge.react {
+  background-color: var(--pico-badge-react-background-color);
+  color: var(--pico-badge-react-color);
+}
+body > main.examples > .examples-list article .badges .badge.sass {
+  background-color: var(--pico-badge-sass-background-color);
+  color: var(--pico-badge-sass-color);
+}
+body > main.examples > .examples-list article .badges .badge.javascript {
+  background-color: var(--pico-badge-javascript-background-color);
+  color: var(--pico-badge-javascript-color);
+}
+body > main.examples > .examples-list article .badges .badge.css {
+  background-color: var(--pico-badge-css-background-color);
+  color: var(--pico-badge-css-color);
+}
+body > main.examples > .examples-list article h2 {
+  font-size: 1.25rem;
+  line-height: 1.2;
+  text-wrap: balance;
+  margin-bottom: calc(var(--pico-spacing) / 4);
+}
+body > main.examples > .examples-list article p {
+  color: var(--pico-muted-color);
+  text-wrap: pretty;
+}
+body > main.examples > .examples-list article p:not(:last-child) {
+  margin-bottom: calc(var(--pico-spacing) * 1.5);
+}
+body > main.examples > .examples-list article p.links {
+  margin-bottom: 0;
+}
+body > main.examples > .examples-list article p.links a {
+  display: block;
+}
+body > main.examples > .examples-list article p.links a:not(:last-child) {
+  margin-bottom: calc(var(--pico-spacing) / 4);
+}
+body > main.examples > .examples-list article p.links a svg {
+  width: auto;
+  height: 1rem;
+  margin-right: calc(var(--pico-spacing) / 4);
+  transform: translateY(-0.0625rem);
+}
+body > main.examples > .examples-list article p.links a svg.pico-icon path {
+  fill: currentColor;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: Figtree, var(--pico-font-family);
+}
+@media (min-width: 576px) {
+  h1 {
+    --pico-font-size: 2.5rem;
+    --pico-line-height: 1.0625;
+  }
+  h2 {
+    --pico-font-size: 2rem;
+    --pico-line-height: 1.125;
+  }
+  h3 {
+    --pico-font-size: 1.75rem;
+    --pico-line-height: 1.15;
+  }
+  h4 {
+    --pico-font-size: 1.5rem;
+    --pico-line-height: 1.175;
+  }
+  h5 {
+    --pico-font-size: 1.25rem;
+    --pico-line-height: 1.2;
+  }
+  h6 {
+    --pico-font-size: 1.125rem;
+    --pico-line-height: 1.225;
+  }
+}
+@media (min-width: 1536px) {
+  h1 {
+    --pico-font-size: 3rem;
+    --pico-line-height: 1;
+  }
+  h2 {
+    --pico-font-size: 2.5rem;
+    --pico-line-height: 1.0625;
+  }
+}
+.fade-in {
+  animation-duration: 1s;
+  animation-fill-mode: both;
+  animation-name: fade-in;
+}
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+a .icon-arrow-right {
+  --icon-right-toggle-duration: 0.2s;
+}
+a .icon-arrow-right g.head,
+a .icon-arrow-right path.line {
+  transition-duration: var(--icon-right-toggle-duration);
+  transition-property: transform;
+  transition-timing-function: ease-in-out;
+}
+a .icon-arrow-right g.head {
+  transform: translate(0);
+}
+a .icon-arrow-right path.line {
+  transform: translate(0) scaleX(0);
+  transform-origin: 14px;
+}
+a:hover .icon-arrow-right g.head {
+  transform: translate(5px);
+}
+a:hover .icon-arrow-right path.line {
+  transform: translate(5px) scaleX(1);
+}
+mark {
+  padding: 0;
+  background: var(--pico-mark-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+:host:not([data-theme="dark"]),
+:root:not([data-theme="dark"]),
+[data-theme="light"] {
+  --pico-demo-border-gradient-colors: transparent 33%,
+    rgb(232.5, 202.75, 231.75), rgb(220.8, 205.8, 244.3),
+    rgb(208.35, 210.5, 242.25), rgb(202.8, 211.6, 245.4);
+  --pico-card-box-shadow: var(--pico-box-shadow);
+  --pico-card-component-outline-width: 0.0625rem;
+  --pico-card-component-outline-color: transparent;
+  --pico-mark-gradient: linear-gradient(
+    to right,
+    rgb(132, 38, 108.5),
+    rgb(111.2, 57.1, 132.9),
+    rgb(93.45, 63.5, 153.8),
+    rgb(67.2, 71.6, 157.4)
+  );
+  --pico-stats-color: #2a628a;
+  --pico-features-icon-color: rgb(146.9, 76.9, 174.8);
+  --pico-comparison-gradient-valid: linear-gradient(
+    var(--pico-comparison-gradient-direction, to bottom),
+    rgb(122.5, 177.5, 197.75),
+    rgb(90, 166.25, 163.75),
+    rgb(100, 154.5, 102)
+  );
+  --pico-comparison-gradient-invalid: linear-gradient(
+    var(--pico-comparison-gradient-direction, to bottom),
+    rgb(207.5, 160.5, 99.5),
+    rgb(207.125, 126.125, 109.375),
+    rgb(212.25, 108.25, 99.25)
+  );
+  --pico-badge-html-background-color: rgba(168, 52, 16, 0.125);
+  --pico-badge-html-color: #a83410;
+  --pico-badge-react-background-color: rgba(34.5, 113.875, 142.75, 0.125);
+  --pico-badge-react-color: rgb(34.5, 113.875, 142.75);
+  --pico-badge-sass-background-color: rgba(149.5, 44.75, 123.5, 0.125);
+  --pico-badge-sass-color: rgb(149.5, 44.75, 123.5);
+  --pico-badge-javascript-background-color: rgba(129.5, 83.5, 0, 0.125);
+  --pico-badge-javascript-color: rgb(129.5, 83.5, 0);
+  --pico-badge-css-background-color: rgba(29, 89, 208, 0.125);
+  --pico-badge-css-color: #1d59d0;
+}
+@media only screen and (prefers-color-scheme: dark) {
+  :host:not([data-theme]),
+  :root:not([data-theme]) {
+    --pico-demo-border-gradient-colors: transparent 33%, rgb(74.2, 20.8, 68.4),
+      rgb(58.5, 32.5, 85.75), rgb(45, 36.6, 100.9), rgb(26.4, 42.9, 106.7);
+    --pico-card-box-shadow: none;
+    --pico-card-background-color: rgb(21.5, 25.25, 33.75);
+    --pico-card-component-outline-width: 0.0625rem;
+    --pico-card-component-outline-color: rgb(28, 33, 43.5);
+    --pico-card-border-color: var(--pico-card-component-outline-color);
+    --pico-mark-gradient: linear-gradient(
+      to right,
+      rgb(215.4, 140.8, 210.2),
+      rgb(184.5, 153, 237.75),
+      rgb(156.6, 165.3, 232.6),
+      rgb(142.75, 168.95, 240.05)
+    );
+    --pico-stats-color: rgb(120.5, 176, 227);
+    --pico-features-icon-color: rgb(184.5, 153, 237.75);
+    --pico-comparison-gradient-valid: linear-gradient(
+      var(--pico-comparison-gradient-direction, to bottom),
+      rgb(79.25, 123.5, 148.25),
+      rgb(58.125, 112.625, 115.625),
+      rgb(63, 101.5, 67)
+    );
+    --pico-comparison-gradient-invalid: linear-gradient(
+      var(--pico-comparison-gradient-direction, to bottom),
+      rgb(138.5, 110, 76.5),
+      rgb(153, 77.625, 63.25),
+      rgb(151.75, 54.5, 52.25)
+    );
+    --pico-badge-html-background-color: rgba(224.5, 149.5, 127.75, 0.125);
+    --pico-badge-html-color: rgb(224.5, 149.5, 127.75);
+    --pico-badge-react-background-color: rgba(78.375, 167.75, 195.125, 0.125);
+    --pico-badge-react-color: rgb(78.375, 167.75, 195.125);
+    --pico-badge-sass-background-color: rgba(204.5, 151.5, 199, 0.125);
+    --pico-badge-sass-color: rgb(204.5, 151.5, 199);
+    --pico-badge-javascript-background-color: rgba(188, 166.5, 99.5, 0.125);
+    --pico-badge-javascript-color: rgb(188, 166.5, 99.5);
+    --pico-badge-css-background-color: rgba(156, 167, 250, 0.125);
+    --pico-badge-css-color: #9ca7fa;
+  }
+}
+[data-theme="dark"] {
+  --pico-demo-border-gradient-colors: transparent 33%, rgb(74.2, 20.8, 68.4),
+    rgb(58.5, 32.5, 85.75), rgb(45, 36.6, 100.9), rgb(26.4, 42.9, 106.7);
+  --pico-card-box-shadow: none;
+  --pico-card-background-color: rgb(21.5, 25.25, 33.75);
+  --pico-card-component-outline-width: 0.0625rem;
+  --pico-card-component-outline-color: rgb(28, 33, 43.5);
+  --pico-card-border-color: var(--pico-card-component-outline-color);
+  --pico-mark-gradient: linear-gradient(
+    to right,
+    rgb(215.4, 140.8, 210.2),
+    rgb(184.5, 153, 237.75),
+    rgb(156.6, 165.3, 232.6),
+    rgb(142.75, 168.95, 240.05)
+  );
+  --pico-stats-color: rgb(120.5, 176, 227);
+  --pico-features-icon-color: rgb(184.5, 153, 237.75);
+  --pico-comparison-gradient-valid: linear-gradient(
+    var(--pico-comparison-gradient-direction, to bottom),
+    rgb(79.25, 123.5, 148.25),
+    rgb(58.125, 112.625, 115.625),
+    rgb(63, 101.5, 67)
+  );
+  --pico-comparison-gradient-invalid: linear-gradient(
+    var(--pico-comparison-gradient-direction, to bottom),
+    rgb(138.5, 110, 76.5),
+    rgb(153, 77.625, 63.25),
+    rgb(151.75, 54.5, 52.25)
+  );
+  --pico-badge-html-background-color: rgba(224.5, 149.5, 127.75, 0.125);
+  --pico-badge-html-color: rgb(224.5, 149.5, 127.75);
+  --pico-badge-react-background-color: rgba(78.375, 167.75, 195.125, 0.125);
+  --pico-badge-react-color: rgb(78.375, 167.75, 195.125);
+  --pico-badge-sass-background-color: rgba(204.5, 151.5, 199, 0.125);
+  --pico-badge-sass-color: rgb(204.5, 151.5, 199);
+  --pico-badge-javascript-background-color: rgba(188, 166.5, 99.5, 0.125);
+  --pico-badge-javascript-color: rgb(188, 166.5, 99.5);
+  --pico-badge-css-background-color: rgba(156, 167, 250, 0.125);
+  --pico-badge-css-color: #9ca7fa;
+}
+body {
+  overflow: hidden;
+}
+body > main {
+  --pico-homepage-spacing-vertical: calc(var(--pico-spacing) * 5);
+  --pico-homepage-spacing-horizontal: calc(var(--pico-spacing) * 3.5);
+  padding: 0;
+}
+@media (min-width: 576px) {
+  body > main {
+    --pico-homepage-spacing-vertical: calc(var(--pico-spacing) * 6);
+    --pico-homepage-spacing-horizontal: calc(var(--pico-spacing) * 4);
+  }
+}
+@media (min-width: 768px) {
+  body > main {
+    --pico-homepage-spacing-vertical: calc(var(--pico-spacing) * 7);
+    --pico-homepage-spacing-horizontal: calc(var(--pico-spacing) * 4.5);
+  }
+}
+@media (min-width: 1024px) {
+  body > main {
+    --pico-homepage-spacing-vertical: calc(var(--pico-spacing) * 8);
+    --pico-homepage-spacing-horizontal: calc(var(--pico-spacing) * 4);
+  }
+}
+@media (min-width: 1280px) {
+  body > main {
+    --pico-homepage-spacing-vertical: calc(var(--pico-spacing) * 9);
+    --pico-homepage-spacing-horizontal: calc(var(--pico-spacing) * 5.5);
+  }
+}
+@media (min-width: 1536px) {
+  body > main {
+    --pico-homepage-spacing-vertical: calc(var(--pico-spacing) * 10);
+    --pico-homepage-spacing-horizontal: calc(var(--pico-spacing) * 6);
+  }
+}
+body > main.is-loading {
+  animation-duration: 1s;
+  animation-fill-mode: forwards;
+  animation-name: page-loading;
+  opacity: 0.5;
+}
+@keyframes page-loading {
+  0% {
+    opacity: 1;
+  }
+}
+section {
+  margin-block: var(--pico-homepage-spacing-vertical);
+}
+body > main.homepage > .hero {
+  display: grid;
+  grid-template-columns: 1fr;
+  -moz-column-gap: var(--pico-homepage-spacing-horizontal);
+  column-gap: var(--pico-homepage-spacing-horizontal);
+  row-gap: calc(var(--pico-homepage-spacing-vertical) / 2);
+  justify-items: center;
+  margin-top: calc(var(--pico-homepage-spacing-vertical) / 2);
+  margin-bottom: 0;
+}
+body > main.homepage > .hero .demo,
+body > main.homepage > .hero .hook {
+  width: 100%;
+  min-width: 0;
+}
+body > main.homepage > .hero .hook {
+  z-index: 1;
+  position: relative;
+}
+@media (min-width: 1024px) {
+  body > main.homepage > .hero .hook {
+    max-width: 700px;
+  }
+}
+@media (min-width: 1280px) {
+  body > main.homepage > .hero .hook {
+    max-width: 950px;
+  }
+}
+body > main.homepage > .hero .hook h1,
+body > main.homepage > .hero .hook p {
+  text-wrap: balance;
+}
+@media (min-width: 576px) {
+  body > main.homepage > .hero .hook h1,
+  body > main.homepage > .hero .hook p {
+    text-align: center;
+  }
+}
+body > main.homepage > .hero .hook h1 {
+  margin-bottom: calc(var(--pico-spacing) * 2);
+}
+body > main.homepage > .hero .hook .grid.ctas {
+  --pico-form-element-spacing-horizontal: 2rem;
+  margin-top: calc(var(--pico-spacing) * 4);
+  margin-bottom: calc(var(--pico-spacing) * 0.5);
+}
+@media (min-width: 576px) {
+  body > main.homepage > .hero .hook .grid.ctas {
+    display: flex;
+    justify-content: center;
+  }
+}
+body > main.homepage > .hero .hook .grid.ctas a[role="button"] svg {
+  width: auto;
+  height: 1rem;
+  margin-left: calc(var(--pico-spacing) * 0.25);
+}
+body > main.homepage > .hero > .demo {
+  --angle: 0deg;
+  --demo-border-gradient: linear-gradient(
+    var(--angle),
+    var(--pico-demo-border-gradient-colors)
+  );
+  display: flex;
+  position: relative;
+  flex-direction: column;
+}
+@supports (-webkit-hyphens: none) {
+  body > main.homepage > .hero > .demo {
+    animation: none;
+  }
+}
+@media (min-width: 768px) {
+  body > main.homepage > .hero > .demo {
+    max-width: 700px;
+  }
+}
+@media (min-width: 1280px) {
+  body > main.homepage > .hero > .demo {
+    max-width: 950px;
+  }
+}
+body > main.homepage > .hero > .demo article.component {
+  --pico-block-spacing-horizontal: var(--pico-spacing) !important;
+  --pico-block-spacing-vertical: calc(var(--pico-spacing) * 1.5) !important;
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  justify-content: flex-start;
+  width: 100%;
+  min-width: 0;
+  height: 100%;
+  height: calc(22.8125rem + var(--pico-block-spacing-vertical));
+  margin-bottom: 0;
+  margin-inline: auto;
+  overflow: visible;
+  outline: 0;
+  background-color: var(--pico-background-color);
+  box-shadow: none;
+  pointer-events: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+}
+@media (min-width: 576px) {
+  body > main.homepage > .hero > .demo article.component {
+    --pico-block-spacing-horizontal: calc(var(--pico-spacing) * 1.5) !important;
+    --pico-block-spacing-vertical: calc(var(--pico-spacing) * 2) !important;
+    height: calc(24.5rem + var(--pico-block-spacing-vertical));
+  }
+}
+@media (min-width: 768px) {
+  body > main.homepage > .hero > .demo article.component {
+    height: calc(24.5rem + var(--pico-block-spacing-vertical));
+  }
+}
+@media (min-width: 1024px) {
+  body > main.homepage > .hero > .demo article.component {
+    height: calc(24rem + var(--pico-block-spacing-vertical));
+  }
+}
+@media (min-width: 1280px) {
+  body > main.homepage > .hero > .demo article.component {
+    --pico-block-spacing-horizontal: calc(var(--pico-spacing) * 3) !important;
+    --pico-block-spacing-vertical: calc(var(--pico-spacing) * 3) !important;
+    height: 24rem;
+  }
+}
+@media (min-width: 1536px) {
+  body > main.homepage > .hero > .demo article.component {
+    height: calc(23.5rem + var(--pico-block-spacing-vertical));
+  }
+}
+body > main.homepage > .hero > .demo article.component form button,
+body > main.homepage > .hero > .demo article.component form input:only-child,
+body
+  > main.homepage
+  > .hero
+  > .demo
+  article.component
+  form
+  input[aria-invalid="true"],
+body > main.homepage > .hero > .demo article.component form[role="group"],
+body > main.homepage > .hero > .demo article.component form[role="search"] {
+  margin-bottom: 0;
+}
+body > main.homepage > .hero > .demo article.component form small {
+  margin-top: 0.25rem;
+  margin-bottom: 0;
+}
+body > main.homepage > .hero > .demo article.component form label {
+  margin-bottom: 0;
+}
+body
+  > main.homepage
+  > .hero
+  > .demo
+  article.component
+  form[role="group"].is-focused,
+body
+  > main.homepage
+  > .hero
+  > .demo
+  article.component
+  form[role="search"].is-focused {
+  --pico-group-box-shadow: var(--pico-group-box-shadow-focus-with-button);
+}
+body
+  > main.homepage
+  > .hero
+  > .demo
+  article.component
+  form[role="group"].is-focused
+  input:not([type="checkbox"], [type="radio"]),
+body
+  > main.homepage
+  > .hero
+  > .demo
+  article.component
+  form[role="group"].is-focused
+  select,
+body
+  > main.homepage
+  > .hero
+  > .demo
+  article.component
+  form[role="search"].is-focused
+  input:not([type="checkbox"], [type="radio"]),
+body
+  > main.homepage
+  > .hero
+  > .demo
+  article.component
+  form[role="search"].is-focused
+  select {
+  border-color: transparent;
+}
+body
+  > main.homepage
+  > .hero
+  > .demo
+  article.component
+  form[role="group"].is-focused
+  button,
+body
+  > main.homepage
+  > .hero
+  > .demo
+  article.component
+  form[role="search"].is-focused
+  button {
+  box-shadow: none;
+}
+body > main.homepage > .hero > .demo article.component form input {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+}
+body
+  > main.homepage
+  > .hero
+  > .demo
+  article.component
+  form
+  input:not([type="range"]).is-focused {
+  --pico-border-color: var(--pico-form-element-active-border-color);
+  --pico-box-shadow: 0 0 0 var(--pico-outline-width)
+    var(--pico-form-element-focus-color);
+}
+body
+  > main.homepage
+  > .hero
+  > .demo
+  article.component
+  form
+  input:not([type="checkbox"]).is-focused {
+  --pico-background-color: var(--pico-form-element-active-background-color);
+}
+body
+  > main.homepage
+  > .hero
+  > .demo
+  article.component
+  form
+  input[type="range"].is-focused {
+  --pico-range-border-color: var(--pico-range-active-border-color);
+  --pico-range-thumb-color: var(--pico-range-thumb-active-color);
+}
+body
+  > main.homepage
+  > .hero
+  > .demo
+  article.component
+  form
+  input[type="range"].is-focused::-webkit-slider-thumb {
+  transform: scale(1.25);
+}
+body
+  > main.homepage
+  > .hero
+  > .demo
+  article.component
+  form
+  input[type="range"].is-focused::-moz-range-thumb {
+  transform: scale(1.25);
+}
+body
+  > main.homepage
+  > .hero
+  > .demo
+  article.component
+  form
+  input[type="range"].is-focused::-ms-thumb {
+  transform: scale(1.25);
+}
+body > main.homepage > .hero > .demo article.component form button.is-focused {
+  --pico-background-color: var(--pico-primary-hover-background);
+  --pico-border-color: var(--pico-primary-hover-border);
+  --pico-color: var(--pico-primary-inverse);
+  --pico-box-shadow: var(--pico-button-hover-box-shadow, 0 0 0 rgba(0, 0, 0, 0)),
+    0 0 0 var(--pico-outline-width) var(--pico-primary-focus);
+}
+body > main.homepage > .hero > .demo article.component form * {
+  transition: border-radius var(--pico-transition);
+}
+body > main.homepage > .hero > .demo article.component footer.code {
+  background: 0 0;
+}
+body > main.homepage > .hero > .demo article.component footer.code pre {
+  overflow: hidden;
+}
+body
+  > main.homepage
+  > .hero
+  > .demo
+  article.component
+  footer.code
+  [data-typeit-id]
+  .ti-cursor {
+  transform: translate(-0.25em);
+  color: inherit;
+  font-style: inherit;
+  font-weight: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  font-family: inherit;
+}
+body > main.homepage > .hero > .demo article.component .controls {
+  display: grid;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  grid-auto-flow: column;
+  padding: var(--pico-spacing);
+  pointer-events: all;
+  transition: opacity var(--pico-transition);
+  grid-gap: calc(var(--pico-spacing) * 0.25);
+}
+@media (min-width: 1280px) {
+  body > main.homepage > .hero > .demo article.component .controls {
+    opacity: 0;
+  }
+}
+body > main.homepage > .hero > .demo article.component .controls svg {
+  width: auto;
+  height: 1rem;
+  color: var(--pico-muted-color);
+  cursor: pointer;
+  transition: color var(--pico-transition);
+}
+body > main.homepage > .hero > .demo article.component .controls svg:hover {
+  color: var(--pico-secondary-hover);
+}
+body > main.homepage > .hero > .demo article.component:hover .controls {
+  opacity: 1;
+}
+body > main.homepage > .hero > .demo.is-maximized {
+  z-index: 999;
+  position: fixed;
+  max-width: none;
+  inset: 0;
+  transform: none;
+  background: var(--pico-background-color);
+}
+body > main.homepage > .hero > .demo.is-maximized article.component {
+  position: unset;
+  max-width: none;
+  border-radius: 0;
+  outline: 0;
+}
+@media (min-width: 576px) {
+  body > main.homepage > .hero > .demo.is-maximized article.component {
+    max-width: 510px;
+    height: auto;
+    margin: auto;
+  }
+}
+@media (min-width: 1024px) {
+  body > main.homepage > .hero > .demo.is-maximized article.component {
+    max-width: 700px;
+  }
+}
+@media (min-width: 1280px) {
+  body > main.homepage > .hero > .demo.is-maximized article.component {
+    max-width: 950px;
+  }
+}
+body > main.homepage > .hero > .demo.is-maximized article.component .controls {
+  opacity: 1;
+}
+body > main.homepage > .hero > .demo:before {
+  z-index: 0;
+  position: absolute;
+  inset: -3rem;
+  border-radius: var(--pico-border-radius);
+  background: var(--demo-border-gradient);
+  content: "";
+  filter: blur(3rem);
+  opacity: 0.25;
+}
+body > main.homepage > .hero > .demo:after {
+  z-index: -1;
+  position: absolute;
+  inset: -1px;
+  border-radius: var(--pico-border-radius);
+  background: var(--demo-border-gradient);
+  content: "";
+}
+body > main.homepage > .stats {
+  margin-top: calc(var(--pico-homepage-spacing-vertical) * 0.25);
+}
+body > main.homepage > .stats ul {
+  display: grid;
+  -moz-column-gap: calc(var(--pico-spacing) * 2);
+  column-gap: calc(var(--pico-spacing) * 2);
+  row-gap: calc(var(--pico-spacing) * 2);
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 0;
+}
+@media (min-width: 576px) {
+  body > main.homepage > .stats ul {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+body > main.homepage > .stats ul li {
+  margin: 0;
+  list-style-type: none;
+}
+@media (min-width: 576px) {
+  body > main.homepage > .stats ul li {
+    text-align: center;
+  }
+}
+body > main.homepage > .stats ul li p {
+  margin: 0;
+}
+body > main.homepage > .stats ul li p.count {
+  margin-bottom: calc(var(--pico-spacing) * 0.25);
+  color: var(--pico-stats-color);
+  font-size: 1.75rem;
+  line-height: 1.15;
+  font-family: Figtree, var(--pico-font-family);
+}
+body > main.homepage > .stats ul li p.label a {
+  text-decoration: none;
+}
+body > main.homepage > .stats ul li p.label a svg {
+  display: inline-block;
+  width: auto;
+  height: 1em;
+  margin-right: calc(var(--pico-spacing) * 0.375);
+  transform: translateY(-0.125em);
+}
+@media (min-width: 576px) {
+  body > main.homepage > .stats ul li p.label a svg {
+    display: none;
+  }
+}
+@media (min-width: 768px) {
+  body > main.homepage > .stats ul li p.label a svg {
+    display: inline-block;
+  }
+}
+@media (min-width: 576px) {
+  body > main.homepage > .stats ul li p.label a span.period-prefix {
+    display: none;
+  }
+}
+body > main.homepage > .stats ul li p.period-suffix {
+  display: none;
+  margin-bottom: 0;
+  color: var(--pico-secondary);
+  font-size: 14px;
+}
+@media (min-width: 576px) {
+  body > main.homepage > .stats ul li p.period-suffix {
+    display: block;
+  }
+}
+body > main.homepage > .features > hgroup {
+  max-width: 950px;
+  margin-bottom: calc(var(--pico-homepage-spacing-vertical) * 0.75);
+  margin-inline: auto;
+}
+@media (min-width: 576px) {
+  body > main.homepage > .features > hgroup {
+    text-align: center;
+  }
+}
+body > main.homepage > .features > hgroup > h2 {
+  margin-bottom: calc(var(--pico-spacing) * 1);
+}
+body > main.homepage > .features > hgroup > :not(:first-child):last-child {
+  --pico-color: var(--pico-color);
+  text-wrap: pretty;
+}
+body > main.homepage > .features > .grid {
+  -moz-column-gap: calc(var(--pico-homepage-spacing-horizontal) / 2);
+  column-gap: calc(var(--pico-homepage-spacing-horizontal) / 2);
+  row-gap: calc(var(--pico-homepage-spacing-vertical) / 2);
+}
+@media (min-width: 768px) {
+  body > main.homepage > .features > .grid {
+    grid-template-columns: 1fr;
+  }
+}
+@media (min-width: 1024px) {
+  body > main.homepage > .features > .grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+body > main.homepage > .features > .grid article {
+  margin-bottom: 0;
+  margin-block: 0;
+  border: var(--pico-card-component-outline-width) solid
+    var(--pico-card-component-outline-color);
+}
+body > main.homepage > .features > .grid article > svg {
+  width: auto;
+  height: 1.125rem;
+  margin-bottom: calc(var(--pico-spacing) * 0.75);
+  color: var(--pico-features-icon-color);
+}
+body > main.homepage > .features > .grid article > svg.pico-icon path {
+  fill: currentColor;
+}
+body > main.homepage > .features > .grid article h3 {
+  font-size: 1.25rem;
+  line-height: 1.2;
+}
+body > main.homepage > .features > .grid article p {
+  margin-bottom: calc(var(--pico-spacing) * 1);
+  color: var(--pico-muted-color);
+  text-wrap: pretty;
+}
+body > main.homepage > .features > .grid article p:last-child {
+  margin-bottom: 0;
+}
+body > main.homepage > .features > .grid article p:last-child a svg {
+  width: auto;
+  height: 1rem;
+  margin-left: calc(var(--pico-spacing) * 0.25);
+}
+body > main.homepage > .comparison > hgroup {
+  max-width: 700px;
+  margin-bottom: calc(var(--pico-homepage-spacing-vertical) * 0.75);
+  margin-inline: auto;
+}
+@media (min-width: 576px) {
+  body > main.homepage > .comparison > hgroup {
+    text-align: center;
+  }
+}
+@media (min-width: 768px) {
+  body > main.homepage > .comparison > hgroup {
+    margin-bottom: calc(var(--pico-homepage-spacing-vertical) / 3);
+  }
+}
+body > main.homepage > .comparison > hgroup > h2 {
+  margin-bottom: calc(var(--pico-spacing) * 1);
+}
+@media (min-width: 768px) {
+  body > main.homepage > .comparison > hgroup > h2 {
+    margin-bottom: calc(var(--pico-spacing) / 2);
+  }
+}
+body > main.homepage > .comparison > hgroup > :not(:first-child):last-child {
+  --pico-color: var(--pico-color);
+  text-wrap: pretty;
+}
+body > main.homepage > .comparison > .grid {
+  -moz-column-gap: calc(var(--pico-homepage-spacing-horizontal) / 2);
+  column-gap: calc(var(--pico-homepage-spacing-horizontal) / 2);
+  row-gap: calc(var(--pico-homepage-spacing-vertical) / 2);
+}
+@media (min-width: 768px) {
+  body > main.homepage > .comparison > .grid {
+    grid-template-columns: 1fr;
+  }
+}
+@media (min-width: 1024px) {
+  body > main.homepage > .comparison > .grid {
+    grid-template-columns: repeat(auto-fit, minmax(0%, 1fr));
+  }
+}
+body > main.homepage > .comparison > .grid > div {
+  display: flex;
+  flex-direction: column;
+}
+body > main.homepage > .comparison > .grid > div p .emoji {
+  font-size: 1.25rem;
+}
+body > main.homepage > .comparison > .grid > div .code {
+  height: 100%;
+  margin-bottom: 0;
+  border: var(--pico-card-component-outline-width) solid
+    var(--pico-card-component-outline-color);
+  background-color: var(--pico-card-background-color);
+}
+body > main.homepage > .comparison > .grid > div .code:before {
+  display: block;
+  position: absolute;
+  width: 0.25rem;
+  height: 100%;
+  inset: 0 auto 0 0;
+  content: "";
+}
+body > main.homepage > .comparison > .grid > div .code pre {
+  height: 100%;
+}
+@media (min-width: 1024px) {
+  body > main.homepage > .comparison > .grid > div .code {
+    --pico-comparison-gradient-direction: to right;
+  }
+  body > main.homepage > .comparison > .grid > div .code:before {
+    width: 100%;
+    height: 0.25rem;
+    inset: 0 0 auto;
+  }
+}
+body > main.homepage > .comparison > .grid > div.pico .code:before {
+  background: var(--pico-comparison-gradient-valid);
+}
+body
+  > main.homepage
+  > .comparison
+  > .grid
+  > div.utility-framework
+  .code:before {
+  background: var(--pico-comparison-gradient-invalid);
+}
+body > main.examples > .examples-hero {
+  margin-top: calc(var(--pico-homepage-spacing-vertical) / 2);
+  margin-bottom: 0;
+}
+@media (min-width: 576px) {
+  body > main.examples > .examples-hero {
+    text-align: center;
+  }
+}
+body > main.examples > .examples-list {
+  display: grid;
+  -moz-column-gap: calc(var(--pico-homepage-spacing-horizontal) / 2);
+  column-gap: calc(var(--pico-homepage-spacing-horizontal) / 2);
+  row-gap: calc(var(--pico-homepage-spacing-vertical) / 2);
+  margin-top: calc(var(--pico-homepage-spacing-vertical) / 2);
+}
+@media (min-width: 1024px) {
+  body > main.examples > .examples-list {
+    grid-template-columns: 1fr 1fr;
+    row-gap: calc(var(--pico-homepage-spacing-horizontal) / 2);
+  }
+}
+@media (min-width: 1536px) {
+  body > main.examples > .examples-list {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+body > main.examples > .examples-list article {
+  margin: 0;
+  outline-color: var(--pico-card-component-outline-color);
+  outline-style: solid;
+  outline-width: var(--pico-card-component-outline-width);
+}
+@media (min-width: 1280px) {
+  body > main.examples > .examples-list article {
+    --pico-block-spacing-vertical: calc(var(--pico-spacing) * 1.75);
+    --pico-block-spacing-horizontal: calc(var(--pico-spacing) * 1.75);
+  }
+}
+body > main.examples > .examples-list article .badges {
+  display: flex;
+  margin-bottom: calc(var(--pico-spacing) / 2);
+}
+body > main.examples > .examples-list article .badges .badge {
+  padding: 0.125rem 0.25rem;
+  border-radius: 0.125rem;
+  font-weight: 600;
+  font-size: 12px;
+  text-transform: uppercase;
+  vertical-align: text-bottom;
+}
+body > main.examples > .examples-list article .badges .badge:not(:last-child) {
+  margin-right: calc(var(--pico-spacing) / 2);
+}
+body > main.examples > .examples-list article .badges .badge.html {
+  background-color: var(--pico-badge-html-background-color);
+  color: var(--pico-badge-html-color);
+}
+body > main.examples > .examples-list article .badges .badge.react {
+  background-color: var(--pico-badge-react-background-color);
+  color: var(--pico-badge-react-color);
+}
+body > main.examples > .examples-list article .badges .badge.sass {
+  background-color: var(--pico-badge-sass-background-color);
+  color: var(--pico-badge-sass-color);
+}
+body > main.examples > .examples-list article .badges .badge.javascript {
+  background-color: var(--pico-badge-javascript-background-color);
+  color: var(--pico-badge-javascript-color);
+}
+body > main.examples > .examples-list article .badges .badge.css {
+  background-color: var(--pico-badge-css-background-color);
+  color: var(--pico-badge-css-color);
+}
+body > main.examples > .examples-list article h2 {
+  font-size: 1.25rem;
+  line-height: 1.2;
+  text-wrap: balance;
+  margin-bottom: calc(var(--pico-spacing) / 4);
+}
+body > main.examples > .examples-list article p {
+  color: var(--pico-muted-color);
+  text-wrap: pretty;
+}
+body > main.examples > .examples-list article p:not(:last-child) {
+  margin-bottom: calc(var(--pico-spacing) * 1.5);
+}
+body > main.examples > .examples-list article p.links {
+  margin-bottom: 0;
+}
+body > main.examples > .examples-list article p.links a {
+  display: block;
+}
+body > main.examples > .examples-list article p.links a:not(:last-child) {
+  margin-bottom: calc(var(--pico-spacing) / 4);
+}
+body > main.examples > .examples-list article p.links a svg {
+  width: auto;
+  height: 1rem;
+  margin-right: calc(var(--pico-spacing) / 4);
+  transform: translateY(-0.0625rem);
+}
+body > main.examples > .examples-list article p.links a svg.pico-icon path {
+  fill: currentColor;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: Figtree, var(--pico-font-family);
+}
+@media (min-width: 576px) {
+  h1 {
+    --pico-font-size: 2.5rem;
+    --pico-line-height: 1.0625;
+  }
+  h2 {
+    --pico-font-size: 2rem;
+    --pico-line-height: 1.125;
+  }
+  h3 {
+    --pico-font-size: 1.75rem;
+    --pico-line-height: 1.15;
+  }
+  h4 {
+    --pico-font-size: 1.5rem;
+    --pico-line-height: 1.175;
+  }
+  h5 {
+    --pico-font-size: 1.25rem;
+    --pico-line-height: 1.2;
+  }
+  h6 {
+    --pico-font-size: 1.125rem;
+    --pico-line-height: 1.225;
+  }
+}
+@media (min-width: 1536px) {
+  h1 {
+    --pico-font-size: 3rem;
+    --pico-line-height: 1;
+  }
+  h2 {
+    --pico-font-size: 2.5rem;
+    --pico-line-height: 1.0625;
+  }
+}
+.fade-in {
+  animation-duration: 1s;
+  animation-fill-mode: both;
+  animation-name: fade-in;
+}
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+a .icon-arrow-right {
+  --icon-right-toggle-duration: 0.2s;
+}
+a .icon-arrow-right g.head,
+a .icon-arrow-right path.line {
+  transition-duration: var(--icon-right-toggle-duration);
+  transition-property: transform;
+  transition-timing-function: ease-in-out;
+}
+a .icon-arrow-right g.head {
+  transform: translate(0);
+}
+a .icon-arrow-right path.line {
+  transform: translate(0) scaleX(0);
+  transform-origin: 14px;
+}
+a:hover .icon-arrow-right g.head {
+  transform: translate(5px);
+}
+a:hover .icon-arrow-right path.line {
+  transform: translate(5px) scaleX(1);
+}
+mark {
+  padding: 0;
+  background: var(--pico-mark-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+    </style>
+  </head>
+  <body style="min-height:100vh">
+    <a href="#content" class="skip-to-content contrast" role="button">Skip to content</a>
+    <header>
+      <div class="container">
+        <a aria-label="Pico CSS homepage" data-discover="true" href="/">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 381 164" fill="none" class="pico-logo">
+            <path d="M355.83 57.6809a1.998 1.998 0 0 0-1.149 1.1487l-7.814 20.317c-.658 1.7094-3.076 1.7094-3.734 0l-7.814-20.317a1.998 1.998 0 0 0-1.149-1.1487l-20.317-7.8142c-1.709-.6575-1.709-3.0759 0-3.7334l20.317-7.8142a1.998 1.998 0 0 0 1.149-1.1487l7.814-20.317c.658-1.7094 3.076-1.7094 3.734 0l7.814 20.317c.203.5281.62.9455 1.149 1.1487l20.317 7.8142c1.709.6575 1.709 3.0759 0 3.7334l-20.317 7.8142Z" fill="var(--pico-logo-big-sparkle)"></path>
+            <path d="M298.867 31.1466c-.658 1.7094-3.076 1.7094-3.734 0l-2.814-7.317a1.998 1.998 0 0 0-1.149-1.1487l-7.317-2.8142c-1.709-.6575-1.709-3.0759 0-3.7334l7.317-2.8142a1.998 1.998 0 0 0 1.149-1.1487l2.814-7.317c.658-1.7094 3.076-1.7094 3.734 0l2.814 7.317c.203.5281.62.9455 1.149 1.1487l7.317 2.8142c1.709.6575 1.709 3.0759 0 3.7334l-7.317 2.8142a1.998 1.998 0 0 0-1.149 1.1487l-2.814 7.317Z" fill="var(--pico-logo-small-sparkles)"></path>
+            <path d="M314.83 82.6809a1.998 1.998 0 0 0-1.149 1.1487l-2.814 7.317c-.658 1.7094-3.076 1.7094-3.734 0l-2.814-7.317a1.998 1.998 0 0 0-1.149-1.1487l-7.317-2.8142c-1.709-.6575-1.709-3.0759 0-3.7334l7.317-2.8142a1.998 1.998 0 0 0 1.149-1.1487l2.814-7.317c.658-1.7094 3.076-1.7094 3.734 0l2.814 7.317c.203.5281.62.9455 1.149 1.1487l7.317 2.8142c1.709.6575 1.709 3.0759 0 3.7334l-7.317 2.8142Z" fill="var(--pico-logo-small-sparkles)"></path>
+            <path d="M0 164V62.7234h21.1769l1.2965 13.3106V164H0Zm42.93-27.2c-5.9545 0-10.9486-1.495-14.9823-4.485-4.0337-3.087-7.0589-7.475-9.0758-13.166-2.0168-5.691-3.0253-12.443-3.0253-20.2554 0-7.9092 1.0085-14.661 3.0253-20.2553 2.0169-5.6908 5.0421-10.0312 9.0758-13.0213 4.0337-3.0865 9.0278-4.6298 14.9823-4.6298 6.7228 0 12.5333 1.5433 17.4313 4.6298 4.8981 2.9901 8.6436 7.3305 11.2367 13.0213 2.5931 5.5943 3.8897 12.3461 3.8897 20.2553 0 7.8124-1.2966 14.5644-3.8897 20.2554-2.5931 5.691-6.3386 10.079-11.2367 13.166-4.898 2.99-10.7085 4.485-17.4313 4.485Zm-5.7624-20.834c2.8812 0 5.4263-.723 7.6352-2.17s3.9857-3.424 5.3302-5.932c1.3446-2.604 2.0169-5.595 2.0169-8.9704 0-3.3759-.6243-6.3177-1.8728-8.8255-1.2485-2.6043-3.0253-4.6298-5.3302-6.0766-2.209-1.4468-4.754-2.1702-7.6352-2.1702-2.8813 0-5.4743.7234-7.7793 2.1702-2.2089 1.4468-3.9377 3.4723-5.1862 6.0766-1.2485 2.6042-1.8728 5.5461-1.8728 8.8255 0 3.3754.6243 6.3664 1.8728 8.9704 1.2485 2.508 2.9773 4.485 5.1862 5.932 2.2089 1.447 4.754 2.17 7.6352 2.17Zm50.6327 19.098V62.7234h22.4737v72.3406H87.8003ZM99.037 53.4638c-3.3614 0-6.3386-1.2539-8.9317-3.7617-2.4971-2.6042-3.7456-5.5943-3.7456-8.9702 0-3.5688 1.2485-6.5589 3.7456-8.9702C92.6984 29.2539 95.6756 28 99.037 28c3.457 0 6.435 1.2539 8.932 3.7617 2.497 2.4113 3.745 5.4014 3.745 8.9702 0 3.3759-1.248 6.366-3.745 8.9702-2.497 2.5078-5.475 3.7617-8.932 3.7617ZM162.188 136.8c-7.683 0-14.55-1.591-20.6-4.774-5.955-3.28-10.613-7.765-13.974-13.456-3.362-5.787-5.042-12.346-5.042-19.6764 0-7.4269 1.68-13.9858 5.042-19.6766 3.361-5.6908 7.971-10.1276 13.83-13.3106 5.954-3.2795 12.773-4.9192 20.456-4.9192 7.395 0 14.166 1.8809 20.313 5.6426 6.146 3.7617 10.564 9.2113 13.253 16.3489l-21.321 7.2341c-1.056-2.3149-2.833-4.1958-5.33-5.6426-2.401-1.5433-5.09-2.3149-8.067-2.3149-2.977 0-5.619.7234-7.924 2.1702-2.208 1.3504-3.985 3.2795-5.33 5.7873-1.248 2.5078-1.873 5.4014-1.873 8.6808s.625 6.1734 1.873 8.6804c1.345 2.412 3.17 4.341 5.475 5.788 2.401 1.447 5.09 2.17 8.067 2.17 2.977 0 5.666-.772 8.067-2.315s4.178-3.569 5.331-6.077l21.32 7.234c-2.785 7.235-7.251 12.781-13.397 16.639-6.051 3.858-12.774 5.787-20.169 5.787Zm78.636 0c-7.587 0-14.31-1.591-20.168-4.774-5.763-3.28-10.325-7.765-13.686-13.456-3.266-5.691-4.898-12.249-4.898-19.6764 0-7.4269 1.632-13.9858 4.898-19.6766 3.265-5.6908 7.779-10.1276 13.541-13.3106 5.859-3.2795 12.486-4.9192 19.881-4.9192 7.587 0 14.262 1.6397 20.024 4.9192 5.859 3.183 10.421 7.6198 13.686 13.3106C277.367 84.9078 279 91.4667 279 98.8936c0 7.4274-1.633 13.9854-4.898 19.6764-3.265 5.691-7.779 10.176-13.542 13.456-5.666 3.183-12.245 4.774-19.736 4.774Zm-.144-21.413c2.977 0 5.522-.675 7.635-2.025 2.209-1.447 3.938-3.376 5.186-5.788 1.249-2.507 1.873-5.401 1.873-8.6804 0-3.2794-.672-6.1248-2.017-8.5362-1.248-2.5078-2.977-4.4368-5.186-5.7872-2.209-1.4468-4.754-2.1702-7.635-2.1702-2.881 0-5.426.7234-7.635 2.1702-2.209 1.3504-3.938 3.2794-5.187 5.7872-1.248 2.4114-1.872 5.2568-1.872 8.5362 0 3.1834.624 6.0284 1.872 8.5364 1.249 2.508 2.978 4.485 5.187 5.932 2.305 1.35 4.898 2.025 7.779 2.025Z" fill="var(--pico-logo-wordmark)"></path>
+          </svg>
+        </a>
+        <nav>
+          <ul>
+            <li class="hide-before-sm">
+              <a class="contrast" data-discover="true" href="/examples">Examples</a>
+            </li>
+            <li>
+              <a class="contrast" data-discover="true" href="/docs">Docs</a>
+            </li>
+          </ul>
+          <ul class="icons">
+            <li>
+              <a rel="noopener noreferrer" class="contrast" aria-label="GitHub repository" href="https://github.com/picocss/pico" target="_blank">
+                <svg xmlns="http://www.w3.org/2000/svg" height="24" width="24.25" viewBox="0 0 496 512" class="icon-github">
+                  <path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"></path>
+                </svg>
+              </a>
+            </li>
+            <li>
+              <a rel="noopener noreferrer" class="contrast" aria-label="Twitter" href="https://x.com/picocss" target="_blank">
+                <svg xmlns="http://www.w3.org/2000/svg" height="24" width="24" viewBox="0 0 512 512" class="icon-x">
+                  <path d="M389.2 48h70.6L305.6 224.2 487 464H345L233.7 318.6 106.5 464H35.8L200.7 275.5 26.8 48H172.4L272.9 180.9 389.2 48zM364.4 421.8h39.1L151.1 88h-42L364.4 421.8z"></path>
+                </svg>
+              </a>
+            </li>
+            <li>
+              <a class="contrast" aria-label="Turn on dark mode" data-discover="true" href="/">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 32 32" fill="currentColor" class="icon-theme-toggle ">
+                  <clipPath id="theme-toggle-cutout">
+                    <path d="M0-11h25a1 1 0 0017 13v30H0Z"></path>
+                  </clipPath>
+                  <g clip-path="url(#theme-toggle-cutout)">
+                    <circle cx="16" cy="16" r="8.4"></circle>
+                    <path d="M18.3 3.2c0 1.3-1 2.3-2.3 2.3s-2.3-1-2.3-2.3S14.7.9 16 .9s2.3 1 2.3 2.3zm-4.6 25.6c0-1.3 1-2.3 2.3-2.3s2.3 1 2.3 2.3-1 2.3-2.3 2.3-2.3-1-2.3-2.3zm15.1-10.5c-1.3 0-2.3-1-2.3-2.3s1-2.3 2.3-2.3 2.3 1 2.3 2.3-1 2.3-2.3 2.3zM3.2 13.7c1.3 0 2.3 1 2.3 2.3s-1 2.3-2.3 2.3S.9 17.3.9 16s1-2.3 2.3-2.3zm5.8-7C9 7.9 7.9 9 6.7 9S4.4 8 4.4 6.7s1-2.3 2.3-2.3S9 5.4 9 6.7zm16.3 21c-1.3 0-2.3-1-2.3-2.3s1-2.3 2.3-2.3 2.3 1 2.3 2.3-1 2.3-2.3 2.3zm2.4-21c0 1.3-1 2.3-2.3 2.3S23 7.9 23 6.7s1-2.3 2.3-2.3 2.4 1 2.4 2.3zM6.7 23C8 23 9 24 9 25.3s-1 2.3-2.3 2.3-2.3-1-2.3-2.3 1-2.3 2.3-2.3z"></path>
+                  </g>
+                </svg>
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+    <main id="content" class="homepage container">
+      <section class="hero">
+        <div class="hook">
+          <h1>
+            <mark>Minimal CSS Framework</mark>
+            <br />for Semantic HTML
+          </h1>
+          <p class="secondary">A minimalist and lightweight starter kit that prioritizes semantic syntax, making every HTML element responsive and elegant by default.</p>
+          <p>Write HTML, Add Pico CSS, and Voilà!</p>
+          <div class="grid ctas">
+            <a role="button" data-discover="true" href="/docs">Get Started <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" class="icon-arrow-right">
+                <g class="head">
+                  <path d="M10 16L14 12"></path>
+                  <path d="M10 8L14 12"></path>
+                </g>
+                <path class="line" d="M0 12H14"></path>
+              </svg>
+            </a>
+            <a role="button" class="contrast" data-discover="true" href="/examples">Examples <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" class="icon-arrow-right">
+                <g class="head">
+                  <path d="M10 16L14 12"></path>
+                  <path d="M10 8L14 12"></path>
+                </g>
+                <path class="line" d="M0 12H14"></path>
+              </svg>
+            </a>
+          </div>
+        </div>
+        <div class="demo">
+          <article class="component" aria-label="Demo">
+            <form class="">
+              <input tabindex="-1" placeholder="Enter your email" class="" name="input-demo" value="" />
+            </form>
+            <footer class="code">
+              <pre>
+								<code>
+									<noscript>&lt;
+										<span class="token tag">form</span>&gt;
+										<br/>  &lt;
+										<span class="token tag">input</span>
+										<br/>
+										<span class="token tag attr-name">type</span>=
+										<span class="token tag attr-value">&quot;email&quot;</span>
+										<br/>
+										<span class="token tag attr-name">placeholder</span>=
+										<span class="token tag attr-value">&quot;Enter your email&quot;</span>
+										<br/>  /&gt;
+										<br/>&lt;/
+										<span class="token tag">form</span>&gt;
+									</noscript>
+									<span as="span" style="opacity:0"></span>
+								</code>
+							</pre>
+            </footer>
+          </article>
+        </div>
+      </section>
+      <section class="stats">
+        <ul>
+          <li>
+            <p class="count">
+              <strong>14.8K</strong>
+            </p>
+            <p class="label">
+              <a href="https://github.com/picocss/pico" class="secondary" target="_blank" rel="noopener noreferrer">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" class="icon-star">
+                  <path d="M8.243 7.34l-6.38 .925l-.113 .023a1 1 0 0 0 -.44 1.684l4.622 4.499l-1.09 6.355l-.013 .11a1 1 0 0 0 1.464 .944l5.706 -3l5.693 3l.1 .046a1 1 0 0 0 1.352 -1.1l-1.091 -6.355l4.624 -4.5l.078 -.085a1 1 0 0 0 -.633 -1.62l-6.38 -.926l-2.852 -5.78a1 1 0 0 0 -1.794 0l-2.853 5.78z"></path>
+                </svg>GitHub Stars </a>
+            </p>
+          </li>
+          <li>
+            <p class="count">
+              <strong>65.8K</strong>
+            </p>
+            <p class="label">
+              <a href="https://www.npmjs.com/package/@picocss/pico" class="secondary" target="_blank" rel="noopener noreferrer">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" class="icon-terminal">
+                  <path d="M8 9l3 3l-3 3"></path>
+                  <path d="M13 15l3 0"></path>
+                  <path d="M3 4m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z"></path>
+                </svg>
+                <span class="period-prefix">Monthly </span>Npm Downloads </a>
+            </p>
+            <p class="period-suffix">(Last month)</p>
+          </li>
+          <li>
+            <p class="count">
+              <strong>12.6M</strong>
+            </p>
+            <p class="label">
+              <a href="https://www.jsdelivr.com/package/npm/@picocss/pico" class="secondary" target="_blank" rel="noopener noreferrer">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" class="icon-cloud-download">
+                  <path d="M19 18a3.5 3.5 0 0 0 0 -7h-1a5 4.5 0 0 0 -11 -2a4.6 4.4 0 0 0 -2.1 8.4"></path>
+                  <path d="M12 13l0 9"></path>
+                  <path d="M9 19l3 3l3 -3"></path>
+                </svg>
+                <span class="period-prefix">Monthly </span>JSDelivr Requests </a>
+            </p>
+            <p class="period-suffix">(Last month)</p>
+          </li>
+        </ul>
+      </section>
+      <section class="features">
+        <hgroup>
+          <h2>A Superpowered <mark>HTML Reset</mark>
+          </h2>
+          <p>With just the right amount of everything, Pico is a great starting point for a clean and lightweight design system.</p>
+        </hgroup>
+        <div class="grid">
+          <article>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" class="icon-code">
+              <path d="M7 8l-4 4l4 4"></path>
+              <path d="M17 8l4 4l-4 4"></path>
+              <path d="M14 4l-4 16"></path>
+            </svg>
+            <h3>Class-light and Semantic</h3>
+            <p>Thriving on simplicity, Pico directly styles your HTML tags, using fewer than 10
+              <!-- -->
+              <code>.classes</code> overall. It also comes with a class-less version for wild HTML purists.
+            </p>
+            <p>
+              <a data-discover="true" href="/docs/classless">Discover the class-less version <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" class="icon-arrow-right">
+                  <g class="head">
+                    <path d="M10 16L14 12"></path>
+                    <path d="M10 8L14 12"></path>
+                  </g>
+                  <path class="line" d="M0 12H14"></path>
+                </svg>
+              </a>
+            </p>
+          </article>
+          <article>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="279 0 102 93" fill="none" class="pico-icon">
+              <path d="M355.83 57.6809a1.998 1.998 0 0 0-1.149 1.1487l-7.814 20.317c-.658 1.7094-3.076 1.7094-3.734 0l-7.814-20.317a1.998 1.998 0 0 0-1.149-1.1487l-20.317-7.8142c-1.709-.6575-1.709-3.0759 0-3.7334l20.317-7.8142a1.998 1.998 0 0 0 1.149-1.1487l7.814-20.317c.658-1.7094 3.076-1.7094 3.734 0l7.814 20.317c.203.5281.62.9455 1.149 1.1487l20.317 7.8142c1.709.6575 1.709 3.0759 0 3.7334l-20.317 7.8142Z" fill="var(--pico-logo-big-sparkle)"></path>
+              <path d="M298.867 31.1466c-.658 1.7094-3.076 1.7094-3.734 0l-2.814-7.317a1.998 1.998 0 0 0-1.149-1.1487l-7.317-2.8142c-1.709-.6575-1.709-3.0759 0-3.7334l7.317-2.8142a1.998 1.998 0 0 0 1.149-1.1487l2.814-7.317c.658-1.7094 3.076-1.7094 3.734 0l2.814 7.317c.203.5281.62.9455 1.149 1.1487l7.317 2.8142c1.709.6575 1.709 3.0759 0 3.7334l-7.317 2.8142a1.998 1.998 0 0 0-1.149 1.1487l-2.814 7.317Z" fill="var(--pico-logo-small-sparkles)"></path>
+              <path d="M314.83 82.6809a1.998 1.998 0 0 0-1.149 1.1487l-2.814 7.317c-.658 1.7094-3.076 1.7094-3.734 0l-2.814-7.317a1.998 1.998 0 0 0-1.149-1.1487l-7.317-2.8142c-1.709-.6575-1.709-3.0759 0-3.7334l7.317-2.8142a1.998 1.998 0 0 0 1.149-1.1487l2.814-7.317c.658-1.7094 3.076-1.7094 3.734 0l2.814 7.317c.203.5281.62.9455 1.149 1.1487l7.317 2.8142c1.709.6575 1.709 3.0759 0 3.7334l-7.317 2.8142Z" fill="var(--pico-logo-small-sparkles)"></path>
+            </svg>
+            <h3>Great Styles with Just CSS</h3>
+            <p>No extra baggage needed. Pico works seamlessly without dependencies, package managers, external files, or JavaScript, achieving elegant and straightforward styles with pure HTML markup.</p>
+            <p>
+              <a data-discover="true" href="/docs">Get started <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" class="icon-arrow-right">
+                  <g class="head">
+                    <path d="M10 16L14 12"></path>
+                    <path d="M10 8L14 12"></path>
+                  </g>
+                  <path class="line" d="M0 12H14"></path>
+                </svg>
+              </a>
+            </p>
+          </article>
+          <article>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" class="icon-expand">
+              <path d="M16 4l4 0l0 4"></path>
+              <path d="M14 10l6 -6"></path>
+              <path d="M8 20l-4 0l0 -4"></path>
+              <path d="M4 20l6 -6"></path>
+              <path d="M16 20l4 0l0 -4"></path>
+              <path d="M14 14l6 6"></path>
+              <path d="M8 4l-4 0l0 4"></path>
+              <path d="M4 4l6 6"></path>
+            </svg>
+            <h3>Responsive Everything</h3>
+            <p>Effortless elegance on every device. Pico natively scales font sizes and spacings with screen widths, resulting in a consistent and elegant look across devices. No extra classes or configuration needed.</p>
+            <p>
+              <a data-discover="true" href="/docs/typography">Discover the responsive font sizes <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" class="icon-arrow-right">
+                  <g class="head">
+                    <path d="M10 16L14 12"></path>
+                    <path d="M10 8L14 12"></path>
+                  </g>
+                  <path class="line" d="M0 12H14"></path>
+                </svg>
+              </a>
+            </p>
+          </article>
+          <article>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" class="icon-brightness">
+              <path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0"></path>
+              <path d="M12 3l0 18"></path>
+              <path d="M12 9l4.65 -4.65"></path>
+              <path d="M12 14.3l7.37 -7.37"></path>
+              <path d="M12 19.6l8.85 -8.85"></path>
+            </svg>
+            <h3>Light or Dark Mode</h3>
+            <p>Pico comes with two accessible, neutral color schemes out of the box: light and dark. The best part? It automatically adapts to users&#x27; <code>prefers-color-scheme</code>, all without the use of JavaScript. </p>
+            <p>
+              <a data-discover="true" href="/docs/color-schemes">Learn about the color schemes <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" class="icon-arrow-right">
+                  <g class="head">
+                    <path d="M10 16L14 12"></path>
+                    <path d="M10 8L14 12"></path>
+                  </g>
+                  <path class="line" d="M0 12H14"></path>
+                </svg>
+              </a>
+            </p>
+          </article>
+          <article>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" class="icon-adjustments">
+              <path d="M6 3a1 1 0 0 1 .993 .883l.007 .117v3.171a3.001 3.001 0 0 1 0 5.658v7.171a1 1 0 0 1 -1.993 .117l-.007 -.117v-7.17a3.002 3.002 0 0 1 -1.995 -2.654l-.005 -.176l.005 -.176a3.002 3.002 0 0 1 1.995 -2.654v-3.17a1 1 0 0 1 1 -1z" stroke-width="0" fill="currentColor"></path>
+              <path d="M12 3a1 1 0 0 1 .993 .883l.007 .117v9.171a3.001 3.001 0 0 1 0 5.658v1.171a1 1 0 0 1 -1.993 .117l-.007 -.117v-1.17a3.002 3.002 0 0 1 -1.995 -2.654l-.005 -.176l.005 -.176a3.002 3.002 0 0 1 1.995 -2.654v-9.17a1 1 0 0 1 1 -1z" stroke-width="0" fill="currentColor"></path>
+              <path d="M18 3a1 1 0 0 1 .993 .883l.007 .117v.171a3.001 3.001 0 0 1 0 5.658v10.171a1 1 0 0 1 -1.993 .117l-.007 -.117v-10.17a3.002 3.002 0 0 1 -1.995 -2.654l-.005 -.176l.005 -.176a3.002 3.002 0 0 1 1.995 -2.654v-.17a1 1 0 0 1 1 -1z" stroke-width="0" fill="currentColor"></path>
+            </svg>
+            <h3>Easy Customization</h3>
+            <p>Customize Pico with over 130 CSS variables, or dive deeper by using SASS. Switch between 20 handcrafted color themes and compose with 30+ modular components to tailor the UI to your brand&#x27;s look and feel.</p>
+            <p>
+              <a data-discover="true" href="/docs/css-variables">Learn about the CSS variables <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" class="icon-arrow-right">
+                  <g class="head">
+                    <path d="M10 16L14 12"></path>
+                    <path d="M10 8L14 12"></path>
+                  </g>
+                  <path class="line" d="M0 12H14"></path>
+                </svg>
+              </a>
+            </p>
+          </article>
+          <article>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" class="icon-speedtest">
+              <path d="M5.636 19.364a9 9 0 1 1 12.728 0"></path>
+              <path d="M16 9l-4 4"></path>
+            </svg>
+            <h3>Optimized Performance</h3>
+            <p>Speed meets elegance. Unlike bulky and overcomplicated frameworks that demand extensive class overrides and JavaScript, Pico keeps your HTML lean, decreases memory usage by avoiding excessive CSS specificity, and reduces loaded files.</p>
+            <p>
+              <a data-discover="true" href="/docs">Quick start <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" class="icon-arrow-right">
+                  <g class="head">
+                    <path d="M10 16L14 12"></path>
+                    <path d="M10 8L14 12"></path>
+                  </g>
+                  <path class="line" d="M0 12H14"></path>
+                </svg>
+              </a>
+            </p>
+          </article>
+        </div>
+      </section>
+      <section class="comparison">
+        <hgroup>
+          <h2>Embrace the <mark>Power of Less</mark>
+          </h2>
+          <p>A strong design foundation thrives on simplicity and ease of maintenance.</p>
+        </hgroup>
+        <div class="grid">
+          <div class="pico">
+            <p>
+              <span class="emoji">😌</span> Pico CSS
+            </p>
+            <div class="code" data-theme="light">
+              <pre class="prismjs">
+								<code class="language-html">
+									<span class="token tag punctuation">&lt;</span>
+									<span class="token tag">form</span>
+									<span class="token tag punctuation">&gt;</span>
+									<span class=""></span>
+									<span class=""></span>
+									<span class="token tag punctuation">&lt;</span>
+									<span class="token tag">input</span>
+									<span class="token tag"></span>
+									<span class="token tag attr-name">type</span>
+									<span class="token tag attr-value punctuation attr-equals">=</span>
+									<span class="token tag attr-value punctuation">&quot;</span>
+									<span class="token tag attr-value">text</span>
+									<span class="token tag attr-value punctuation">&quot;</span>
+									<span class="token tag punctuation">&gt;</span>
+									<span class=""></span>
+									<span class=""></span>
+									<span class="token tag punctuation">&lt;</span>
+									<span class="token tag">button</span>
+									<span class="token tag"></span>
+									<span class="token tag attr-name">type</span>
+									<span class="token tag attr-value punctuation attr-equals">=</span>
+									<span class="token tag attr-value punctuation">&quot;</span>
+									<span class="token tag attr-value">submit</span>
+									<span class="token tag attr-value punctuation">&quot;</span>
+									<span class="token tag punctuation">&gt;</span>
+									<span class="">Action</span>
+									<span class="token tag punctuation">&lt;/</span>
+									<span class="token tag">button</span>
+									<span class="token tag punctuation">&gt;</span>
+									<span class=""></span>
+									<span class=""></span>
+									<span class="token tag punctuation">&lt;/</span>
+									<span class="token tag">form</span>
+									<span class="token tag punctuation">&gt;</span>
+								</code>
+							</pre>
+            </div>
+          </div>
+          <div class="utility-framework">
+            <p>
+              <span class="emoji">🥵</span> Utility CSS Framework
+            </p>
+            <div class="code" data-theme="light">
+              <pre class="prismjs">
+								<code class="language-html">
+									<span class="token tag punctuation">&lt;</span>
+									<span class="token tag">div</span>
+									<span class="token tag"></span>
+									<span class="token tag attr-name">class</span>
+									<span class="token tag attr-value punctuation attr-equals">=</span>
+									<span class="token tag attr-value punctuation">&quot;</span>
+									<span class="token tag attr-value">container display-flex my-md mx-sm</span>
+									<span class="token tag attr-value punctuation">&quot;</span>
+									<span class="token tag punctuation">&gt;</span>
+									<span class=""></span>
+									<span class=""></span>
+									<span class="token tag punctuation">&lt;</span>
+									<span class="token tag">form</span>
+									<span class="token tag"></span>
+									<span class="token tag attr-name">class</span>
+									<span class="token tag attr-value punctuation attr-equals">=</span>
+									<span class="token tag attr-value punctuation">&quot;</span>
+									<span class="token tag attr-value">form shadow-md my-md mx-sm align-center</span>
+									<span class="token tag attr-value punctuation">&quot;</span>
+									<span class="token tag punctuation">&gt;</span>
+									<span class=""></span>
+									<span class=""></span>
+									<span class="token tag punctuation">&lt;</span>
+									<span class="token tag">div</span>
+									<span class="token tag"></span>
+									<span class="token tag attr-name">class</span>
+									<span class="token tag attr-value punctuation attr-equals">=</span>
+									<span class="token tag attr-value punctuation">&quot;</span>
+									<span class="token tag attr-value">input-wrapper border-radius-sm</span>
+									<span class="token tag attr-value punctuation">&quot;</span>
+									<span class="token tag punctuation">&gt;</span>
+									<span class=""></span>
+									<span class=""></span>
+									<span class="token tag punctuation">&lt;</span>
+									<span class="token tag">input</span>
+									<span class="token tag"></span>
+									<span class="token tag attr-name">type</span>
+									<span class="token tag attr-value punctuation attr-equals">=</span>
+									<span class="token tag attr-value punctuation">&quot;</span>
+									<span class="token tag attr-value">text</span>
+									<span class="token tag attr-value punctuation">&quot;</span>
+									<span class="token tag"></span>
+									<span class="token tag attr-name">class</span>
+									<span class="token tag attr-value punctuation attr-equals">=</span>
+									<span class="token tag attr-value punctuation">&quot;</span>
+									<span class="token tag attr-value">input text-color-gray placeholder-color-light-gray focus-outline-blue</span>
+									<span class="token tag attr-value punctuation">&quot;</span>
+									<span class="token tag punctuation">&gt;</span>
+									<span class=""></span>
+									<span class=""></span>
+									<span class="token tag punctuation">&lt;/</span>
+									<span class="token tag">div</span>
+									<span class="token tag punctuation">&gt;</span>
+									<span class=""></span>
+									<span class=""></span>
+									<span class="token tag punctuation">&lt;</span>
+									<span class="token tag">div</span>
+									<span class="token tag"></span>
+									<span class="token tag attr-name">class</span>
+									<span class="token tag attr-value punctuation attr-equals">=</span>
+									<span class="token tag attr-value punctuation">&quot;</span>
+									<span class="token tag attr-value">button-wrapper border-radius-sm</span>
+									<span class="token tag attr-value punctuation">&quot;</span>
+									<span class="token tag punctuation">&gt;</span>
+									<span class=""></span>
+									<span class=""></span>
+									<span class="token tag punctuation">&lt;</span>
+									<span class="token tag">button</span>
+									<span class="token tag"></span>
+									<span class="token tag attr-name">type</span>
+									<span class="token tag attr-value punctuation attr-equals">=</span>
+									<span class="token tag attr-value punctuation">&quot;</span>
+									<span class="token tag attr-value">submit</span>
+									<span class="token tag attr-value punctuation">&quot;</span>
+									<span class="token tag"></span>
+									<span class="token tag attr-name">class</span>
+									<span class="token tag attr-value punctuation attr-equals">=</span>
+									<span class="token tag attr-value punctuation">&quot;</span>
+									<span class="token tag attr-value">button bg-color-blue text-color-white focus-light-blue hover-light-blue</span>
+									<span class="token tag attr-value punctuation">&quot;</span>
+									<span class="token tag punctuation">&gt;</span>
+									<span class=""></span>        Action
+
+									<span class=""></span>
+									<span class="token tag punctuation">&lt;/</span>
+									<span class="token tag">button</span>
+									<span class="token tag punctuation">&gt;</span>
+									<span class=""></span>
+									<span class=""></span>
+									<span class="token tag punctuation">&lt;/</span>
+									<span class="token tag">div</span>
+									<span class="token tag punctuation">&gt;</span>
+									<span class=""></span>
+									<span class=""></span>
+									<span class="token tag punctuation">&lt;/</span>
+									<span class="token tag">form</span>
+									<span class="token tag punctuation">&gt;</span>
+									<span class=""></span>
+									<span class=""></span>
+									<span class="token tag punctuation">&lt;/</span>
+									<span class="token tag">div</span>
+									<span class="token tag punctuation">&gt;</span>
+								</code>
+							</pre>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+    <footer>
+      <div class="container">
+        <section>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="279 0 102 93" fill="none" class="pico-icon">
+            <path d="M355.83 57.6809a1.998 1.998 0 0 0-1.149 1.1487l-7.814 20.317c-.658 1.7094-3.076 1.7094-3.734 0l-7.814-20.317a1.998 1.998 0 0 0-1.149-1.1487l-20.317-7.8142c-1.709-.6575-1.709-3.0759 0-3.7334l20.317-7.8142a1.998 1.998 0 0 0 1.149-1.1487l7.814-20.317c.658-1.7094 3.076-1.7094 3.734 0l7.814 20.317c.203.5281.62.9455 1.149 1.1487l20.317 7.8142c1.709.6575 1.709 3.0759 0 3.7334l-20.317 7.8142Z" fill="var(--pico-logo-big-sparkle)"></path>
+            <path d="M298.867 31.1466c-.658 1.7094-3.076 1.7094-3.734 0l-2.814-7.317a1.998 1.998 0 0 0-1.149-1.1487l-7.317-2.8142c-1.709-.6575-1.709-3.0759 0-3.7334l7.317-2.8142a1.998 1.998 0 0 0 1.149-1.1487l2.814-7.317c.658-1.7094 3.076-1.7094 3.734 0l2.814 7.317c.203.5281.62.9455 1.149 1.1487l7.317 2.8142c1.709.6575 1.709 3.0759 0 3.7334l-7.317 2.8142a1.998 1.998 0 0 0-1.149 1.1487l-2.814 7.317Z" fill="var(--pico-logo-small-sparkles)"></path>
+            <path d="M314.83 82.6809a1.998 1.998 0 0 0-1.149 1.1487l-2.814 7.317c-.658 1.7094-3.076 1.7094-3.734 0l-2.814-7.317a1.998 1.998 0 0 0-1.149-1.1487l-7.317-2.8142c-1.709-.6575-1.709-3.0759 0-3.7334l7.317-2.8142a1.998 1.998 0 0 0 1.149-1.1487l2.814-7.317c.658-1.7094 3.076-1.7094 3.734 0l2.814 7.317c.203.5281.62.9455 1.149 1.1487l7.317 2.8142c1.709.6575 1.709 3.0759 0 3.7334l-7.317 2.8142Z" fill="var(--pico-logo-small-sparkles)"></path>
+          </svg>
+          <nav class="links">
+            <ul>
+              <li>
+                <strong>About</strong>
+              </li>
+              <li>
+                <a class="secondary" data-discover="true" href="/docs/v2">What’s new?</a>
+              </li>
+              <li>
+                <a class="secondary" data-discover="true" href="/docs/brand">Brand</a>
+              </li>
+              <li>
+                <a class="secondary" data-discover="true" href="/docs/mission">Mission</a>
+              </li>
+              <li>
+                <a class="secondary" data-discover="true" href="/docs/usage-scenarios">Usage scenarios</a>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <strong>Docs</strong>
+              </li>
+              <li>
+                <a class="secondary" data-discover="true" href="/docs">Quick start</a>
+              </li>
+              <li>
+                <a class="secondary" data-discover="true" href="/docs/version-picker">Version picker</a>
+              </li>
+              <li>
+                <a class="secondary" data-discover="true" href="/docs/classless">Class-less version</a>
+              </li>
+              <li>
+                <a class="secondary" data-discover="true" href="/docs/forms">Form elements</a>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <strong>Community</strong>
+              </li>
+              <li>
+                <a rel="noopener noreferrer" class="secondary" href="https://github.com/picocss/pico/issues" target="_blank">Issues</a>
+              </li>
+              <li>
+                <a rel="noopener noreferrer" class="secondary" href="https://github.com/picocss/pico/discussions" target="_blank">Discussions</a>
+              </li>
+              <li>
+                <a rel="noopener noreferrer" class="secondary" href="https://github.com/picocss/pico/discussions/categories/help" target="_blank">Help</a>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <strong>Examples</strong>
+              </li>
+              <li>
+                <a rel="noopener noreferrer" class="secondary" href="https://codesandbox.io/embed/4mrnhq?view=Editor+%2B+Preview&amp;module=%2Findex.html" target="_blank">HTML</a>
+              </li>
+              <li>
+                <a rel="noopener noreferrer" class="secondary" href="https://codesandbox.io/embed/x4qtf8?view=Editor+%2B+Preview&amp;module=%2Findex.html" target="_blank">Class-less</a>
+              </li>
+              <li>
+                <a rel="noopener noreferrer" class="secondary" href="https://codesandbox.io/p/devbox/github/picocss/examples/tree/master/v2-react-classless-login?embed=1&amp;file=%2Fsrc%2Fmain.scss" target="_blank">React</a>
+              </li>
+              <li>
+                <a class="secondary" data-discover="true" href="/examples">All</a>
+              </li>
+            </ul>
+          </nav>
+          <p class="build-info">Designed and built by
+            <!-- -->
+            <a rel="noopener noreferrer" class="secondary" href="https://lucaslarroche.com/" target="_blank">Lucas Larroche</a>
+            <!-- -->with the help of our
+            <!-- -->
+            <a rel="noopener noreferrer" class="secondary" href="https://github.com/picocss/pico/graphs/contributors" target="_blank">contributors</a>.
+          </p>
+          <ul class="resources">
+            <li>
+              <a rel="noopener noreferrer" class="contrast" title="GitHub" href="https://github.com/picocss/pico" target="_blank">
+                <svg xmlns="http://www.w3.org/2000/svg" height="24" width="24.25" viewBox="0 0 496 512" class="icon-github">
+                  <path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"></path>
+                </svg>
+              </a>
+            </li>
+            <li>
+              <a rel="noopener noreferrer" class="contrast" title="Twitter" href="https://x.com/picocss" target="_blank">
+                <svg xmlns="http://www.w3.org/2000/svg" height="24" width="24" viewBox="0 0 512 512" class="icon-x">
+                  <path d="M389.2 48h70.6L305.6 224.2 487 464H345L233.7 318.6 106.5 464H35.8L200.7 275.5 26.8 48H172.4L272.9 180.9 389.2 48zM364.4 421.8h39.1L151.1 88h-42L364.4 421.8z"></path>
+                </svg>
+              </a>
+            </li>
+            <li>
+              <a rel="noopener noreferrer" class="contrast" title="jsDelivr" href="https://www.jsdelivr.com/package/npm/@picocss/pico" target="_blank">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" class="icon-jsdelivr">
+                  <path d="M11.851 0L.811 4.02l1.56 14.7L11.85 24l9.6-5.28 1.74-14.76zm.062 4.622a6.668 6.75 0 0 1 2.666.572 12.507 12.507 0 0 0-2.59 1.95c-.045-.02-.092-.031-.138-.045a1.181 1.181 0 0 0-.346-.056c-.071 0-.141.01-.21.021a8.91 8.91 0 0 1-.615-2.318 6.668 6.75 0 0 1 1.171-.122 6.668 6.75 0 0 1 .062-.002zm-1.99.312a9.763 9.763 0 0 0 .69 2.504 1.213 1.213 0 0 0-.328.825 1.202 1.202 0 0 0 .18.63c-.937 1.294-1.656 2.803-1.905 4.31-.01.056-.013.11-.02.166-.282.09-.515.284-.656.54-.987-.333-1.885-.968-2.615-2.022a6.668 6.75 0 0 1-.026-.515 6.668 6.75 0 0 1 4.68-6.438zm5.507.709a6.668 6.75 0 0 1 2.53 2.9c-.377.953-1.049 1.892-1.893 2.727a1.242 1.242 0 0 0-.644-.184 1.243 1.243 0 0 0-.768.27c-.462-.354-.91-.737-1.318-1.168-.333-.35-.637-.73-.921-1.123.19-.215.31-.494.31-.802 0-.212-.061-.41-.159-.586 1.058-1.008 2.112-1.67 2.863-2.034zm-3.925 1.982a.624.624 0 0 1 .346.114.624.624 0 0 1 .292.524.624.624 0 0 1-.292.524.626.626 0 0 1-.346.113.634.634 0 0 1-.638-.637c0-.355.283-.638.638-.638zm-.441 1.771a1.205 1.205 0 0 0 .675.062c.036.05.075.097.112.148a11.438 11.438 0 0 0 .921 1.119 12.103 12.103 0 0 0 1.446 1.277c-.032.11-.054.224-.054.342a1.236 1.236 0 0 0 .066.38 9.91 9.91 0 0 1-2.118 1.042c-.087.029-.173.052-.261.078a7.735 7.735 0 0 1-1.87.332 1.15 1.15 0 0 0-.66-.773c.004-.024.005-.049.01-.073.219-1.333.873-2.73 1.733-3.934zm7.272.19a6.668 6.75 0 0 1 .245 1.786 6.668 6.75 0 0 1-.259 1.856 9.993 9.993 0 0 1-1.666-.63 1.243 1.243 0 0 0-.065-.713 9.434 9.434 0 0 0 1.745-2.3zm-2.913 2.101c.367 0 .657.291.657.658s-.291.657-.657.657c-.367 0-.658-.29-.658-.657s.29-.658.658-.658zm.837 1.59a10.79 10.79 0 0 0 1.802.688 6.668 6.75 0 0 1-6.149 4.157 6.668 6.75 0 0 1-.062-.004 6.668 6.75 0 0 1-.042 0c-.087-.042-.168-.08-.266-.129-.312-.154-.667-.352-.846-.5a3.796 3.796 0 0 1-1.294-2.03c.21-.111.38-.284.487-.495a8.428 8.428 0 0 0 1.96-.306 9.11 9.11 0 0 0 .513-.154 11.083 11.083 0 0 0 2.341-1.13c.205.143.452.23.719.23a1.248 1.248 0 0 0 .837-.328zm-10.707.116a5.761 5.761 0 0 0 2.212 1.298 1.146 1.146 0 0 0 .857.87 4.602 4.602 0 0 0 1.24 2.222 6.668 6.75 0 0 1-4.31-4.39zm3.327.464c.331 0 .595.263.595.596s-.264.595-.595.595a.59.59 0 0 1-.596-.595.591.591 0 0 1 .596-.596z"></path>
+                </svg>
+              </a>
+            </li>
+            <li>
+              <a rel="noopener noreferrer" class="contrast" title="NPM" href="https://www.npmjs.com/package/@picocss/pico" target="_blank">
+                <svg xmlns="http://www.w3.org/2000/svg" width="21.33" height="24" viewBox="0 0 576 512" class="icon-npm">
+                  <path d="M288 288h-32v-64h32v64zm288-128v192H288v32H160v-32H0V160h576zm-416 32H32v128h64v-96h32v96h32V192zm160 0H192v160h64v-32h64V192zm224 0H352v128h64v-96h32v96h32v-96h32v96h32V192z"></path>
+                </svg>
+              </a>
+            </li>
+          </ul>
+        </section>
+        <section>
+          <p>Code licensed
+            <!-- -->
+            <a rel="noopener noreferrer" class="secondary" href="https://github.com/picocss/pico/blob/master/LICENSE.md" target="_blank">MIT</a>, docs
+            <!-- -->
+            <a rel="noopener noreferrer" class="secondary" href="https://github.com/picocss/picocss.com/blob/main/LICENSE.md" target="_blank">CC BY-SA 4.0</a>.
+          </p>
+          <p>Currently <code>v
+              <!-- -->2.1.1
+            </code>. </p>
+        </section>
+      </div>
+    </footer>
+    <script>
+      ((c, l) => {
+        if (!window.history.state || !window.history.state.key) {
+          let u = Math.random().toString(32).slice(2);
+          window.history.replaceState({
+            key: u
+          }, "");
+        }
+        try {
+          let d = JSON.parse(sessionStorage.getItem(c) || "{}")[l || window.history.state.key];
+          typeof d == "number" && window.scrollTo(0, d);
+        } catch (u) {
+          console.error(u), sessionStorage.removeItem(c);
+        }
+      })("positions", null)
+    </script>
+    <script>
+      window.__remixContext = {
+        "future": {
+          "v3_fetcherPersist": false,
+          "v3_relativeSplatPath": false,
+          "v3_throwAbortReason": false,
+          "v3_routeConfig": false,
+          "v3_singleFetch": false,
+          "v3_lazyRouteDiscovery": false,
+          "unstable_optimizeDeps": false
+        },
+        "state": {
+          "loaderData": {
+            "root": null,
+            "routes/_index": null
+          },
+          "actionData": null,
+          "errors": null
+        }
+      };
+    </script>
+    <script type="module" async="">
+      import "/build/manifest-5B1CF024.js";
+      import * as route0 from "/build/root-GHAN7XIU.js";
+      import * as route1 from "/build/routes/_index-BA7VTDOD.js";
+      window.__remixRouteModules = {
+        "root": route0,
+        "routes/_index": route1
+      };
+      import("/build/entry.client-T3X3CXVK.js");
+    </script>
+    <script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"version":"2024.11.0","token":"31099da484704c43aaf0f92ac1423724","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
+  </body>
+</html>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charSet="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="theme-color" content="#2a3140" />
+    <meta name="color-scheme" content="light dark" />
+    <link rel="canonical" href="https://picocss.com" />
+    <meta property="og:image" content="https://picocss.com/opengraph.png" />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:site_name" content="Pico CSS" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://v2.picocss.com/" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@picocss" />
+    <title>Pico CSS • Minimal CSS Framework for semantic HTML</title>
+    <meta name="description" content="Minimalist and lightweight starter kit that prioritizes semantic syntax, making every HTML element responsive and elegant by default." />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon-32x32.png" type="image/png" sizes="32x32" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" type="image/png" sizes="180x180" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <link rel="modulepreload" href="/build/manifest-5B1CF024.js" />
+    <link rel="modulepreload" href="/build/entry.client-T3X3CXVK.js" />
+    <link rel="modulepreload" href="/build/_shared/chunk-VEMDB7JJ.js" />
+    <link rel="modulepreload" href="/build/_shared/chunk-PWKBJJTB.js" />
+    <link rel="modulepreload" href="/build/_shared/chunk-DPP6GPVW.js" />
+    <link rel="modulepreload" href="/build/_shared/chunk-L34ZBHS7.js" />
+    <link rel="modulepreload" href="/build/_shared/chunk-TOLVKS3P.js" />
+    <link rel="modulepreload" href="/build/_shared/chunk-MDY6CKSM.js" />
+    <link rel="modulepreload" href="/build/_shared/chunk-35ABJROQ.js" />
+    <link rel="modulepreload" href="/build/_shared/chunk-PQPNGD4D.js" />
+    <link rel="modulepreload" href="/build/_shared/chunk-TI2EZTOV.js" />
+    <link rel="modulepreload" href="/build/_shared/chunk-SZZWV5GX.js" />
+    <link rel="modulepreload" href="/build/_shared/chunk-CTVLVAMK.js" />
+    <link rel="modulepreload" href="/build/_shared/chunk-BZ4AUIAY.js" />
+    <link rel="modulepreload" href="/build/_shared/chunk-QEDTESOQ.js" />
+    <link rel="modulepreload" href="/build/_shared/chunk-JTGWBMEE.js" />
+    <link rel="modulepreload" href="/build/_shared/chunk-4LS7O6NS.js" />
+    <link rel="modulepreload" href="/build/_shared/chunk-3BHXQADS.js" />
+    <link rel="modulepreload" href="/build/_shared/chunk-CXOLFA3Z.js" />
+    <link rel="modulepreload" href="/build/root-GHAN7XIU.js" />
+    <link rel="modulepreload" href="/build/_shared/chunk-AWSXAVFQ.js" />
+    <link rel="modulepreload" href="/build/_shared/chunk-MC5CELYX.js" />
+    <link rel="modulepreload" href="/build/_shared/chunk-2OTKCAI3.js" />
+    <link rel="modulepreload" href="/build/_shared/chunk-G6E2YHMU.js" />
+    <link rel="modulepreload" href="/build/_shared/chunk-LMVDAGDQ.js" />
+    <link rel="modulepreload" href="/build/routes/_index-BA7VTDOD.js" />
+    <link rel="stylesheet" href="/build/_assets/main-TS6CRX7I.css" />
+    <link rel="stylesheet" href="/build/_assets/landings-7LEHCXZU.css" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "SoftwareSourceCode",
+        "url": "https://picocss.com",
+        "name": "Pico CSS",
+        "abstract": "Minimalist and lightweight starter kit that prioritizes semantic syntax, making every HTML element responsive and elegant by default.",
+        "isFamilyFriendly": true,
+        "codeRepository": "https://github.com/picocss/pico",
+        "programmingLanguage": ["css", "scss"],
+        "keywords": ["css", "scss", "semantic", "minimal", "dark-theme", "css-framework", "minimalist", "scss-framework", "dark-mode", "minimalistic", "native-html"],
+        "license": "https://github.com/picocss/pico/blob/master/LICENSE.md",
+        "sameAs": ["https://github.com/picocss/pico", "https://x.com/picocss"],
+        "image": "https://picocss.com/opengraph.png",
+        "maintainer": {
+          "@type": "Organization",
+          "name": "Pico",
+          "logo": "https://picocss.com/logo.png"
+        },
+        "author": {
+          "@type": "Person",
+          "name": "Lucas Larroche",
+          "givenName": "Lucas",
+          "familyName": "Larroche",
+          "url": "https://lucaslarroche.com"
+        }
+      }
+    </script>
+  </head>
+  <body style="min-height:100vh">
+    <a href="#content" class="skip-to-content contrast" role="button">Skip to content</a>
+    <header>
+      <div class="container">
+        <a aria-label="Pico CSS homepage" data-discover="true" href="/">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 381 164" fill="none" class="pico-logo">
+            <path d="M355.83 57.6809a1.998 1.998 0 0 0-1.149 1.1487l-7.814 20.317c-.658 1.7094-3.076 1.7094-3.734 0l-7.814-20.317a1.998 1.998 0 0 0-1.149-1.1487l-20.317-7.8142c-1.709-.6575-1.709-3.0759 0-3.7334l20.317-7.8142a1.998 1.998 0 0 0 1.149-1.1487l7.814-20.317c.658-1.7094 3.076-1.7094 3.734 0l7.814 20.317c.203.5281.62.9455 1.149 1.1487l20.317 7.8142c1.709.6575 1.709 3.0759 0 3.7334l-20.317 7.8142Z" fill="var(--pico-logo-big-sparkle)"></path>
+            <path d="M298.867 31.1466c-.658 1.7094-3.076 1.7094-3.734 0l-2.814-7.317a1.998 1.998 0 0 0-1.149-1.1487l-7.317-2.8142c-1.709-.6575-1.709-3.0759 0-3.7334l7.317-2.8142a1.998 1.998 0 0 0 1.149-1.1487l2.814-7.317c.658-1.7094 3.076-1.7094 3.734 0l2.814 7.317c.203.5281.62.9455 1.149 1.1487l7.317 2.8142c1.709.6575 1.709 3.0759 0 3.7334l-7.317 2.8142a1.998 1.998 0 0 0-1.149 1.1487l-2.814 7.317Z" fill="var(--pico-logo-small-sparkles)"></path>
+            <path d="M314.83 82.6809a1.998 1.998 0 0 0-1.149 1.1487l-2.814 7.317c-.658 1.7094-3.076 1.7094-3.734 0l-2.814-7.317a1.998 1.998 0 0 0-1.149-1.1487l-7.317-2.8142c-1.709-.6575-1.709-3.0759 0-3.7334l7.317-2.8142a1.998 1.998 0 0 0 1.149-1.1487l2.814-7.317c.658-1.7094 3.076-1.7094 3.734 0l2.814 7.317c.203.5281.62.9455 1.149 1.1487l7.317 2.8142c1.709.6575 1.709 3.0759 0 3.7334l-7.317 2.8142Z" fill="var(--pico-logo-small-sparkles)"></path>
+            <path d="M0 164V62.7234h21.1769l1.2965 13.3106V164H0Zm42.93-27.2c-5.9545 0-10.9486-1.495-14.9823-4.485-4.0337-3.087-7.0589-7.475-9.0758-13.166-2.0168-5.691-3.0253-12.443-3.0253-20.2554 0-7.9092 1.0085-14.661 3.0253-20.2553 2.0169-5.6908 5.0421-10.0312 9.0758-13.0213 4.0337-3.0865 9.0278-4.6298 14.9823-4.6298 6.7228 0 12.5333 1.5433 17.4313 4.6298 4.8981 2.9901 8.6436 7.3305 11.2367 13.0213 2.5931 5.5943 3.8897 12.3461 3.8897 20.2553 0 7.8124-1.2966 14.5644-3.8897 20.2554-2.5931 5.691-6.3386 10.079-11.2367 13.166-4.898 2.99-10.7085 4.485-17.4313 4.485Zm-5.7624-20.834c2.8812 0 5.4263-.723 7.6352-2.17s3.9857-3.424 5.3302-5.932c1.3446-2.604 2.0169-5.595 2.0169-8.9704 0-3.3759-.6243-6.3177-1.8728-8.8255-1.2485-2.6043-3.0253-4.6298-5.3302-6.0766-2.209-1.4468-4.754-2.1702-7.6352-2.1702-2.8813 0-5.4743.7234-7.7793 2.1702-2.2089 1.4468-3.9377 3.4723-5.1862 6.0766-1.2485 2.6042-1.8728 5.5461-1.8728 8.8255 0 3.3754.6243 6.3664 1.8728 8.9704 1.2485 2.508 2.9773 4.485 5.1862 5.932 2.2089 1.447 4.754 2.17 7.6352 2.17Zm50.6327 19.098V62.7234h22.4737v72.3406H87.8003ZM99.037 53.4638c-3.3614 0-6.3386-1.2539-8.9317-3.7617-2.4971-2.6042-3.7456-5.5943-3.7456-8.9702 0-3.5688 1.2485-6.5589 3.7456-8.9702C92.6984 29.2539 95.6756 28 99.037 28c3.457 0 6.435 1.2539 8.932 3.7617 2.497 2.4113 3.745 5.4014 3.745 8.9702 0 3.3759-1.248 6.366-3.745 8.9702-2.497 2.5078-5.475 3.7617-8.932 3.7617ZM162.188 136.8c-7.683 0-14.55-1.591-20.6-4.774-5.955-3.28-10.613-7.765-13.974-13.456-3.362-5.787-5.042-12.346-5.042-19.6764 0-7.4269 1.68-13.9858 5.042-19.6766 3.361-5.6908 7.971-10.1276 13.83-13.3106 5.954-3.2795 12.773-4.9192 20.456-4.9192 7.395 0 14.166 1.8809 20.313 5.6426 6.146 3.7617 10.564 9.2113 13.253 16.3489l-21.321 7.2341c-1.056-2.3149-2.833-4.1958-5.33-5.6426-2.401-1.5433-5.09-2.3149-8.067-2.3149-2.977 0-5.619.7234-7.924 2.1702-2.208 1.3504-3.985 3.2795-5.33 5.7873-1.248 2.5078-1.873 5.4014-1.873 8.6808s.625 6.1734 1.873 8.6804c1.345 2.412 3.17 4.341 5.475 5.788 2.401 1.447 5.09 2.17 8.067 2.17 2.977 0 5.666-.772 8.067-2.315s4.178-3.569 5.331-6.077l21.32 7.234c-2.785 7.235-7.251 12.781-13.397 16.639-6.051 3.858-12.774 5.787-20.169 5.787Zm78.636 0c-7.587 0-14.31-1.591-20.168-4.774-5.763-3.28-10.325-7.765-13.686-13.456-3.266-5.691-4.898-12.249-4.898-19.6764 0-7.4269 1.632-13.9858 4.898-19.6766 3.265-5.6908 7.779-10.1276 13.541-13.3106 5.859-3.2795 12.486-4.9192 19.881-4.9192 7.587 0 14.262 1.6397 20.024 4.9192 5.859 3.183 10.421 7.6198 13.686 13.3106C277.367 84.9078 279 91.4667 279 98.8936c0 7.4274-1.633 13.9854-4.898 19.6764-3.265 5.691-7.779 10.176-13.542 13.456-5.666 3.183-12.245 4.774-19.736 4.774Zm-.144-21.413c2.977 0 5.522-.675 7.635-2.025 2.209-1.447 3.938-3.376 5.186-5.788 1.249-2.507 1.873-5.401 1.873-8.6804 0-3.2794-.672-6.1248-2.017-8.5362-1.248-2.5078-2.977-4.4368-5.186-5.7872-2.209-1.4468-4.754-2.1702-7.635-2.1702-2.881 0-5.426.7234-7.635 2.1702-2.209 1.3504-3.938 3.2794-5.187 5.7872-1.248 2.4114-1.872 5.2568-1.872 8.5362 0 3.1834.624 6.0284 1.872 8.5364 1.249 2.508 2.978 4.485 5.187 5.932 2.305 1.35 4.898 2.025 7.779 2.025Z" fill="var(--pico-logo-wordmark)"></path>
+          </svg>
+        </a>
+        <nav>
+          <ul>
+            <li class="hide-before-sm">
+              <a class="contrast" data-discover="true" href="/examples">Examples</a>
+            </li>
+            <li>
+              <a class="contrast" data-discover="true" href="/docs">Docs</a>
+            </li>
+          </ul>
+          <ul class="icons">
+            <li>
+              <a rel="noopener noreferrer" class="contrast" aria-label="GitHub repository" href="https://github.com/picocss/pico" target="_blank">
+                <svg xmlns="http://www.w3.org/2000/svg" height="24" width="24.25" viewBox="0 0 496 512" class="icon-github">
+                  <path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"></path>
+                </svg>
+              </a>
+            </li>
+            <li>
+              <a rel="noopener noreferrer" class="contrast" aria-label="Twitter" href="https://x.com/picocss" target="_blank">
+                <svg xmlns="http://www.w3.org/2000/svg" height="24" width="24" viewBox="0 0 512 512" class="icon-x">
+                  <path d="M389.2 48h70.6L305.6 224.2 487 464H345L233.7 318.6 106.5 464H35.8L200.7 275.5 26.8 48H172.4L272.9 180.9 389.2 48zM364.4 421.8h39.1L151.1 88h-42L364.4 421.8z"></path>
+                </svg>
+              </a>
+            </li>
+            <li>
+              <a class="contrast" aria-label="Turn on dark mode" data-discover="true" href="/">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 32 32" fill="currentColor" class="icon-theme-toggle ">
+                  <clipPath id="theme-toggle-cutout">
+                    <path d="M0-11h25a1 1 0 0017 13v30H0Z"></path>
+                  </clipPath>
+                  <g clip-path="url(#theme-toggle-cutout)">
+                    <circle cx="16" cy="16" r="8.4"></circle>
+                    <path d="M18.3 3.2c0 1.3-1 2.3-2.3 2.3s-2.3-1-2.3-2.3S14.7.9 16 .9s2.3 1 2.3 2.3zm-4.6 25.6c0-1.3 1-2.3 2.3-2.3s2.3 1 2.3 2.3-1 2.3-2.3 2.3-2.3-1-2.3-2.3zm15.1-10.5c-1.3 0-2.3-1-2.3-2.3s1-2.3 2.3-2.3 2.3 1 2.3 2.3-1 2.3-2.3 2.3zM3.2 13.7c1.3 0 2.3 1 2.3 2.3s-1 2.3-2.3 2.3S.9 17.3.9 16s1-2.3 2.3-2.3zm5.8-7C9 7.9 7.9 9 6.7 9S4.4 8 4.4 6.7s1-2.3 2.3-2.3S9 5.4 9 6.7zm16.3 21c-1.3 0-2.3-1-2.3-2.3s1-2.3 2.3-2.3 2.3 1 2.3 2.3-1 2.3-2.3 2.3zm2.4-21c0 1.3-1 2.3-2.3 2.3S23 7.9 23 6.7s1-2.3 2.3-2.3 2.4 1 2.4 2.3zM6.7 23C8 23 9 24 9 25.3s-1 2.3-2.3 2.3-2.3-1-2.3-2.3 1-2.3 2.3-2.3z"></path>
+                  </g>
+                </svg>
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+    <main id="content" class="homepage container">
+      <section class="hero">
+        <div class="hook">
+          <h1>
+            <mark>Minimal CSS Framework</mark>
+            <br />for Semantic HTML
+          </h1>
+          <p class="secondary">A minimalist and lightweight starter kit that prioritizes semantic syntax, making every HTML element responsive and elegant by default.</p>
+          <p>Write HTML, Add Pico CSS, and Voilà!</p>
+          <div class="grid ctas">
+            <a role="button" data-discover="true" href="/docs">Get Started <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" class="icon-arrow-right">
+                <g class="head">
+                  <path d="M10 16L14 12"></path>
+                  <path d="M10 8L14 12"></path>
+                </g>
+                <path class="line" d="M0 12H14"></path>
+              </svg>
+            </a>
+            <a role="button" class="contrast" data-discover="true" href="/examples">Examples <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" class="icon-arrow-right">
+                <g class="head">
+                  <path d="M10 16L14 12"></path>
+                  <path d="M10 8L14 12"></path>
+                </g>
+                <path class="line" d="M0 12H14"></path>
+              </svg>
+            </a>
+          </div>
+        </div>
+        <div class="demo">
+          <article class="component" aria-label="Demo">
+            <form class="">
+              <input tabindex="-1" placeholder="Enter your email" class="" name="input-demo" value="" />
+            </form>
+            <footer class="code">
+              <pre>
+								<code>
+									<noscript>&lt;
+										<span class="token tag">form</span>&gt;
+										<br/>  &lt;
+										<span class="token tag">input</span>
+										<br/>
+										<span class="token tag attr-name">type</span>=
+										<span class="token tag attr-value">&quot;email&quot;</span>
+										<br/>
+										<span class="token tag attr-name">placeholder</span>=
+										<span class="token tag attr-value">&quot;Enter your email&quot;</span>
+										<br/>  /&gt;
+										<br/>&lt;/
+										<span class="token tag">form</span>&gt;
+									</noscript>
+									<span as="span" style="opacity:0"></span>
+								</code>
+							</pre>
+            </footer>
+          </article>
+        </div>
+      </section>
+      <section class="stats">
+        <ul>
+          <li>
+            <p class="count">
+              <strong>14.8K</strong>
+            </p>
+            <p class="label">
+              <a href="https://github.com/picocss/pico" class="secondary" target="_blank" rel="noopener noreferrer">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" class="icon-star">
+                  <path d="M8.243 7.34l-6.38 .925l-.113 .023a1 1 0 0 0 -.44 1.684l4.622 4.499l-1.09 6.355l-.013 .11a1 1 0 0 0 1.464 .944l5.706 -3l5.693 3l.1 .046a1 1 0 0 0 1.352 -1.1l-1.091 -6.355l4.624 -4.5l.078 -.085a1 1 0 0 0 -.633 -1.62l-6.38 -.926l-2.852 -5.78a1 1 0 0 0 -1.794 0l-2.853 5.78z"></path>
+                </svg>GitHub Stars </a>
+            </p>
+          </li>
+          <li>
+            <p class="count">
+              <strong>65.8K</strong>
+            </p>
+            <p class="label">
+              <a href="https://www.npmjs.com/package/@picocss/pico" class="secondary" target="_blank" rel="noopener noreferrer">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" class="icon-terminal">
+                  <path d="M8 9l3 3l-3 3"></path>
+                  <path d="M13 15l3 0"></path>
+                  <path d="M3 4m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z"></path>
+                </svg>
+                <span class="period-prefix">Monthly </span>Npm Downloads </a>
+            </p>
+            <p class="period-suffix">(Last month)</p>
+          </li>
+          <li>
+            <p class="count">
+              <strong>12.6M</strong>
+            </p>
+            <p class="label">
+              <a href="https://www.jsdelivr.com/package/npm/@picocss/pico" class="secondary" target="_blank" rel="noopener noreferrer">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" class="icon-cloud-download">
+                  <path d="M19 18a3.5 3.5 0 0 0 0 -7h-1a5 4.5 0 0 0 -11 -2a4.6 4.4 0 0 0 -2.1 8.4"></path>
+                  <path d="M12 13l0 9"></path>
+                  <path d="M9 19l3 3l3 -3"></path>
+                </svg>
+                <span class="period-prefix">Monthly </span>JSDelivr Requests </a>
+            </p>
+            <p class="period-suffix">(Last month)</p>
+          </li>
+        </ul>
+      </section>
+      <section class="features">
+        <hgroup>
+          <h2>A Superpowered <mark>HTML Reset</mark>
+          </h2>
+          <p>With just the right amount of everything, Pico is a great starting point for a clean and lightweight design system.</p>
+        </hgroup>
+        <div class="grid">
+          <article>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" class="icon-code">
+              <path d="M7 8l-4 4l4 4"></path>
+              <path d="M17 8l4 4l-4 4"></path>
+              <path d="M14 4l-4 16"></path>
+            </svg>
+            <h3>Class-light and Semantic</h3>
+            <p>Thriving on simplicity, Pico directly styles your HTML tags, using fewer than 10
+              <!-- -->
+              <code>.classes</code> overall. It also comes with a class-less version for wild HTML purists.
+            </p>
+            <p>
+              <a data-discover="true" href="/docs/classless">Discover the class-less version <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" class="icon-arrow-right">
+                  <g class="head">
+                    <path d="M10 16L14 12"></path>
+                    <path d="M10 8L14 12"></path>
+                  </g>
+                  <path class="line" d="M0 12H14"></path>
+                </svg>
+              </a>
+            </p>
+          </article>
+          <article>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="279 0 102 93" fill="none" class="pico-icon">
+              <path d="M355.83 57.6809a1.998 1.998 0 0 0-1.149 1.1487l-7.814 20.317c-.658 1.7094-3.076 1.7094-3.734 0l-7.814-20.317a1.998 1.998 0 0 0-1.149-1.1487l-20.317-7.8142c-1.709-.6575-1.709-3.0759 0-3.7334l20.317-7.8142a1.998 1.998 0 0 0 1.149-1.1487l7.814-20.317c.658-1.7094 3.076-1.7094 3.734 0l7.814 20.317c.203.5281.62.9455 1.149 1.1487l20.317 7.8142c1.709.6575 1.709 3.0759 0 3.7334l-20.317 7.8142Z" fill="var(--pico-logo-big-sparkle)"></path>
+              <path d="M298.867 31.1466c-.658 1.7094-3.076 1.7094-3.734 0l-2.814-7.317a1.998 1.998 0 0 0-1.149-1.1487l-7.317-2.8142c-1.709-.6575-1.709-3.0759 0-3.7334l7.317-2.8142a1.998 1.998 0 0 0 1.149-1.1487l2.814-7.317c.658-1.7094 3.076-1.7094 3.734 0l2.814 7.317c.203.5281.62.9455 1.149 1.1487l7.317 2.8142c1.709.6575 1.709 3.0759 0 3.7334l-7.317 2.8142a1.998 1.998 0 0 0-1.149 1.1487l-2.814 7.317Z" fill="var(--pico-logo-small-sparkles)"></path>
+              <path d="M314.83 82.6809a1.998 1.998 0 0 0-1.149 1.1487l-2.814 7.317c-.658 1.7094-3.076 1.7094-3.734 0l-2.814-7.317a1.998 1.998 0 0 0-1.149-1.1487l-7.317-2.8142c-1.709-.6575-1.709-3.0759 0-3.7334l7.317-2.8142a1.998 1.998 0 0 0 1.149-1.1487l2.814-7.317c.658-1.7094 3.076-1.7094 3.734 0l2.814 7.317c.203.5281.62.9455 1.149 1.1487l7.317 2.8142c1.709.6575 1.709 3.0759 0 3.7334l-7.317 2.8142Z" fill="var(--pico-logo-small-sparkles)"></path>
+            </svg>
+            <h3>Great Styles with Just CSS</h3>
+            <p>No extra baggage needed. Pico works seamlessly without dependencies, package managers, external files, or JavaScript, achieving elegant and straightforward styles with pure HTML markup.</p>
+            <p>
+              <a data-discover="true" href="/docs">Get started <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" class="icon-arrow-right">
+                  <g class="head">
+                    <path d="M10 16L14 12"></path>
+                    <path d="M10 8L14 12"></path>
+                  </g>
+                  <path class="line" d="M0 12H14"></path>
+                </svg>
+              </a>
+            </p>
+          </article>
+          <article>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" class="icon-expand">
+              <path d="M16 4l4 0l0 4"></path>
+              <path d="M14 10l6 -6"></path>
+              <path d="M8 20l-4 0l0 -4"></path>
+              <path d="M4 20l6 -6"></path>
+              <path d="M16 20l4 0l0 -4"></path>
+              <path d="M14 14l6 6"></path>
+              <path d="M8 4l-4 0l0 4"></path>
+              <path d="M4 4l6 6"></path>
+            </svg>
+            <h3>Responsive Everything</h3>
+            <p>Effortless elegance on every device. Pico natively scales font sizes and spacings with screen widths, resulting in a consistent and elegant look across devices. No extra classes or configuration needed.</p>
+            <p>
+              <a data-discover="true" href="/docs/typography">Discover the responsive font sizes <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" class="icon-arrow-right">
+                  <g class="head">
+                    <path d="M10 16L14 12"></path>
+                    <path d="M10 8L14 12"></path>
+                  </g>
+                  <path class="line" d="M0 12H14"></path>
+                </svg>
+              </a>
+            </p>
+          </article>
+          <article>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" class="icon-brightness">
+              <path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0"></path>
+              <path d="M12 3l0 18"></path>
+              <path d="M12 9l4.65 -4.65"></path>
+              <path d="M12 14.3l7.37 -7.37"></path>
+              <path d="M12 19.6l8.85 -8.85"></path>
+            </svg>
+            <h3>Light or Dark Mode</h3>
+            <p>Pico comes with two accessible, neutral color schemes out of the box: light and dark. The best part? It automatically adapts to users&#x27; <code>prefers-color-scheme</code>, all without the use of JavaScript. </p>
+            <p>
+              <a data-discover="true" href="/docs/color-schemes">Learn about the color schemes <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" class="icon-arrow-right">
+                  <g class="head">
+                    <path d="M10 16L14 12"></path>
+                    <path d="M10 8L14 12"></path>
+                  </g>
+                  <path class="line" d="M0 12H14"></path>
+                </svg>
+              </a>
+            </p>
+          </article>
+          <article>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" class="icon-adjustments">
+              <path d="M6 3a1 1 0 0 1 .993 .883l.007 .117v3.171a3.001 3.001 0 0 1 0 5.658v7.171a1 1 0 0 1 -1.993 .117l-.007 -.117v-7.17a3.002 3.002 0 0 1 -1.995 -2.654l-.005 -.176l.005 -.176a3.002 3.002 0 0 1 1.995 -2.654v-3.17a1 1 0 0 1 1 -1z" stroke-width="0" fill="currentColor"></path>
+              <path d="M12 3a1 1 0 0 1 .993 .883l.007 .117v9.171a3.001 3.001 0 0 1 0 5.658v1.171a1 1 0 0 1 -1.993 .117l-.007 -.117v-1.17a3.002 3.002 0 0 1 -1.995 -2.654l-.005 -.176l.005 -.176a3.002 3.002 0 0 1 1.995 -2.654v-9.17a1 1 0 0 1 1 -1z" stroke-width="0" fill="currentColor"></path>
+              <path d="M18 3a1 1 0 0 1 .993 .883l.007 .117v.171a3.001 3.001 0 0 1 0 5.658v10.171a1 1 0 0 1 -1.993 .117l-.007 -.117v-10.17a3.002 3.002 0 0 1 -1.995 -2.654l-.005 -.176l.005 -.176a3.002 3.002 0 0 1 1.995 -2.654v-.17a1 1 0 0 1 1 -1z" stroke-width="0" fill="currentColor"></path>
+            </svg>
+            <h3>Easy Customization</h3>
+            <p>Customize Pico with over 130 CSS variables, or dive deeper by using SASS. Switch between 20 handcrafted color themes and compose with 30+ modular components to tailor the UI to your brand&#x27;s look and feel.</p>
+            <p>
+              <a data-discover="true" href="/docs/css-variables">Learn about the CSS variables <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" class="icon-arrow-right">
+                  <g class="head">
+                    <path d="M10 16L14 12"></path>
+                    <path d="M10 8L14 12"></path>
+                  </g>
+                  <path class="line" d="M0 12H14"></path>
+                </svg>
+              </a>
+            </p>
+          </article>
+          <article>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" class="icon-speedtest">
+              <path d="M5.636 19.364a9 9 0 1 1 12.728 0"></path>
+              <path d="M16 9l-4 4"></path>
+            </svg>
+            <h3>Optimized Performance</h3>
+            <p>Speed meets elegance. Unlike bulky and overcomplicated frameworks that demand extensive class overrides and JavaScript, Pico keeps your HTML lean, decreases memory usage by avoiding excessive CSS specificity, and reduces loaded files.</p>
+            <p>
+              <a data-discover="true" href="/docs">Quick start <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" class="icon-arrow-right">
+                  <g class="head">
+                    <path d="M10 16L14 12"></path>
+                    <path d="M10 8L14 12"></path>
+                  </g>
+                  <path class="line" d="M0 12H14"></path>
+                </svg>
+              </a>
+            </p>
+          </article>
+        </div>
+      </section>
+      <section class="comparison">
+        <hgroup>
+          <h2>Embrace the <mark>Power of Less</mark>
+          </h2>
+          <p>A strong design foundation thrives on simplicity and ease of maintenance.</p>
+        </hgroup>
+        <div class="grid">
+          <div class="pico">
+            <p>
+              <span class="emoji">😌</span> Pico CSS
+            </p>
+            <div class="code" data-theme="light">
+              <pre class="prismjs">
+								<code class="language-html">
+									<span class="token tag punctuation">&lt;</span>
+									<span class="token tag">form</span>
+									<span class="token tag punctuation">&gt;</span>
+									<span class=""></span>
+									<span class=""></span>
+									<span class="token tag punctuation">&lt;</span>
+									<span class="token tag">input</span>
+									<span class="token tag"></span>
+									<span class="token tag attr-name">type</span>
+									<span class="token tag attr-value punctuation attr-equals">=</span>
+									<span class="token tag attr-value punctuation">&quot;</span>
+									<span class="token tag attr-value">text</span>
+									<span class="token tag attr-value punctuation">&quot;</span>
+									<span class="token tag punctuation">&gt;</span>
+									<span class=""></span>
+									<span class=""></span>
+									<span class="token tag punctuation">&lt;</span>
+									<span class="token tag">button</span>
+									<span class="token tag"></span>
+									<span class="token tag attr-name">type</span>
+									<span class="token tag attr-value punctuation attr-equals">=</span>
+									<span class="token tag attr-value punctuation">&quot;</span>
+									<span class="token tag attr-value">submit</span>
+									<span class="token tag attr-value punctuation">&quot;</span>
+									<span class="token tag punctuation">&gt;</span>
+									<span class="">Action</span>
+									<span class="token tag punctuation">&lt;/</span>
+									<span class="token tag">button</span>
+									<span class="token tag punctuation">&gt;</span>
+									<span class=""></span>
+									<span class=""></span>
+									<span class="token tag punctuation">&lt;/</span>
+									<span class="token tag">form</span>
+									<span class="token tag punctuation">&gt;</span>
+								</code>
+							</pre>
+            </div>
+          </div>
+          <div class="utility-framework">
+            <p>
+              <span class="emoji">🥵</span> Utility CSS Framework
+            </p>
+            <div class="code" data-theme="light">
+              <pre class="prismjs">
+								<code class="language-html">
+									<span class="token tag punctuation">&lt;</span>
+									<span class="token tag">div</span>
+									<span class="token tag"></span>
+									<span class="token tag attr-name">class</span>
+									<span class="token tag attr-value punctuation attr-equals">=</span>
+									<span class="token tag attr-value punctuation">&quot;</span>
+									<span class="token tag attr-value">container display-flex my-md mx-sm</span>
+									<span class="token tag attr-value punctuation">&quot;</span>
+									<span class="token tag punctuation">&gt;</span>
+									<span class=""></span>
+									<span class=""></span>
+									<span class="token tag punctuation">&lt;</span>
+									<span class="token tag">form</span>
+									<span class="token tag"></span>
+									<span class="token tag attr-name">class</span>
+									<span class="token tag attr-value punctuation attr-equals">=</span>
+									<span class="token tag attr-value punctuation">&quot;</span>
+									<span class="token tag attr-value">form shadow-md my-md mx-sm align-center</span>
+									<span class="token tag attr-value punctuation">&quot;</span>
+									<span class="token tag punctuation">&gt;</span>
+									<span class=""></span>
+									<span class=""></span>
+									<span class="token tag punctuation">&lt;</span>
+									<span class="token tag">div</span>
+									<span class="token tag"></span>
+									<span class="token tag attr-name">class</span>
+									<span class="token tag attr-value punctuation attr-equals">=</span>
+									<span class="token tag attr-value punctuation">&quot;</span>
+									<span class="token tag attr-value">input-wrapper border-radius-sm</span>
+									<span class="token tag attr-value punctuation">&quot;</span>
+									<span class="token tag punctuation">&gt;</span>
+									<span class=""></span>
+									<span class=""></span>
+									<span class="token tag punctuation">&lt;</span>
+									<span class="token tag">input</span>
+									<span class="token tag"></span>
+									<span class="token tag attr-name">type</span>
+									<span class="token tag attr-value punctuation attr-equals">=</span>
+									<span class="token tag attr-value punctuation">&quot;</span>
+									<span class="token tag attr-value">text</span>
+									<span class="token tag attr-value punctuation">&quot;</span>
+									<span class="token tag"></span>
+									<span class="token tag attr-name">class</span>
+									<span class="token tag attr-value punctuation attr-equals">=</span>
+									<span class="token tag attr-value punctuation">&quot;</span>
+									<span class="token tag attr-value">input text-color-gray placeholder-color-light-gray focus-outline-blue</span>
+									<span class="token tag attr-value punctuation">&quot;</span>
+									<span class="token tag punctuation">&gt;</span>
+									<span class=""></span>
+									<span class=""></span>
+									<span class="token tag punctuation">&lt;/</span>
+									<span class="token tag">div</span>
+									<span class="token tag punctuation">&gt;</span>
+									<span class=""></span>
+									<span class=""></span>
+									<span class="token tag punctuation">&lt;</span>
+									<span class="token tag">div</span>
+									<span class="token tag"></span>
+									<span class="token tag attr-name">class</span>
+									<span class="token tag attr-value punctuation attr-equals">=</span>
+									<span class="token tag attr-value punctuation">&quot;</span>
+									<span class="token tag attr-value">button-wrapper border-radius-sm</span>
+									<span class="token tag attr-value punctuation">&quot;</span>
+									<span class="token tag punctuation">&gt;</span>
+									<span class=""></span>
+									<span class=""></span>
+									<span class="token tag punctuation">&lt;</span>
+									<span class="token tag">button</span>
+									<span class="token tag"></span>
+									<span class="token tag attr-name">type</span>
+									<span class="token tag attr-value punctuation attr-equals">=</span>
+									<span class="token tag attr-value punctuation">&quot;</span>
+									<span class="token tag attr-value">submit</span>
+									<span class="token tag attr-value punctuation">&quot;</span>
+									<span class="token tag"></span>
+									<span class="token tag attr-name">class</span>
+									<span class="token tag attr-value punctuation attr-equals">=</span>
+									<span class="token tag attr-value punctuation">&quot;</span>
+									<span class="token tag attr-value">button bg-color-blue text-color-white focus-light-blue hover-light-blue</span>
+									<span class="token tag attr-value punctuation">&quot;</span>
+									<span class="token tag punctuation">&gt;</span>
+									<span class=""></span>        Action
+
+									<span class=""></span>
+									<span class="token tag punctuation">&lt;/</span>
+									<span class="token tag">button</span>
+									<span class="token tag punctuation">&gt;</span>
+									<span class=""></span>
+									<span class=""></span>
+									<span class="token tag punctuation">&lt;/</span>
+									<span class="token tag">div</span>
+									<span class="token tag punctuation">&gt;</span>
+									<span class=""></span>
+									<span class=""></span>
+									<span class="token tag punctuation">&lt;/</span>
+									<span class="token tag">form</span>
+									<span class="token tag punctuation">&gt;</span>
+									<span class=""></span>
+									<span class=""></span>
+									<span class="token tag punctuation">&lt;/</span>
+									<span class="token tag">div</span>
+									<span class="token tag punctuation">&gt;</span>
+								</code>
+							</pre>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+    <footer>
+      <div class="container">
+        <section>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="279 0 102 93" fill="none" class="pico-icon">
+            <path d="M355.83 57.6809a1.998 1.998 0 0 0-1.149 1.1487l-7.814 20.317c-.658 1.7094-3.076 1.7094-3.734 0l-7.814-20.317a1.998 1.998 0 0 0-1.149-1.1487l-20.317-7.8142c-1.709-.6575-1.709-3.0759 0-3.7334l20.317-7.8142a1.998 1.998 0 0 0 1.149-1.1487l7.814-20.317c.658-1.7094 3.076-1.7094 3.734 0l7.814 20.317c.203.5281.62.9455 1.149 1.1487l20.317 7.8142c1.709.6575 1.709 3.0759 0 3.7334l-20.317 7.8142Z" fill="var(--pico-logo-big-sparkle)"></path>
+            <path d="M298.867 31.1466c-.658 1.7094-3.076 1.7094-3.734 0l-2.814-7.317a1.998 1.998 0 0 0-1.149-1.1487l-7.317-2.8142c-1.709-.6575-1.709-3.0759 0-3.7334l7.317-2.8142a1.998 1.998 0 0 0 1.149-1.1487l2.814-7.317c.658-1.7094 3.076-1.7094 3.734 0l2.814 7.317c.203.5281.62.9455 1.149 1.1487l7.317 2.8142c1.709.6575 1.709 3.0759 0 3.7334l-7.317 2.8142a1.998 1.998 0 0 0-1.149 1.1487l-2.814 7.317Z" fill="var(--pico-logo-small-sparkles)"></path>
+            <path d="M314.83 82.6809a1.998 1.998 0 0 0-1.149 1.1487l-2.814 7.317c-.658 1.7094-3.076 1.7094-3.734 0l-2.814-7.317a1.998 1.998 0 0 0-1.149-1.1487l-7.317-2.8142c-1.709-.6575-1.709-3.0759 0-3.7334l7.317-2.8142a1.998 1.998 0 0 0 1.149-1.1487l2.814-7.317c.658-1.7094 3.076-1.7094 3.734 0l2.814 7.317c.203.5281.62.9455 1.149 1.1487l7.317 2.8142c1.709.6575 1.709 3.0759 0 3.7334l-7.317 2.8142Z" fill="var(--pico-logo-small-sparkles)"></path>
+          </svg>
+          <nav class="links">
+            <ul>
+              <li>
+                <strong>About</strong>
+              </li>
+              <li>
+                <a class="secondary" data-discover="true" href="/docs/v2">What’s new?</a>
+              </li>
+              <li>
+                <a class="secondary" data-discover="true" href="/docs/brand">Brand</a>
+              </li>
+              <li>
+                <a class="secondary" data-discover="true" href="/docs/mission">Mission</a>
+              </li>
+              <li>
+                <a class="secondary" data-discover="true" href="/docs/usage-scenarios">Usage scenarios</a>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <strong>Docs</strong>
+              </li>
+              <li>
+                <a class="secondary" data-discover="true" href="/docs">Quick start</a>
+              </li>
+              <li>
+                <a class="secondary" data-discover="true" href="/docs/version-picker">Version picker</a>
+              </li>
+              <li>
+                <a class="secondary" data-discover="true" href="/docs/classless">Class-less version</a>
+              </li>
+              <li>
+                <a class="secondary" data-discover="true" href="/docs/forms">Form elements</a>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <strong>Community</strong>
+              </li>
+              <li>
+                <a rel="noopener noreferrer" class="secondary" href="https://github.com/picocss/pico/issues" target="_blank">Issues</a>
+              </li>
+              <li>
+                <a rel="noopener noreferrer" class="secondary" href="https://github.com/picocss/pico/discussions" target="_blank">Discussions</a>
+              </li>
+              <li>
+                <a rel="noopener noreferrer" class="secondary" href="https://github.com/picocss/pico/discussions/categories/help" target="_blank">Help</a>
+              </li>
+            </ul>
+            <ul>
+              <li>
+                <strong>Examples</strong>
+              </li>
+              <li>
+                <a rel="noopener noreferrer" class="secondary" href="https://codesandbox.io/embed/4mrnhq?view=Editor+%2B+Preview&amp;module=%2Findex.html" target="_blank">HTML</a>
+              </li>
+              <li>
+                <a rel="noopener noreferrer" class="secondary" href="https://codesandbox.io/embed/x4qtf8?view=Editor+%2B+Preview&amp;module=%2Findex.html" target="_blank">Class-less</a>
+              </li>
+              <li>
+                <a rel="noopener noreferrer" class="secondary" href="https://codesandbox.io/p/devbox/github/picocss/examples/tree/master/v2-react-classless-login?embed=1&amp;file=%2Fsrc%2Fmain.scss" target="_blank">React</a>
+              </li>
+              <li>
+                <a class="secondary" data-discover="true" href="/examples">All</a>
+              </li>
+            </ul>
+          </nav>
+          <p class="build-info">Designed and built by
+            <!-- -->
+            <a rel="noopener noreferrer" class="secondary" href="https://lucaslarroche.com/" target="_blank">Lucas Larroche</a>
+            <!-- -->with the help of our
+            <!-- -->
+            <a rel="noopener noreferrer" class="secondary" href="https://github.com/picocss/pico/graphs/contributors" target="_blank">contributors</a>.
+          </p>
+          <ul class="resources">
+            <li>
+              <a rel="noopener noreferrer" class="contrast" title="GitHub" href="https://github.com/picocss/pico" target="_blank">
+                <svg xmlns="http://www.w3.org/2000/svg" height="24" width="24.25" viewBox="0 0 496 512" class="icon-github">
+                  <path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"></path>
+                </svg>
+              </a>
+            </li>
+            <li>
+              <a rel="noopener noreferrer" class="contrast" title="Twitter" href="https://x.com/picocss" target="_blank">
+                <svg xmlns="http://www.w3.org/2000/svg" height="24" width="24" viewBox="0 0 512 512" class="icon-x">
+                  <path d="M389.2 48h70.6L305.6 224.2 487 464H345L233.7 318.6 106.5 464H35.8L200.7 275.5 26.8 48H172.4L272.9 180.9 389.2 48zM364.4 421.8h39.1L151.1 88h-42L364.4 421.8z"></path>
+                </svg>
+              </a>
+            </li>
+            <li>
+              <a rel="noopener noreferrer" class="contrast" title="jsDelivr" href="https://www.jsdelivr.com/package/npm/@picocss/pico" target="_blank">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" class="icon-jsdelivr">
+                  <path d="M11.851 0L.811 4.02l1.56 14.7L11.85 24l9.6-5.28 1.74-14.76zm.062 4.622a6.668 6.75 0 0 1 2.666.572 12.507 12.507 0 0 0-2.59 1.95c-.045-.02-.092-.031-.138-.045a1.181 1.181 0 0 0-.346-.056c-.071 0-.141.01-.21.021a8.91 8.91 0 0 1-.615-2.318 6.668 6.75 0 0 1 1.171-.122 6.668 6.75 0 0 1 .062-.002zm-1.99.312a9.763 9.763 0 0 0 .69 2.504 1.213 1.213 0 0 0-.328.825 1.202 1.202 0 0 0 .18.63c-.937 1.294-1.656 2.803-1.905 4.31-.01.056-.013.11-.02.166-.282.09-.515.284-.656.54-.987-.333-1.885-.968-2.615-2.022a6.668 6.75 0 0 1-.026-.515 6.668 6.75 0 0 1 4.68-6.438zm5.507.709a6.668 6.75 0 0 1 2.53 2.9c-.377.953-1.049 1.892-1.893 2.727a1.242 1.242 0 0 0-.644-.184 1.243 1.243 0 0 0-.768.27c-.462-.354-.91-.737-1.318-1.168-.333-.35-.637-.73-.921-1.123.19-.215.31-.494.31-.802 0-.212-.061-.41-.159-.586 1.058-1.008 2.112-1.67 2.863-2.034zm-3.925 1.982a.624.624 0 0 1 .346.114.624.624 0 0 1 .292.524.624.624 0 0 1-.292.524.626.626 0 0 1-.346.113.634.634 0 0 1-.638-.637c0-.355.283-.638.638-.638zm-.441 1.771a1.205 1.205 0 0 0 .675.062c.036.05.075.097.112.148a11.438 11.438 0 0 0 .921 1.119 12.103 12.103 0 0 0 1.446 1.277c-.032.11-.054.224-.054.342a1.236 1.236 0 0 0 .066.38 9.91 9.91 0 0 1-2.118 1.042c-.087.029-.173.052-.261.078a7.735 7.735 0 0 1-1.87.332 1.15 1.15 0 0 0-.66-.773c.004-.024.005-.049.01-.073.219-1.333.873-2.73 1.733-3.934zm7.272.19a6.668 6.75 0 0 1 .245 1.786 6.668 6.75 0 0 1-.259 1.856 9.993 9.993 0 0 1-1.666-.63 1.243 1.243 0 0 0-.065-.713 9.434 9.434 0 0 0 1.745-2.3zm-2.913 2.101c.367 0 .657.291.657.658s-.291.657-.657.657c-.367 0-.658-.29-.658-.657s.29-.658.658-.658zm.837 1.59a10.79 10.79 0 0 0 1.802.688 6.668 6.75 0 0 1-6.149 4.157 6.668 6.75 0 0 1-.062-.004 6.668 6.75 0 0 1-.042 0c-.087-.042-.168-.08-.266-.129-.312-.154-.667-.352-.846-.5a3.796 3.796 0 0 1-1.294-2.03c.21-.111.38-.284.487-.495a8.428 8.428 0 0 0 1.96-.306 9.11 9.11 0 0 0 .513-.154 11.083 11.083 0 0 0 2.341-1.13c.205.143.452.23.719.23a1.248 1.248 0 0 0 .837-.328zm-10.707.116a5.761 5.761 0 0 0 2.212 1.298 1.146 1.146 0 0 0 .857.87 4.602 4.602 0 0 0 1.24 2.222 6.668 6.75 0 0 1-4.31-4.39zm3.327.464c.331 0 .595.263.595.596s-.264.595-.595.595a.59.59 0 0 1-.596-.595.591.591 0 0 1 .596-.596z"></path>
+                </svg>
+              </a>
+            </li>
+            <li>
+              <a rel="noopener noreferrer" class="contrast" title="NPM" href="https://www.npmjs.com/package/@picocss/pico" target="_blank">
+                <svg xmlns="http://www.w3.org/2000/svg" width="21.33" height="24" viewBox="0 0 576 512" class="icon-npm">
+                  <path d="M288 288h-32v-64h32v64zm288-128v192H288v32H160v-32H0V160h576zm-416 32H32v128h64v-96h32v96h32V192zm160 0H192v160h64v-32h64V192zm224 0H352v128h64v-96h32v96h32v-96h32v96h32V192z"></path>
+                </svg>
+              </a>
+            </li>
+          </ul>
+        </section>
+        <section>
+          <p>Code licensed
+            <!-- -->
+            <a rel="noopener noreferrer" class="secondary" href="https://github.com/picocss/pico/blob/master/LICENSE.md" target="_blank">MIT</a>, docs
+            <!-- -->
+            <a rel="noopener noreferrer" class="secondary" href="https://github.com/picocss/picocss.com/blob/main/LICENSE.md" target="_blank">CC BY-SA 4.0</a>.
+          </p>
+          <p>Currently <code>v
+              <!-- -->2.1.1
+            </code>. </p>
+        </section>
+      </div>
+    </footer>
+  </body>
+</html>
