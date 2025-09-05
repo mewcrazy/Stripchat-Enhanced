@@ -54,7 +54,7 @@ button + .se-loader { display: none; }
 
 
 /* emoji */
-.SmilesWidget__content_default-emojis { overflow-y: scroll; }
+.SmilesWidget__content_default-emojis .se-emoji-list { overflow-y: scroll; height: 138px; }
 .SmilesWidget__content_default-emojis .active-smile { font-size: 24px; font-family: emoji; font-variant-emoji: unicode; width: 31px; padding: 8px 0; }
 .emoji-categories { display: flex; justify-content: space-between; }
 
