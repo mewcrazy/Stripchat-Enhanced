@@ -51,11 +51,16 @@ button + .se-loader { display: none; }
   /* Emoji unicode blocks */
   unicode-range: U+1F300-1F5FF, U+1F600-1F64F, U+1F680-1F6FF, U+2600-26FF;
 }
+@font-face {
+  font-family: "Twemoji";
+  src: url("twemoji.woff2") format("woff2");
+}
+
 
 
 /* emoji */
 .SmilesWidget__content_default-emojis .se-emoji-list { height: 138px; }
-.SmilesWidget__content_default-emojis .active-smile { font-size: 24px; font-family: emoji; font-variant-emoji: unicode; width: 31px; padding: 8px 0; }
+.SmilesWidget__content_default-emojis .active-smile { font-size: 24px; font-family: "Twemoji"; font-variant-emoji: unicode; width: 31px; padding: 8px 0; }
 .emoji-categories { display: flex; justify-content: space-between; }
 
 /* enhanced options */
