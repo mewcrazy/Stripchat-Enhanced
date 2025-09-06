@@ -42,6 +42,14 @@
     const iso639_langs = eval("(" + GM_getResourceText("ISO639_FLAGS") + ")")
 
 
+    // Remove unsupported Emojis
+    GM_addStyle(`
+      /* Chromium */
+      .se-emoji-relaxed, .se-emoji-white_frowning_face, .se-emoji-skull_and_crossbones, .se-emoji-heavy_heart_exclamation_mark_ornament, .se-emoji-raised_hand_with_fingers_splayed,
+.se-emoji-heart, .se-emoji-v, .se-emoji-eye, .se-emoji-writing_hand, .se-emoji-sleuth_or_spy, .se-emoji-man_in_business_suit_levitating, .se-emoji-skier, .se-emoji-golfer, .se-emoji-person_with_ball, .se-emoji-weight_lifter, .se-emoji-woman-kiss-man, .se-emoji-man-kiss-man, .se-emoji-woman-kiss-woman, .se-emoji-woman-heart-man { display: none !important; }
+    `);
+
+
     // TODO Remove later on
     GM_addElement('link', { rel: 'stylesheet', href: 'https://mewcrazy.github.io/StripChat-Enhanced/deploy/global.css' }); // TODO minify css
     GM_addElement('link', { rel: 'stylesheet', href: 'https://mewcrazy.github.io/StripChat-Enhanced/deploy/flags.css' }); // TODO minify css
@@ -59,7 +67,7 @@
 
 
     /* A Google API Key (for the Cloud Translation API) is needed to get this script to work */
-    var googleApiKey = "";
+    var googleApiKey = "AIzaSyA8m0bay1Sg545_mrZKkmEFIh5bJw7A4a8";
     var prefTranslationLang = localStorage.getItem("prefTranslationLang")
     var translationLanguages = []
 
@@ -355,7 +363,7 @@
 
               translateGoogle(text, 'en_US').then(function(data) {
                 if(!that.closest('.message-body').find('.translated-line').length) {
-                    that.closest('.message-body').find('.translate-line').before('<small class="translated-line">'+data.data.translations[0].translatedText+'</small>')
+                    that.closest('.message-body').find('.translate-line').before('<small class="translated-line">'+decodeURIComponent(data.data.translations[0].translatedText)+'</small>')
                 }
                 $(this).prop('disabled', false)
               })
@@ -380,7 +388,7 @@
 
             translateGoogle(text, 'en_US').then(function(data) {
               if(!that.closest('.view-cam-info-goal .translated-line').length) {
-                  that.closest('.view-cam-info-goal').find('.view-cam-info-topic').after('<small class="translated-line">'+data.data.translations[0].translatedText+'</small>')
+                  that.closest('.view-cam-info-goal').find('.view-cam-info-topic').after('<small class="translated-line">'+decodeURIComponent(data.data.translations[0].translatedText)+'</small>')
               }
               $(this).prop('disabled', false)
             })
@@ -410,7 +418,7 @@
 
           translateGoogle(text, 'en_US').then(function(data) {
             if(!that.closest('[class*="ViewCamGroup__description"] .translated-line').length) {
-                that.closest('[class*="ViewCamGroup__description"]').find('.translate-line').before('<small class="translated-line">'+data.data.translations[0].translatedText+'</small>')
+                that.closest('[class*="ViewCamGroup__description"]').find('.translate-line').before('<small class="translated-line">'+decodeURIComponent(data.data.translations[0].translatedText)+'</small>')
             }
             $(this).prop('disabled', false)
           })
@@ -524,7 +532,7 @@
                         modelChatInput.val('')
                         $('[class*="ChatInput__inputBlock"] .se-loader-line').remove()
                         modelChatInput.focus()
-                        document.execCommand('insertText', false, data.data.translations[0].translatedText)
+                        document.execCommand('insertText', false, decodeURIComponent(data.data.translations[0].translatedText))
                         modelChatSubmit.click()
                     });
                 } else {
@@ -641,7 +649,7 @@
                     privateChatInput.val('')
                     $('.messenger-chat .se-loader-line').remove()
                     privateChatInput.focus()
-                    document.execCommand('insertText', false, data.data.translations[0].translatedText)
+                    document.execCommand('insertText', false, decodeURIComponent(data.data.translations[0].translatedText))
                     privateChatSubmit.click()
                 });
             } else {
@@ -753,31 +761,30 @@
     /**
      * Normal Emojis
      */
-    waitForKeyElements('[class*="SmilesWidgetContainer__closeBtn"]', addDefaultEmojis);
+    waitForKeyElements('.model-chat__smiles-block [class*="SmilesWidgetContainer__closeBtn"]', addDefaultEmojis);
     function addDefaultEmojis(jNode) {
       let modelChat = $(jNode).closest('.model-chat-public')
 
       // add switch emoji style button
       $(jNode).before('<a class="switch-emoji-style" href="#" aria-label="White" class="btn-tags-inline-badge inline-badge inline-badge__button inline-badge__override model-filter-link"><span class="">Switch Emoji Style</span></a>')
 
-      $('#body').on('click', '.switch-emoji-style', function(e) {
+      $('.model-chat-content').off().on('click', '.switch-emoji-style', function(e) {
         e.preventDefault
 
-        $('[class^="SmilesWidgetContainer__content#"]').after('<div class="SmilesWidget__content_default-emojis hidden"><ul class="emoji-categories"></ul><div class="emoji-list"></div></div>')
-
-        if($(this).find('.SmilesWidget__content_default-emojis').length && $(this).find('.emoji-categories').length) {
+        if($(this).closest('.model-chat__smiles-block').find('.SmilesWidget__content_default-emojis').length) {
           $('.SmilesWidget__content_default-emojis').toggleClass('hidden').prev().toggleClass('hidden')
         } else {
 
-          $('.SmilesWidget__content_default-emojis').toggleClass('hidden').prev().toggleClass('hidden')
+          $('[class^="SmilesWidgetContainer__content#"]').after('<div class="SmilesWidget__content_default-emojis"><ul class="emoji-categories"></ul><div class="emoji-list"></div></div>')
+          $('.SmilesWidget__content_default-emojis').prev().toggleClass('hidden')
           $.each(emojis.categories, (k, v) => {
-            $('.emoji-categories').append('<li class="se-emoji-cat se-emoji-cat_'+v+'"><a class="se-emoji se-emoji-'+v.id+'" data-tab="'+v.id+'" href="#">'+v.id+'</a></li>')
+            $('.emoji-categories').append('<li class="se-emoji-cat se-emoji-cat_'+v.id+'"><a class="se-emoji se-emoji-'+v.id+'" data-tab="'+v.id+'" href="#">'+v.id+'</a></li>')
 
             // all emojis of category
             let cat = $('<div class="se-emoji-list se-emoji-list-'+v.id+''+(k>0 ? " hidden" : "")+'"></div>')
             $.each(v.emojis, (k, v) => {
               if([v.matchAll(/\p{RGI_Emoji}/vg)].length) {
-                cat.append('<button aria-label="'+v+'" class="SmilersWidgetSpicyList__smile#mG active-smile" type="button">&#x'+emojis.emojis[v].skins[0].unified.split("-").join("")+';</button>')
+                cat.append('<button aria-label="'+v+'" class="se-emoji-'+emojis.emojis[v].id+' SmilersWidgetSpicyList__smile#mG active-smile" type="button">&#x'+emojis.emojis[v].skins[0].unified.split("-").join("")+';</button>')
               }
             })
             $('.emoji-list').append(cat)
@@ -790,13 +797,13 @@
         $('.se-emoji-list').addClass('hidden')
         $('.se-emoji-list-'+$(this).attr('data-tab')).removeClass('hidden')
       })
+
+      // insert emoji on click
+      $('.model-chat-content').on('click', '.SmilesWidget__content_default-emojis .active-smile', function(e) {
+          let text = $('.model-chat-input input').val()
+          $('.model-chat-input input').val('').focus()
+          document.execCommand('insertText', false, text+$(this).text())
+      })
     }
 
-
-    // insert emoji on click
-    $('.model-chat-content').on('click', '.SmilesWidget__content_default-emojis .active-smile', function(e) {
-        let text = $('.model-chat-input input').val()
-        $('.model-chat-input input').val('').focus()
-        document.execCommand('insertText', false, text+$(this).text())
-    })
 })();
