@@ -95,8 +95,7 @@ input[type="search"].input.language-search:hover { background: rgba(0,0,0,1) }
 .se-emoji-cat_activity { background: url(https://mewcrazy.github.io/StripChat-Enhanced/icons/activity.svg) }
 .se-emoji-cat_places { background: url(https://mewcrazy.github.io/StripChat-Enhanced/icons/people.svg) }
 .se-emoji-cat_objects { background: url(https://mewcrazy.github.io/StripChat-Enhanced/icons/objects.svg) }
-.se-emoji-cat_symbols { }
-.se-emoji-cat_flags { background: url(https://mewcrazy.github.io/StripChat-Enhanced/icons/flags.svg) }
+.se-emoji-cat_symbols { background: url(https://mewcrazy.github.io/StripChat-Enhanced/icons/flags.svg) }
 
 .se-emoji-cat_flags { display: none }
 /* Remove unsupported Emojis */
