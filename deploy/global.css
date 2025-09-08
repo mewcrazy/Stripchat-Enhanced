@@ -30,9 +30,9 @@ button + .se-loader { display: none; }
 
 
 /* emoji */
-.SmilesWidget__content_default-emojis .se-emoji-list { height: 138px; }
+.SmilesWidget__content_default-emojis { display: flex; height: 138px; }
 .SmilesWidget__content_default-emojis .active-smile { font-size: 24px; font-family: "Noto Color Emoji"; font-variant-emoji: unicode; width: 31px; padding: 8px 0; }
-.emoji-categories { display: flex; justify-content: space-between; }
+.emoji-categories { flex-grow: 0; display: flex; justify-content: space-between; }
 
 /* enhanced options */
 .enhanced-options-content { align-items: center; padding: 20px }
@@ -83,19 +83,19 @@ input[type="search"].input.language-search:hover { background: rgba(0,0,0,1) }
 /* emoji picker */
 .model-chat__smiles-block [class*="SmilesWidgetContainer__titleBlock"] { justify-content: flex-start; }
 .model-chat__smiles-block .se-switch-emoji { flex-grow: 1; text-align: right; }
-.switch-emoji-style { text-decoration: none; margin: 0; padding: 10px 12px !important; font-size: 13px; font-weight: 500; line-height: 20px; }
+.switch-emoji-style { display: inline; text-decoration: none; margin: 0; padding: 10px 12px !important; font-size: 13px; font-weight: 500; line-height: 20px; }
 .switch-emoji-style:hover { background: #1f1f1f; text-decoration: none; }
 .emoji-categories { margin: 0 0 1em 0; background: #1f1f1f; border-radius: 12px; }
 .emoji-list { overflow-y: scroll; }
 .se-emoji-cat a { text-indent: -9999px; display: block; width: 32px; height: 32px; background-repeat: no-repeat; background-size: contain; }
-.se-emoji-cat_recent { background: url(https://mewcrazy.github.io/StripChat-Enhanced/icons/recent.svg) }
-.se-emoji-cat_people { background: url(https://mewcrazy.github.io/StripChat-Enhanced/icons/people.svg) }
-.se-emoji-cat_nature { background: url(https://mewcrazy.github.io/StripChat-Enhanced/icons/nature.svg) }
-.se-emoji-cat_foods { background: url(https://mewcrazy.github.io/StripChat-Enhanced/icons/foods.svg) }
-.se-emoji-cat_activity { background: url(https://mewcrazy.github.io/StripChat-Enhanced/icons/activity.svg) }
-.se-emoji-cat_places { background: url(https://mewcrazy.github.io/StripChat-Enhanced/icons/people.svg) }
-.se-emoji-cat_objects { background: url(https://mewcrazy.github.io/StripChat-Enhanced/icons/objects.svg) }
-.se-emoji-cat_symbols { background: url(https://mewcrazy.github.io/StripChat-Enhanced/icons/flags.svg) }
+.se-emoji-cat_recent a { background: url(https://mewcrazy.github.io/StripChat-Enhanced/icons/recent.svg) }
+.se-emoji-cat_people a { background: url(https://mewcrazy.github.io/StripChat-Enhanced/icons/people.svg) }
+.se-emoji-cat_nature a { background: url(https://mewcrazy.github.io/StripChat-Enhanced/icons/nature.svg) }
+.se-emoji-cat_foods a { background: url(https://mewcrazy.github.io/StripChat-Enhanced/icons/foods.svg) }
+.se-emoji-cat_activity a { background: url(https://mewcrazy.github.io/StripChat-Enhanced/icons/activity.svg) }
+.se-emoji-cat_places a { background: url(https://mewcrazy.github.io/StripChat-Enhanced/icons/people.svg) }
+.se-emoji-cat_objects a { background: url(https://mewcrazy.github.io/StripChat-Enhanced/icons/objects.svg) }
+.se-emoji-cat_symbols a { background: url(https://mewcrazy.github.io/StripChat-Enhanced/icons/flags.svg) }
 
 .se-emoji-cat_flags { display: none }
 /* Remove unsupported Emojis */
