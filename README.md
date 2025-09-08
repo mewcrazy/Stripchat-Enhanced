@@ -14,6 +14,7 @@
 - Hide chat users and set your font size for chat rooms
 - Regular emojis in chat rooms and private messages
 - Resizable video frame
+- Remove Blur in Group, Privte & Ticket Shows
 - Hide unneeded links in the site's sidebar
 - Filter your favorites by country, age, private prices and more
 - Removes the "Age Verification Popup", "Cookie Notices" and "Ultimate Ads"
@@ -40,9 +41,7 @@ We welcome any contributions! If you're having ideas or improvements to StripCha
 ## Roadmap:
 - Add Emoji Picker module
 - Add additional Favorites filters: In Private, In Group Show, In Ticket Show, New Models
-- Unfollow on all listing pages (without the need to visit the room itself)
 - Add "Auto Translate" feature (no need to translate each line individually)
-- Link GitHub Features list to their according landing page with further details
 - Bug testing in GreaseMonkey & TamperMonkey
 
 ## Used Frameworks/Utilities:

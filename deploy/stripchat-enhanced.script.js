@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        Stripchat Enhanced
 // @namespace   https://github.com/mewcrazy/StripChat-Enhanced
-// @version     1.9
+// @version     1.95
 // @author      Dennis Bitsch
 // @description A browser extension to enhance the features on the StripChat website
 // @match       *://*.stripchat.com/*
@@ -10,10 +10,10 @@
 // @icon        https://mewcrazy.github.io/StripChat-Enhanced/icon.svg
 // @require     https://mewcrazy.github.io/StripChat-Enhanced/deploy/jquery.min.js
 // @require     https://gist.github.com/raw/2625891/waitForKeyElements.js
-// @resource    IMPORTED_CSS https://mewcrazy.github.io/StripChat-Enhanced/deploy/global.css?v=4
-// @resource    CSS_FLAGS https://mewcrazy.github.io/StripChat-Enhanced/deploy/flags.css?v=4
-// @resource    ISO639_FLAGS https://mewcrazy.github.io/StripChat-Enhanced/json/iso639-1.json?v=3
-// @resource    EMOJIS https://cdn.jsdelivr.net/npm/@emoji-mart/data@1.2.1/sets/2/native.json?v=2
+// @resource    IMPORTED_CSS https://mewcrazy.github.io/StripChat-Enhanced/deploy/global.css?v=5
+// @resource    CSS_FLAGS https://mewcrazy.github.io/StripChat-Enhanced/deploy/flags.css?v=5
+// @resource    ISO639_FLAGS https://mewcrazy.github.io/StripChat-Enhanced/json/iso639-1.json?v=5
+// @resource    EMOJIS https://cdn.jsdelivr.net/npm/@emoji-mart/data@1.2.1/sets/2/native.json?v=5
 // @resource    HTML_ENHANCED_OPTIONS https://mewcrazy.github.io/StripChat-Enhanced/html/enhanced-options.html
 // @resource    HTML_FAVORITES_FILTERS https://mewcrazy.github.io/StripChat-Enhanced/html/favorites-filters.html
 // @downloadURL https://mewcrazy.github.io/StripChat-Enhanced/deploy/stripchat-enhanced.script.js
@@ -44,9 +44,17 @@
 
     // Remove unsupported Emojis
     GM_addStyle(`
+      .se-emoji-cat_flags { display: none }
+
       /* Chromium */
-      .se-emoji-relaxed, .se-emoji-white_frowning_face, .se-emoji-skull_and_crossbones, .se-emoji-heavy_heart_exclamation_mark_ornament, .se-emoji-raised_hand_with_fingers_splayed,
-.se-emoji-heart, .se-emoji-v, .se-emoji-eye, .se-emoji-writing_hand, .se-emoji-sleuth_or_spy, .se-emoji-man_in_business_suit_levitating, .se-emoji-skier, .se-emoji-golfer, .se-emoji-person_with_ball, .se-emoji-weight_lifter, .se-emoji-woman-kiss-man, .se-emoji-man-kiss-man, .se-emoji-woman-kiss-woman, .se-emoji-woman-heart-man { display: none !important; }
+      .se-emoji-relaxed, .se-emoji-white_frowning_face, .se-emoji-skull_and_crossbones, .se-emoji-heavy_heart_exclamation_mark_ornament, .se-emoji-raised_hand_with_fingers_splayed, .se-emoji-heart, .se-emoji-v, .se-emoji-eye, .se-emoji-writing_hand, .se-emoji-sleuth_or_spy, .se-emoji-man_in_business_suit_levitating, .se-emoji-skier, .se-emoji-golfer, .se-emoji-person_with_ball, .se-emoji-weight_lifter, .se-emoji-woman-kiss-man, .se-emoji-man-kiss-man, .se-emoji-woman-kiss-woman, .se-emoji-woman-heart-man { display: none !important; }
+      .point_up, man-heart-man, man-heart-woman, man-woman-boy, man-woman-girl, man-woman-girl-boy, man-woman-boy-boy, man-woman-girl-girl, man-man-boy, man-man-girl,
+man-man-girl-boy, man-man-boy-boy,man-man-girl-girl, woman-woman-boy
+
+      .se-emoji-chipmunk, .se-emoji-dove_of_peace, .se-emoji-spider, .se-emoji-spider_web, .se-emoji-rosette, .se-emoji-, .se-emoji-shamrock { display: none !important; }
+      .se-emoji-hot_pepper, .se-emoji-knife_fork_plate { display: none !important; }
+      .se-emoji-reminder_ribbon, .se-emoji-admission_tickets, .se-emoji-medal, .se-emoji-ice_skate, .se-emoji-joystick, .se-emoji-spades, .se-emoji-hearts, .se-emoji-diamonds, .se-emoji-clubs, .se-emoji-frame_with_picture { display: none !important; }
+
     `);
 
 
@@ -67,7 +75,7 @@
 
 
     /* A Google API Key (for the Cloud Translation API) is needed to get this script to work */
-    var googleApiKey = "";
+    var googleApiKey = "AIzaSyA8m0bay1Sg545_mrZKkmEFIh5bJw7A4a8";
     var prefTranslationLang = localStorage.getItem("prefTranslationLang")
     var translationLanguages = []
 
@@ -86,6 +94,12 @@
       aside [aria-label="hairColor"] { display: none !important; }
       aside [aria-label="privatePrice"] { display: none !important; }
       aside [aria-label="allTags"] { display: none !important; }
+    `);
+
+
+    // Remove Blur in Group, Privte & Ticket Shows
+    GM_addStyle(`
+      video-element-wrapper-blur { display: none !important; }
     `);
 
 
@@ -233,6 +247,7 @@
     }
 
 
+
     /**
      * Disable Watch History
      */
@@ -281,94 +296,91 @@
     waitForKeyElements(".messages", hideChatUsers);
     function hideChatUsers(jNode) {
 
-          // "Hide User" button click event
-          $('#body').on('click', '.HideUserButton', function(e) {
-              alert("hmmm")
-              let username = $(this).closest('.user-info-popup').find('.user-levels-username-text').html()
+      // "Hide User" button click event
+      $('#body').on('click', '.HideUserButton', function(e) {
+          alert("hmmm")
+          let username = $(this).closest('.user-info-popup').find('.user-levels-username-text').html()
 
-              // get localStorage
-              let hiddenChatUsers = JSON.parse(localStorage.getItem("hiddenChatUsers"))
+          // get localStorage
+          let hiddenChatUsers = JSON.parse(localStorage.getItem("hiddenChatUsers"))
 
-              // append localStorage
-              if(!hiddenChatUsers.length) {
-                  hiddenChatUsers = [username]
-              } else {
-                  hiddenChatUsers.push(username);
+          // append localStorage
+          if(!hiddenChatUsers.length) {
+              hiddenChatUsers = [username]
+          } else {
+              hiddenChatUsers.push(username);
+          }
+
+          // save localStorage
+          localStorage.setItem('hiddenChatUsers', JSON.stringify(hiddenChatUsers))
+      })
+
+      // add "Hide User" button
+      $('#body').on('click', '.message-more-menu', function() {
+
+          setTimeout(function() {
+            if(!$('.message-more-menu__dropdown .HideUserButton').length) {
+              $('.message-more-menu__dropdown .dropdown-content').append('<button class="a11y-button MessageModeMenuItem#rq ReportButton#X2 ReportButton__text#IV HideUserButton" type="button"><svg class="icon icon-warning-triangle-outline-ds" style="height: 20px; width: 20px;"><use xlink:href="#icons-warning-triangle-outline-ds"></use></svg><span>Hide User</span></button>');
+            }
+          }, 50);
+      })
+
+
+
+      // observe messages div
+      var observer = new MutationObserver(function(e) {
+
+          // filter model pages only
+
+          // hide local storage users:
+          let hiddenChatUsers = JSON.parse(localStorage.getItem("hiddenChatUsers"))
+          // $.each(hiddenChatUsers, function(index, item) {
+          //     // do something with `item` (or `this` is also `item` if you like)
+          // });
+
+          // add translation button to regular messages
+          $(jNode).find('.regular-message.message__more-menu--hidden:not(.se-processed)').slice(-50).each(function(index, item) {
+              if(!$(this).find('.message-body .translate-line').length) {
+                $(this).find('.message-body').append(htmlTranslateButton)
+                $(this).addClass("se-processed")
               }
-
-              // save localStorage
-              localStorage.setItem('hiddenChatUsers', JSON.stringify(hiddenChatUsers))
           })
 
-      if($("title").is(':contains("Model:")')) {
-
-          // add "Hide User" button
-          $('#body').on('click', '.message-more-menu', function() {
-
-              setTimeout(function() {
-                if(!$('.message-more-menu__dropdown .HideUserButton').length) {
-                  $('.message-more-menu__dropdown .dropdown-content').append('<button class="a11y-button MessageModeMenuItem#rq ReportButton#X2 ReportButton__text#IV HideUserButton" type="button"><svg class="icon icon-warning-triangle-outline-ds" style="height: 20px; width: 20px;"><use xlink:href="#icons-warning-triangle-outline-ds"></use></svg><span>Hide User</span></button>');
-                }
-              }, 50);
+          // add translation button to tip notes
+          $(jNode).find('.m-bg-public-tip:not(.se-processed)').slice(-50).each(function(index, item) {
+              if(!$(this).find('.tip-comment .translate-line').length) {
+                $(this).find('.tip-comment').append(htmlTranslateButton)
+                $(this).addClass("se-processed")
+              }
           })
 
-
-
-          // observe messages div
-          var observer = new MutationObserver(function(e) {
-
-              // filter model pages only
-
-              // hide local storage users:
-              let hiddenChatUsers = JSON.parse(localStorage.getItem("hiddenChatUsers"))
-              // $.each(hiddenChatUsers, function(index, item) {
-              //     // do something with `item` (or `this` is also `item` if you like)
-              // });
-
-              // add translation button to regular messages
-              $(jNode).find('.regular-message.message__more-menu--hidden:not(.se-processed)').slice(-50).each(function(index, item) {
-                  if(!$(this).find('.message-body .translate-line').length) {
-                    $(this).find('.message-body').append(htmlTranslateButton)
-                    $(this).addClass("se-processed")
-                  }
-              })
-
-              // add translation button to tip notes
-              $(jNode).find('.m-bg-public-tip:not(.se-processed)').slice(-50).each(function(index, item) {
-                  if(!$(this).find('.tip-comment .translate-line').length) {
-                    $(this).find('.tip-comment').append(htmlTranslateButton)
-                    $(this).addClass("se-processed")
-                  }
-              })
-
-              // add translation button to tip notes
-              $(jNode).find('.goal-message:not(.se-processed)').slice(-50).each(function(index, item) {
-                  if(!$(this).find('.goal-description__message .translate-line').length) {
-                    $(this).find('.goal-description__message').append(htmlTranslateButton)
-                    $(this).addClass("se-processed")
-                  }
-              })
-
-          });
-          observer.observe($('.messages')[0], {characterData: true, childList: true, subtree: true});
-
-
-          // translate button click handler
-          $('.messages').off().on('click', '.translate-line button', function(e) {
-              let ell = $(this).closest('.message-body').clone()
-              ell.find('.username,.message-body-mention,.message-timestamp,>span,button,.goal-block').remove()
-              let text = ell.text().trim()
-              let that = $(this)
-              $(this).prop('disabled', true)
-
-              translateGoogle(text, 'en_US').then(function(data) {
-                if(!that.closest('.message-body').find('.translated-line').length) {
-                    that.closest('.message-body').find('.translate-line').before('<small class="translated-line">'+decodeURIComponent(data.data.translations[0].translatedText)+'</small>')
-                }
-                $(this).prop('disabled', false)
-              })
+          // add translation button to tip notes
+          $(jNode).find('.goal-message:not(.se-processed)').slice(-50).each(function(index, item) {
+              if(!$(this).find('.goal-description__message .translate-line').length) {
+                $(this).find('.goal-description__message').append(htmlTranslateButton)
+                $(this).addClass("se-processed")
+              }
           })
-      }
+
+      });
+      observer.observe($('.messages')[0], {characterData: true, childList: true, subtree: true});
+
+
+      // translate button click handler
+      $('.messages').off().on('click', '.translate-line button', function(e) {
+          let ell = $(this).closest('.message-body').clone()
+          ell.find('.username,.message-body-mention,.message-timestamp,>span,button,.goal-block').remove()
+          let text = ell.text().trim()
+          let that = $(this)
+          $(this).prop('disabled', true)
+
+          translateGoogle(text, 'en_US').then(function(data) {
+            if(!that.closest('.message-body').find('.translated-line').length) {
+                that.closest('.message-body').find('.translate-line').before('<small class="translated-line">'+decodeURIComponent(data.data.translations[0].translatedText)+'</small>')
+            }
+            $(this).prop('disabled', false)
+          })
+      })
     }
 
     /**
@@ -429,30 +441,26 @@
     /**
      * Auto Participate in StripChat's 50 Tokens Giveaway
      */
-    waitForKeyElements(".lottery-content", autoParticipate);
+    waitForKeyElements(".lottery", autoParticipate);
     function autoParticipate(jNode) {
 
-      if(
-        $('.nav-right .avatar').length // is logged in
-        && $("title").is(':contains("Model:")') // only on model pages TODO: replace selector
-      ) {
+      // observe messages div
+      var observeParticipation = new MutationObserver(function(e) {
 
-          // observe messages div
-          var observeParticipation = new MutationObserver(function(e) {
-
-              if(
-                  $('.nav-right .avatar').length // is logged in
-                  && $("title").is(':contains("Model:")') // trigger only on model pages // TODO improve detect model page with some EXISTING css class
-                  && $('.lottery.open').length // only if the giveaway is ready
-              ) {
-                  $('.lottery .a11y-button.lottery-title-wrapper').click()
-                  $(jNode).find('.btn').click()
-              }
-
-          });
-          observeParticipation.observe($('.lottery-content')[0], {characterData: true, childList: true, subtree: true});
-      }
+          if(
+            $(jNode).find('.lottery-item:contains("in giveaway.")').length > 0 // only if button is found (= giveaway is ready)
+            && $('.nav-right .avatar').length // is logged in
+          ) {
+              $(jNode).find('.a11y-button.lottery-title-wrapper').click()
+              $(jNode).find('.btn').click()
+          }
+      });
+      observeParticipation.observe($('.lottery-content')[0], {characterData: true, childList: true, subtree: true});
     }
+    // Hide lottery description
+    GM_addStyle(`
+      .lottery-description { visibility: hidden; pointer-events: none; }
+    `);
 
 
     /**
@@ -766,7 +774,7 @@
       let modelChat = $(jNode).closest('.model-chat-public')
 
       // add switch emoji style button
-      $(jNode).before('<a class="switch-emoji-style" href="#" aria-label="White" class="btn-tags-inline-badge inline-badge inline-badge__button inline-badge__override model-filter-link"><span class="">Switch Emoji Style</span></a>')
+      $(jNode).before('<a class="subscribe-switch-container switch-emoji-style" href="#" aria-label="White" class="btn-tags-inline-badge inline-badge inline-badge__button inline-badge__override model-filter-link"><span class="">Switch Emoji Style</span></a>')
 
       $('.model-chat-content').off().on('click', '.switch-emoji-style', function(e) {
         e.preventDefault

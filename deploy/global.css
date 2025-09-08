@@ -27,40 +27,11 @@ button + .se-loader { display: none; }
   100% { transform:rotate(360deg) }
 }
 
-@font-face {
-  font-family: emoji;
-  
-  /* Fonts for text outside emoji blocks */
-  src: local('Droid Sans Mono'),
-       local('Lucida Console'),
-       local('Arial Monospaced'),
-       local(Arial);
-}
-
-@font-face {
-  font-family: emoji;
-
-  src: local('Apple Color Emoji'),
-       local('Android Emoji'),
-       local('Segoe UI'),
-       local(EmojiSymbols),
-       local(Symbola),
-       url('../fonts/Symbola-Emoji.eot?#iefix') format('embedded-opentype'),
-       url('../fonts/Symbola-Emoji.woff') format('woff'),
-       url('../fonts/Symbola-Emoji.ttf') format('truetype');
-  /* Emoji unicode blocks */
-  unicode-range: U+1F300-1F5FF, U+1F600-1F64F, U+1F680-1F6FF, U+2600-26FF;
-}
-@font-face {
-  font-family: "Twemoji";
-  src: url("../fonts/twemoji.woff2") format("woff2");
-}
-
 
 
 /* emoji */
 .SmilesWidget__content_default-emojis .se-emoji-list { height: 138px; }
-.SmilesWidget__content_default-emojis .active-smile { font-size: 24px; font-family: "Twemoji"; font-variant-emoji: unicode; width: 31px; padding: 8px 0; }
+.SmilesWidget__content_default-emojis .active-smile { font-size: 24px; font-family: "Noto Color Emoji"; font-variant-emoji: unicode; width: 31px; padding: 8px 0; }
 .emoji-categories { display: flex; justify-content: space-between; }
 
 /* enhanced options */
@@ -110,6 +81,12 @@ input[type="search"].input.language-search:hover { background: rgba(0,0,0,1) }
 .personal-notifications-modal-panel .current-time { padding: 0 14px; }
 
 /* emoji picker */
+.model-chat__smiles-block [class*="SmilesWidgetContainer__titleBlock"] { justify-content: flex-start; }
+.model-chat__smiles-block [class*="SmilesWidgetContainer__title"] { flex-grow: 1; }
+.switch-emoji-style { text-decoration: none; margin: 0 0 0 1em; padding: 10px 12px; font-size: 13px; font-weight: 500; line-height: 20px; }
+.switch-emoji-style:hover { background: #1f1f1f; }
+.emoji-categories { margin: 1em 0; }
+.se-emoji-cat a { text-indent: -9999px; display: block; width: 32px; height: 32px; background-repeat: no-repeat; background-size: contain; }
 .se-emoji-cat_recent { background: url(https://mewcrazy.github.io/StripChat-Enhanced/icons/recent.svg) }
 .se-emoji-cat_people { background: url(https://mewcrazy.github.io/StripChat-Enhanced/icons/people.svg) }
 .se-emoji-cat_nature { background: url(https://mewcrazy.github.io/StripChat-Enhanced/icons/nature.svg) }
