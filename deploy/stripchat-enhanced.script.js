@@ -10,10 +10,10 @@
 // @icon        https://mewcrazy.github.io/StripChat-Enhanced/icon.svg
 // @require     https://mewcrazy.github.io/StripChat-Enhanced/deploy/jquery.min.js
 // @require     https://gist.github.com/raw/2625891/waitForKeyElements.js
-// @resource    IMPORTED_CSS https://mewcrazy.github.io/StripChat-Enhanced/deploy/global.css?v=5
-// @resource    CSS_FLAGS https://mewcrazy.github.io/StripChat-Enhanced/deploy/flags.css?v=5
-// @resource    ISO639_FLAGS https://mewcrazy.github.io/StripChat-Enhanced/json/iso639-1.json?v=5
-// @resource    EMOJIS https://cdn.jsdelivr.net/npm/@emoji-mart/data@1.2.1/sets/2/native.json?v=5
+// @resource    IMPORTED_CSS https://mewcrazy.github.io/StripChat-Enhanced/deploy/global.css?v=8
+// @resource    CSS_FLAGS https://mewcrazy.github.io/StripChat-Enhanced/deploy/flags.css?v=8
+// @resource    ISO639_FLAGS https://mewcrazy.github.io/StripChat-Enhanced/json/iso639-1.json?v=6
+// @resource    EMOJIS https://cdn.jsdelivr.net/npm/@emoji-mart/data@1.2.1/sets/2/native.json?v=6
 // @resource    HTML_ENHANCED_OPTIONS https://mewcrazy.github.io/StripChat-Enhanced/html/enhanced-options.html
 // @resource    HTML_FAVORITES_FILTERS https://mewcrazy.github.io/StripChat-Enhanced/html/favorites-filters.html
 // @downloadURL https://mewcrazy.github.io/StripChat-Enhanced/deploy/stripchat-enhanced.script.js
@@ -42,22 +42,6 @@
     const iso639_langs = eval("(" + GM_getResourceText("ISO639_FLAGS") + ")")
 
 
-    // Remove unsupported Emojis
-    GM_addStyle(`
-      .se-emoji-cat_flags { display: none }
-
-      /* Chromium */
-      .se-emoji-relaxed, .se-emoji-white_frowning_face, .se-emoji-skull_and_crossbones, .se-emoji-heavy_heart_exclamation_mark_ornament, .se-emoji-raised_hand_with_fingers_splayed, .se-emoji-heart, .se-emoji-v, .se-emoji-eye, .se-emoji-writing_hand, .se-emoji-sleuth_or_spy, .se-emoji-man_in_business_suit_levitating, .se-emoji-skier, .se-emoji-golfer, .se-emoji-person_with_ball, .se-emoji-weight_lifter, .se-emoji-woman-kiss-man, .se-emoji-man-kiss-man, .se-emoji-woman-kiss-woman, .se-emoji-woman-heart-man { display: none !important; }
-      .point_up, man-heart-man, man-heart-woman, man-woman-boy, man-woman-girl, man-woman-girl-boy, man-woman-boy-boy, man-woman-girl-girl, man-man-boy, man-man-girl,
-man-man-girl-boy, man-man-boy-boy,man-man-girl-girl, woman-woman-boy
-
-      .se-emoji-chipmunk, .se-emoji-dove_of_peace, .se-emoji-spider, .se-emoji-spider_web, .se-emoji-rosette, .se-emoji-, .se-emoji-shamrock { display: none !important; }
-      .se-emoji-hot_pepper, .se-emoji-knife_fork_plate { display: none !important; }
-      .se-emoji-reminder_ribbon, .se-emoji-admission_tickets, .se-emoji-medal, .se-emoji-ice_skate, .se-emoji-joystick, .se-emoji-spades, .se-emoji-hearts, .se-emoji-diamonds, .se-emoji-clubs, .se-emoji-frame_with_picture { display: none !important; }
-
-    `);
-
-
     // TODO Remove later on
     GM_addElement('link', { rel: 'stylesheet', href: 'https://mewcrazy.github.io/StripChat-Enhanced/deploy/global.css' }); // TODO minify css
     GM_addElement('link', { rel: 'stylesheet', href: 'https://mewcrazy.github.io/StripChat-Enhanced/deploy/flags.css' }); // TODO minify css
@@ -75,7 +59,7 @@ man-man-girl-boy, man-man-boy-boy,man-man-girl-girl, woman-woman-boy
 
 
     /* A Google API Key (for the Cloud Translation API) is needed to get this script to work */
-    var googleApiKey = "";
+    var googleApiKey = "AIzaSyA8m0bay1Sg545_mrZKkmEFIh5bJw7A4a8";
     var prefTranslationLang = localStorage.getItem("prefTranslationLang")
     var translationLanguages = []
 
@@ -334,6 +318,7 @@ man-man-girl-boy, man-man-boy-boy,man-man-girl-girl, woman-woman-boy
 
           // hide local storage users:
           let hiddenChatUsers = JSON.parse(localStorage.getItem("hiddenChatUsers"))
+          console.log("hiddenChatUsers", hiddenChatUsers)
           // $.each(hiddenChatUsers, function(index, item) {
           //     // do something with `item` (or `this` is also `item` if you like)
           // });
@@ -362,6 +347,14 @@ man-man-girl-boy, man-man-boy-boy,man-man-girl-girl, woman-woman-boy
               }
           })
 
+          // add translation button to group show starting messages
+          $(jNode).find('.group-show-message:not(.se-processed)').slice(-50).each(function(index, item) {
+              if(!$(this).find('.group-show-announce-topic .translate-line').length) {
+                $(this).find('.group-show-announce-topic').append(htmlTranslateButton)
+                $(this).addClass("se-processed")
+              }
+          })
+
       });
       observer.observe($('.messages')[0], {characterData: true, childList: true, subtree: true});
 
@@ -369,7 +362,7 @@ man-man-girl-boy, man-man-boy-boy,man-man-girl-girl, woman-woman-boy
       // translate button click handler
       $('.messages').off().on('click', '.translate-line button', function(e) {
           let ell = $(this).closest('.message-body').clone()
-          ell.find('.username,.message-body-mention,.message-timestamp,>span,button,.goal-block').remove()
+          ell.find('.username,.message-body-mention,.message-timestamp,>span,button,.goal-block,.group-show-message-title,.group-show-announce-topic-label,.group-show-announce-controls').remove()
           let text = ell.text().trim()
           let that = $(this)
           $(this).prop('disabled', true)
@@ -774,7 +767,7 @@ man-man-girl-boy, man-man-boy-boy,man-man-girl-girl, woman-woman-boy
       let modelChat = $(jNode).closest('.model-chat-public')
 
       // add switch emoji style button
-      $(jNode).before('<a class="subscribe-switch-container switch-emoji-style" href="#" aria-label="White" class="btn-tags-inline-badge inline-badge inline-badge__button inline-badge__override model-filter-link"><span class="">Switch Emoji Style</span></a>')
+      $(jNode).before('<div class="se-switch-emoji"><a class="subscribe-switch-container switch-emoji-style" href="#" aria-label="White" class="btn-tags-inline-badge inline-badge inline-badge__button inline-badge__override model-filter-link"><span>Switch Emojis</span></a></div>')
 
       $('.model-chat-content').off().on('click', '.switch-emoji-style', function(e) {
         e.preventDefault
@@ -783,8 +776,15 @@ man-man-girl-boy, man-man-boy-boy,man-man-girl-girl, woman-woman-boy
           $('.SmilesWidget__content_default-emojis').toggleClass('hidden').prev().toggleClass('hidden')
         } else {
 
-          $('[class^="SmilesWidgetContainer__content#"]').after('<div class="SmilesWidget__content_default-emojis"><ul class="emoji-categories"></ul><div class="emoji-list"></div></div>')
+          $('[class^="SmilesWidgetContainer__content#"]').after('<div class="SmilesWidget__content_default-emojis"><div class="emoji-list"></div><ul class="emoji-categories"><li class="se-emoji-cat se-emoji-cat_recent"><a class="se-emoji se-emoji-recent" data-tab="recent" href="#">recent</a></li></ul></div>')
           $('.SmilesWidget__content_default-emojis').prev().toggleClass('hidden')
+
+          // output recent emojis from localStorage
+          let recent_cat = $('<div class="se-emoji-list se-emoji-list hidden"></div>')
+          recent_cat.append('<button aria-label="v" class="se-emoji-v SmilersWidgetSpicyList__smile#mG active-smile" type="button">x</button>')
+          $('.emoji-list').append(recent_cat)
+
+          // output cats + emojis
           $.each(emojis.categories, (k, v) => {
             $('.emoji-categories').append('<li class="se-emoji-cat se-emoji-cat_'+v.id+'"><a class="se-emoji se-emoji-'+v.id+'" data-tab="'+v.id+'" href="#">'+v.id+'</a></li>')
 
