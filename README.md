@@ -13,6 +13,7 @@
 - Open stream in a true fullscreen which is not limited to your browser
 - Hide chat users and set your font size for chat rooms
 - Regular emojis in chat rooms and private messages
+- Do Not Disturb Mode (Shows only yours and the models chat messages)
 - Resizable video frame
 - Remove Blur in Group, Privte & Ticket Shows
 - Hide unneeded links in the site's sidebar
