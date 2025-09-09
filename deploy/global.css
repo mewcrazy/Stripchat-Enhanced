@@ -96,8 +96,8 @@ input[type="search"].input.language-search:hover { background: rgba(0,0,0,1) }
 .se-emoji-cat_places a { background: url(https://mewcrazy.github.io/StripChat-Enhanced/icons/people.svg) }
 .se-emoji-cat_objects a { background: url(https://mewcrazy.github.io/StripChat-Enhanced/icons/objects.svg) }
 .se-emoji-cat_symbols a { background: url(https://mewcrazy.github.io/StripChat-Enhanced/icons/flags.svg) }
-
 .se-emoji-cat_flags { display: none }
+
 /* Remove unsupported Emojis */
 .se-emoji-relaxed, .se-emoji-white_frowning_face, .se-emoji-skull_and_crossbones, .se-emoji-heavy_heart_exclamation_mark_ornament, .se-emoji-raised_hand_with_fingers_splayed, .se-emoji-heart, .se-emoji-v, .se-emoji-eye, .se-emoji-writing_hand, .se-emoji-sleuth_or_spy, .se-emoji-man_in_business_suit_levitating, .se-emoji-skier, .se-emoji-golfer, .se-emoji-person_with_ball, .se-emoji-weight_lifter, .se-emoji-woman-kiss-man, .se-emoji-man-kiss-man, .se-emoji-woman-kiss-woman, .se-emoji-woman-heart-man { display: none !important; }
 .se-emoji-point_up, .se-emoji-man-heart-man, .se-emoji-man-heart-woman, .se-emoji-man-woman-boy, .se-emoji-man-woman-girl, .se-emoji-man-woman-girl-boy, .se-emoji-man-woman-boy-boy, .se-emoji-man-woman-girl-girl, .se-emoji-man-man-boy, .se-emoji-man-man-girl,
@@ -106,3 +106,7 @@ input[type="search"].input.language-search:hover { background: rgba(0,0,0,1) }
 .se-emoji-chipmunk, .se-emoji-dove_of_peace, .se-emoji-spider, .se-emoji-spider_web, .se-emoji-rosette, .se-emoji-, .se-emoji-shamrock { display: none !important; }
 .se-emoji-hot_pepper, .se-emoji-knife_fork_plate { display: none !important; }
 .se-emoji-reminder_ribbon, .se-emoji-admission_tickets, .se-emoji-medal, .se-emoji-ice_skate, .se-emoji-joystick, .se-emoji-spades, .se-emoji-hearts, .se-emoji-diamonds, .se-emoji-clubs, .se-emoji-frame_with_picture { display: none !important; }
+
+/* switcher */
+.switch-dnd-mode { display: flex; align-items: center; flex: 1; justify-content: flex-end; margin-right: 46px; }
+.switcher + input[type="checkbox"] { display: none }

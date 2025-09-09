@@ -10,10 +10,10 @@
 // @icon        https://mewcrazy.github.io/StripChat-Enhanced/icon.svg
 // @require     https://mewcrazy.github.io/StripChat-Enhanced/deploy/jquery.min.js
 // @require     https://gist.github.com/raw/2625891/waitForKeyElements.js
-// @resource    IMPORTED_CSS https://mewcrazy.github.io/StripChat-Enhanced/deploy/global.css?v=8
-// @resource    CSS_FLAGS https://mewcrazy.github.io/StripChat-Enhanced/deploy/flags.css?v=8
-// @resource    ISO639_FLAGS https://mewcrazy.github.io/StripChat-Enhanced/json/iso639-1.json?v=6
-// @resource    EMOJIS https://cdn.jsdelivr.net/npm/@emoji-mart/data@1.2.1/sets/2/native.json?v=6
+// @resource    IMPORTED_CSS https://mewcrazy.github.io/StripChat-Enhanced/deploy/global.css?v=9
+// @resource    CSS_FLAGS https://mewcrazy.github.io/StripChat-Enhanced/deploy/flags.css?v=9
+// @resource    ISO639_FLAGS https://mewcrazy.github.io/StripChat-Enhanced/json/iso639-1.json?v=9
+// @resource    EMOJIS https://cdn.jsdelivr.net/npm/@emoji-mart/data@1.2.1/sets/2/native.json?v=9
 // @resource    HTML_ENHANCED_OPTIONS https://mewcrazy.github.io/StripChat-Enhanced/html/enhanced-options.html
 // @resource    HTML_FAVORITES_FILTERS https://mewcrazy.github.io/StripChat-Enhanced/html/favorites-filters.html
 // @downloadURL https://mewcrazy.github.io/StripChat-Enhanced/deploy/stripchat-enhanced.script.js
@@ -355,6 +355,20 @@
               }
           })
 
+          // DND Mode (filter everything else)
+          if($('.switch-dnd-mode input[type="checkbox"]').is(':checked')) {
+            let scrollContainer = $(jNode).closest('.scroll-bar-container')
+            $(jNode).find('.message__more-menu--hidden.regular-message:not(.se-hidden):not(.m-bg-model)').slice(-50).each(function(index, item) {
+                $(this).addClass("hidden")
+            })
+          }
+
+
+          scrollContainer.animate({ scrollTop: 0 }, "fast");
+
+          setTimeout(function() {
+            scrollContainer.animate({ scrollTop: scrollContainer.prop("scrollHeight") }, "fast");
+          }, 500);
       });
       observer.observe($('.messages')[0], {characterData: true, childList: true, subtree: true});
 
@@ -811,6 +825,23 @@
           let text = $('.model-chat-input input').val()
           $('.model-chat-input input').val('').focus()
           document.execCommand('insertText', false, text+$(this).text())
+      })
+    }
+
+
+    /**
+     * Do Not Disturb Mode
+     */
+    waitForKeyElements('.model-chat-nav', addDefaultEmojis);
+    function addDefaultEmojis(jNode) {
+
+      // append dnd toggle
+      $(jNode).find('.chat-settings').before('<div class="switch-dnd-mode model-chat-nav-item se-switcher"><span class="model-chat-nav-item-label">DND</span><div class="default light switcher"><div class="switcher-wrapper"><span class="switcher-label"><svg class="icon icon-check"><use xlink:href="#icons-check"></use></svg></span><span class="switcher-switch"></span><span class="switcher-label"></span></div></div><input type="checkbox" value="1"></div>')
+
+      // Switch Toggle
+      $('#body').on('click', '.se-switcher', function(e) {
+        $(this).find('.switcher').toggleClass("on")
+        $(this).find('input[type="checkbox"]').prop('checked', function(_, checked) { return !checked; });
       })
     }
 
