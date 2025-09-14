@@ -110,3 +110,12 @@ input[type="search"].input.language-search:hover { background: rgba(0,0,0,1) }
 /* switcher */
 .switch-dnd-mode { display: flex; align-items: center; flex: 1; justify-content: flex-end; margin-right: 46px; }
 .switcher + input[type="checkbox"] { display: none }
+
+/* tip menu sort */
+.se-tipmenu-sort { margin: 1em 0 0 0; font-size: 12px; font-weight: 500; line-height: 15px; }
+.se-tipmenu-sort button { padding: 0 8px 0 5px; }
+.se-tipmenu-sort button svg { height: 16px; width: 16px; padding-top: 2px; }
+
+/* dnd mode */
+.switch-dnd-mode { display: flex; align-items: center; flex: 1; justify-content: flex-end; margin-right: 46px; }
+.switcher + input[type="checkbox"] { display: none }
