@@ -425,6 +425,37 @@
       })
     }
 
+
+    /*
+     * Translate Private Shows Testimonials
+     */
+    waitForKeyElements(".testimonial__description", translatePrivateTestimonials);
+    function translatePrivateTestimonials(jNode) {
+
+      // append translate button
+      if(!$(jNode).hasClass('se-procesed')) {
+        $(jNode).append(htmlTranslateButton)
+        $(jNode).addClass("se-processed")
+      }
+
+      // translate button click handler
+      $('.testimonial__description').off().on('click', '.translate-line button', function(e) {
+        let ell = $(this).closest('div').clone()
+        ell.find('.translate-line').remove()
+        let text = ell.text().trim()
+        let that = $(this)
+        $(this).prop('disabled', true)
+
+        translateGoogle(text, 'en_US').then(function(data) {
+          if(!that.closest('div').find('.translated-line').length) {
+              that.closest('div').find('.translate-line').before('<small class="translated-line">'+decodeURIComponent(data.data.translations[0].translatedText)+'</small>')
+          }
+          $(this).prop('disabled', false)
+        })
+      })
+    }
+
+
     /**
      * Normal Emojis
      */
