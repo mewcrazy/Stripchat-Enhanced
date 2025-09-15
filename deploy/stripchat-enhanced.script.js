@@ -914,6 +914,49 @@
     }
 
 
+
+    /**
+     * Ticket Shows Filtering
+     */
+
+    // add starting soon toggle filter
+    waitForKeyElements(".separated-filters", addTicketShowsFilters);
+    function addTicketShowsFilters(jNode) {
+
+      // only on "ticket and group shows" page
+      if(window.location.toString().includes("/girls/ticket-and-group-shows")) {
+
+        // add toggle markup
+        let toggleSwitchShowType = '<div class="switch-show-type se-switcher"><div class="default light switcher"><div class="switcher-wrapper"><span class="switcher-label"><svg class="icon icon-check"><use xlink:href="#icons-check"></use></svg></span><span class="switcher-switch"></span><span class="switcher-label"></span></div></div><input type="checkbox" value="1"> <span class="model-chat-nav-item-label">Starting soon</span></div>'
+        $(jNode).append(toggleSwitchShowType)
+
+        // filter by html el
+        $('#body').on('click', '.se-switcher.switch-show-type', function(e) {
+          let that = this
+
+          var filteredCams = $('.model-list-item').show().filter(function() {
+            return ($(that).find('input[type="checkbox"]').prop('checked') ? $(this).find('[class*="GroupShowTitleBadge"]').length >= 1 : false)
+          }).hide();
+        })
+      }
+    }
+    waitForKeyElements(".model-list-item", filterTicketShowsListing);
+    function filterTicketShowsListing(jNode) {
+
+      // only on "ticket and group shows" page
+      if(window.location.toString().includes("/girls/ticket-and-group-shows")) {
+        console.log("new model list item")
+
+        if(
+          $('.switch-show-type.se-switcher').find('input[type="checkbox"]').prop('checked')
+          && $(jNode).find('[class*="GroupShowTitleBadge"]').length
+        ) {
+          $(jNode).hide()
+        }
+      }
+    }
+
+
     /**
      * Favorites Filtering
      */
@@ -949,11 +992,19 @@
 
       // append dnd toggle
       $(jNode).find('.chat-settings').before('<div class="switch-dnd-mode model-chat-nav-item se-switcher"><span class="model-chat-nav-item-label">DND</span><div class="default light switcher"><div class="switcher-wrapper"><span class="switcher-label"><svg class="icon icon-check"><use xlink:href="#icons-check"></use></svg></span><span class="switcher-switch"></span><span class="switcher-label"></span></div></div><input type="checkbox" value="1"></div>')
+    }
 
-      // Switch Toggle
+
+    // Switch Toggle
+    waitForKeyElements('#body', addBodyShit);
+    function addBodyShit(jNode) {
+
       $('#body').on('click', '.se-switcher', function(e) {
         $(this).find('.switcher').toggleClass("on")
-        $(this).find('input[type="checkbox"]').prop('checked', function(_, checked) { return !checked; });
+        $(this).find('input[type="checkbox"]').prop('checked', function (i, val) {
+          return !val;
+        });
       })
     }
+
 })();

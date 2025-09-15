@@ -111,6 +111,10 @@ input[type="search"].input.language-search:hover { background: rgba(0,0,0,1) }
 .switch-dnd-mode { display: flex; align-items: center; flex: 1; justify-content: flex-end; margin-right: 46px; }
 .switcher + input[type="checkbox"] { display: none }
 
+/* filters: ticket & group shows */
+.switch-show-type { display: flex; align-items: center; margin-right: 46px; color: #f8f8f8; font-size: .813rem; line-height: 1.063rem; }
+.switch-show-type .switcher.default { height: 22px; margin: 0 10px 0 0; width: 38px; }
+
 /* tip menu sort */
 .se-tipmenu-sort { margin: 1em 0 0 0; font-size: 12px; font-weight: 500; line-height: 15px; }
 .se-tipmenu-sort button { padding: 0 8px 0 5px; }
