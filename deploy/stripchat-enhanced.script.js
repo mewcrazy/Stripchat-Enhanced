@@ -193,13 +193,13 @@
      * Add global options flyout & Output website time in header
      */
     waitForKeyElements(".personal-notifications-modal-panel", addOptionsMenu);
-    function addOptionsMenu() {
+    function addOptionsMenu(jNode) {
 
       // Add global options flyout
-      if(!$('.personal-notifications-modal-panel .open-enhanced-options').length) {
+      if(!$(jNode).find('.open-enhanced-options').length) {
 
         // add button
-        $('.personal-notifications-modal-panel').prepend('<button class="a11y-button dropdown-link open-enhanced-options" type="button"><span>E</span></button>')
+        $(jNode).prepend('<button class="a11y-button dropdown-link open-enhanced-options" type="button"><span>E</span></button>')
         $('#personal-notifications-portal-container').append(GM_getResourceText("HTML_ENHANCED_OPTIONS"))
 
         // process options
@@ -210,14 +210,25 @@
       updateTime()
       setInterval(() => { updateTime() }, 1000)
 
-
+      // open options menu
       $('#body').on('click', '.open-enhanced-options', function(e) {
-          $('.enhanced-options-modal').toggleClass('hidden')
+        $('.enhanced-options-modal').toggleClass('hidden')
       })
+
+      // close options menu
       $('#body').on('click', '.enhanced-options-close', function(e) {
-          $('.personal-notifications-modal').remove()
-          $('.enhanced-options-modal').toggleClass('hidden')
+        $('.personal-notifications-modal').remove()
+        $('.enhanced-options-modal').toggleClass('hidden')
       })
+
+      // close options menu when opening other dropdown links
+      $('.icon-chat-2,.icon-notifications').closest('button').on('click', function(e) {
+        $('.enhanced-options-modal').addClass('hidden')
+      })
+      $('.header-user-menu .dropdown-link,.tokens-menu .dropdown-link').on('click', function(e) {
+        $('.enhanced-options-modal').addClass('hidden')
+      })
+
     }
 
     function updateTime() {
