@@ -876,44 +876,6 @@
     }
 
 
-    /**
-     * Google Cloud Translation API
-     */
-    function translateGoogle(val, lang) {
-
-      // TEMP
-      // const regex = /(?<=\ :).*?(?=\:)/g;
-      // const matches = [...val.matchAll(regex)].map((num, index, arr) => {
-      //   console.log(`Processing element ${num} at index ${index} in array [${arr}]`);
-      //   return arr;
-      // });
-      // val = val.replace(regex, "")
-      // console.log(matches)
-
-      let data = $.getJSON('https://translation.googleapis.com/language/translate/v2?key='+googleApiKey+'&q='+encodeURIComponent(val)+'&target='+lang.toString().trim()).fail(function(data) { console.log("missing/wrong language", data.responseText) });
-      // if (matches) {
-      //   matches.forEach((match) => {
-      //     console.log(`Found match: ${match}`);
-      //   });
-      // }
-
-
-      // data.data.translations[0].translatedText = data.data.translations[0].translatedText
-
-      return data
-    }
-
-    // populate languages to dropdowns and language lists
-    function populateLanguageDropdowns() {
-
-      $.each(iso639_langs, function(key, val) {
-        if(val.active === 1) {
-          $('.language-list').prepend( '<button aria-label="'+val.name+'" class="SmilersWidgetSpicyList__smile#mG flag" type="button" title="'+val.name+'" data-search="'+val.name+'|'+val.nativeName+'|'+key+'" data-lang="'+key+'"><span class="fi fi-'+key+'" title="'+val.name+' ('+val.nativeName+')"></span></button>');
-        }
-      });
-    }
-
-
 
     /**
      * Ticket Shows Filtering
@@ -930,9 +892,17 @@
         let toggleSwitchShowType = '<div class="switch-show-type se-switcher"><div class="default light switcher"><div class="switcher-wrapper"><span class="switcher-label"><svg class="icon icon-check"><use xlink:href="#icons-check"></use></svg></span><span class="switcher-switch"></span><span class="switcher-label"></span></div></div><input type="checkbox" value="1"> <span class="model-chat-nav-item-label">Starting soon</span></div>'
         $(jNode).append(toggleSwitchShowType)
 
+        // preset toggle
+        if(localStorage.getItem('ticketGroupShowTypePref') === "1") {
+          $('.switch-show-type input[type="checkbox"]').prop('checked', true)
+          $('.switch-show-type').find('.switcher').addClass("on")
+        }
+
         // filter by html el
-        $('#body').on('click', '.se-switcher.switch-show-type', function(e) {
+        $('#body').on('click', '.switch-show-type', function(e) {
           let that = this
+          localStorage.setItem('ticketGroupShowTypePref', ($(that).find('input[type="checkbox"]').prop('checked') ? "1" : "0"))
+
 
           var filteredCams = $('.model-list-item').show().filter(function() {
             return ($(that).find('input[type="checkbox"]').prop('checked') ? $(this).find('[class*="GroupShowTitleBadge"]').length >= 1 : false)
@@ -945,15 +915,29 @@
 
       // only on "ticket and group shows" page
       if(window.location.toString().includes("/girls/ticket-and-group-shows")) {
-        console.log("new model list item")
 
         if(
-          $('.switch-show-type.se-switcher').find('input[type="checkbox"]').prop('checked')
+          localStorage.getItem('ticketGroupShowTypePref') === "1"
           && $(jNode).find('[class*="GroupShowTitleBadge"]').length
         ) {
           $(jNode).hide()
         }
       }
+    }
+
+
+    /**
+     * Profile Tip Menu Translation & Sorting
+     */
+    waitForKeyElements(".profile-tip-menu", translateProfileTipMenu);
+    function translateProfileTipMenu(jNode) {
+
+      // add translate button
+      let test = '<div class="profile-tip-menu__activity-wrapper"><div class="TipMenuGoogleTranslateButton#Rv"><button class="a11y-button TipMenuGoogleTranslateButton__button#T2" type="button"><span class="TipMenuGoogleTranslateButton__icon#jh"></span><span class=""><span class="TipMenuGoogleTranslateButton__translate#WA">Translate</span> Tip menu into English</span></button></div>'
+      $(jNode).find('.profile-tip-menu__activities > div').prepend(test)
+
+      // add sorting button
+      $(jNode).find('.profile-tip-menu__header').append('<p class="se-tipmenu-sort text-center"><button class="a11y-button TipMenuDiscountViewCamPanel__button#be" type="button"><svg class="TipMenuDiscountViewCamPanel__diamond#DY icon icon-watch-history"><use xlink:href="#icons-watch-history"></use></svg><small>Sort by Tokens</small></button></p>')
     }
 
 
@@ -995,6 +979,10 @@
     }
 
 
+    /**
+     * Global Functions
+     */
+
     // Switch Toggle
     waitForKeyElements('#body', addBodyShit);
     function addBodyShit(jNode) {
@@ -1005,6 +993,22 @@
           return !val;
         });
       })
+    }
+
+    // Google Cloud Translation API
+    function translateGoogle(val, lang) {
+      let data = $.getJSON('https://translation.googleapis.com/language/translate/v2?key='+googleApiKey+'&q='+encodeURIComponent(val)+'&target='+lang.toString().trim()).fail(function(data) { console.log("missing/wrong language", data.responseText) });
+      return data
+    }
+
+    // populate languages to dropdowns and language lists
+    function populateLanguageDropdowns() {
+
+      $.each(iso639_langs, function(key, val) {
+        if(val.active === 1) {
+          $('.language-list').prepend( '<button aria-label="'+val.name+'" class="SmilersWidgetSpicyList__smile#mG flag" type="button" title="'+val.name+'" data-search="'+val.name+'|'+val.nativeName+'|'+key+'" data-lang="'+key+'"><span class="fi fi-'+key+'" title="'+val.name+' ('+val.nativeName+')"></span></button>');
+        }
+      });
     }
 
 })();
