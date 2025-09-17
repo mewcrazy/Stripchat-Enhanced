@@ -28,22 +28,34 @@
 - Output real time in header
 
 # Installation
-## via URL
-Probably the easiest way to install. 
+The script was made in ViolentMonkey, but should work in TamperMonkey and GreaseMonkey as well. You need to have one of these extensions installed to get the script running.
 
-1. Open the Dashboard of your User Script Manager (ViolentMonkey, TamperMonkey or GreaseMonkey)
+- [TamperMonkey](https://www.tampermonkey.net/): (Chrome, Microsoft Edge, Firefox, Safari, Opera Next)
+- [ViolentMonkey](https://violentmonkey.github.io/): (Chrome, Firefox, Microsoft Edge)
+- [GreaseMonkey](https://www.greasespot.net/): (Firefox)
+
+Please note that this script requires an API Key for the Google Cloud Translation API. Simply log in your Google account, and create a New Project for the Cloud Translation API. After you can click on "Login Credentials" and create a new API Key which you can use in this script.
+
+### ViolentMonkey
+1. Open the ViolentMonkey Dashboard of your User Script Manager (ViolentMonkey, TamperMonkey or GreaseMonkey)
 2. Click on + (New) -> Install by URL
 3. Enter the URL to the plugins file in this repository: `https://mewcrazy.github.io/StripChat-Enhanced/deploy/stripchat-enhanced.script.js`
 
-Please note that this script requires an API Key for the Google Cloud Translation API. Simply log in your Google account, and create a New Project for the Cloud Translation API. After you can click on "Login Credentials" and create a new API Key which you can use in this script.
+### TamperMonkey <sub>("Allow User Scripts" toggle in the Extension's settings needs to be enabled.)</sub>
+1. Click the TamperMonkey Extension Icon and "Create a new script..."
+2. Copy paste the contents of [`https://mewcrazy.github.io/StripChat-Enhanced/deploy/stripchat-enhanced.script.js`](https://mewcrazy.github.io/StripChat-Enhanced/deploy/stripchat-enhanced.script.js) into the editor and Save.
+
+### GreaseMonkey
+1.
+
 
 ## Contributing
 We welcome any contributions! If you're having ideas or improvements to StripChat Enhanced, simply create a meaningful push request or open an issue and we will take care of it.
 
 ## Roadmap:
-- Add Emoji Picker module
-- Add additional Favorites filters: In Private, In Group Show, In Ticket Show, New Models
 - Add "Auto Translate" feature (no need to translate each line individually)
+- Proper styling of the "Emoji Picker"
+- Add additional Favorites filters: In Private, In Group Show, In Ticket Show, New Models
 - Bug testing in GreaseMonkey & TamperMonkey
 
 ## Used Frameworks/Utilities:
@@ -52,4 +64,4 @@ We welcome any contributions! If you're having ideas or improvements to StripCha
 - Thanks to [Wiktionary](https://en.wiktionary.org/wiki/Wiktionary:Language_flags_list) for the curated list of language flags.
 
 
-<p id="aalliyahh" align="center">Inspired by a beautiful woman and made with ❤️ in Düsseldorf, Germany</p>
+<p align="center">Inspired by a beautiful woman and made with <span class="aalliyahh">❤️</span> in Düsseldorf, Germany</p>
