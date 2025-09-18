@@ -26,9 +26,6 @@
 // ==/UserScript==
 
 
-
-(function () {
-
     // Include css stylsheets
     const my_css = GM_getResourceText("IMPORTED_CSS");
     GM_addStyle(my_css);
@@ -676,13 +673,19 @@
                 $('.language-chooser').addClass("hidden")
 
                 if($('.se-langpicker').attr('data-active')) {
-                    let lang = $('.se-langpicker').attr('data-active').toLowerCase()
+
+                    // only logged in users
+                    if(!$('.nav-right .avatar').length) {
+                        alert("You have to be logged in to send translated messages.")
+                        return
+                    }
+
                     $('[class*="ChatInput__inputBlock"]').append('<span class="se-loader-line"></span>') // TODO please as before
 
-                    translateGoogle(modelChatInput.val(), lang).then(function(data) {
+                    translateGoogle(modelChatInput.val(), $('.se-langpicker').attr('data-active').toLowerCase()).then(function(data) {
                         // TODO: console.log missing/wrong languages
                         modelChatInput.val('')
-                        $('[class*="ChatInput__inputBlock"] .se-loader-line').remove()
+                        $('.se-loader-line').remove()
                         modelChatInput.focus()
                         document.execCommand('insertText', false, decodeURIComponent(data.data.translations[0].translatedText))
                         modelChatSubmit.click()
@@ -921,7 +924,7 @@
     function translateProfileTipMenu(jNode) {
 
       // add translate button
-      let test = '<div class="profile-tip-menu__activity-wrapper"><div class="TipMenuGoogleTranslateButton#Rv"><button class="a11y-button TipMenuGoogleTranslateButton__button#T2" type="button"><span class="TipMenuGoogleTranslateButton__icon#jh"></span><span class=""><span class="TipMenuGoogleTranslateButton__translate#WA">Translate</span> Tip menu into English</span></button></div>'
+      let test = '<div class="profile-tip-menu__activity-wrapper se-translate"><div class="TipMenuGoogleTranslateButton#Rv"><button class="a11y-button TipMenuGoogleTranslateButton__button#T2" type="button"><span class="TipMenuGoogleTranslateButton__icon#jh"></span><span class=""><span class="TipMenuGoogleTranslateButton__translate#WA">Translate</span> Tip menu into English</span></button></div>'
       $(jNode).find('.profile-tip-menu__activities > div').prepend(test)
 
       // add sorting button
@@ -932,89 +935,126 @@
         sortTipmenuByPrice('.profile-tip-menu__scroll-container', '.profile-tip-menu__activity-wrapper', '.profile-tip-menu__activity span:last-child')
         return false
       })
-    }
 
+      $('.profile-tip-menu').off().on('click', '.se-translate button', function(e) {
 
-    /**
-     * Favorites Filtering
-     */
-    waitForKeyElements(".favorites h1.title-ds", addFavoritesFilters);
-    function addFavoritesFilters() {
-
-      // add country filter
-      if(!$('.model-chat .filters-favorites.page-block').length) {
-
-        // add filters block html
-        $(".favorites [class^='FavoritesHeaderWithActions__title_wrapper']").after(GM_getResourceText("HTML_FAVORITES_FILTERS"))
-
-        // populate country filter
-        $('.model-list-item .country-flag').each(function() {
-            $('select[name="filters[country]"]').append('<option value="'+$(this).attr('title')+'">'+$(this).attr('title')+'</option')
-        })
-      }
-
-      $('#body').on('input search', '.favorites-filters-search input', function(e) {
-        let username = $(this).val().toLowerCase()
-        var filteredNames = $('.model-list-item').show().filter(function() {
-          return $(this).find('[class^="ModelThumbUsername"]').text().toLowerCase().indexOf(username) === -1
-        }).hide();
-      })
-    }
-
-
-    /**
-     * Do Not Disturb Mode
-     */
-    waitForKeyElements('.model-chat-nav', addDefaultEmojis);
-    function addDefaultEmojis(jNode) {
-
-      // append dnd toggle
-      $(jNode).find('.chat-settings').before('<div class="switch-dnd-mode model-chat-nav-item se-switcher"><span class="model-chat-nav-item-label">DND</span><div class="default light switcher"><div class="switcher-wrapper"><span class="switcher-label"><svg class="icon icon-check"><use xlink:href="#icons-check"></use></svg></span><span class="switcher-switch"></span><span class="switcher-label"></span></div></div><input type="checkbox" value="1"></div>')
-    }
-
-
-    /**
-     * Global Functions
-     */
-
-    // Switch Toggle
-    waitForKeyElements('#body', addBodyShit);
-    function addBodyShit(jNode) {
-
-      $('#body').on('click', '.se-switcher', function(e) {
-        $(this).find('.switcher').toggleClass("on")
-        $(this).find('input[type="checkbox"]').prop('checked', function (i, val) {
-          return !val;
+        var tableArr = [];
+        $(".profile-tip-menu__activity-wrapper:not(.se-translate)").each(function(index) {
+          tableArr.push($(this).find('span:first-child').text());
+          $(this).attr("data-index", index)
         });
+
+        // TEMP: Replace with GM_xmlHttpRequest
+        $.ajax('https://translation.googleapis.com/language/translate/v2?key='+googleApiKey, {
+          data : JSON.stringify({"q": tableArr,"target": "de"}),
+          contentType: "application/json; charset=utf-8",
+          type : 'POST',
+          dataType: 'json',
+          success: function(data){
+            if(!data.data.translations) return
+            $(data.data.translations).each(function(index, val) {
+              $('.profile-tip-menu__activity-wrapper[data-index="'+index+'"] span:first-child').text(val.translatedText)
+            });
+          }
+        })
+    })
+  }
+
+  /**
+   * Favorites Filtering
+   */
+  waitForKeyElements(".favorites h1.title-ds", addFavoritesFilters);
+  function addFavoritesFilters() {
+
+    // add country filter
+    if(!$('.model-chat .filters-favorites.page-block').length) {
+
+      // add filters block html
+      $(".favorites [class^='FavoritesHeaderWithActions__title_wrapper']").after(GM_getResourceText("HTML_FAVORITES_FILTERS"))
+
+      // populate country filter
+      $('.model-list-item .country-flag').each(function() {
+          $('select[name="filters[country]"]').append('<option value="'+$(this).attr('title')+'">'+$(this).attr('title')+'</option')
       })
     }
 
-    // Google Cloud Translation API
-    function translateGoogle(val, lang) {
-      let data = $.getJSON('https://translation.googleapis.com/language/translate/v2?key='+googleApiKey+'&q='+encodeURIComponent(val)+'&target='+lang.toString().trim()).fail(function(data) { console.log("missing/wrong language", data.responseText) });
-      return data
-    }
+    $('#body').on('input search', '.favorites-filters-search input', function(e) {
+      let username = $(this).val().toLowerCase()
+      var filteredNames = $('.model-list-item').show().filter(function() {
+        return $(this).find('[class^="ModelThumbUsername"]').text().toLowerCase().indexOf(username) === -1
+      }).hide();
+    })
+  }
 
-    // populate languages to dropdowns and language lists
-    function populateLanguageDropdowns() {
 
-      $.each(iso639_langs, function(key, val) {
-        if(val.active === 1) {
-          $('.language-list').prepend( '<button aria-label="'+val.name+'" class="SmilersWidgetSpicyList__smile#mG flag" type="button" title="'+val.name+'" data-search="'+val.name+'|'+val.nativeName+'|'+key+'" data-lang="'+key+'"><span class="fi fi-'+key+'" title="'+val.name+' ('+val.nativeName+')"></span></button>');
-        }
+  /**
+   * Do Not Disturb Mode
+   */
+  waitForKeyElements('.model-chat-nav', addDefaultEmojis);
+  function addDefaultEmojis(jNode) {
+
+    // append dnd toggle
+    $(jNode).find('.chat-settings').before('<div class="switch-dnd-mode model-chat-nav-item se-switcher"><span class="model-chat-nav-item-label">DND</span><div class="default light switcher"><div class="switcher-wrapper"><span class="switcher-label"><svg class="icon icon-check"><use xlink:href="#icons-check"></use></svg></span><span class="switcher-switch"></span><span class="switcher-label"></span></div></div><input type="checkbox" value="1"></div>')
+  }
+
+
+  /**
+   * Global Functions
+   */
+
+  // Switch Toggle
+  waitForKeyElements('#body', addBodyShit);
+  function addBodyShit(jNode) {
+
+    $('#body').on('click', '.se-switcher', function(e) {
+      $(this).find('.switcher').toggleClass("on")
+      $(this).find('input[type="checkbox"]').prop('checked', function (i, val) {
+        return !val;
       });
-    }
+    })
+  }
 
-    // sort tip menu by token price
-    function sortTipmenuByPrice(el, sub, item) {
-      var tb = $(el)
-      var rows = tb.find(sub)
-      rows.sort((a, b) => {
-        return $(a).find(item).text() - $(b).find(item).text()
-      });
-      $.each(rows, (index, row) => {
-        tb.append(row)
-      });
-    }
+  // Google Cloud Translation API
+  function translateGoogle(val, lang) {
+    let data = $.getJSON('https://translation.googleapis.com/language/translate/v2?key='+googleApiKey+'&q='+encodeURIComponent(val)+'&target='+lang.toString().trim()).fail(function(data) { console.log("missing/wrong language", data.responseText) });
+    return data
+  }
 
-})();
+  // Google Cloud Translation API
+  function translateGoogle2(val, lang) {
+    GM_xmlHttpRequest({
+      method: "POST",
+      url: 'https://translation.googleapis.com/language/translate/v2?key='+googleApiKey+'&q='+encodeURIComponent(val)+'&target='+lang.toString().trim(),
+      data: JSON.stringify(['eventType', 'test']),
+      headers: {
+        "Content-Type": "application/json"
+      },
+      onload: function(response) {
+    alert("hm")
+        console.log("response.responseText", response.responseText)
+      }
+    });
+
+  }
+
+  // populate languages to dropdowns and language lists
+  function populateLanguageDropdowns() {
+
+    $.each(iso639_langs, function(key, val) {
+      if(val.active === 1) {
+        $('.language-list').prepend( '<button aria-label="'+val.name+'" class="SmilersWidgetSpicyList__smile#mG flag" type="button" title="'+val.name+'" data-search="'+val.name+'|'+val.nativeName+'|'+key+'" data-lang="'+key+'"><span class="fi fi-'+key+'" title="'+val.name+' ('+val.nativeName+')"></span></button>');
+      }
+    });
+  }
+
+  // sort tip menu by token price
+  function sortTipmenuByPrice(el, sub, item) {
+    var tb = $(el)
+    var rows = tb.find(sub)
+    rows.sort((a, b) => {
+      return $(a).find(item).text() - $(b).find(item).text()
+    });
+    $.each(rows, (index, row) => {
+      tb.append(row)
+    });
+  }

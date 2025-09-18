@@ -29,10 +29,11 @@
 
 # Installation
 The script was made in ViolentMonkey, but should work in TamperMonkey and GreaseMonkey as well. You need to have one of these extensions installed to get the script running.
+We are working on dedicated Edge, Firefox and Chrome Extensions, until then the User Script Manager is the only way.
 
-- [TamperMonkey](https://www.tampermonkey.net/): (Chrome, Microsoft Edge, Firefox, Safari, Opera Next)
-- [ViolentMonkey](https://violentmonkey.github.io/): (Chrome, Firefox, Microsoft Edge)
-- [GreaseMonkey](https://www.greasespot.net/): (Firefox)
+- [TamperMonkey](https://www.tampermonkey.net/) <sub>(Chrome, Microsoft Edge, Firefox, Safari, Opera Next)</sub>
+- [ViolentMonkey](https://violentmonkey.github.io/) <sub>(Chrome, Firefox, Microsoft Edge)</sub>
+- [GreaseMonkey](https://www.greasespot.net/) <sub>(Firefox)</sub>
 
 Please note that this script requires an API Key for the Google Cloud Translation API. Simply log in your Google account, and create a New Project for the Cloud Translation API. After you can click on "Login Credentials" and create a new API Key which you can use in this script.
 
