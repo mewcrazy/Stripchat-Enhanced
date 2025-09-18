@@ -1,13 +1,16 @@
 <div class="filters-favorites page-block">
     <div class="favorites-filters-country">
-        <select name="filters[country]" title="Filter By Country" placeholder="Filter By Country">
-            <option value="">Filter By Country</option>
-        </select>
+        <div class="select-control" role="combobox" aria-expanded="false" aria-disabled="false" aria-labelledby="chat-translations-language-select-label"></div>
+            <select name="filters[country]" title="Filter By Country" placeholder="Filter By Country">
+                <option value="">Filter By Country</option>
+            </select>
+        </div>
     </div>
     <div class="favorites-filters-search">
-        <label>
-            <input type="search" placeholder="Search by name" />
-        </label>
+        <div class="new-username-input">
+            <input class="inline-block input new-username-input__input text-default theme-default" type="search" placeholder="Search by name" />
+            <button class="a11y-button new-username-input__button" type="button"><svg class="icon icon-wand new-username-input__icon"><use xlink:href="#icons-wand"></use></svg></button>
+        </div>
     </div>
     <div class="favorites-filters-features">
         <a href="#" aria-label="Interactive Toy" class="model-filter-link tags-category__tag"><span class="model-filter-link-badge-first model-filter__link-label"><svg class="icon icon-interactive-toy-ds"><use xlink:href="#icons-interactive-toy-ds"></use></svg>Interactive Toy</span></a>

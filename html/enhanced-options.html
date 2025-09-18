@@ -1,6 +1,11 @@
 <div class="personal-notifications-modal enhanced-options-modal hidden" style="top: 64px;">
     <div class="personal-notifications-modal-title">Options <small>StripChat Enhanced</small>
     </div>
+    <style>
+        .switcher.on .switcher-wrapper { transform: translateX(17px); }
+        .switch-show-type .switcher.default { }
+        .switcher .switcher-wrapper { transform: translateX(0); }
+    </style>
     <div class="enhanced-options-content">
         <div class="personal-notifications-modal-panel-controls">
             <button class="a11y-button personal-notifications-modal-panel-controls-btn enhanced-options-close" type="button">
@@ -11,19 +16,17 @@
         </div>
         <div class="ChatTranslationSettingsPopup__row#Rr">
             <label for="chat-translations-switcher">Translate messages <span class="ChatTranslationSettingsPopup__labelDescription#Se">Turn on translations, then click <svg style="height: 14px; width: 14px;" class="ChatTranslationSettingsPopup__translationIcon#fK IconV2__icon#YR">
-            <use xlink:href="#icons-translate"></use>
-          </svg> icon. </span>
+                <use xlink:href="#icons-translate"></use>
+                </svg> icon. </span>
             </label>
             <div class="ChatTranslationSettingsPopup__checkbox#_Q ChatTranslationSettingsPopup__checkbox__counterpart#w8 SwitcherV2#o2 SwitcherV2__checked#io SwitcherV2__small#bn">
-                <input type="checkbox" class="SwitcherV2__input#N3" role="switch" checked="">
-                <div class="SwitcherV2__track#Qu">
-          <span class="SwitcherV2__state#FE">
-            <svg class="IconV2__icon#YR SwitcherV2__stateIcon#kU">
-              <use xlink:href="#icons-check-v2-ds"></use>
-            </svg>
-          </span>
-                    <span class="SwitcherV2__handler#Pk"></span>
-                    <span class="SwitcherV2__state#FE"></span>
+                <div class="se-option-translations se-switcher">
+                    <div class="default light switcher">
+                        <div class="switcher-wrapper">
+                            <span class="switcher-switch"></span>
+                        </div>
+                    </div>
+                    <input type="checkbox" value="1"> <span class="model-chat-nav-item-label"></span>
                 </div>
             </div>
         </div>
@@ -64,15 +67,27 @@
             <div class="ChatTranslationSettingsPopup__row#Rr">
                 <label for="hide-quick-refill">Hide Quick Refill <span class="ChatTranslationSettingsPopup__labelDescription#Se">Hides the "Quick Refill" feature in the website's header.</span></label>
                 <div class="ChatTranslationSettingsPopup__checkbox#_Q ChatTranslationSettingsPopup__checkbox__counterpart#w8 SwitcherV2#o2 SwitcherV2__checked#io SwitcherV2__small#bn">
-                    <input id="hide-quick-refill" type="checkbox" class="SwitcherV2__input#N3 option-disable-quick-refill" role="switch" value="1">
-                    <div class="default light on switcher"><div class="switcher-wrapper"><span class="switcher-label"><svg class="icon icon-check"><use xlink:href="#icons-check"></use></svg></span><span class="switcher-switch"></span><span class="switcher-label"></span></div></div>
+                    <div class="se-option-translations se-switcher">
+                        <div class="default light switcher">
+                            <div class="switcher-wrapper">
+                                <span class="switcher-switch"></span>
+                            </div>
+                        </div>
+                        <input class="option-disable-quick-refill" type="checkbox" value="1"> <span class="model-chat-nav-item-label"></span>
+                    </div>
                 </div>
             </div>
             <div class="ChatTranslationSettingsPopup__row#Rr">
                 <label for="hide-auto-refill">Hide Auto-Refill <span class="ChatTranslationSettingsPopup__labelDescription#Se">Hides the "Auto-Refill" feature on the settings page.</span></label>
                 <div class="ChatTranslationSettingsPopup__checkbox#_Q ChatTranslationSettingsPopup__checkbox__counterpart#w8 SwitcherV2#o2 SwitcherV2__checked#io SwitcherV2__small#bn">
-                    <input id="hide-auto-refill" type="checkbox" class="SwitcherV2__input#N3 option-disable-auto-refill" role="switch" value="1">
-                    <div class="default light on switcher"><div class="switcher-wrapper"><span class="switcher-label"><svg class="icon icon-check"><use xlink:href="#icons-check"></use></svg></span><span class="switcher-switch"></span><span class="switcher-label"></span></div></div>
+                    <div class="se-option-translations se-switcher">
+                        <div class="default light switcher">
+                            <div class="switcher-wrapper">
+                                <span class="switcher-switch"></span>
+                            </div>
+                        </div>
+                        <input class="option-disable-auto-refill" type="checkbox" value="1"> <span class="model-chat-nav-item-label"></span>
+                    </div>
                 </div>
             </div>
         </div>

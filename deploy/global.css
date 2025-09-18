@@ -124,3 +124,9 @@ input[type="search"].input.language-search:hover { background: rgba(0,0,0,1) }
 /* dnd mode */
 .switch-dnd-mode { display: flex; align-items: center; flex: 1; justify-content: flex-end; margin-right: 46px; }
 .switcher + input[type="checkbox"] { display: none }
+
+/* favorite filtering */
+.filters-favorites { display: flex; gap: 20px; }
+.FavoritesHeaderWithActions__title_wrapper { justify-content: flex-start; }
+[class*="FavoritesHeaderWithActions__action_buttons#v9"] { justify-self: flex-end; }
+.favorites-filters-features { display: flex; gap: 7px; }

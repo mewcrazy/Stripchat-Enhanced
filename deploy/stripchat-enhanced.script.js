@@ -970,7 +970,7 @@
     if(!$('.model-chat .filters-favorites.page-block').length) {
 
       // add filters block html
-      $(".favorites [class^='FavoritesHeaderWithActions__title_wrapper']").after(GM_getResourceText("HTML_FAVORITES_FILTERS"))
+      $(".favorites [class^='FavoritesHeaderWithActions__title_wrapper'] > div:first-child").after(GM_getResourceText("HTML_FAVORITES_FILTERS"))
 
       // populate country filter
       $('.model-list-item .country-flag').each(function() {
