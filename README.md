@@ -1,9 +1,13 @@
 # <p align="center">StripChat Enhanced</p>
 <p align="center">An user script, and soon to be a browser extension, for ViolentMonkey, Tampermonkey & Greasemonkey to extend StripChat with new useful features like translations of public chat and private chat messages.</p>
 
-<p align="center">[![Downloads per month](https://shields.io/github/downloads/mewcrazy/StripChat-Enhanced/total)]((https://github.com/mewcrazy/StripChat-Enhanced/archive/refs/heads/main.zip))</p>
+<p align="center" width="100%">
+  <a href="https://github.com/mewcrazy/StripChat-Enhanced/archive/refs/heads/main.zip"><img src="https://shields.io/github/downloads/mewcrazy/StripChat-Enhanced/total"></a>
+</p>
 
-![alt text](img/animation-translate-chat.gif)
+<p align="center" width="100%">
+    <img width="100%" src="https://github.com/mewcrazy/StripChat-Enhanced/raw/main/img/animation-translate-chat.gif"> 
+</p>
 
 > [!WARNING]  
 > StripChat Enhanced is currently in active development. It's safe to use already, and has Auto Update enabled, so expect regular updates with minor layout changes.
@@ -63,6 +67,7 @@ We welcome any contributions! If you're having ideas or improvements to StripCha
 ## Used Frameworks/Utilities:
 - CoeJoder/waitForKeyElements.js - A utility function for userscripts that detects and handles AJAXed content.
 - jquery/jQuery - JavaScript Framework to ease the DOM traversing.
+- hmissive/emoji-mart - 
 - Thanks to [Wiktionary](https://en.wiktionary.org/wiki/Wiktionary:Language_flags_list) for the curated list of language flags.
 
 ---
