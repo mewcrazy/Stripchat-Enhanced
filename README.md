@@ -3,6 +3,7 @@
 
 [![Downloads per month](https://shields.io/github/downloads/mewcrazy/StripChat-Enhanced/total)]((https://github.com/mewcrazy/StripChat-Enhanced/archive/refs/heads/main.zip))
 
+![alt text](img/animation-translate-chat.gif)
 
 > [!WARNING]  
 > StripChat Enhanced is currently in active development. It's safe to use already, and has Auto Update enabled, so expect regular updates with minor layout changes.

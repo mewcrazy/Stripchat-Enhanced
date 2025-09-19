@@ -83,7 +83,7 @@ input[type="search"].input.language-search:hover { background: rgba(0,0,0,1) }
 /* emoji picker */
 .model-chat__smiles-block [class*="SmilesWidgetContainer__titleBlock"] { justify-content: flex-start; }
 .model-chat__smiles-block .se-switch-emoji { flex-grow: 1; text-align: right; }
-.switch-emoji-style { display: inline; text-decoration: none; margin: 0; padding: 10px 12px !important; font-size: 13px; font-weight: 500; line-height: 20px; }
+.switch-emoji-style { display: inline !important; text-decoration: none; margin: 0; padding: 10px 12px !important; font-size: 13px; font-weight: 500; line-height: 20px; }
 .switch-emoji-style:hover { background: #1f1f1f; text-decoration: none; }
 .emoji-categories { margin: 0 0 1em 0; background: #1f1f1f; border-radius: 12px; }
 .emoji-list { overflow-y: scroll; }
