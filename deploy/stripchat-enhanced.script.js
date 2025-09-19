@@ -10,12 +10,13 @@
 // @icon        https://mewcrazy.github.io/StripChat-Enhanced/icon.svg
 // @require     https://mewcrazy.github.io/StripChat-Enhanced/deploy/jquery.min.js
 // @require     https://gist.github.com/raw/2625891/waitForKeyElements.js
-// @resource    IMPORTED_CSS https://mewcrazy.github.io/StripChat-Enhanced/deploy/global.css?v=9
-// @resource    CSS_FLAGS https://mewcrazy.github.io/StripChat-Enhanced/deploy/flags.css?v=9
-// @resource    ISO639_FLAGS https://mewcrazy.github.io/StripChat-Enhanced/json/iso639-1.json?v=9
-// @resource    EMOJIS https://cdn.jsdelivr.net/npm/@emoji-mart/data@1.2.1/sets/2/native.json?v=9
-// @resource    HTML_ENHANCED_OPTIONS https://mewcrazy.github.io/StripChat-Enhanced/html/enhanced-options.html
-// @resource    HTML_FAVORITES_FILTERS https://mewcrazy.github.io/StripChat-Enhanced/html/favorites-filters.html
+// @resource    IMPORTED_CSS https://mewcrazy.github.io/StripChat-Enhanced/deploy/global.css?v=11
+// @resource    CSS_FLAGS https://mewcrazy.github.io/StripChat-Enhanced/deploy/flags.css?v=11
+// @resource    ISO639_FLAGS https://mewcrazy.github.io/StripChat-Enhanced/json/iso639-1.json?v=111
+// @resource    EMOJIS https://cdn.jsdelivr.net/npm/@emoji-mart/data@1.2.1/sets/2/native.json?v=11
+// @resource    HTML_ENHANCED_OPTIONS https://mewcrazy.github.io/StripChat-Enhanced/html/enhanced-options.html?v=2
+// @resource    HTML_FAVORITES_FILTERS https://mewcrazy.github.io/StripChat-Enhanced/html/favorites-filters.html?v=2
+// @resource    HTML_MODELINFO_OVERLAY https://mewcrazy.github.io/StripChat-Enhanced/html/modelinfo-overlay.html
 // @downloadURL https://mewcrazy.github.io/StripChat-Enhanced/deploy/stripchat-enhanced.script.js
 // @grant       GM_addStyle
 // @grant       GM_xmlhttpRequest
@@ -444,7 +445,7 @@
     /**
      * Normal Emojis
      */
-    waitForKeyElements('[class*="SmilesWidgetContainer__closeBtn"]', addRegularEmojis);
+    waitForKeyElements('.model-chat__smiles-block [class*="SmilesWidgetContainer__closeBtn"]', addRegularEmojis);
     function addRegularEmojis(jNode) {
       let modelChat = $(jNode).closest('.model-chat-public')
 
@@ -960,6 +961,45 @@
     })
   }
 
+
+  /**
+   * Model info overlay on listing pages
+   */
+  waitForKeyElements('.favorites .list-items-container', addOverlayButtons);
+  function addOverlayButtons(jNode) {
+
+    $(jNode).find('[class*="ModelThumbUpper"]').append('<div class="se-model-info model-additional-menu-newtab model-additional-menu model-additional-menu--model-list-item model-list-item-additional-menu-wrapper"><div id="model-additional-menu-button-567" class="model-additional-menu__button">+</div></div>')
+
+    // apapend click handler
+    $('.favorites').on('click', '.se-model-info', function(e) {
+      e.preventDefault()
+      let model = $(this).closest('.model-list-item');
+      let username = model.find('[class*="ModelThumbUsername"]').text();
+      model.addClass("active")
+
+      $.getJSON('https://stripchat.com/api/front/v2/models/username/'+username+'/cam').done((data) => {
+        console.log( "second success", data )
+
+        let html = GM_getResourceText("HTML_MODELINFO_OVERLAY")
+
+        // replace vars
+        // /\[\d+,\d+\]/g
+        const regex = /\[(\d[\d,]*)]/g;
+        const str = 'test [user.user.birthDate]';
+        let m;
+
+        while ((m = regex.exec(str)) !== null) {
+           console.log(m[0], eval("data."+m[0]));
+        }
+
+        $(this).append(html)
+      });
+
+      return false;
+    })
+  }
+
+
   /**
    * Favorites Filtering
    */
@@ -996,6 +1036,7 @@
     // append dnd toggle
     $(jNode).find('.chat-settings').before('<div class="switch-dnd-mode model-chat-nav-item se-switcher"><span class="model-chat-nav-item-label">DND</span><div class="default light switcher"><div class="switcher-wrapper"><span class="switcher-label"><svg class="icon icon-check"><use xlink:href="#icons-check"></use></svg></span><span class="switcher-switch"></span><span class="switcher-label"></span></div></div><input type="checkbox" value="1"></div>')
   }
+
 
 
   /**

@@ -130,8 +130,13 @@ input[type="search"].input.language-search:hover { background: rgba(0,0,0,1) }
 
 /* listing: model info overlay */
 .se-model-info { position: relative; }
-.se-model-info .overlay { position: absolute; bottom: 0; right: 32px; background: #222; padding: 4px; }
-.model-list-item.active .model-additional-menu.model-additional-menu--model-list-item { display: flex }
+.se-model-info .overlay { position: absolute; bottom: calc(100% + 10px); right: 0; background: #222; padding: 10px; }
+.model-list-item.active .model-additional-menu.model-additional-menu--model-list-item { display: flex !important }
+dd {
+  display: block;
+  margin-left: 40px;
+}
+
 
 /* favorite filtering */
 .filters-favorites { display: flex; gap: 20px; }
