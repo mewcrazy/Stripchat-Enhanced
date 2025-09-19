@@ -65,10 +65,11 @@ We welcome any contributions! If you're having ideas or improvements to StripCha
 - Bug testing in GreaseMonkey & TamperMonkey
 
 ## Used Frameworks/Utilities:
-- CoeJoder/waitForKeyElements.js - A utility function for userscripts that detects and handles AJAXed content.
-- jquery/jQuery - JavaScript Framework to ease the DOM traversing.
-- hmissive/emoji-mart - 
-- Thanks to [Wiktionary](https://en.wiktionary.org/wiki/Wiktionary:Language_flags_list) for the curated list of language flags.
+- [CoeJoder/waitForKeyElements.js](https://github.com/CoeJoder/waitForKeyElements.js) - A utility function for userscripts that detects and handles AJAXed content.
+- [jquery/jQuery](https://github.com/jquery/jquery) - JavaScript Framework to ease the DOM traversing.
+- [missive/emoji-mart](https://github.com/missive/emoji-mart) - A Beautiful emoji picker module. (version-based emoji json files)
+
+Thanks to [Wiktionary](https://en.wiktionary.org/wiki/Wiktionary:Language_flags_list) for the curated list of language flags.
 
 ---
 
