@@ -1,7 +1,7 @@
 # <p align="center">StripChat Enhanced</p>
 <p align="center">An user script, and soon to be a browser extension, for ViolentMonkey, Tampermonkey & Greasemonkey to extend StripChat with new useful features like translations of public chat and private chat messages.</p>
 
-[![Downloads per month](https://shields.io/github/downloads/mewcrazy/StripChat-Enhanced/total)]((https://github.com/mewcrazy/StripChat-Enhanced/archive/refs/heads/main.zip))
+<p align="center">[![Downloads per month](https://shields.io/github/downloads/mewcrazy/StripChat-Enhanced/total)]((https://github.com/mewcrazy/StripChat-Enhanced/archive/refs/heads/main.zip))</p>
 
 ![alt text](img/animation-translate-chat.gif)
 
@@ -34,7 +34,7 @@ We are working on dedicated Edge, Firefox and Chrome Extensions, until then the 
 
 - [TamperMonkey](https://www.tampermonkey.net/) <sub>(Chrome, Microsoft Edge, Firefox, Safari, Opera Next)</sub>
 - [ViolentMonkey](https://violentmonkey.github.io/) <sub>(Chrome, Firefox, Microsoft Edge)</sub>
-- [GreaseMonkey](https://www.greasespot.net/) <sub>(Firefox)</sub>
+- <s>[GreaseMonkey](https://www.greasespot.net/)</s> <sub>(Firefox; currently unsupported)</sub>
 
 Please note that this script requires an API Key for the Google Cloud Translation API. Simply log in your Google account, and create a New Project for the Cloud Translation API. After you can click on "Login Credentials" and create a new API Key which you can use in this script.
 
@@ -48,7 +48,7 @@ Please note that this script requires an API Key for the Google Cloud Translatio
 2. Copy paste the contents of [`https://mewcrazy.github.io/StripChat-Enhanced/deploy/stripchat-enhanced.script.js`](https://mewcrazy.github.io/StripChat-Enhanced/deploy/stripchat-enhanced.script.js) into the editor and Save.
 
 ### GreaseMonkey
-1.
+Currently unsupported. To support new version 4.0+ of GreaseMonkey we would need to make major changes.
 
 
 ## Contributing
@@ -65,5 +65,6 @@ We welcome any contributions! If you're having ideas or improvements to StripCha
 - jquery/jQuery - JavaScript Framework to ease the DOM traversing.
 - Thanks to [Wiktionary](https://en.wiktionary.org/wiki/Wiktionary:Language_flags_list) for the curated list of language flags.
 
+---
 
 <p align="center">Inspired by a beautiful woman and made with <span class="aalliyahh">❤️</span> in Düsseldorf, Germany</p>
