@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        Stripchat Enhanced
 // @namespace   https://github.com/mewcrazy/StripChat-Enhanced
-// @version     1.95
+// @version     2.0.0
 // @author      Dennis Bitsch
 // @description A browser extension to enhance the features on the StripChat website
 // @match       *://*.stripchat.com/*
@@ -362,7 +362,7 @@
               }
           })
 
-          // add translation button to tip notes
+          // add translation button to goal messages
           $(jNode).find('.goal-message:not(.se-processed)').slice(-50).each(function(index, item) {
               if(!$(this).find('.goal-description__message .translate-line').length) {
                 $(this).find('.goal-description__message').append(htmlTranslateButton)
@@ -382,16 +382,27 @@
           if($('.switch-dnd-mode input[type="checkbox"]').is(':checked')) {
             let scrollContainer = $(jNode).closest('.scroll-bar-container')
             $(jNode).find('.message__more-menu--hidden.regular-message:not(.se-hidden):not(.m-bg-model)').slice(-50).each(function(index, item) {
-                $(this).addClass("hidden")
+                $(this).addClass("se-hidden")
             })
           }
 
+          // auto translate
+          if($('.switch-auto-translate input[type="checkbox"]').is(':checked')) {
+            $(jNode).find('.regular-message.message__more-menu--hidden:not(.se-hidden):not(.se-translated)').slice(-1).each(function(index, item) {
+              let that = $(this)
+              let ell = $(this).find('.message-body').clone()
+              ell.find('.username,.message-body-mention,.message-timestamp,>span,button,.goal-block,.group-show-message-title,.group-show-announce-topic-label,.group-show-announce-controls').remove()
+              let text = ell.text().trim()
 
-          scrollContainer.animate({ scrollTop: 0 }, "fast");
+              translateGoogle(text, 'en_US').then(function(data) {
+                if(!that.find('.message-body').find('.translated-line').length) {
+                    that.find('.message-body').find('.translate-line').before('<small class="translated-line">'+decodeURIComponent(data.data.translations[0].translatedText)+'</small>')
+                }
+              })
 
-          setTimeout(function() {
-            scrollContainer.animate({ scrollTop: scrollContainer.prop("scrollHeight") }, "fast");
-          }, 500);
+              $(this).addClass("se-translated")
+            })
+          }
       });
       observer.observe($('.messages')[0], {characterData: true, childList: true, subtree: true});
 
