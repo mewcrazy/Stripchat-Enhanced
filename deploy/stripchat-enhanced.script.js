@@ -61,6 +61,8 @@
     var prefTranslationLang = localStorage.getItem("prefTranslationLang")
     var translationLanguages = []
 
+
+    var htmlModelOverlay = GM_getResourceText("HTML_MODELINFO_OVERLAY");
     var htmlLangChooser = '<div class="language-chooser"><div class="SmilesWidgetContainer#AW SmilesWidgetContainer__chat#mq visible-enter-done"><div class="SmilesWidgetContainer__titleBlock#Uy title-block"><span class="SmilesWidgetContainer__title#wG">Auto-Translate</span><div class="search"><input class="ModelSearch__input#st inline-block input text-default theme-default language-search" type="search" placeholder="Search Language"></div><button type="button" class="close-language-chooser SmilesWidgetContainer__closeBtn#GV" title="Close Languages"><svg style="height: 20px; width: 20px;" class="IconV2__icon#YR"><use xlink:href="#icons-close-ds"></use></svg></button></div><div class="SmilesWidgetContainer__content#uS" data-scroll="lock-ignore"><div class="language-list SmilesWidget__content#Ml"><span class="se-loader"></span></div></div></div></div>'
     var htmlLangChooserPrivates = '<div class="language-chooser"><div class="SmilesWidgetContainer#AW SmilesWidgetContainer__chat#mq visible-enter-done"><div class="SmilesWidgetContainer__titleBlock#Uy title-block" style="justify-content: flex-end;"><button type="button" class="close-language-chooser SmilesWidgetContainer__closeBtn#GV" title="Close Languages"><svg style="height: 20px; width: 20px;" class="IconV2__icon#YR"><use xlink:href="#icons-close-ds"></use></svg></button></div><div class="SmilesWidgetContainer__titleBlock#Uy title-block"><span class="SmilesWidgetContainer__title#wG">Auto-Translate</span><div class="search"><input class="ModelSearch__input#st inline-block input text-default theme-default language-search" type="search" placeholder="Search Language"></div></div><div class="SmilesWidgetContainer__content#uS" data-scroll="lock-ignore"><div class="language-list SmilesWidget__content#Ml"><span class="se-loader"></span></div></div></div></div>'
     var htmlLangPicker = '<div class="se-langpicker" title="Switch language"><svg width="24" height="24" viewBox="0 0 3 3" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="iconify iconify--gis" fill="currentColor"><path d="M1.575.17v.606h.53a1.6 1.6 0 0 0-.102-.232c-.119-.216-.27-.346-.428-.373m-.15.006c-.148.037-.288.164-.4.367Q.967.65.923.776h.502zm-.346.04A1.35 1.35 0 0 0 .36.776h.404Q.818.609.893.471q.081-.148.186-.254m.882.014q.096.103.173.24.076.138.129.305h.377a1.35 1.35 0 0 0-.678-.545M.278.926a1.3 1.3 0 0 0-.126.499h.504q.01-.265.066-.499zm.599 0c-.04.152-.065.321-.071.499h.619V.926zm.698 0v.499h.647a2.3 2.3 0 0 0-.071-.499zm.731 0q.056.234.066.499h.476a1.3 1.3 0 0 0-.126-.499zm-2.154.649a1.3 1.3 0 0 0 .126.499h.437a2.5 2.5 0 0 1-.06-.499zm.653 0c.004.177.027.346.064.499h.556v-.499zm.77 0v.499h.583q.057-.23.064-.499zm.797 0a2.5 2.5 0 0 1-.06.499h.41a1.3 1.3 0 0 0 .126-.499zM.36 2.224c.159.249.396.443.679.545a1.2 1.2 0 0 1-.146-.211 1.7 1.7 0 0 1-.139-.335zm.552 0q.048.145.113.263c.105.191.235.314.373.359l.028.002v-.624zm.663 0v.624l.064-.005c.135-.047.261-.17.364-.356q.065-.117.113-.263zm.698 0a1.7 1.7 0 0 1-.139.335 1 1 0 0 1-.132.194 1.35 1.35 0 0 0 .637-.529z" /></svg></div>'
@@ -977,22 +979,22 @@
       let username = model.find('[class*="ModelThumbUsername"]').text();
       model.addClass("active")
 
+      // get api data
       $.getJSON('https://stripchat.com/api/front/v2/models/username/'+username+'/cam').done((data) => {
-        console.log( "second success", data )
-
-        let html = GM_getResourceText("HTML_MODELINFO_OVERLAY")
+        this.data = data
 
         // replace vars
-        // /\[\d+,\d+\]/g
-        const regex = /\[(\d[\d,]*)]/g;
-        const str = 'test [user.user.birthDate]';
+        const regex = /\[(.*?)\]/g
         let m;
-
-        while ((m = regex.exec(str)) !== null) {
-           console.log(m[0], eval("data."+m[0]));
+        while ((m = regex.exec(htmlModelOverlay)) !== null) {
+          const arrTraverse = m[1].split(".");
+          let res = this.data
+          $.each(arrTraverse, function(i, v) {
+            res = res[v]
+          })
         }
 
-        $(this).append(html)
+        $(this).append(htmlModelOverlay)
       });
 
       return false;
