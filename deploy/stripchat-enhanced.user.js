@@ -1000,9 +1000,12 @@
         while ((m = regex.exec(htmlModelOverlay)) !== null) {
           const arrTraverse = m[1].split(".");
           let res = this.data
+          console.log(m[1], res)
           $.each(arrTraverse, function(i, v) {
             res = res[v]
           })
+          htmlModelOverlay.replace("["+m[1].toString()+"]", res)
+          console.log(m[1], res)
         }
 
         $(this).append(htmlModelOverlay)
@@ -1084,7 +1087,7 @@
         "Content-Type": "application/json"
       },
       onload: function(response) {
-        alert("hm")
+    alert("hm")
         console.log("response.responseText", response.responseText)
       }
     });
