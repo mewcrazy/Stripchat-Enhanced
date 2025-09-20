@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        Stripchat Enhanced
 // @namespace   https://github.com/mewcrazy/StripChat-Enhanced
-// @version     2.0.0
+// @version     2.0.1
 // @author      Dennis Bitsch
 // @description A browser extension to enhance the features on the StripChat website
 // @match       *://*.stripchat.com/*
@@ -9,15 +9,16 @@
 // @match       *://stripchat.com/
 // @icon        https://mewcrazy.github.io/StripChat-Enhanced/icon.svg
 // @require     https://mewcrazy.github.io/StripChat-Enhanced/deploy/jquery.min.js
+// @require     https://mewcrazy.github.io/StripChat-Enhanced/deploy/choices.min.js
 // @require     https://gist.github.com/raw/2625891/waitForKeyElements.js
-// @resource    IMPORTED_CSS https://mewcrazy.github.io/StripChat-Enhanced/deploy/global.css?v=11
-// @resource    CSS_FLAGS https://mewcrazy.github.io/StripChat-Enhanced/deploy/flags.css?v=11
-// @resource    ISO639_FLAGS https://mewcrazy.github.io/StripChat-Enhanced/json/iso639-1.json?v=111
-// @resource    EMOJIS https://cdn.jsdelivr.net/npm/@emoji-mart/data@1.2.1/sets/2/native.json?v=11
-// @resource    HTML_ENHANCED_OPTIONS https://mewcrazy.github.io/StripChat-Enhanced/html/enhanced-options.html?v=2
-// @resource    HTML_FAVORITES_FILTERS https://mewcrazy.github.io/StripChat-Enhanced/html/favorites-filters.html?v=2
-// @resource    HTML_MODELINFO_OVERLAY https://mewcrazy.github.io/StripChat-Enhanced/html/modelinfo-overlay.html
-// @downloadURL https://mewcrazy.github.io/StripChat-Enhanced/deploy/stripchat-enhanced.script.js
+// @resource    IMPORTED_CSS https://mewcrazy.github.io/StripChat-Enhanced/deploy/global.css?v=12
+// @resource    CSS_FLAGS https://mewcrazy.github.io/StripChat-Enhanced/deploy/flags.css?v=12
+// @resource    ISO639_FLAGS https://mewcrazy.github.io/StripChat-Enhanced/json/iso639-1.json?v=12
+// @resource    EMOJIS https://cdn.jsdelivr.net/npm/@emoji-mart/data@1.2.1/sets/2/native.json?v=12
+// @resource    HTML_ENHANCED_OPTIONS https://mewcrazy.github.io/StripChat-Enhanced/html/enhanced-options.html?v=3
+// @resource    HTML_FAVORITES_FILTERS https://mewcrazy.github.io/StripChat-Enhanced/html/favorites-filters.html?v=3
+// @resource    HTML_MODELINFO_OVERLAY https://mewcrazy.github.io/StripChat-Enhanced/html/modelinfo-overlay.html?v=3
+// @downloadURL https://mewcrazy.github.io/StripChat-Enhanced/deploy/stripchat-enhanced.user.js
 // @grant       GM_addStyle
 // @grant       GM_xmlhttpRequest
 // @grant       GM_addElement
@@ -164,6 +165,27 @@
 
 
     /**
+     * Save Favorites Ordering
+     */
+    waitForKeyElements("[class*='ModelsOrderDropdown__content']", saveFavoritesSorting);
+    function saveFavoritesSorting(el) {
+
+      $("[class*='ModelsOrderDropdown__content']").on('click', 'a', function() {
+        let path = location.pathname
+        $("[class*='SidebarLink'][href='/favorites']").attr("href", path)
+        localStorage.setItem("SE_favoritesSorting", path)
+      })
+    }
+    waitForKeyElements("[class*='SidebarMainLinks']", presetFavoritesSorting);
+    function presetFavoritesSorting(el) {
+
+        let path = localStorage.getItem("SE_favoritesSorting")
+        if(path) $("[class*='SidebarLink'][href='/favorites']").attr("href", path)
+    }
+
+
+
+    /**
      * Open Streams in New Tab
      */
     waitForKeyElements("[class*='SlidableCategorySegment__scrollable-container']", addOpenInNewTabLinks);
@@ -217,6 +239,13 @@
         $('.enhanced-options-modal').addClass('hidden')
       })
 
+      // options change handler
+      $('.enhanced-options-content').on('change', 'input[type="checkbox"]', function(e) {
+        let name = $(this).attr('name')
+        let val = ($(this).prop('checked') ? "1" : "0")
+        localStorage.setItem("SE_"+name, val)
+        processOption(name, val)
+      })
     }
 
     function updateTime() {
@@ -229,28 +258,61 @@
       }
     }
 
+    function processOption(name, val) {
+
+      switch(name) {
+        case "SE_optionDisableAutoRefill":
+          if(val == "1") {
+            GM_addStyle(`
+              #auto-refill.settings-island { display: none !important }
+            `)
+          } else {
+            GM_removeStyle(`
+              #auto-refill.settings-island { display: none !important }
+            `)
+          }
+          break;
+        case "SE_optionDisableQuickRefill":
+          if(val == "1") {
+            GM_addStyle(`
+              .tokens-quick-refill-list, .instant-top-up-wrapper { display: none !important }
+            `)
+          } else {
+            GM_removeStyle(`
+              .tokens-quick-refill-list, .instant-top-up-wrapper { display: none !important }
+            `)
+          }
+          break;
+        case "SE_optionEnableTranslations":
+
+          break;
+        default:
+          // code block
+      }
+    }
+
     function processOptions() {
 
         // enable translation
 
         // hide auto-refill
-        GM_addStyle(`
-        #auto-refill.settings-island { display: none !important }
-      `);
+/*         GM_addStyle(`
+          #auto-refill.settings-island { display: none !important }
+        `); */
 
         // hide widgets: battleship
-        GM_addStyle ( `
-            .viewcam-widget-panel--battleships { display: none !important; }
-        ` );
+        // GM_addStyle ( `
+        //     .viewcam-widget-panel--battleships { display: none !important; }
+        // ` );
 
 
         // hide quick refill
-        if($('.option-disable-quick-refill').val() === "1")  {
+//         if($('.option-disable-quick-refill').val() === "1")  {
 
-          GM_addStyle(`
-            .tokens-quick-refill-list, .instant-top-up-wrapper { display: none !important; }
-          `);
-        }
+//           GM_addStyle(`
+//             .tokens-quick-refill-list, .instant-top-up-wrapper { display: none !important; }
+//           `);
+//         }
     }
 
 
@@ -1000,11 +1062,10 @@
         while ((m = regex.exec(htmlModelOverlay)) !== null) {
           const arrTraverse = m[1].split(".");
           let res = this.data
-          console.log(m[1], res)
           $.each(arrTraverse, function(i, v) {
             res = res[v]
           })
-          htmlModelOverlay.replace("["+m[1].toString()+"]", res)
+          htmlModelOverlay.replace('['+m[1]+']', res)
           console.log(m[1], res)
         }
 
@@ -1067,7 +1128,7 @@
       $(this).find('.switcher').toggleClass("on")
       $(this).find('input[type="checkbox"]').prop('checked', function (i, val) {
         return !val;
-      });
+      }).trigger('change');
     })
   }
 
