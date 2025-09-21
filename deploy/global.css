@@ -118,7 +118,7 @@ input[type="search"].input.language-search:hover { background: rgba(0,0,0,1) }
 .switch-show-type .switcher.default { height: 22px; margin: 0 10px 0 0; width: 38px; }
 
 /* filters: favorites */
-.favorites-filters-search input { background: #222; }
+.favorites-filters-search input, .favorites-filters-search input:focus { background: #222 !important; height: 24px; }
 
 /* tip menu sort */
 .se-tipmenu-sort { margin: 1em 0 0 0; font-size: 12px; font-weight: 500; line-height: 15px; }
@@ -145,3 +145,6 @@ dd {
 .FavoritesHeaderWithActions__title_wrapper { justify-content: flex-start; }
 [class*="FavoritesHeaderWithActions__action_buttons#v9"] { justify-self: flex-end; }
 .favorites-filters-features { display: flex; gap: 7px; }
+
+/* stripchat bugfix: messages are hidden behind model listings after coming from opening an image */
+.main-layout-main-right { z-index: 0; }
