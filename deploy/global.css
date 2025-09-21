@@ -46,7 +46,7 @@ button + .se-loader { display: none; }
 .se-langpicker { opacity: .6; text-align: center; width: 24px; height: 24px; position: absolute; bottom: 1.25em; left: 1.25em; z-index: 1 }
 .se-langpicker:hover { opacity: 1; }
 .se-langpicker option { text-align: center; font-size: 1.35em }
-.se-langpicker .fi { margin-top: 3px; border: 1px solid rgba(255, 255, 255, .25); }
+.se-langpicker .flag { width: 25px; height: 17px; margin-top: 3px; border: 1px solid rgba(255, 255, 255, .25); }
 .se-langpicker span+svg { display: none !important }
 .model-chat-input input, .chat-input textarea { padding-left: 25px }
 
@@ -134,13 +134,10 @@ input[type="search"].input.language-search:hover { background: rgba(0,0,0,1) }
 
 /* listing: model info overlay */
 .se-model-info { position: relative; }
-.se-model-info .overlay { position: absolute; bottom: calc(100% + 10px); right: 0; background: #222; padding: 10px; }
+.se-model-info .overlay { position: absolute; bottom: calc(100% + 10px); right: 0; background: #222; padding: 4px; font-size: 11px; }
 .model-list-item.active .model-additional-menu.model-additional-menu--model-list-item { display: flex !important }
-dd {
-  display: block;
-  margin-left: 40px;
-}
-
+.se-model-info dt { font-weight: 400; display: grid; grid-gap: 4px 10px; grid-template-columns: max-content; }
+.se-model-info dd { display: block; margin-left: 40px; margin: 0; grid-column-start: 2; }
 
 /* favorite filtering */
 .filters-favorites { display: flex; gap: 20px; }
