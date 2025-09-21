@@ -39,7 +39,9 @@ button + .se-loader { display: none; }
 /* enhanced options */
 .enhanced-options-content { align-items: center; padding: 20px }
 .enhanced-options-content label { text-align: left; }
-
+.enhanced-options-content .switcher.on .switcher-wrapper { transform: translateX(17px); }
+.enhanced-options-content .switcher .switcher-wrapper { transform: translateX(0); }
+  
 /* language picker */
 .se-langpicker { opacity: .6; text-align: center; width: 24px; height: 24px; position: absolute; bottom: 1.25em; left: 1.25em; z-index: 1 }
 .se-langpicker:hover { opacity: 1; }
