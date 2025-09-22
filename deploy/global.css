@@ -121,7 +121,8 @@ input[type="search"].input.language-search:hover { background: rgba(0,0,0,1) }
 .switch-show-type .switcher.default { height: 22px; margin: 0 10px 0 0; width: 38px; }
 
 /* filters: favorites */
-.favorites-filters-search input, .favorites-filters-search input:focus { background: #222 !important; height: 24px; }
+.filters-favorites .country select { background-color: #222; border: 1px solid #000; border-radius: 14px; color: #f8f8f8; display: inline-block; height: 30px; line-height: 20px; padding: 7px 14px; font-size: .75rem; transition: 120ms ease-in-out; }
+.filters-favorites .search input, .filters-favorites .search input:focus { background: #222 !important; border-radius: 14px; height: 30px; padding: 7px 14px; }
 
 /* tip menu sort */
 .se-tipmenu-sort { margin: 1em 0 0 0; font-size: 12px; font-weight: 500; line-height: 15px; }
@@ -143,8 +144,11 @@ input[type="search"].input.language-search:hover { background: rgba(0,0,0,1) }
 /* favorite filtering */
 .filters-favorites { display: flex; gap: 20px; }
 .FavoritesHeaderWithActions__title_wrapper { justify-content: flex-start; }
-[class*="FavoritesHeaderWithActions__action_buttons#v9"] { justify-self: flex-end; }
+[class*="FavoritesHeaderWithActions__action_buttons"] { justify-self: flex-end; }
 .favorites-filters-features { display: flex; gap: 7px; }
 
 /* stripchat bugfix: messages are hidden behind model listings after coming from opening an image */
 .main-layout-main-right { z-index: 0; }
+
+/* stripchat : messages are hidden behind model listings after coming from opening an image */
+.model-list-item [class*="ModelThumbShowTopic"] { overflow: visible !important; }
