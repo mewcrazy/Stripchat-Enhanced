@@ -32,8 +32,6 @@
     // Include css stylsheets
     const my_css = GM_getResourceText("IMPORTED_CSS");
     GM_addStyle(my_css);
-    const css_flags = GM_getResourceText("CSS_FLAGS");
-    GM_addStyle(css_flags);
 
     // Preload emojis
     const emojis = eval("(" + GM_getResourceText("EMOJIS") + ")")
@@ -44,7 +42,6 @@
 
     // TODO Remove later on
     GM_addElement('link', { rel: 'stylesheet', href: 'https://mewcrazy.github.io/StripChat-Enhanced/deploy/global.css' }); // TODO minify css
-    GM_addElement('link', { rel: 'stylesheet', href: 'https://mewcrazy.github.io/StripChat-Enhanced/deploy/flags.css' }); // TODO minify css
 
     waitForKeyElements("head", addHead);
     function addHead() {
