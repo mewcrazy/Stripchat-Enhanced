@@ -47,7 +47,7 @@ button + .se-loader { display: none; }
 .se-langpicker:hover { opacity: 1; }
 .se-langpicker option { text-align: center; font-size: 1.35em }
 .se-langpicker .flag { width: 25px; height: 17px; margin-top: 3px; border: 1px solid rgba(255, 255, 255, .25); }
-.se-langpicker span+svg { display: none !important }
+.se-langpicker svg+svg { display: none !important }
 .model-chat-input input, .chat-input textarea { padding-left: 25px }
 
 /* language chooser */
