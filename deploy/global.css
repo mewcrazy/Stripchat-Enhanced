@@ -123,7 +123,7 @@ input[type="search"].input.language-search:hover { background: rgba(0,0,0,1) }
 /* filters: favorites */
 .filters-favorites .country select { background-color: #222; border: 1px solid #000; border-radius: 14px; color: #f8f8f8; display: inline-block; height: 30px; line-height: 20px; padding: 7px 14px; font-size: .75rem; transition: 120ms ease-in-out; }
 .filters-favorites .search input, .filters-favorites .search input:focus { background: #222 !important; border-radius: 14px; height: 30px !important; padding: 7px 14px !important; }
-.filters-favorites .features { display: flex; }
+.filters-favorites .features { display: flex; font-size: 13px; gap: 10px; }
 
 /* tip menu sort */
 .se-tipmenu-sort { margin: 1em 0 0 0; font-size: 12px; font-weight: 500; line-height: 15px; }
