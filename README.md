@@ -48,10 +48,6 @@ Please note that this script requires an API Key for the Google Cloud Translatio
 2. Click on + (New) -> Install by URL
 3. Manually enter the URL to the plugins file in this repository: `https://mewcrazy.github.io/StripChat-Enhanced/deploy/stripchat-enhanced.user.js`
 
-> [!INFO]  
-> 
-
-
 ### TamperMonkey <sub>("Allow User Scripts" toggle in the Extension's settings needs to be enabled.)</sub>
 1. Click the TamperMonkey Extension Icon and "Create a new script..."
 2. Copy paste the contents of [`https://mewcrazy.github.io/StripChat-Enhanced/deploy/stripchat-enhanced.user.js`](https://mewcrazy.github.io/StripChat-Enhanced/deploy/stripchat-enhanced.user.js) into the editor and Save.
@@ -64,7 +60,6 @@ Currently unsupported. To support new version 4.0+ of GreaseMonkey we would need
 We welcome any contributions! If you're having ideas or improvements to StripChat Enhanced, simply create a meaningful push request or open an issue and we will take care of it.
 
 ## Roadmap:
-- Add "Auto Translate" feature (no need to translate each line individually)
 - Proper styling of the "Emoji Picker"
 - Add additional Favorites filters: In Private, In Group Show, In Ticket Show, New Models
 - Bug testing in GreaseMonkey & TamperMonkey
@@ -78,4 +73,4 @@ Thanks to [Wiktionary](https://en.wiktionary.org/wiki/Wiktionary:Language_flags_
 
 ---
 
-<p align="center">Inspired by a beautiful woman and made with <span class="aalliyahh">❤️</span> in Düsseldorf, Germany</p>
+<p align="center">Inspired by a beautiful woman and made with <span title="aalliyahh">❤️</span> in Düsseldorf, Germany</p>
