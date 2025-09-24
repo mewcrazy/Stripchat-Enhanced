@@ -58,9 +58,10 @@ button + .se-loader { display: none; }
 .messenger-chats .language-chooser { bottom: 0; }
 .messenger-chats [class*="SmilesWidgetContainer__closeBtn"] { margin: -6px -6px -6px -10px }
 .language-list { margin: 0 -10px; }
-.language-list > .flag { background: none; outline: 0; border: 0; cursor: pointer; line-height: 1; margin: 3px; cursor: pointer; padding: 4px 6px 3px 6px; }
-.language-list > .flag.active { border: 1px solid #fff }
-.language-list > .flag svg { width: 25px; height: 17px; }
+.language-list .flag { background: none; outline: 0; border: 0; cursor: pointer; line-height: 1; margin: 3px; cursor: pointer; padding: 4px 6px 3px 6px; }
+.language-list .flag.active { border: 1px solid #fff }
+.language-list .flag svg { width: 25px; height: 17px; }
+.language-list .flag-ta, .language-list .flag-sa, .language-list .flag-pa, .language-list .flag-ne { background: #fff; }
 input[type="search"].input.language-search { background: rgba(0,0,0,.2); padding: 10px 15px; height: 30px; border-radius: 15px }
 input[type="search"].input.language-search:hover { background: rgba(0,0,0,1) }
 
