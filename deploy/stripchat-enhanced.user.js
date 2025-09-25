@@ -11,14 +11,14 @@
 // @require     https://mewcrazy.github.io/StripChat-Enhanced/deploy/jquery.min.js
 // @require     https://mewcrazy.github.io/StripChat-Enhanced/deploy/choices.min.js
 // @require     https://gist.github.com/raw/2625891/waitForKeyElements.js
-// @resource    IMPORTED_CSS https://mewcrazy.github.io/StripChat-Enhanced/deploy/global.css?v=13
-// @resource    ISO639_FLAGS https://mewcrazy.github.io/StripChat-Enhanced/json/iso639-1.json?v=13
-// @resource    EMOJIS https://cdn.jsdelivr.net/npm/@emoji-mart/data@1.2.1/sets/2/native.json?v=13
-// @resource    HTML_ENHANCED_OPTIONS https://mewcrazy.github.io/StripChat-Enhanced/html/enhanced-options.html?v=13
-// @resource    HTML_FAVORITES_FILTERS https://mewcrazy.github.io/StripChat-Enhanced/html/favorites-filters.html?v=13
-// @resource    HTML_MODELINFO_OVERLAY https://mewcrazy.github.io/StripChat-Enhanced/html/modelinfo-overlay.html?v=13
-// @resource    HTML_LANGUAGE_CHOOSER https://mewcrazy.github.io/StripChat-Enhanced/html/language-chooser.html?v=13
-// @resource    HTML_LANGUAGE_PICKER https://mewcrazy.github.io/StripChat-Enhanced/html/language-picker.html?v=13
+// @resource    IMPORTED_CSS https://mewcrazy.github.io/StripChat-Enhanced/deploy/global.css?v=191234
+// @resource    ISO639_FLAGS https://mewcrazy.github.io/StripChat-Enhanced/json/iso639-1.json?v=19123
+// @resource    EMOJIS https://cdn.jsdelivr.net/npm/@emoji-mart/data@1.2.1/sets/2/native.json?v=19123
+// @resource    HTML_ENHANCED_OPTIONS https://mewcrazy.github.io/StripChat-Enhanced/html/enhanced-options.html?v=191233363
+// @resource    HTML_FAVORITES_FILTERS https://mewcrazy.github.io/StripChat-Enhanced/html/favorites-filters.html?v=1923334634
+// @resource    HTML_MODELINFO_OVERLAY https://mewcrazy.github.io/StripChat-Enhanced/html/modelinfo-overlay.html?v=19123415634
+// @resource    HTML_LANGUAGE_CHOOSER https://mewcrazy.github.io/StripChat-Enhanced/html/language-chooser.html?v=1912345634
+// @resource    HTML_LANGUAGE_PICKER https://mewcrazy.github.io/StripChat-Enhanced/html/language-picker.html?v=193455634
 // @downloadURL https://mewcrazy.github.io/StripChat-Enhanced/deploy/stripchat-enhanced.user.js
 // @grant       GM_addStyle
 // @grant       GM_xmlhttpRequest
@@ -42,6 +42,7 @@
 
     // TODO Remove later on
     GM_addElement('link', { rel: 'stylesheet', href: 'https://mewcrazy.github.io/StripChat-Enhanced/deploy/global.css' }); // TODO minify css
+    GM_addElement('link', { rel: 'stylesheet', href: 'https://mewcrazy.github.io/StripChat-Enhanced/deploy/flags.css' }); // TODO minify css
 
     waitForKeyElements("head", addHead);
     function addHead() {
@@ -89,6 +90,16 @@
       aside [aria-label="privatePrice"] { display: none !important; }
       aside [aria-label="allTags"] { display: none !important; }
     `);
+
+
+    // Add sidebar link
+    waitForKeyElements("[class*='SidebarMainLinks']", dreckskanacken);
+    function dreckskanacken(el) {
+
+      $("[class*='SidebarMainLinks']").append('<a class="SidebarLink#Ot SidebarLink__variant-main#HJ" href="/not-interested"><span class="SidebarLink__icon#un">​<span class="SidebarLink__icon-frame#Fy"><svg class="IconV2__icon#YR" style="height: 16px; width: 16px;"><use xlink:href="#icons-watch-history"></use></svg></span></span><span class="SidebarLink__text#gq">Not Interested</span></a>')
+    }
+
+
 
 
     // Remove Blur in Group, Privte & Ticket Shows
@@ -215,6 +226,21 @@
         $(jNode).prepend('<button class="a11y-button dropdown-link open-enhanced-options" type="button"><span>E</span></button>')
         $('#personal-notifications-portal-container').append(GM_getResourceText("HTML_ENHANCED_OPTIONS"))
 
+        // TEMP ALI TRAUM
+        $('.enhanced-options-content').append("<select id='test'></select>")
+
+        $.get('/tags/girls', function(data) {
+
+          console.log("html data", data)
+
+          $(data).find('.tags-category-group__header').each(function() {
+            console.log($(this).text())
+          })
+
+
+        });
+
+
         // process options
         processOptions()
       }
@@ -249,16 +275,6 @@
         localStorage.setItem("SE_"+name, val)
         processOption(name, val)
       })
-    }
-
-    function updateTime() {
-
-      let time = $.ajax({async: false}).getResponseHeader('Date');
-      if(!$('.personal-notifications-modal-panel .current-time').length) {
-        $('.personal-notifications-modal-panel').prepend('<small class="current-time">'+new Date(time).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit' })+'</small>')
-      } else {
-        $('.personal-notifications-modal-panel .current-time').html(new Date(time).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit' }))
-      }
     }
 
     function processOption(name, val) {
@@ -318,6 +334,28 @@
 //         }
     }
 
+
+    /*
+     * Display website time in website's header
+     */
+    var time = $.ajax({async: false}).getResponseHeader('Date')
+    var timeFormat = { hour: '2-digit', minute: '2-digit', second: '2-digit' }
+    function updateTime() {
+
+      if(!$('.personal-notifications-modal-panel .current-time').length) {
+        $('.personal-notifications-modal-panel').prepend('<small class="current-time">'+new Date().toLocaleTimeString('en-US', timeFormat)+'</small>')
+      } else {
+        let currentTime = parseTime($('.personal-notifications-modal-panel .current-time').text())
+        $('.personal-notifications-modal-panel .current-time').html(currentTime)
+      }
+    }
+    function parseTime( t ) {
+       var d = new Date();
+       var time = t.match( /(\d+)(?::(\d\d))(?::(\d\d))?\s*(p?)/ );
+       d.setHours( parseInt( time[1]) + (time[3] ? 12 : 0) );
+       d.setMinutes( parseInt( time[2]) || 0 );
+       return d.toLocaleTimeString('en-US', timeFormat);
+    }
 
 
     /**
@@ -731,7 +769,7 @@
             if(prefTranslationLang) {
               setTimeout(function() {
                 $('.se-langpicker').attr('data-active', prefTranslationLang)
-                $('.se-langpicker').prepend('<span class="fi fi-'+prefTranslationLang+'"></span>')
+                $('.se-langpicker').prepend('<svg class="flag flag-'+prefTranslationLang+'"><use xlink:href="#'+prefTranslationLang+'"></use></svg>')
               }, 500);
             }
         }
@@ -764,15 +802,15 @@
                     translateGoogle(modelChatInput.val(), $('.se-langpicker').attr('data-active').toLowerCase()).then(function(data) {
                         // TODO: console.log missing/wrong languages
                         modelChatInput.val('')
-                        $('.se-loader-line').remove()
                         modelChatInput.focus()
                         document.execCommand('insertText', false, decodeURIComponent(data.data.translations[0].translatedText))
                         modelChatSubmit.click()
-                    });
+                    }); // TODO add error handling (throw tooltip above input)
                 } else {
                     // no translation needed
                     modelChatSubmit.click()
                 }
+                $('.se-loader-line').remove()
             }
         })
 
@@ -795,11 +833,11 @@
         $(".se-langpicker").on("contextmenu", function() { return false; });
         $('#body').on('mousedown', '.se-langpicker', function(e) {
             if( e.button == 2 ) {
-                $('.se-langpicker .fi').remove()
-                $('.language-chooser .flag').removeClass('active')
-                $('.se-langpicker').attr('data-active', '')
-                localStorage.setItem('prefTranslationLang', "")
-                return false;
+              $('.se-langpicker').find('.flag,use').remove()
+              $('.language-chooser .flag').removeClass('active')
+              $('.se-langpicker').attr('data-active', '')
+              localStorage.setItem('prefTranslationLang', "")
+              return false;
             }
             return true;
         })
@@ -812,20 +850,19 @@
         // select/switch language
         $('.model-chat-public').on('click', '.language-chooser .flag', function(e) {
 
+            $('.se-langpicker').find('.flag,use').remove()
             if($(this).hasClass('active')) {
-                $('.se-langpicker .fi').remove()
                 $(this).removeClass('active')
                 $('.se-langpicker').attr('data-active', '')
                 localStorage.setItem('prefTranslationLang', "")
             } else {
-                $('.se-langpicker .fi').remove()
-                $('.se-langpicker').prepend($(this).html())
-                $('.language-chooser .flag.active').removeClass('active')
-                $(this).addClass('active')
-                $('.se-langpicker').attr('data-active', $(this).attr('data-lang'))
-                localStorage.setItem('prefTranslationLang', $(this).attr('data-lang'))
+              $('.se-langpicker').prepend($(this).html())
+              $('.language-chooser .flag.active').removeClass('active')
+              $(this).addClass('active')
+              $('.se-langpicker').attr('data-active', $(this).attr('data-lang'))
+              localStorage.setItem('prefTranslationLang', $(this).attr('data-lang'))
+              $('.language-chooser').addClass("hidden")
             }
-            $('.language-chooser').toggleClass("hidden")
         })
 
         // search language by html attributes
@@ -996,6 +1033,29 @@
 
 
     /**
+     * Translate Thumbnail Descriptions
+     */
+    waitForKeyElements('.model-list-item [class*="ModelThumbShowTopic"]', translateThumbnailDescriptions);
+    function translateThumbnailDescriptions(jNode) {
+
+      // append translate button
+      $(jNode).append(htmlTranslateButton)
+
+
+        $(jNode).off().on('click', '.translate-line button', function(e) {
+          e.preventDefault
+          let text = $(jNode).text().trim()
+          let that = $(this)
+          $(this).prop('disabled', true)
+
+          translateGoogle(text, 'en_US').then(function(data) {
+            that.text(decodeURIComponent(data.data.translations[0].translatedText))
+            $(this).prop('disabled', false).remove()
+          })
+        })
+    }
+
+    /**
      * Profile Tip Menu Translation & Sorting
      */
     waitForKeyElements(".profile-tip-menu", translateProfileTipMenu);
@@ -1050,6 +1110,7 @@
     // apapend click handler
     $('.favorites').on('click', '.se-model-info', function(e) {
       e.preventDefault()
+      $('.model-list-item .overlay').remove()
       let model = $(this).closest('.model-list-item');
       let username = model.find('[class*="ModelThumbUsername"]').text();
       model.addClass("active")
@@ -1057,6 +1118,7 @@
       // get api data
       $.getJSON('https://stripchat.com/api/front/v2/models/username/'+username+'/cam').done((data) => {
         this.data = data
+        let overlayHtml = htmlModelOverlay
 
         // replace vars
         const regex = /\[(.*?)\]/g
@@ -1067,9 +1129,9 @@
           $.each(arrTraverse, function(i, v) {
             res = res[v]
           })
-          htmlModelOverlay = htmlModelOverlay.replace('['+m[1]+']', res)
+          overlayHtml = overlayHtml.replace('['+m[1]+']', res)
         }
-        $(this).append(htmlModelOverlay)
+        $(this).append(overlayHtml)
       });
 
       return false;
@@ -1091,7 +1153,7 @@
 
       // populate country filter
       $('.model-list-item .country-flag').each(function() {
-          $('select[name="filters[country]"]').append('<option value="'+$(this).attr('title')+'">'+$(this).attr('title')+'</option')
+        if(!$('select[name="filters[country]"] option[value="'+$(this).attr('title')+'"]').length) $('select[name="filters[country]"]').append('<option value="'+$(this).attr('title')+'">'+$(this).attr('title')+'</option')
       })
     }
 
