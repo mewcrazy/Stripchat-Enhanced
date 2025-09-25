@@ -1157,9 +1157,20 @@
       })
     }
 
-    $('#body').on('input search', '.favorites-filters-search input', function(e) {
+    $('#body').on('change', '.filters-favorites .country select', function(e) {
+      let country = $(this).val().toLowerCase()
+      if(country !== "") {
+        var filteredCountries = $('.model-list-item').show().filter(function() {
+          return (!$(this).find('.model-list-item-country').length || $(this).find('.model-list-item-country').attr('title').toLowerCase().indexOf(country) === -1)
+        }).hide();
+      } else {
+        $('.model-list-item').show()
+      }
+    })
+
+    $('#body').on('input search', '.filters-favorites .search input', function(e) {
       let username = $(this).val().toLowerCase()
-      var filteredNames = $('.model-list-item').show().filter(function() {
+      var filteredUsers = $('.model-list-item').show().filter(function() {
         return $(this).find('[class^="ModelThumbUsername"]').text().toLowerCase().indexOf(username) === -1
       }).hide();
     })
