@@ -844,7 +844,7 @@
 
         // close language chooser
         $('.model-chat').on('click', '.close-language-chooser', function(e) {
-            $('.language-chooser').toggleClass("hidden")
+            $('.language-chooser').addClass("hidden")
         })
 
         // select/switch language
@@ -1206,7 +1206,19 @@
 
   // Google Cloud Translation API
   function translateGoogle(val, lang) {
-    let data = $.getJSON('https://translation.googleapis.com/language/translate/v2?key='+googleApiKey+'&q='+encodeURIComponent(val)+'&target='+lang.toString().trim()).fail(function(data) { console.log("missing/wrong language", data.responseText) });
+    let data = $.getJSON('https://translation.googleapis.com/language/translate/v2?key='+googleApiKey+'&q='+encodeURIComponent(val)+'&target='+lang.toString().trim()).fail(function(data) {
+      data = $.parseJSON(data.responseText)
+
+      // error handling
+      if(data.error.code) {
+        console.log("[StripChat Enhanced] Translation Error: "+data.error.message)
+        $('.model-chat-content').append('<div class="model-chat-error"><div class="group-show-in-progress-message m-bg-error message message-base system-text-message system-text-message-error"><div class="message-body"><span class="system-text-message__body"><span class="">[StripChat Enhanced] Translation Error. <em>Please check the browser\'s console (F12) for more information.</small></span></span></div></div></div>')
+
+        // close error
+        $('.model-chat-error').on('click', function() { $(this).remove() })
+      }
+    });
+
     return data
   }
 

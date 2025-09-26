@@ -43,7 +43,7 @@ button + .se-loader { display: none; }
 .enhanced-options-content .switcher .switcher-wrapper { transform: translateX(0); }
   
 /* language picker */
-.se-langpicker { opacity: .6; text-align: center; width: 24px; height: 24px; position: absolute; bottom: 1.25em; left: 1.25em; z-index: 1 }
+.se-langpicker { opacity: .6; cursor: pointer; text-align: center; width: 24px; height: 24px; position: absolute; bottom: 1.25em; left: 1.25em; z-index: 1 }
 .se-langpicker:hover { opacity: 1; }
 .se-langpicker option { text-align: center; font-size: 1.35em }
 .se-langpicker .flag { width: 25px; height: 17px; margin-top: 3px; border: 1px solid rgba(255, 255, 255, .25); }
