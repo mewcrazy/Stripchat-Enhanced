@@ -11,14 +11,14 @@
 // @require     https://mewcrazy.github.io/StripChat-Enhanced/deploy/jquery.min.js
 // @require     https://mewcrazy.github.io/StripChat-Enhanced/deploy/choices.min.js
 // @require     https://gist.github.com/raw/2625891/waitForKeyElements.js
-// @resource    IMPORTED_CSS https://mewcrazy.github.io/StripChat-Enhanced/deploy/global.css?v=191234
+// @resource    IMPORTED_CSS https://mewcrazy.github.io/StripChat-Enhanced/deploy/global.css?v=1912342
 // @resource    ISO639_FLAGS https://mewcrazy.github.io/StripChat-Enhanced/json/iso639-1.json?v=19123
 // @resource    EMOJIS https://cdn.jsdelivr.net/npm/@emoji-mart/data@1.2.1/sets/2/native.json?v=19123
-// @resource    HTML_ENHANCED_OPTIONS https://mewcrazy.github.io/StripChat-Enhanced/html/enhanced-options.html?v=191233363
-// @resource    HTML_FAVORITES_FILTERS https://mewcrazy.github.io/StripChat-Enhanced/html/favorites-filters.html?v=1923334634
-// @resource    HTML_MODELINFO_OVERLAY https://mewcrazy.github.io/StripChat-Enhanced/html/modelinfo-overlay.html?v=19123415634
-// @resource    HTML_LANGUAGE_CHOOSER https://mewcrazy.github.io/StripChat-Enhanced/html/language-chooser.html?v=1912345634
-// @resource    HTML_LANGUAGE_PICKER https://mewcrazy.github.io/StripChat-Enhanced/html/language-picker.html?v=193455634
+// @resource    HTML_ENHANCED_OPTIONS https://mewcrazy.github.io/StripChat-Enhanced/html/enhanced-options.html?v=1912333632
+// @resource    HTML_FAVORITES_FILTERS https://mewcrazy.github.io/StripChat-Enhanced/html/favorites-filters.html?v=19233346342
+// @resource    HTML_MODELINFO_OVERLAY https://mewcrazy.github.io/StripChat-Enhanced/html/modelinfo-overlay.html?v=191234156342
+// @resource    HTML_LANGUAGE_CHOOSER https://mewcrazy.github.io/StripChat-Enhanced/html/language-chooser.html?v=191234563422
+// @resource    HTML_LANGUAGE_PICKER https://mewcrazy.github.io/StripChat-Enhanced/html/language-picker.html?v=1934556342
 // @downloadURL https://mewcrazy.github.io/StripChat-Enhanced/deploy/stripchat-enhanced.user.js
 // @grant       GM_addStyle
 // @grant       GM_xmlhttpRequest
@@ -170,6 +170,22 @@
     }
     WebSocket.prototype.open_sockets = []
     WebSocket.prototype.blocked = true
+
+
+    /**
+     * Save Player Volume
+     */
+    waitForKeyElements(".mse-player video", savePlayerVolume);
+    function savePlayerVolume(el) {
+
+      if(localStorage.getItem("SE_playerVolume")) {
+        $(el).get(0).volume = localStorage.getItem("SE_playerVolume")
+      }
+
+      $(el).on('volumechange', function(e) {
+        localStorage.setItem("SE_playerVolume", $(el).get(0).volume)
+      })
+    }
 
 
     /**
@@ -1068,13 +1084,14 @@
       // add sorting button
       $(jNode).find('.profile-tip-menu__header').append(htmlSortByTokensButton)
 
-
+      // click handler: sorting button
       $('.profile-tip-menu').on('click', '.se-tipmenu-sort button', function(e) {
         sortTipmenuByPrice('.profile-tip-menu__scroll-container', '.profile-tip-menu__activity-wrapper', '.profile-tip-menu__activity span:last-child')
         return false
       })
 
-      $('.profile-tip-menu').off().on('click', '.se-translate button', function(e) {
+      // click handler: translation button
+      $('.profile-tip-menu__activity-wrapper').on('click', '.se-translate button', function(e) {
 
         var tableArr = [];
         $(".profile-tip-menu__activity-wrapper:not(.se-translate)").each(function(index) {
@@ -1084,7 +1101,7 @@
 
         // TEMP: Replace with GM_xmlHttpRequest
         $.ajax('https://translation.googleapis.com/language/translate/v2?key='+googleApiKey, {
-          data : JSON.stringify({"q": tableArr,"target": "de"}),
+          data : JSON.stringify({"q": tableArr,"target": "en_US"}),
           contentType: "application/json; charset=utf-8",
           type : 'POST',
           dataType: 'json',

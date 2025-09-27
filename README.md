@@ -13,24 +13,24 @@
 > StripChat Enhanced is currently in active development. It's safe to use already, and has Auto Update enabled, so expect regular updates with minor layout changes.
 
 ## Features:
-- Translates public and private chat messages, as well as tip goals and private show testimonials in over different 100 languages
-- Open stream in a true fullscreen which is not limited to your browser
-- Sort Tip Menus by Token Prices
-- Hide distracting chat notice messages (tip goals, interactive toy, welcome bot & fan club discount messages)
-- Hide chat users and set your font size for chat rooms
-- Regular emojis in chat rooms and private messages
-- Do Not Disturb Mode (Shows only yours and the models chat messages)
-- Resizable video frame
-- Remove Blur in Group, Privte & Ticket Shows
-- Hide unneeded links in the site's sidebar
-- Filter your favorites by country, age, private prices and more
-- Removes the "Age Verification Popup", "Cookie Notices" and "Ultimate Ads"
-- Hide the "Quick Refill" & "Auto-Refill" feature to avoid accidental charges
-- Hide interactive widgets in chat, i.e. Battleship
+- Translate chat messages, tip menus, tip goals and private show testimonials <small style="color:rgba(255,255,255,.55)">(in over different 100 languages with 1-click)</small>
+- Open stream in a true fullscreen which is not limited to your browser <small style="color:rgba(255,255,255,.55)">(A true fullscreen like YouTube; without chat or any animations)</small>
+- Sort Tip Menus by Token Prices <small style="color:rgba(255,255,255,.55)">(Easier readable tip menus)</small>
+- Hide distracting chat notice messages <small style="color:rgba(255,255,255,.55)">(Tip Goals, Interactive Toy, Welcome Bot & Fan Club Discount Messages)</small>
+- Hide chat users and set your font size for chat rooms <small style="color:rgba(255,255,255,.55)">(Ban chat users and never see their chat messages again)</small>
+- Regular emojis in chat rooms and private messages <small style="color:rgba(255,255,255,.55)">(Use regular emojis, even without ULTIMATE membership)</small>
+- Do Not Disturb Mode <small style="color:rgba(255,255,255,.55)">(Shows only yours and the models chat messages)</small>
+- Resizable video frame <small style="color:rgba(255,255,255,.55)">(Shrink the video player to your desired size)</small>
+- Remove Blur in Group, Privte & Ticket Shows <small style="color:rgba(255,255,255,.55)">Removes the annoying blur on the sides of a vertical video)</small>
+- Hide unneeded links in the site's sidebar <small style="color:rgba(255,255,255,.55)">(For a cleaner experience)</small>
+- Filter your favorites by country, age, private prices and more <small style="color:rgba(255,255,255,.55)">(Search your favorites by name and filter them)</small>
+- Removes the "Age Verification Popup", "Cookie Notices" and "Ultimate Ads" <small style="color:rgba(255,255,255,.55)">(Less advertisement banners)</small>
+- Hide the "Quick Refill" & "Auto-Refill" feature to avoid accidental charges <small style="color:rgba(255,255,255,.55)">(Remove tempting token buy notices)</small>
+- Hide interactive widgets in chat, i.e. Battleship <small style="color:rgba(255,255,255,.55)">(Less distracting animations)</small>
 - Add favorites everywhere without opening the stream first
-- Disable "Watch History"
-- Disable various tracking cookies
-- Output real time in header
+- Disable "Watch History", various tracking cookies <small style="color:rgba(255,255,255,.55)">(For more privacy)</small>
+- Keep volume always saved <small style="color:rgba(255,255,255,.55)">(Fixes muted streams after seeing a starting Ticket or Group Show)</small>
+- Output real time in header <small style="color:rgba(255,255,255,.55)">(For models to keep track of the website's time)</small>
 
 # Installation
 The script was made in ViolentMonkey, but should work in TamperMonkey and GreaseMonkey as well. You need to have one of these extensions installed to get the script running.
@@ -55,9 +55,13 @@ Please note that this script requires an API Key for the Google Cloud Translatio
 ### GreaseMonkey
 Currently unsupported. To support new version 4.0+ of GreaseMonkey we would need to make major changes.
 
+## Language list
+Coming soon
+
 
 ## Contributing
 We welcome any contributions! If you're having ideas or improvements to StripChat Enhanced, simply create a meaningful push request or open an issue and we will take care of it.
+
 
 ## Roadmap:
 - Proper styling of the "Emoji Picker"
