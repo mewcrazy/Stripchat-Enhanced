@@ -34,12 +34,9 @@
 # Installation
 
 <p width="100%">
-    <img width="206" src="https://github.com/mewcrazy/StripChat-Enhanced/raw/main/img/get-it-for-chrome.png"> 
-    <img width="206" src="https://github.com/mewcrazy/StripChat-Enhanced/raw/main/img/get-it-for-chrome.png"> 
-    <img width="206" src="https://github.com/mewcrazy/StripChat-Enhanced/raw/main/img/get-it-for-chrome.png"> 
+    <a href="https://github.com/mewcrazy/StripChat-Enhanced/raw/refs/heads/main/extensions/chrome.crx"><img width="206" src="https://github.com/mewcrazy/StripChat-Enhanced/raw/main/img/get-it-for-chrome.png"></a>
 </p>
-The script was made in ViolentMonkey, but should work in TamperMonkey and GreaseMonkey as well. You need to have one of these extensions installed to get the script running.
-We are working on dedicated Edge, Firefox and Chrome Extensions, until then the User Script Manager is the only way.
+We are working on dedicated Edge, Firefox and Chrome Extensions. Above is the preview of the Chrome Extension, but we strongly recommend to use a User Script Manager for now. The script was made in ViolentMonkey, but should work in TamperMonkey and GreaseMonkey as well.
 
 - [TamperMonkey](https://www.tampermonkey.net/) <sub>(Chrome, Microsoft Edge, Firefox, Safari, Opera Next)</sub>
 - [ViolentMonkey](https://violentmonkey.github.io/) <sub>(Chrome, Firefox, Microsoft Edge)</sub>
