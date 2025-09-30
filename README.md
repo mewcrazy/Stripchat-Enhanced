@@ -13,23 +13,23 @@
 > StripChat Enhanced is currently in active development. It's safe to use already, and has Auto Update enabled, so expect regular updates with minor layout changes.
 
 ## Features:
-- Translate chat messages, tip menus, tip goals and private show testimonials <small style="color:rgba(255,255,255,.55)">(in over different 100 languages with 1-click)</small>
-- Open stream in a true fullscreen which is not limited to your browser <small style="color:rgba(255,255,255,.55)">(A true fullscreen like YouTube; without chat or any animations)</small>
-- Sort Tip Menus by Token Prices <small style="color:rgba(255,255,255,.55)">(Easier readable tip menus)</small>
-- Hide distracting chat notice messages <small style="color:rgba(255,255,255,.55)">(Tip Goals, Interactive Toy, Welcome Bot & Fan Club Discount Messages)</small>
-- Hide chat users and set your font size for chat rooms <small style="color:rgba(255,255,255,.55)">(Ban chat users and never see their chat messages again)</small>
-- Regular emojis in chat rooms and private messages <small style="color:rgba(255,255,255,.55)">(Use regular emojis, even without ULTIMATE membership)</small>
-- Do Not Disturb Mode <small style="color:rgba(255,255,255,.55)">(Shows only yours and the models chat messages)</small>
-- Resizable video frame <small style="color:rgba(255,255,255,.55)">(Shrink the video player to your desired size)</small>
-- Remove Blur in Group, Privte & Ticket Shows <small style="color:rgba(255,255,255,.55)">Removes the annoying blur on the sides of a vertical video)</small>
-- Hide unneeded links in the site's sidebar <small style="color:rgba(255,255,255,.55)">(For a cleaner experience)</small>
-- Filter your favorites by country, age, private prices and more <small style="color:rgba(255,255,255,.55)">(Search your favorites by name and filter them)</small>
-- Removes the "Age Verification Popup", "Cookie Notices" and "Ultimate Ads" <small style="color:rgba(255,255,255,.55)">(Less advertisement banners)</small>
-- Hide the "Quick Refill" & "Auto-Refill" feature to avoid accidental charges <small style="color:rgba(255,255,255,.55)">(Remove tempting token buy notices)</small>
-- Hide interactive widgets in chat, i.e. Battleship <small style="color:rgba(255,255,255,.55)">(Less distracting animations)</small>
-- Disable "Watch History", various tracking cookies <small style="color:rgba(255,255,255,.55)">(For more privacy)</small>
-- Keep volume always saved <small style="color:rgba(255,255,255,.55)">(Fixes muted streams after seeing a starting Ticket or Group Show)</small>
-- Output real time in header <small style="color:rgba(255,255,255,.55)">(For models to keep track of the website's time)</small>
+- Translate chat messages, tip menus, tip goals and private show testimonials <sub style="color:rgba(255,255,255,.55)">(in over different 100 languages with 1-click)</sub>
+- Open stream in a true fullscreen which is not limited to your browser <sub style="color:rgba(255,255,255,.55)">(A true fullscreen like YouTube; without chat or any animations)</sub>
+- Sort Tip Menus by Token Prices <sub style="color:rgba(255,255,255,.55)">(Easier readable tip menus)</sub>
+- Hide distracting chat notice messages <sub style="color:rgba(255,255,255,.55)">(Tip Goals, Interactive Toy, Welcome Bot & Fan Club Discount Messages)</sub>
+- Hide chat users and set your font size for chat rooms <sub style="color:rgba(255,255,255,.55)">(Ban chat users and never see their chat messages again)</sub>
+- Regular emojis in chat rooms and private messages <sub style="color:rgba(255,255,255,.55)">(Use regular emojis, even without ULTIMATE membership)</sub>
+- Do Not Disturb Mode <sub style="color:rgba(255,255,255,.55)">(Shows only yours and the models chat messages)</sub>
+- Resizable video frame <sub style="color:rgba(255,255,255,.55)">(Shrink the video player to your desired size)</sub>
+- Remove Blur in Group, Privte & Ticket Shows <sub style="color:rgba(255,255,255,.55)">Removes the annoying blur on the sides of a vertical video)</sub>
+- Hide unneeded links in the site's sidebar <sub style="color:rgba(255,255,255,.55)">(For a cleaner experience)</sub>
+- Filter your favorites by country, age, private prices and more <sub style="color:rgba(255,255,255,.55)">(Search your favorites by name and filter them)</sub>
+- Removes the "Age Verification Popup", "Cookie Notices" and "Ultimate Ads" <sub style="color:rgba(255,255,255,.55)">(Less advertisement banners)</sub>
+- Hide the "Quick Refill" & "Auto-Refill" feature to avoid accidental charges <sub style="color:rgba(255,255,255,.55)">(Remove tempting token buy notices)</sub>
+- Hide interactive widgets in chat, i.e. Battleship <sub style="color:rgba(255,255,255,.55)">(Less distracting animations)</sub>
+- Disable "Watch History", various tracking cookies <sub style="color:rgba(255,255,255,.55)">(For more privacy)</sub>
+- Keep volume always saved <sub style="color:rgba(255,255,255,.55)">(Fixes muted streams after seeing a starting Ticket or Group Show)</sub>
+- Output real time in header <sub style="color:rgba(255,255,255,.55)">(For models to keep track of the website's time)</sub>
 
 # Installation
 
