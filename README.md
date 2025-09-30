@@ -27,7 +27,6 @@
 - Removes the "Age Verification Popup", "Cookie Notices" and "Ultimate Ads" <small style="color:rgba(255,255,255,.55)">(Less advertisement banners)</small>
 - Hide the "Quick Refill" & "Auto-Refill" feature to avoid accidental charges <small style="color:rgba(255,255,255,.55)">(Remove tempting token buy notices)</small>
 - Hide interactive widgets in chat, i.e. Battleship <small style="color:rgba(255,255,255,.55)">(Less distracting animations)</small>
-- Add favorites everywhere without opening the stream first
 - Disable "Watch History", various tracking cookies <small style="color:rgba(255,255,255,.55)">(For more privacy)</small>
 - Keep volume always saved <small style="color:rgba(255,255,255,.55)">(Fixes muted streams after seeing a starting Ticket or Group Show)</small>
 - Output real time in header <small style="color:rgba(255,255,255,.55)">(For models to keep track of the website's time)</small>
@@ -56,7 +55,142 @@ Please note that this script requires an API Key for the Google Cloud Translatio
 Currently unsupported. To support new version 4.0+ of GreaseMonkey we would need to make major changes.
 
 ## Language list
-Coming soon
+Stripchat Enhanced supports all available languages offered by Google's Cloud Translation API, in total *123 languages*.
+
+| English Name  | Local Name | ISO-639 Code  |
+| ------------- | ------------- | ------------- |
+Abkhaz|аҧсуа бызшәа|ab
+Afrikaans|Afrikaans|af
+Akan|Akan|ak
+Albanian|Shqip|sq
+Amharic|አማርኛ|am
+Arabic|العربية|ar
+Armenian|Հայերեն|hy
+Assamese|অসমীয়া|as
+Aymara|aymar aru|ay
+Azerbaijani|azərbaycan dili|az
+Bambara|bamanankan|bm
+Bashkir|башҡорт теле|ba
+Basque|euskara|eu
+Belarusian|беларуская мова|be
+Bengali|বাংলা|bn
+Bosnian|bosanski jezik|bs
+Breton|brezhoneg|br
+Bulgarian|български език|bg
+Burmese|ဗမာစာ|my
+Catalan|Català|ca
+Chichewa|chiCheŵa|ny
+Chinese|中文|zh
+Chuvash|чӑваш чӗлхи|cv
+Corsican|corsu|co
+Croatian|Hrvatski|hr
+Czech|Čeština|cs
+Danish|Dansk|da
+Divehi|ދިވެހި|dv
+Dutch|Nederlands|nl
+Dzongkha|རྫོང་ཁ|dz
+English|English|en
+Esperanto|Esperanto|eo
+Estonian|eesti|et
+Ewe|Eʋegbe|ee
+Fijian|vosa Vakaviti|fj
+Finnish|suomi|fi
+French|Français|fr
+Fula|Fulfulde|ff
+Galician|galego|gl
+Ganda|Luganda|lg
+Georgian|ქართული|ka
+German|Deutsch|de
+Greek|Ελληνικά|el
+Guaraní|Avañe'ẽ|gn
+Gujarati|ગુજરાતી|gu
+Haitian|Kreyòl ayisyen|ht
+Hausa|هَوُسَ|ha
+Hebrew|עברית|he
+Hindi|हिन्दी|hi
+Hungarian|magyar|hu
+Icelandic|Íslenska|is
+Igbo|Asụsụ Igbo|ig
+Indonesian|Bahasa Indonesia|id
+Irish|Gaeilge|ga
+Italian|Italiano|it
+Japanese|日本語|ja
+Javanese|basa Jawa|jv
+Kannada|ಕನ್ನಡ|kn
+Kazakh|қазақ тілі|kk
+Khmer|ខេមរភាសា|km
+Kinyarwanda|Ikinyarwanda|rw
+Kirundi|Ikirundi|rn
+Korean|한국어|ko
+Kurdish|Kurdî|ku
+Kyrgyz|Кыргызча|ky
+Lao|ພາສາລາວ|lo
+Latin|latine|la
+Latvian|latviešu valoda|lv
+Limburgish|Limburgs|li
+Lingala|Lingála|ln
+Lithuanian|lietuvių kalba|lt
+Luxembourgish|Lëtzebuergesch|lb
+Macedonian|македонски јазик|mk
+Malagasy|fiteny malagasy|mg
+Malayalam|മലയാളം|ml
+Malay|Bahasa Melayu|ms
+Maltese|Malti|mt
+Marathi|मराठी|mr
+Mongolian|Монгол хэл|mn
+Māori|te reo Māori|mi
+Nepali|नेपाली|ne
+Norwegian|Norsk|no
+Occitan|occitan|oc
+Oriya|ଓଡ଼ିଆ|or
+Oromo|Afaan Oromoo|om
+Panjabi|ਪੰਜਾਬੀ|pa
+Pashto|پښتو|ps
+Persian|فارسی|fa
+Polish|Polski|pl
+Portuguese|Português|pt
+Quechua|Runa Simi|qu
+Romanian|Română|ro
+Russian|Русский|ru
+Samoan|gagana fa'a Samoa|sm
+Sango|yângâ tî sängö|sg
+Sanskrit|संस्कृतम्|sa
+Scottish Gaelic|Gàidhlig|gd
+Serbian|српски језик|sr
+Shona|chiShona|sn
+Sindhi|सिन्धी|sd
+Sinhala|සිංහල|si
+Slovak|Slovenčina|sk
+Slovenian|slovenščina|sl
+Somali|Soomaaliga|so
+Southern Ndebele|isiNdebele|nr
+Southern Sotho|Sesotho|st
+Spanish|Español|es
+Sundanese|Basa Sunda|su
+Swahili|Kiswahili|sw
+Swati|SiSwati|ss
+Swedish|Svenska|sv
+Tagalog|Wikang Tagalog|tl
+Tajik|тоҷикӣ|tg
+Tamil|தமிழ்|ta
+Tatar|татар теле|tt
+Telugu|తెలుగు|te
+Thai|ไทย|th
+Tigrinya|ትግርኛ|ti
+Tsonga|Xitsonga|ts
+Tswana|Setswana|tn
+Turkish|Türkçe|tr
+Turkmen|Türkmençe|tk
+Ukrainian|Українська|uk
+Urdu|اردو|ur
+Uyghur|ئۇيغۇرچە‎|ug
+Uzbek|Ўзбек|uz
+Vietnamese|Tiếng Việt|vi
+Welsh|Cymraeg|cy
+Western Frisian|Frysk|fy
+Xhosa|isiXhosa|xh
+Yiddish|ייִדיש|yi
+Yoruba|Yorùbá|yo
 
 
 ## Contributing
@@ -64,8 +198,9 @@ We welcome any contributions! If you're having ideas or improvements to StripCha
 
 
 ## Roadmap:
-- Proper styling of the "Emoji Picker"
-- Add additional Favorites filters: In Private, In Group Show, In Ticket Show, New Models
+- Add Feature: Add Favorites on all listing pages (add without the need to open the stream first)
+- Styling: Emoji Picker
+- Add additional Favorites filter: "In Show" (Filter by Private, Ticket or Group Shows)
 - Bug testing in GreaseMonkey & TamperMonkey
 
 ## Used Frameworks/Utilities:
