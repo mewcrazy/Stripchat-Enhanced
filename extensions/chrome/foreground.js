@@ -675,7 +675,7 @@ function hideFavoritesFromFeaturedListings(el) {
 
                   $('[class*="ChatInput__inputBlock"]').append('<span class="se-loader-line"></span>') // TODO please as before
 
-                  translateGoogle(modelChatInput.val(), $('.se-langpicker').attr('data-active').toLowerCase()).then(function(data) {
+                  translateGoogle(modelChatInput.val(), $('.se-langpicker').attr('data-active').toLowerCase(), $('.model-chat-content')).then(function(data) {
                       // TODO: console.log missing/wrong languages
                       modelChatInput.val('')
                       modelChatInput.focus()
@@ -767,18 +767,26 @@ function hideFavoritesFromFeaturedListings(el) {
   waitForKeyElements(".messenger-chat .chat-input", addLangDropdownPrivateChats, false);
   function addLangDropdownPrivateChats(jNode) {
     let privateChat = $(jNode).closest('.messenger-chat')
-    let privateChatSubmit = $(jNode).find('.a11y-button')
-    let privateChatInput = privateChat.find('[class*="ChatInput__input"]')
-    let privateLangSelect = privateChat.find('.se-langpicker')
+    let privateChatSubmit = $(jNode).find('[class*="ChatInput__sendBtn"]')
+    let privateChatInput = $(jNode).closest('.messenger-chat').find('[class*="ChatInput__input"]')
+    let privateLangSelect = $(jNode).closest('.messenger-chat').find('.se-langpicker')
 
     // add language dropdown
     if(!$(jNode).find('.language-picker').length) {
-      $(jNode).find('[class*="ChatInput__inputBlock"]').before('<div class="language-picker js-language-picker"><div class="se-langpicker" title="Switch language"><svg width="24" height="24" viewBox="0 0 3 3" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="iconify iconify--gis" fill="currentColor"><path d="M1.575.17v.606h.53a1.6 1.6 0 0 0-.102-.232c-.119-.216-.27-.346-.428-.373m-.15.006c-.148.037-.288.164-.4.367Q.967.65.923.776h.502zm-.346.04A1.35 1.35 0 0 0 .36.776h.404Q.818.609.893.471q.081-.148.186-.254m.882.014q.096.103.173.24.076.138.129.305h.377a1.35 1.35 0 0 0-.678-.545M.278.926a1.3 1.3 0 0 0-.126.499h.504q.01-.265.066-.499zm.599 0c-.04.152-.065.321-.071.499h.619V.926zm.698 0v.499h.647a2.3 2.3 0 0 0-.071-.499zm.731 0q.056.234.066.499h.476a1.3 1.3 0 0 0-.126-.499zm-2.154.649a1.3 1.3 0 0 0 .126.499h.437a2.5 2.5 0 0 1-.06-.499zm.653 0c.004.177.027.346.064.499h.556v-.499zm.77 0v.499h.583q.057-.23.064-.499zm.797 0a2.5 2.5 0 0 1-.06.499h.41a1.3 1.3 0 0 0 .126-.499zM.36 2.224c.159.249.396.443.679.545a1.2 1.2 0 0 1-.146-.211 1.7 1.7 0 0 1-.139-.335zm.552 0q.048.145.113.263c.105.191.235.314.373.359l.028.002v-.624zm.663 0v.624l.064-.005c.135-.047.261-.17.364-.356q.065-.117.113-.263zm.698 0a1.7 1.7 0 0 1-.139.335 1 1 0 0 1-.132.194 1.35 1.35 0 0 0 .637-.529z" /></svg></div></div>');
+      $(jNode).find('[class*="ChatInput__inputBlock"]').before(htmlLangPicker);
+
+      // preselect if choosen before
+      if(prefTranslationLang) {
+        setTimeout(function() {
+          privateChat.find('.se-langpicker').attr('data-active', prefTranslationLang)
+          privateChat.find('.se-langpicker').prepend('<svg class="flag flag-'+prefTranslationLang+'"><use xlink:href="#'+prefTranslationLang+'"></use></svg>')
+        }, 500);
+      }
     }
 
     // add own keypress event
     $(jNode).find('[class*="ChatInput__input"]').off().on('keydown', function(e) {
-
+    
         if(e.which == 13) {
           e.preventDefault()
           e.stopImmediatePropagation()
@@ -786,11 +794,11 @@ function hideFavoritesFromFeaturedListings(el) {
 
           $(this).closest('.messenger-chat').find('.language-chooser').addClass("hidden")
 
-          if(privateLangSelect.attr('data-active')) {
-              let lang = privateLangSelect.attr('data-active').toLowerCase()
+          if(privateChat.find('.se-langpicker').attr('data-active')) {
+              let lang = privateChat.find('.se-langpicker').attr('data-active').toLowerCase()
               $(this).closest('.messenger-chat').find('[class*="ChatInput__inputBlock"]').append('<span class="se-loader-line"></span>') // TODO please as before
 
-              translateGoogle(privateChatInput.val(), lang).then(function(data) {
+              translateGoogle(privateChatInput.val(), lang, privateChat.find('.content-messages')).then(function(data) {
                 alert("ok translated")
                   // TODO: console.log missing/wrong languages
                   privateChatInput.val('')
@@ -813,19 +821,11 @@ function hideFavoritesFromFeaturedListings(el) {
 
           // add language picker overlay
           if(!privateChat.find('.language-chooser').length) {
-              privateChat.find('.content-messages').append(htmlLangChooserPrivates);
+              privateChat.find('.content-messages').append(htmlLangChooser);
           }
 
           // add all languages
           populateLanguageDropdowns()
-
-          // preselect if choosen before
-          if(prefTranslationLang) {
-            setTimeout(function() {
-              privateChat.find('.se-langpicker').attr('data-active', prefTranslationLang)
-              privateChat.find('.se-langpicker').prepend('<span class="fi fi-'+prefTranslationLang+'"></span>')
-            }, 500);
-          }
 
           setTimeout(() => { $('.flag[data-lang="'+prefTranslationLang+'"]').addClass("active") }, 300);
         } else {
@@ -834,23 +834,41 @@ function hideFavoritesFromFeaturedListings(el) {
     })
 
       // select/switch language
-      $('.messenger-chats').on('click', '.flag', function(e) {
+      privateChat.on('click', 'button.flag', function(e) {
 
+        privateChat.find('.se-langpicker .flag').remove()
         if($(this).hasClass('active')) {
-            privateLangSelect.find('.fi').remove()
             $(this).removeClass('active')
-            privateLangSelect.attr('data-active', '')
+            privateChat.find('.se-langpicker').attr('data-active', '')
             localStorage.setItem('prefTranslationLang', "")
         } else {
-            privateLangSelect.find('.fi').remove()
-            privateLangSelect.prepend($(this).html())
+            privateChat.find('.se-langpicker').prepend($(this).html())
             privateChat.find('.language-chooser .flag.active').removeClass('active')
             $(this).addClass('active')
-            privateLangSelect.attr('data-active', $(this).attr('data-lang'))
+            privateChat.find('.se-langpicker').attr('data-active', $(this).attr('data-lang'))
             localStorage.setItem('prefTranslationLang', $(this).attr('data-lang'))
+            privateChat.find('.language-chooser').addClass("hidden")
         }
-        privateChat.find('.language-chooser').toggleClass("hidden")
       })
+
+      // search language by html attributes
+      privateChat.on("keyup", ".language-search", function() {
+          var value = this.value.toLowerCase().trim();
+        if(value.length) {
+          privateChat.find(".language-list button").show().filter(function() {
+              return $(this).attr("data-search").toLowerCase().trim().indexOf(value) == -1;
+          }).hide();
+        } else {
+          privateChat.find(".language-list button").show();
+        }
+      });
+
+      // clear search input
+      privateChat.on('search', '.language-search', function() {
+        if(this.value === "") {
+          privateChat.find(".language-list button").show()
+        }
+      });
 
       // close language chooser
       privateChat.on('click', '.close-language-chooser', function(e) {
@@ -1107,14 +1125,14 @@ function addBodyShit(jNode) {
 }
 
 // Google Cloud Translation API
-function translateGoogle(val, lang) {
+function translateGoogle(val, lang, errordiv) {
   let data = $.getJSON('https://translation.googleapis.com/language/translate/v2?key='+googleApiKey+'&q='+encodeURIComponent(val)+'&target='+lang.toString().trim()).fail(function(data) {
     data = $.parseJSON(data.responseText)
 
     // error handling
     if(data.error.code) {
       console.log("[StripChat Enhanced] Translation Error: "+data.error.message)
-      $('.model-chat-content').append('<div class="model-chat-error"><div class="group-show-in-progress-message m-bg-error message message-base system-text-message system-text-message-error"><div class="message-body"><span class="system-text-message__body"><span class="">[StripChat Enhanced] Translation Error. <em>Please check the browser\'s console (F12) for more information.</small></span></span></div></div></div>')
+      $(errordiv).append('<div class="model-chat-error"><div class="group-show-in-progress-message m-bg-error message message-base system-text-message system-text-message-error"><div class="message-body"><span class="system-text-message__body"><span class="">[StripChat Enhanced] Translation Error. <em>Please check the browser\'s console (F12) for more information.</small></span></span></div></div></div>')
 
       // close error
       $('.model-chat-error').on('click', function() { $(this).remove() })

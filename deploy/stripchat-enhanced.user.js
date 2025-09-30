@@ -953,7 +953,7 @@
 
             // add language picker overlay
             if(!privateChat.find('.language-chooser').length) {
-                privateChat.find('.content-messages').append(htmlLangChooserPrivates);
+                privateChat.find('.content-messages').append(htmlLangChooser);
             }
 
             // add all languages
@@ -982,8 +982,8 @@
               privateLangSelect.attr('data-active', '')
               localStorage.setItem('prefTranslationLang', "")
           } else {
-              privateLangSelect.find('.fi').remove()
               privateLangSelect.prepend($(this).html())
+              privateLangSelect.find('.fi').remove()
               privateChat.find('.language-chooser .flag.active').removeClass('active')
               $(this).addClass('active')
               privateLangSelect.attr('data-active', $(this).attr('data-lang'))
