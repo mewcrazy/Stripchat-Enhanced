@@ -1,0 +1,33 @@
+/* structure */
+html, body { margin: 0; padding: 0; }
+body { background-color: hsl(225deg 9.52% 8.24%); color: hsl(0deg 0% 100%); height: 100%; }
+.page { display: flex; }
+
+/* typography */
+h1, h2, h3, h4, h5, h6 { margin: 0; }
+a {
+    color: hsl(0deg 0% 100%);
+}
+
+
+.sidebar {
+    background: hsl(232.5deg 11.76% 13.33%);
+    flex: 1;
+    max-width: 300px;
+    padding: 2em;
+}
+
+.sidebar hr {
+    color: hsl(0deg 0% 60%);
+}
+
+.main {
+    padding: 2em;
+}
+
+h1 small {
+    color: hsl(0deg 0% 65%);
+    font-size: 65%;
+    font-weight: 500;
+    font-style: italic;
+}

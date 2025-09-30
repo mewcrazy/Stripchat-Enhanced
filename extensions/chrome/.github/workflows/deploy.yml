@@ -1,0 +1,46 @@
+name: Deploy mewcrazy/Stripchat-Enhanced-BrowserExt-Chrome
+
+on:
+  push:
+    branches:
+      - main
+    # Sequence of patterns matched against refs/tags
+    tags:
+      - 'v*' # Push events to matching v*, i.e. v1.0, v20.15.10
+  workflow_dispatch:
+
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      
+    steps:
+      # Step 1: Download waitForKeyElements.js
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Downloading waitForKeyElements.js
+        run: build/build.sh
+
+      # Step 4: Commit
+      - name: Commit files
+        if: steps.verify_diff.outputs.changed == 'true'
+        run: |
+          git config --local user.name mewcrazy
+          git config --local user.email "kontakt@dennis-bitsch.de"      
+          git fetch
+          git add deploy/waitForKeyElements.min.js
+          git add deploy/jquery.min.js
+          git commit -am "Update repository files [skip ci]" 
+          git push -f origin main
+
+      # Step 5: Push
+      - name: Push to GitHub
+        if: steps.verify_diff.outputs.changed == 'true'
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ github.ref }}
+          force: true
