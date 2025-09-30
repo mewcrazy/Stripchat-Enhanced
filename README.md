@@ -32,6 +32,10 @@
 - Output real time in header <small style="color:rgba(255,255,255,.55)">(For models to keep track of the website's time)</small>
 
 # Installation
+
+<p align="center" width="100%">
+    <img width="100%" src="https://github.com/mewcrazy/StripChat-Enhanced/raw/main/img/get-it-for-chrome.png"> 
+</p>
 The script was made in ViolentMonkey, but should work in TamperMonkey and GreaseMonkey as well. You need to have one of these extensions installed to get the script running.
 We are working on dedicated Edge, Firefox and Chrome Extensions, until then the User Script Manager is the only way.
 
