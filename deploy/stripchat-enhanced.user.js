@@ -1192,6 +1192,16 @@
       }).hide();
     })
   }
+  waitForKeyElements(".favorites .model-list-item", filterFavoritesListing, false);
+  function filterFavoritesListing(el) {
+
+    if($(el).find('.filters-favorites .search input').val()) {
+      let username = $(this).val().toLowerCase()
+      var filteredUsers = $('.model-list-item').show().filter(function() {
+        return $(this).find('[class^="ModelThumbUsername"]').text().toLowerCase().indexOf(username) === -1
+      }).hide();
+    }
+  }
 
 
   /**
