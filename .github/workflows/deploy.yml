@@ -69,6 +69,7 @@ jobs:
           tag: ${{ github.ref_name }}
         run: |
           gh release create "$tag" \
+              '/extensions/chrome.crx#chrome_extension_${tag#v}.crx' \
               --repo="$GITHUB_REPOSITORY" \
               --title="${tag#v}" \
               --generate-notes

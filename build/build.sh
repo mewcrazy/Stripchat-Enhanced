@@ -7,3 +7,5 @@ mv -f git_waitForKeyElements/waitForKeyElements.js deploy/waitForKeyElements.min
 # Download jquery/jquery & Move to directory
 npm i jquery
 mv -f node_modules/jquery/dist/jquery.min.js deploy/jquery.min.js
+
+# Build .crx Chrome Extension File
