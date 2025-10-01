@@ -203,8 +203,7 @@ We welcome any contributions! If you're having ideas or improvements to StripCha
 ## Roadmap:
 - Add Feature: Add Favorites on all listing pages (add without the need to open the stream first)
 - Styling: Emoji Picker
-- Add additional Favorites filter: "In Show" (Filter by Private, Ticket or Group Shows)
-- Bug testing in GreaseMonkey & TamperMonkey
+- Code Quality Improvements
 
 ## Used Frameworks/Utilities:
 - [CoeJoder/waitForKeyElements.js](https://github.com/CoeJoder/waitForKeyElements.js) - A utility function for userscripts that detects and handles AJAXed content.

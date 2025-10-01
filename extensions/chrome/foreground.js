@@ -381,7 +381,7 @@ function hideFavoritesFromFeaturedListings(el) {
             ell.find('.username,.message-body-mention,.message-timestamp,>span,button,.goal-block,.group-show-message-title,.group-show-announce-topic-label,.group-show-announce-controls').remove()
             let text = ell.text().trim()
 
-            translateGoogle(text, 'en_US').then(function(data) {
+            translateGoogle(text, 'en_US', $('.model-chat-content')).then(function(data) {
               if(!that.find('.message-body').find('.translated-line').length) {
                   that.find('.message-body').find('.translate-line').before('<small class="translated-line">'+decodeURIComponent(data.data.translations[0].translatedText)+'</small>')
               }
@@ -402,7 +402,7 @@ function hideFavoritesFromFeaturedListings(el) {
         let that = $(this)
         $(this).prop('disabled', true)
 
-        translateGoogle(text, 'en_US').then(function(data) {
+        translateGoogle(text, 'en_US', $('.model-chat-content')).then(function(data) {
           if(!that.closest('.message-body').find('.translated-line').length) {
               that.closest('.message-body').find('.translate-line').before('<small class="translated-line">'+decodeURIComponent(data.data.translations[0].translatedText)+'</small>')
           }
@@ -432,7 +432,7 @@ function hideFavoritesFromFeaturedListings(el) {
       let that = $(this)
       $(this).prop('disabled', true)
 
-      translateGoogle(text, 'en_US').then(function(data) {
+      translateGoogle(text, 'en_US', $('.model-chat-content')).then(function(data) {
         if(!that.closest('div').find('.translated-line').length) {
             that.closest('div').find('.translate-line').before('<small class="translated-line">'+decodeURIComponent(data.data.translations[0].translatedText)+'</small>')
         }
@@ -502,7 +502,7 @@ function hideFavoritesFromFeaturedListings(el) {
   /**
    *  Add Translation Button to Stream Goal
    */
-  waitForKeyElements('.view-cam-info-goal', addTransButtonCamInfo);
+  waitForKeyElements('.view-cam-info-goal', addTransButtonCamInfo, false);
   function addTransButtonCamInfo() {
 
       if(!$('.view-cam-info-goal .translate-line').length) {
@@ -514,7 +514,7 @@ function hideFavoritesFromFeaturedListings(el) {
           let that = $(this)
           $(this).prop('disabled', true)
 
-          translateGoogle(text, 'en_US').then(function(data) {
+          translateGoogle(text, 'en_US', $('.model-chat-content')).then(function(data) {
             if(!that.closest('.view-cam-info-goal .translated-line').length) {
                 that.closest('.view-cam-info-goal').find('.view-cam-info-topic').after('<small class="translated-line">'+decodeURIComponent(data.data.translations[0].translatedText)+'</small>')
             }
@@ -526,7 +526,7 @@ function hideFavoritesFromFeaturedListings(el) {
   /**
    *  Add Translation Button to Stream Description
    */
-  waitForKeyElements('[class*="ViewCamShutterWrapper__status"]', addTransButtonCamGroup);
+  waitForKeyElements('[class*="ViewCamShutterWrapper__status"]', addTransButtonCamGroup, false);
   function addTransButtonCamGroup() {
 
     // add translation button to regular messages
@@ -544,7 +544,7 @@ function hideFavoritesFromFeaturedListings(el) {
         let that = $(this)
         $(this).prop('disabled', true)
 
-        translateGoogle(text, 'en_US').then(function(data) {
+        translateGoogle(text, 'en_US', $('.model-chat-content')).then(function(data) {
           if(!that.closest('[class*="ViewCamGroup__description"] .translated-line').length) {
               that.closest('[class*="ViewCamGroup__description"]').find('.translate-line').before('<small class="translated-line">'+decodeURIComponent(data.data.translations[0].translatedText)+'</small>')
           }
@@ -929,7 +929,7 @@ function hideFavoritesFromFeaturedListings(el) {
   /**
    * Translate Thumbnail Descriptions
    */
-  waitForKeyElements('.model-list-item [class*="ModelThumbShowTopic"]', translateThumbnailDescriptions);
+  waitForKeyElements('.model-list-item [class*="ModelThumbShowTopic"]', translateThumbnailDescriptions, false);
   function translateThumbnailDescriptions(jNode) {
 
     // append translate button
@@ -942,7 +942,7 @@ function hideFavoritesFromFeaturedListings(el) {
         let that = $(this)
         $(this).prop('disabled', true)
 
-        translateGoogle(text, 'en_US').then(function(data) {
+        translateGoogle(text, 'en_US', $('.model-chat-content')).then(function(data) {
           that.text(decodeURIComponent(data.data.translations[0].translatedText))
           $(this).prop('disabled', false).remove()
         })
@@ -1051,23 +1051,62 @@ function addFavoritesFilters() {
     })
   }
 
+  // country filter
   $('#body').on('change', '.filters-favorites .country select', function(e) {
     let country = $(this).val().toLowerCase()
     if(country !== "") {
-      var filteredCountries = $('.model-list-item').show().filter(function() {
+      var filteredCountries = $('.model-list-item').removeClass('hidden').filter(function() {
         return (!$(this).find('.model-list-item-country').length || $(this).find('.model-list-item-country').attr('title').toLowerCase().indexOf(country) === -1)
-      }).hide();
+      }).addClass('hidden')
     } else {
-      $('.model-list-item').show()
+      $('.model-list-item').removeClass('hidden')
     }
   })
 
+  // search filter
   $('#body').on('input search', '.filters-favorites .search input', function(e) {
     let username = $(this).val().toLowerCase()
-    var filteredUsers = $('.model-list-item').show().filter(function() {
+    var filteredUsers = $('.model-list-item:not(.hidden)').removeClass('hidden').filter(function() {
       return $(this).find('[class^="ModelThumbUsername"]').text().toLowerCase().indexOf(username) === -1
-    }).hide();
+    }).addClass('hidden');
   })
+
+  // show all
+  $('.filters-favorites').on('click', '.show-all', function(e) {
+    $('.model-filter-link').removeClass('active')
+    $(this).closest('.model-filter-link').addClass('active')
+    $('.model-list-item').removeClass('hidden')
+    $('.filters-favorites .search input').val("")
+  })
+
+  // in ticket show
+  $('.filters-favorites').on('click', '.in-ticket-show', function(e) {
+    $('.model-filter-link').removeClass('active')
+    $(this).closest('.model-filter-link').addClass('active')
+    $('.model-list-item').removeClass('hidden').filter(function() {
+      return $(this).find('.icon-ticket').length === 0
+    }).addClass('hidden')
+  })
+
+  // in group show
+  $('.filters-favorites').on('click', '.in-group-show', function(e) {
+    $('.model-filter-link').removeClass('active')
+    $(this).closest('.model-filter-link').addClass('active')
+    $('.model-list-item').removeClass('hidden').filter(function() {
+      return $(this).find('.icon-group-ds').length === 0
+    }).addClass('hidden')
+  })
+
+  // in private show
+  $('.filters-favorites').on('click', '.in-private-show', function(e) {
+    $('.model-filter-link').removeClass('active')
+    $(this).closest('.model-filter-link').addClass('active')
+    $('.model-list-item').removeClass('hidden').filter(function() {
+      return $(this).find('.model-list-private-badge').text().toLowerCase().indexOf("in private") === -1
+    }).addClass('hidden')
+  })
+
+  
 }
 waitForKeyElements(".favorites-page .model-list-item", filterFavoritesPageListing, false);
 function filterFavoritesPageListing(el) {
@@ -1130,7 +1169,7 @@ function translateGoogle(val, lang, errordiv) {
     data = $.parseJSON(data.responseText)
 
     // error handling
-    if(data.error.code) {
+    if(errordiv && data.error.code) {
       console.log("[StripChat Enhanced] Translation Error: "+data.error.message)
       $(errordiv).append('<div class="model-chat-error"><div class="group-show-in-progress-message m-bg-error message message-base system-text-message system-text-message-error"><div class="message-body"><span class="system-text-message__body"><span class="">[StripChat Enhanced] Translation Error. <em>Please check the browser\'s console (F12) for more information.</small></span></span></div></div></div>')
 
