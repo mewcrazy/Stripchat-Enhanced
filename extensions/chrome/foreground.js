@@ -94,7 +94,7 @@ function hideFavoritesFromFeaturedListings(el) {
 
 
   /**
-   * Save Favorites Ordering
+   * Save Favorites Order
    */
   waitForKeyElements("[class*='ModelsOrderDropdown__content']", saveFavoritesSorting);
   function saveFavoritesSorting(el) {
@@ -103,6 +103,7 @@ function hideFavoritesFromFeaturedListings(el) {
       let path = location.pathname
       $("[class*='SidebarLink'][href='/favorites']").attr("href", path)
       localStorage.setItem("SE_favoritesSorting", path)
+      localStorage.setItem("SE_favoritesSortingName", $(this).text())
     })
   }
   waitForKeyElements("[class*='SidebarMainLinks']", presetFavoritesSorting);
@@ -111,13 +112,21 @@ function hideFavoritesFromFeaturedListings(el) {
     let path = localStorage.getItem("SE_favoritesSorting")
     if(path) $("[class*='SidebarLink'][href='/favorites']").attr("href", path)
 
-
     $("[class*='SidebarLink'][href^='/favorites/']").on('click', function() {
       e.preventDefault()
       window.location.replace($(this).attr("href"))
     })
   }
-
+  waitForKeyElements("[class*='ModelsOrder__button_title']", presetFavoritesSortingDropdown, false);
+  function presetFavoritesSortingDropdown(el) {
+    let name = localStorage.getItem("SE_favoritesSortingName")
+    if(name.length && $('[class*="ModelsOrder__button_title"]').text() !== name) {
+      $('[class*="ModelsOrderButton"]').click()
+      setTimeout(function(){
+        $('[class*="ModelsOrderDropdownItem__label"]:contains("'+name+'")').click()
+      }, 300);
+    }
+  }
 
 
   /**
@@ -285,6 +294,26 @@ function hideFavoritesFromFeaturedListings(el) {
 
 
   /**
+   * Show Category Link on Model Pages
+   */
+  waitForKeyElements(".view-cam-page .nav-left .user-fan-club-status-btn", addCategoryLinkModelPages, false);
+  function addCategoryLinkModelPages(el) {
+    let navLeft = $(el).closest('.nav-left')
+
+    // Move Fanclub button next to Tip Button
+    if(!$('.view-cam-buttons-wrapper .user-fan-club-status-btn').length)
+      $('.view-cam-buttons-wrapper').append('<div class="user-fan-club-status-btn"><svg class="icon icon-diamond" style="height: 18px; width: 18px;"><use xlink:href="#icons-diamond"></use></svg><span class="">Join Fan Club</span></div>')
+    
+    // remove feed link & fanclub button
+    navLeft.find('[href$="/timeline"]').closest('div').addClass('hidden')
+    navLeft.find('.view-cam-header-sub__fan-club-button').addClass('hidden')
+
+    // add category link
+    if(!navLeft.find('.visible-items .se-link-more').length)
+      navLeft.find('.visible-items').append('<div class="header-sub-item-wrapper se-link-more"><a class="link" href="/Small_Titss/profile">More</a></div>')
+  }
+
+  /**
    * Hide Chat Users
    */
   waitForKeyElements(".messages", hideChatUsers, false);
@@ -300,9 +329,9 @@ function hideFavoritesFromFeaturedListings(el) {
           }
         }, 50);
     })
+
     // "Hide User" button click event
     $('#body').on('click', '.HideUserButton', function(e) {
-        alert("hmmm")
         let username = $(this).closest('.user-info-popup').find('.user-levels-username-text').html()
 
         // get localStorage
