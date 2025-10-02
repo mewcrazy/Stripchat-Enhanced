@@ -173,4 +173,5 @@ input[type="search"].input.language-search:hover { background: rgba(0,0,0,1) }
 
 /* Show Category Link on Model Pages */
 .view-cam-controls .view-cam-controls-wrapper .btn { font-size: 0.875em; height: 28px; }
-.nav-left .link[href*="/timeline"], .nav-left .local-link { display: none; }
+.user-fan-club-status-btn { width: max-content; font-size: 0.875em; }
+.header-sub .container .header-sub-item-wrapper.local-link { display: none; }
