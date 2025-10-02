@@ -167,3 +167,10 @@ input[type="search"].input.language-search:hover { background: rgba(0,0,0,1) }
 
 /* stripchat : messages are hidden behind model listings after coming from opening an image */
 .model-list-item [class*="ModelThumbShowTopic"] { overflow: visible !important; }
+
+/* true fullscreen & picture in picture */
+.se-pip { position: absolute; right: 24px; top: 60px; }
+
+/* Show Category Link on Model Pages */
+.view-cam-controls .view-cam-controls-wrapper .btn { font-size: 0.875em; height: 28px; }
+.nav-left .link[href*="/timeline"], .nav-left .local-link { display: none; }
