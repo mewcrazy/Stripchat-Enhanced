@@ -106,25 +106,31 @@ function hideFavoritesFromFeaturedListings(el) {
       localStorage.setItem("SE_favoritesSortingName", $(this).text())
     })
   }
-  waitForKeyElements("[class*='SidebarMainLinks']", presetFavoritesSorting);
-  function presetFavoritesSorting(el) {
 
+  waitForKeyElements('[class*="Sidebar__language"]', presetFavoritess, false);
+  function presetFavoritess(el) {
     let path = localStorage.getItem("SE_favoritesSorting")
-    if(path) $("[class*='SidebarLink'][href='/favorites']").attr("href", path)
+    if(path.length) {
+      $("[class*='SidebarLink'][href*='/favorites']").attr("href", path)
+    }
 
-    $("[class*='SidebarLink'][href^='/favorites/']").on('click', function() {
+    $("[class*='SidebarLink'][href^='/favorites/']").on('click', function(e) {
       e.preventDefault()
       window.location.replace($(this).attr("href"))
     })
   }
+
   waitForKeyElements("[class*='ModelsOrder__button_title']", presetFavoritesSortingDropdown, false);
   function presetFavoritesSortingDropdown(el) {
     let name = localStorage.getItem("SE_favoritesSortingName")
     if(name.length && $('[class*="ModelsOrder__button_title"]').text() !== name) {
       $('[class*="ModelsOrderButton"]').click()
-      setTimeout(function(){
+      setTimeout(() => {
         $('[class*="ModelsOrderDropdownItem__label"]:contains("'+name+'")').click()
-      }, 300);
+      }, 250);
+      setTimeout(() => {
+        $('[href*="/favorites"]').addClass("SidebarLink__active#z9")
+      }, 500);
     }
   }
 

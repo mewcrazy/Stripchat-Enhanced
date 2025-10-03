@@ -169,9 +169,11 @@ input[type="search"].input.language-search:hover { background: rgba(0,0,0,1) }
 .model-list-item [class*="ModelThumbShowTopic"] { overflow: visible !important; }
 
 /* true fullscreen & picture in picture */
-.se-pip { position: absolute; right: 24px; top: 60px; }
+.btn.se-pip, .btn.se-pip:active { position: absolute; right: 24px; top: 60px; }
 
 /* Show Category Link on Model Pages */
 .view-cam-controls .view-cam-controls-wrapper .btn { font-size: 0.875em; height: 28px; }
-.user-fan-club-status-btn { width: max-content; font-size: 0.875em; }
+.user-fan-club-status-btn { width: max-content; font-size: 0.75em !important; }
 .header-sub .container .header-sub-item-wrapper.local-link { display: none; }
+[class*="GroupShowControlButton__announcement"] { font-size: 0.875em; }
+.send-tip-button__icon-container { display: none; }
