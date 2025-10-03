@@ -80,7 +80,7 @@ function hideFavoritesFromFeaturedListings(el) {
   /**
    * Save Player Volume
    */
-  waitForKeyElements(".mse-player video", savePlayerVolume);
+  waitForKeyElements(".mse-player video", savePlayerVolume, false);
   function savePlayerVolume(el) {
 
     if(localStorage.getItem("SE_playerVolume")) {
@@ -418,7 +418,7 @@ function hideFavoritesFromFeaturedListings(el) {
 
             translateGoogle(text, 'en_US', $('.model-chat-content')).then(function(data) {
               if(!that.find('.message-body').find('.translated-line').length) {
-                  that.find('.message-body').find('.translate-line').before('<small class="translated-line">'+decodeURIComponent(data.data.translations[0].translatedText)+'</small>')
+                  that.find('.message-body').find('.translate-line').before('<small class="translated-line">'+decodeHtml(data.data.translations[0].translatedText)+'</small>')
               }
             })
 
@@ -439,7 +439,7 @@ function hideFavoritesFromFeaturedListings(el) {
 
         translateGoogle(text, 'en_US', $('.model-chat-content')).then(function(data) {
           if(!that.closest('.message-body').find('.translated-line').length) {
-              that.closest('.message-body').find('.translate-line').before('<small class="translated-line">'+decodeURIComponent(data.data.translations[0].translatedText)+'</small>')
+              that.closest('.message-body').find('.translate-line').before('<small class="translated-line">'+decodeHtml(data.data.translations[0].translatedText)+'</small>')
           }
           $(this).prop('disabled', false)
         })
@@ -469,7 +469,7 @@ function hideFavoritesFromFeaturedListings(el) {
 
       translateGoogle(text, 'en_US', $('.model-chat-content')).then(function(data) {
         if(!that.closest('div').find('.translated-line').length) {
-            that.closest('div').find('.translate-line').before('<small class="translated-line">'+decodeURIComponent(data.data.translations[0].translatedText)+'</small>')
+            that.closest('div').find('.translate-line').before('<small class="translated-line">'+decodeHtml(data.data.translations[0].translatedText)+'</small>')
         }
         $(this).prop('disabled', false)
       })
@@ -551,7 +551,7 @@ function hideFavoritesFromFeaturedListings(el) {
 
           translateGoogle(text, 'en_US', $('.model-chat-content')).then(function(data) {
             if(!that.closest('.view-cam-info-goal .translated-line').length) {
-                that.closest('.view-cam-info-goal').find('.view-cam-info-topic').after('<small class="translated-line">'+decodeURIComponent(data.data.translations[0].translatedText)+'</small>')
+                that.closest('.view-cam-info-goal').find('.view-cam-info-topic').after('<small class="translated-line">'+decodeHtml(data.data.translations[0].translatedText)+'</small>')
             }
             $(this).prop('disabled', false)
           })
@@ -581,7 +581,7 @@ function hideFavoritesFromFeaturedListings(el) {
 
         translateGoogle(text, 'en_US', $('.model-chat-content')).then(function(data) {
           if(!that.closest('[class*="ViewCamGroup__description"] .translated-line').length) {
-              that.closest('[class*="ViewCamGroup__description"]').find('.translate-line').before('<small class="translated-line">'+decodeURIComponent(data.data.translations[0].translatedText)+'</small>')
+              that.closest('[class*="ViewCamGroup__description"]').find('.translate-line').before('<small class="translated-line">'+decodeHtml(data.data.translations[0].translatedText)+'</small>')
           }
           $(this).prop('disabled', false)
         })
@@ -714,7 +714,7 @@ function hideFavoritesFromFeaturedListings(el) {
                       // TODO: console.log missing/wrong languages
                       modelChatInput.val('')
                       modelChatInput.focus()
-                      document.execCommand('insertText', false, decodeURIComponent(data.data.translations[0].translatedText))
+                      document.execCommand('insertText', false, decodeHtml(data.data.translations[0].translatedText))
                       modelChatSubmit.click()
                   }); // TODO add error handling (throw tooltip above input)
               } else {
@@ -839,7 +839,7 @@ function hideFavoritesFromFeaturedListings(el) {
                   privateChatInput.val('')
                   $('.messenger-chat .se-loader-line').remove()
                   privateChatInput.focus()
-                  document.execCommand('insertText', false, decodeURIComponent(data.data.translations[0].translatedText))
+                  document.execCommand('insertText', false, decodeHtml(data.data.translations[0].translatedText))
                   privateChatSubmit.click()
               });
           } else {
@@ -978,7 +978,7 @@ function hideFavoritesFromFeaturedListings(el) {
         $(this).prop('disabled', true)
 
         translateGoogle(text, 'en_US', $('.model-chat-content')).then(function(data) {
-          that.text(decodeURIComponent(data.data.translations[0].translatedText))
+          that.text(decodeHtml(data.data.translations[0].translatedText))
           $(this).prop('disabled', false).remove()
         })
       })
@@ -1217,6 +1217,13 @@ function translateGoogle(val, lang, errordiv) {
   });
 
   return data
+}
+
+// decode html entities
+function decodeHtml(html) {
+    var txt = document.createElement("textarea");
+    txt.innerHTML = html;
+    return txt.value;
 }
 
 // populate languages to dropdowns and language lists
