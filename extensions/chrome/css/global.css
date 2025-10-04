@@ -53,14 +53,15 @@ button + .se-loader { display: none; }
 /* language chooser */
 .language-chooser { bottom: 60px; display: flex; max-height: 80%; position: absolute; width: 100%; z-index: 2; overflow: hidden }
 .language-chooser > div { height: 275px }
-.language-chooser .title-block { justify-content: none; gap: 30px }
+.language-chooser .title-block { justify-content: none; gap: 30px; }
+.language-chooser .title-block > span { font-size: 14px; }
 .language-chooser .title-block .search { flex-grow: 1 }
 .messenger-chats .language-chooser { bottom: 0; }
 .messenger-chats [class*="SmilesWidgetContainer__closeBtn"] { margin: -6px -6px -6px -10px }
 .language-list { margin: 0 -10px; }
 .language-list >.flag { background: none; outline: 0; border: 0; cursor: pointer; line-height: 1; margin: 3px; cursor: pointer; padding: 4px 6px 3px 6px; }
 .language-list >.flag.active { border: 1px solid #fff }
-.language-list >.flag svg { width: 25px; height: 17px; }
+.language-list >.flag svg { width: 25px; height: 17px; pointer-events: none; }
 .language-list .flag-ta, .language-list .flag-sa, .language-list .flag-pa, .language-list .flag-ne { background: #fff; }
 input[type="search"].input.language-search { background: rgba(0,0,0,.2); padding: 10px 15px; height: 30px; border-radius: 15px }
 input[type="search"].input.language-search:hover { background: rgba(0,0,0,1) }
@@ -132,7 +133,7 @@ input[type="search"].input.language-search:hover { background: rgba(0,0,0,1) }
 /* filters: favorites */
 .filters-favorites .country select { background-color: #222; border: 1px solid #000; border-radius: 14px; color: #f8f8f8; display: inline-block; height: 30px; line-height: 20px; padding: 7px 14px; font-size: .75rem; transition: 120ms ease-in-out; }
 .filters-favorites .search input, .filters-favorites .search input:focus { background: #222 !important; border-radius: 14px; height: 30px !important; padding: 7px 14px !important; }
-.filters-favorites .features { display: flex; font-size: 13px; gap: 10px; }
+.filters-favorites > div { display: flex; font-size: 13px; gap: 10px; align-items: center; }
 .filters-favorites .model-filter-link { position: relative; padding: 0 4px; }
 .filters-favorites .model-filter-link:before { content: "|"; display: inline-block; position: absolute; left: -5px; top: calc(50% - 8px); font-size: 10px; color: #999; }
 .filters-favorites .model-filter-link:first-child:before { content: none; }
@@ -162,6 +163,16 @@ input[type="search"].input.language-search:hover { background: rgba(0,0,0,1) }
 [class*="FavoritesHeaderWithActions__action_buttons"] { justify-self: flex-end; }
 .favorites-filters-features { display: flex; gap: 7px; }
 
+.list-items-container[data-grid="1"] { --columns-count: 1 !important }
+.list-items-container[data-grid="2"] { --columns-count: 2 !important }
+.list-items-container[data-grid="3"] { --columns-count: 3 !important }
+.list-items-container[data-grid="4"] { --columns-count: 4 !important }
+.list-items-container[data-grid="5"] { --columns-count: 5 !important }
+.list-items-container[data-grid="7"] { --columns-count: 7 !important }
+.list-items-container[data-grid="8"] { --columns-count: 8 !important }
+.list-items-container[data-grid="9"] { --columns-count: 9 !important }
+.list-items-container[data-grid="10"] { --columns-count: 10 !important }
+
 /* stripchat bugfix: messages are hidden behind model listings after coming from opening an image */
 /*.main-layout-main-right { z-index: 0; }*/
 
@@ -174,6 +185,21 @@ input[type="search"].input.language-search:hover { background: rgba(0,0,0,1) }
 /* Show Category Link on Model Pages */
 .view-cam-controls .view-cam-controls-wrapper .btn { font-size: 0.875em; height: 28px; }
 .user-fan-club-status-btn { width: max-content; font-size: 0.75em !important; }
-.header-sub .container .header-sub-item-wrapper.local-link { display: none; }
+.header-sub .container .header-sub-item-wrapper.local-link { display: none }
 [class*="GroupShowControlButton__announcement"] { font-size: 0.875em; }
-.send-tip-button__icon-container { display: none; }
+.view-cam-controls__btn-wrapper .send-tip-button__icon-container { display: none }
+
+/* Model Info Nav */
+.header-sub .container .header-sub-item-wrapper.se-info-more { color: rgba(255,255,255,.6); font-size: 0.875em; line-height: 1.4; letter-spacing: 0.05em; display: flex; flex-direction: column; justify-content: center; gap: 2px; align-items: flex-start; }
+.header-sub .container .header-sub-item-wrapper.se-info-more .icon { height: 13px; width: 16px; display: inline; margin-top: -4px; }
+.header-sub .container .header-sub-item-wrapper.se-info-more span { line-height: 13px; }
+.header-sub .container .header-sub-item-wrapper.se-info-more.pvt { align-items: center; }
+span.stars, span.stars span {
+display: block;
+background: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTMiIGhlaWdodD0iMTMiIHZpZXdCb3g9IjAgMCAwLjUyIDAuNTIiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGcgY2xpcC1wYXRoPSJ1cmwoI2EpIj48cGF0aCBkPSJtMC4zODYgMC4zMjcgMC4wMzcgMC4xNTFjMC4wMDggMC4wMyAtMC4wMTYgMC4wMjkgLTAuMDMyIDAuMDE5TDAuMjU5IDAuNDA0IDAuMTI3IDAuNDk4QzAuMTEzIDAuNTA4IDAuMDg3IDAuNTA5IDAuMDk4IDAuNDc5TDAuMTQxIDAuMzI4IDAuMDI0IDAuMjQxQzAuMDEyIDAuMjMyIDAuMDExIDAuMjA4IDAuMDMzIDAuMjA2TDAuMTg0IDAuMTkzIDAuMjQyIDAuMDM0YzAuMDA3IC0wLjAyMiAwLjAyOCAtMC4wMjMgMC4wMzcgMGwwLjA2NCAwLjE2IDAuMTQzIDAuMDEzQzAuNTA3IDAuMjA5IDAuNTA5IDAuMjM0IDAuNDk2IDAuMjQ0TDAuMzg2IDAuMzI5IiBmaWxsPSIjRkZDNDREIi8+PHBhdGggY2xpcC1ydWxlPSJldmVub2RkIiBkPSJtMC4yNzkgMC4wMzMgMC4wNjQgMC4xNiAwLjE0MyAwLjAxM0MwLjUwNyAwLjIwNyAwLjUwOSAwLjIzMiAwLjQ5NiAwLjI0M0wwLjM4NiAwLjMyOCAwLjQyMyAwLjQ3OWMwLjAwOCAwLjAzIC0wLjAxNiAwLjAyOSAtMC4wMzIgMC4wMTlMMC4yNTkgMC40MDUgMC4xMjcgMC40OTlDMC4xMTMgMC41MDkgMC4wODcgMC41MSAwLjA5OCAwLjQ4TDAuMTQxIDAuMzI5UzAuMDM0IDAuMjUxIDAuMDI0IDAuMjQyQzAuMDEyIDAuMjMzIDAuMDEyIDAuMjA5IDAuMDMzIDAuMjA3TDAuMTg0IDAuMTk0IDAuMjQyIDAuMDM1YzAuMDA3IC0wLjAyMiAwLjAyOCAtMC4wMjMgMC4wMzcgMCIgc3Ryb2tlPSIjMDAwIiBzdHJva2Utd2lkdGg9IjAuMDMyNSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIi8+PC9nPjxkZWZzPjxjbGlwUGF0aCBpZD0iYSI+PHBhdGggZmlsbD0iI2ZmZiIgZD0iTTAgMGgwLjUydjAuNTJIMHoiLz48L2NsaXBQYXRoPjwvZGVmcz48L3N2Zz4=) 0 -13px repeat-x;
+width: 65px;
+height: 13px;
+}
+span.stars span {
+background-position: 0 0;
+}

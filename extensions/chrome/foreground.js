@@ -1144,7 +1144,20 @@ function addFavoritesFilters() {
     }).addClass('hidden')
   })
 
-  
+  // switch grid template
+  $('.filters-favorites').on('click', '.switch-grid-tpl', function(e) {
+    e.preventDefault()
+    let columns = localStorage.getItem("SE_gridTemplate")
+    if(!columns) columns = window.getComputedStyle(document.querySelector('.list-items-container')).getPropertyValue('--columns-count')
+    
+    console.log(parseInt(columns))
+    
+    columns = (parseInt(columns) <= 9 ? parseInt(columns) + 1 : 1)
+    localStorage.setItem("SE_gridTemplate", columns)
+    $('.list-items-container').attr('data-grid', columns)
+
+    console.log(columns)
+  })
 }
 waitForKeyElements(".favorites-page .model-list-item", filterFavoritesPageListing, false);
 function filterFavoritesPageListing(el) {
