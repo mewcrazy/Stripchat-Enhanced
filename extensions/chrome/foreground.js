@@ -82,13 +82,14 @@ function hideFavoritesFromFeaturedListings(el) {
    */
   waitForKeyElements(".mse-player video", savePlayerVolume, false);
   function savePlayerVolume(el) {
+    let player = $('.mse-player video')
 
     if(localStorage.getItem("SE_playerVolume")) {
-      $(el).get(0).volume = localStorage.getItem("SE_playerVolume")
+      $('.mse-player video').get(0).volume = localStorage.getItem("SE_playerVolume")
     }
 
     $(el).on('volumechange', function(e) {
-      localStorage.setItem("SE_playerVolume", $(el).get(0).volume)
+      localStorage.setItem("SE_playerVolume", player.get(0).volume)
     })
   }
 
@@ -1045,7 +1046,7 @@ function addOverlayButtons(jNode) {
     model.addClass("active")
 
     // get api data
-    $.getJSON('https://stripchat.com/api/front/v2/models/username/'+username+'/cam').done((data) => {
+    $.getJSON('/api/front/v2/models/username/'+username+'/cam').done((data) => {
       this.data = data
       let overlayHtml = htmlModelOverlay
 
@@ -1071,6 +1072,11 @@ function addOverlayButtons(jNode) {
 /**
  * Favorites Filtering
  */
+waitForKeyElements(".favorites-page .model-list-container", preselectFavoritesPageGrid, false);
+function preselectFavoritesPageGrid(el) {
+  let columns = localStorage.getItem("SE_gridTemplate")
+  if(columns) $(el).find('.list-items-container').attr('data-grid', columns)
+}
 waitForKeyElements(".favorites h1.title-ds", addFavoritesFilters, false);
 function addFavoritesFilters() {
 
@@ -1149,14 +1155,9 @@ function addFavoritesFilters() {
     e.preventDefault()
     let columns = localStorage.getItem("SE_gridTemplate")
     if(!columns) columns = window.getComputedStyle(document.querySelector('.list-items-container')).getPropertyValue('--columns-count')
-    
-    console.log(parseInt(columns))
-    
     columns = (parseInt(columns) <= 9 ? parseInt(columns) + 1 : 1)
     localStorage.setItem("SE_gridTemplate", columns)
     $('.list-items-container').attr('data-grid', columns)
-
-    console.log(columns)
   })
 }
 waitForKeyElements(".favorites-page .model-list-item", filterFavoritesPageListing, false);
