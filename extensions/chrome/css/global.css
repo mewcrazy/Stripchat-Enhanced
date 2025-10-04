@@ -190,6 +190,7 @@ input[type="search"].input.language-search:hover { background: rgba(0,0,0,1) }
 .view-cam-controls__btn-wrapper .send-tip-button__icon-container { display: none }
 
 /* Model Info Nav */
+.header-sub .container .header-sub-item-wrapper.se-info-more .flex { display: flex; align-items: center gap: 5px; }
 .header-sub .container .header-sub-item-wrapper.se-info-more { color: rgba(255,255,255,.6); font-size: 0.875em; line-height: 1.4; letter-spacing: 0.05em; display: flex; flex-direction: column; justify-content: center; gap: 2px; align-items: flex-start; }
 .header-sub .container .header-sub-item-wrapper.se-info-more .icon { height: 13px; width: 16px; display: inline; margin-top: -4px; }
 .header-sub .container .header-sub-item-wrapper.se-info-more span { line-height: 13px; }

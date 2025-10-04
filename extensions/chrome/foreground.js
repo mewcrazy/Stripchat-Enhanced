@@ -315,45 +315,74 @@ function hideFavoritesFromFeaturedListings(el) {
     navLeft.find('[href$="/timeline"]').closest('div').addClass('hidden')
     navLeft.find('.view-cam-header-sub__fan-club-button').addClass('hidden')
 
+  }
+  waitForKeyElements(".view-cam-page .nav-right", addModelInfo, false);
+  function addModelInfo(el) {
+
     // add category link
-    if(!navLeft.find('.visible-items .se-link-more').length)
-      navLeft.find('.visible-items').append('<div class="header-sub-item-wrapper se-link-more"><a class="link" href="/Small_Titss/profile">More</a></div>')
+    if(!$('#body').hasClass('.se-category-info-processed')) {
+      
+      // get api data
+      let username = $('.viewcam-profile-menu-item .viewcam-profile-menu-item__label').eq(0).text()
+      let navLeftItems = $(el).closest('div').find('.nav-left .visible-items')
+      $.getJSON('/api/front/v2/models/username/'+username+'/cam').done((data) => {
+        $('#body').addClass('se-category-info-processed')
+        console.log("data", data)
+
+        let langsHtml = ""
+        $.each(data.user.user.languages, function(k, v) {
+          langsHtml += '<span class="country-flag country-flag--small model-list-item-country" style="background-image: url(&quot;https://mewcrazy.github.io/Stripchat-Enhanced/flags/'+v+'.svg&quot;);"></span>'
+        })
+        console.log(langsHtml)
+        navLeftItems.append('<div class="header-sub-item-wrapper se-info-more"><span class="flex"><img src="https://web.static.mmcdn.com/images/ico-'+data.user.user.contestGender+'.svg">'+langsHtml+'</span><span title="'+data.user.user.birthDate+'"><svg class="icon icon-best-models"><use xlink:href="#icons-best-models"></use></svg>'+data.user.user.age+' years old</span></div>')
+        navLeftItems.append('<div class="header-sub-item-wrapper se-info-more"><span title="StripRank"><svg class="icon icon-best-models"><use xlink:href="#icons-best-models"></use></svg>#'+data.user.currPosition+'</span><span title="StripPoints"><svg class="icon icon-best-models"><use xlink:href="#icons-stripchat-logo"></use></svg>'+data.user.currPoints+'</span></div>')
+        navLeftItems.append('<div class="header-sub-item-wrapper se-info-more pvt">'+data.user.user.privateRate+' pvt/min.'+(data.user.user.ratingPrivate ? '<br><a href="#testimonials"><span class="stars">'+data.user.user.ratingPrivate+'</span></a></div>' : ''))
+        navLeftItems.append('<div class="header-sub-item-wrapper se-info-more">'+data.user.user.p2pRate+' p2p/min. - '+data.user.user.spyRate+' spy/min.</div>')
+        $('span.stars').stars();
+        
+        //navLeft.find('.visible-items').append('<div class="header-sub-item-wrapper se-link-more"><a class="link" href="/Small_Titss/profile">More</a></div>')
+      });
+    }
+  }
+  $.fn.stars = function() {
+      return $(this).each(function() {
+          $(this).html($('<span />').width(Math.max(0, (Math.min(5, parseFloat($(this).html())))) * 13));
+      });
   }
 
   /**
    * Hide Chat Users
    */
-  waitForKeyElements(".messages", hideChatUsers, false);
-  function hideChatUsers(jNode) {
-
-
+  
     // add "Hide User" button
-    $('#body').on('click', '.message-more-menu', function() {
-
-        setTimeout(function() {
-          if(!$('.message-more-menu__dropdown .HideUserButton').length) {
-            $('.message-more-menu__dropdown .dropdown-content').append('<button class="a11y-button MessageModeMenuItem#rq ReportButton#X2 ReportButton__text#IV HideUserButton" type="button"><svg class="icon icon-warning-triangle-outline-ds" style="height: 20px; width: 20px;"><use xlink:href="#icons-warning-triangle-outline-ds"></use></svg><span>Hide User</span></button>');
-          }
-        }, 50);
-    })
+  waitForKeyElements(".message-more-menu__popover", hideChatUsersButton, false);
+  function hideChatUsersButton(el) {
+    if(!$(el).find('.HideUserButton').length) {
+      $(el).append('<button class="a11y-button MessageModeMenuItem#Iw ReportButton#X2 ReportButton__text#IV HideUserButton" type="button"><svg class="icon icon-warning-triangle-outline-ds" style="height: 20px; width: 20px;"><use xlink:href="#icons-warning-triangle-outline-ds"></use></svg><span>Hide User</span></button>')
+    }
 
     // "Hide User" button click event
-    $('#body').on('click', '.HideUserButton', function(e) {
-        let username = $(this).closest('.user-info-popup').find('.user-levels-username-text').html()
+    $('.HideUserButton').on('click', function(e) {
+      let username = $(el).closest('.user-info-popup').find('.user-levels-username-text').html()
+      alert(username) // TODO FIX
 
-        // get localStorage
-        let hiddenChatUsers = JSON.parse(localStorage.getItem("hiddenChatUsers"))
+      // get localStorage
+      let hiddenChatUsersStore = localStorage.getItem("SE_hiddenChatUsers")
+      let hiddenChatUsers = JSON.parse(hiddenChatUsersStore)
 
-        // append localStorage
-        if(!hiddenChatUsers.length) {
-            hiddenChatUsers = [username]
-        } else {
-            hiddenChatUsers.push(username);
-        }
+      // append localStorage
+      if(!hiddenChatUsersStore) {
+          hiddenChatUsers = [username]
+      } else {
+          hiddenChatUsers.push(username);
+      }
 
-        // save localStorage
-        localStorage.setItem('hiddenChatUsers', JSON.stringify(hiddenChatUsers))
+      // save localStorage
+      localStorage.setItem('SE_hiddenChatUsers', JSON.stringify(hiddenChatUsers))
     })
+  }
+  waitForKeyElements(".messages", hideChatUsers, false);
+  function hideChatUsers(jNode) {
 
 
 
@@ -363,8 +392,8 @@ function hideFavoritesFromFeaturedListings(el) {
         // filter model pages only
 
         // hide local storage users:
-        let hiddenChatUsers = JSON.parse(localStorage.getItem("hiddenChatUsers"))
-        console.log("hiddenChatUsers", hiddenChatUsers)
+        let hiddenChatUsers = JSON.parse(localStorage.getItem("SE_hiddenChatUsers"))
+        console.log("SE_hiddenChatUsers", hiddenChatUsers)
         // $.each(hiddenChatUsers, function(index, item) {
         //     // do something with `item` (or `this` is also `item` if you like)
         // });
