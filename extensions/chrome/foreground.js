@@ -697,16 +697,19 @@ function hideFavoritesFromFeaturedListings(el) {
   waitForKeyElements(".player-controls-user__right-buttons", videoAddPip, false);
   function videoAddPip(el) {
 
-    $('.player-controls-layers__layer--toggle').on('mousedown', function(e) {
-        openFullscreen(document.getElementsByClassName('video-element')[0])
+    // midclick fullscreen
+    $('.video').off().on('mousedown', '.player-controls-layers__layer--toggle,.video-element', function(e) {
+      if(e.which === 2) {
+        e.preventDefault();
+        toggleFullscreen(document.getElementsByClassName('video-element')[0])
+      }
     });
     
-
     // true fullscreen
     $(el).append('<button class="se-fullscreen btn ds-btn-inline-block overflow-visible player-controls-user__button player-top-button" type="button"><svg height="16" width="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10.24 10.24" xml:space="preserve"><path d="m1.862 2.792 0.93 -0.93 -0.93 -0.932L2.792 0H0v2.792l0.93 -0.93zm0 4.656 -0.93 0.93L0 7.448V10.24h2.792l-0.93 -0.93 0.93 -0.93zm5.586 -4.656H2.792v4.654h4.654V2.792zm-0.932 3.724H3.724V3.724h2.792zM7.448 0l0.93 0.93L7.448 1.86l0.93 0.93L9.308 1.86l0.93 0.93V0zm0.93 7.448 -0.93 0.93 0.93 0.93 -0.93 0.932H10.24V7.448l-0.93 0.93z" fill="#fff"/></svg></button>')
     $('.se-fullscreen').on('click', function(e) {
         $(this).attr('disabled', true)
-        openFullscreen(document.getElementsByClassName('video-element')[0])
+        toggleFullscreen(document.getElementsByClassName('video-element')[0])
         $(this).attr('disabled', false)
     });
 
@@ -714,22 +717,30 @@ function hideFavoritesFromFeaturedListings(el) {
     $(el).append('<button class="se-pip btn ds-btn-inline-block overflow-visible player-controls-user__button player-top-button" type="button"><svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-pip"><path d="M0 3.5A1.5 1.5 0 0 1 1.5 2h13A1.5 1.5 0 0 1 16 3.5v9a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 0 12.5zM1.5 3a.5.5 0 0 0-.5.5v9a.5.5 0 0 0 .5.5h13a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5z" fill="#fff"/><path d="M8 8.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-.5.5h-5a.5.5 0 0 1-.5-.5z" fill="#fff"/></svg></button>')
     $('.se-pip').on('click', function(e) {
       $(this).attr('disabled', true)
-
-      const videoElement = document.getElementsByClassName('video-element')[0]
-      openPip(videoElement)
-
+      openPip(document.getElementsByClassName('video-element')[0])
       $(this).attr('disabled', false)
     });
   }
-  function openFullscreen(elem) {
-      if (elem.requestFullscreen) {
-          elem.requestFullscreen();
-      } else if (elem.mozRequestFullScreen) {
-          elem.mozRequestFullScreen();
-      } else if (elem.webkitRequestFullscreen) {
-          elem.webkitRequestFullscreen();
-      } else if (elem.msRequestFullscreen) {
-          elem.msRequestFullscreen();
+  function toggleFullscreen(elem) {
+
+      if (document.fullscreenElement === elem) {
+        if (document.exitFullscreen) {
+          document.exitFullscreen();
+        } else if (document.webkitExitFullscreen) { /* Safari */
+          document.webkitExitFullscreen();
+        } else if (document.msExitFullscreen) { /* IE11 */
+          document.msExitFullscreen();
+        }
+      } else {
+        if (elem.requestFullscreen) {
+            elem.requestFullscreen();
+        } else if (elem.mozRequestFullScreen) {
+            elem.mozRequestFullScreen();
+        } else if (elem.webkitRequestFullscreen) {
+            elem.webkitRequestFullscreen();
+        } else if (elem.msRequestFullscreen) {
+            elem.msRequestFullscreen();
+        }
       }
   }
   function openPip(elem) {
