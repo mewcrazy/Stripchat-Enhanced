@@ -367,12 +367,31 @@ function hideFavoritesFromFeaturedListings(el) {
 
     $('.se-message-templates-btn').off().on('click', function(e) {
       
+      // append overlay
       if($(this).closest('.model-chat-public').find('.model-chat__smiles-block .se-message-templates').length) {
         $('.se-message-templates').toggleClass('hidden').prev().toggleClass('hidden')
       } else {
-        $('.model-chat__smiles-block').append('<div class="SmilesWidgetContainer#AW se-message-templates visible-enter-done"><div class="SmilesWidgetContainer__titleBlock#Uy title-block"><div class="search"><input class="ModelSearch__input#st inline-block input text-default theme-default se-msg-tpl-search" name="s" type="search" value="" placeholder="Search message templates ..."></div><button type="button" class="se-close-message-tpl SmilesWidgetContainer__closeBtn#GV" title="Close Languages"><svg style="height:20px;width:20px" class="IconV2__icon#YR" viewBox="0 0 24 24"><path fill="currentColor" d="M20.027 3.985a1.27 1.27 0 0 0-1.796 0L12 10.203l-6.23-6.23a1.27 1.27 0 0 0-1.797 0 1.27 1.27 0 0 0 0 1.796L10.203 12l-6.23 6.23a1.27 1.27 0 0 0 0 1.797c.497.497 1.3.497 1.796 0L12 13.797l6.23 6.23c.498.497 1.3.497 1.797 0s.497-1.3 0-1.796L13.797 12l6.23-6.23c.485-.485.485-1.3 0-1.785"/></svg></button></div><ul class="se-messages-tpl-list"><li class="se-message-tpl">Lorem ipsum dolor amet Lorem ipsum dolor amet Lorem ipsum dolor amet Lorem ipsum dolor amet ...</li></ul></div>')
+        $('.model-chat__smiles-block').append('<div class="SmilesWidgetContainer#AW se-message-templates visible-enter-done"><div class="SmilesWidgetContainer__titleBlock#Uy title-block"><div class="search"><input class="ModelSearch__input#st inline-block input text-default theme-default se-msg-tpl-search" name="s" type="search" value="" placeholder="Search message templates ..."></div><button type="button" class="se-close-message-tpl SmilesWidgetContainer__closeBtn#GV" title="Close Languages"><svg style="height:20px;width:20px" class="IconV2__icon#YR" viewBox="0 0 24 24"><path fill="currentColor" d="M20.027 3.985a1.27 1.27 0 0 0-1.796 0L12 10.203l-6.23-6.23a1.27 1.27 0 0 0-1.797 0 1.27 1.27 0 0 0 0 1.796L10.203 12l-6.23 6.23a1.27 1.27 0 0 0 0 1.797c.497.497 1.3.497 1.796 0L12 13.797l6.23 6.23c.498.497 1.3.497 1.797 0s.497-1.3 0-1.796L13.797 12l6.23-6.23c.485-.485.485-1.3 0-1.785"/></svg></button></div><ul class="se-messages-tpl-list"></ul></div>')
         $('.se-message-templates').prev().toggleClass('hidden')
         
+        // fetch & insert templates
+        let templates = [
+          "Lorem ipsum dolor amet Lorem ipsum dolor amet Lorem ipsum dolor amet.",
+          "Lorem ipsum dolor amet Lorem ipsum dolor amet Lorem ipsum dolor amet.",
+          "Lorem ipsum dolor amet Lorem ipsum dolor amet Lorem ipsum dolor amet.",
+          "Lorem ipsum dolor amet Lorem ipsum dolor amet Lorem ipsum dolor amet."
+        ]
+        $.each(templates, (k, v) => {
+          alert("yooo")
+          $('.se-messages-tpl-list').append('<li class="se-message-tpl"><span>Lorem ipsum dolor amet Lorem ipsum dolor amet Lorem ipsum dolor amet Lorem ipsum dolor amet ...</span></li>')
+        })
+
+        // click message
+        $('.se-messages-tpl-list a').on('click', function() {
+          $('.se-message-templates').toggleClass('hidden')
+        })
+
+        // close overlay
         $('.se-close-message-tpl').on('click', function() {
           $('.se-message-templates').toggleClass('hidden')
         })
@@ -678,14 +697,16 @@ function hideFavoritesFromFeaturedListings(el) {
   waitForKeyElements(".player-controls-user__right-buttons", videoAddPip, false);
   function videoAddPip(el) {
 
+    $('.player-controls-layers__layer--toggle').on('mousedown', function(e) {
+        openFullscreen(document.getElementsByClassName('video-element')[0])
+    });
+    
+
     // true fullscreen
     $(el).append('<button class="se-fullscreen btn ds-btn-inline-block overflow-visible player-controls-user__button player-top-button" type="button"><svg height="16" width="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10.24 10.24" xml:space="preserve"><path d="m1.862 2.792 0.93 -0.93 -0.93 -0.932L2.792 0H0v2.792l0.93 -0.93zm0 4.656 -0.93 0.93L0 7.448V10.24h2.792l-0.93 -0.93 0.93 -0.93zm5.586 -4.656H2.792v4.654h4.654V2.792zm-0.932 3.724H3.724V3.724h2.792zM7.448 0l0.93 0.93L7.448 1.86l0.93 0.93L9.308 1.86l0.93 0.93V0zm0.93 7.448 -0.93 0.93 0.93 0.93 -0.93 0.932H10.24V7.448l-0.93 0.93z" fill="#fff"/></svg></button>')
     $('.se-fullscreen').on('click', function(e) {
         $(this).attr('disabled', true)
-
-        const videoElement = document.getElementsByClassName('video-element')[0]
-        openFullscreen(videoElement)
-
+        openFullscreen(document.getElementsByClassName('video-element')[0])
         $(this).attr('disabled', false)
     });
 
@@ -1226,7 +1247,6 @@ function addFavoritesFilters() {
     cols = (parseInt(cols) > 1 ? parseInt(cols) - 1 : 10)
     updateGridColumns(cols)
   })
-
 }
 waitForKeyElements(".favorites-page .model-list-item", filterFavoritesPageListing, false);
 function filterFavoritesPageListing(el) {
