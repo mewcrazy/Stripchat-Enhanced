@@ -327,22 +327,27 @@ function hideFavoritesFromFeaturedListings(el) {
       let navLeftItems = $(el).closest('div').find('.nav-left .visible-items')
       $.getJSON('/api/front/v2/models/username/'+username+'/cam').done((data) => {
         $('#body').addClass('se-category-info-processed')
-        console.log("data", data)
 
         let langsHtml = ""
         $.each(data.user.user.languages, function(k, v) {
-          langsHtml += '<span class="country-flag country-flag--small model-list-item-country" style="background-image: url(&quot;https://mewcrazy.github.io/Stripchat-Enhanced/flags/'+v+'.svg&quot;);"></span>'
+          langsHtml += '<span class="country-flag" data-lang="'+v+'" style="background-image: url(&quot;//mewcrazy.github.io/Stripchat-Enhanced/flags/'+v+'.svg&quot;);"></span>'
         })
-        console.log(langsHtml)
         navLeftItems.append('<div class="header-sub-item-wrapper se-info-more"><span class="flex"><img src="https://web.static.mmcdn.com/images/ico-'+data.user.user.contestGender+'.svg">'+langsHtml+'</span><span title="'+data.user.user.birthDate+'"><svg class="icon icon-best-models"><use xlink:href="#icons-best-models"></use></svg>'+data.user.user.age+' years old</span></div>')
         navLeftItems.append('<div class="header-sub-item-wrapper se-info-more"><span title="StripRank"><svg class="icon icon-best-models"><use xlink:href="#icons-best-models"></use></svg>#'+data.user.currPosition+'</span><span title="StripPoints"><svg class="icon icon-best-models"><use xlink:href="#icons-stripchat-logo"></use></svg>'+data.user.currPoints+'</span></div>')
-        navLeftItems.append('<div class="header-sub-item-wrapper se-info-more pvt">'+data.user.user.privateRate+' pvt/min.'+(data.user.user.ratingPrivate ? '<br><a href="#testimonials"><span class="stars">'+data.user.user.ratingPrivate+'</span></a></div>' : ''))
+        navLeftItems.append('<div class="header-sub-item-wrapper se-info-more pvt">'+data.user.user.privateRate+' pvt/min.'+(data.user.user.ratingPrivate ? '<br><a href="/Cumonmme/profile"><span class="stars">'+data.user.user.ratingPrivate+'</span></a></div>' : ''))
         navLeftItems.append('<div class="header-sub-item-wrapper se-info-more">'+data.user.user.p2pRate+' p2p/min. - '+data.user.user.spyRate+' spy/min.</div>')
         $('span.stars').stars();
         
         //navLeft.find('.visible-items').append('<div class="header-sub-item-wrapper se-link-more"><a class="link" href="/Small_Titss/profile">More</a></div>')
       });
     }
+
+    // switch translation lang on country flag click
+    $('.country-flag').on('click', function(e) {
+      let lang = $(this).attr("data-lang")
+      $('.se-langpicker').attr('data-active', lang)
+      $('.se-langpicker').prepend('<svg class="flag flag-'+lang+'"><use xlink:href="#'+lang+'"></use></svg>')
+    })
   }
   $.fn.stars = function() {
       return $(this).each(function() {
@@ -350,11 +355,38 @@ function hideFavoritesFromFeaturedListings(el) {
       });
   }
 
+
+  /**
+   * Message templates
+   */
+  waitForKeyElements('[class*="ChatInput__inputActionBtn"]', addMessageTemplates, false);
+  function addMessageTemplates(el) {
+
+    if(!$('.se-message-templates-btn').length)
+      $('.model-chat-input input').after('<div class="ChatInput__inputActionsContainer#iM"><button class="se-message-templates-btn ChatInput__inputActionBtn#a_ ChatInput__smilesBtn#tx SmilesButton__btn#Dr" type="button" aria-label="Show smiles"><svg class="IconV2__icon#YR" fill="currentColor" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 2.16 2.16" xml:space="preserve"><path d="M.836 2.048a.06.06 0 0 1-.06-.061l.006-.224H.631c-.114 0-.197-.094-.197-.21V.768c0-.113.082-.205.197-.205h1.204c.114 0 .22.092.22.205v.784c0 .116-.105.21-.22.21h-.582l-.382.274a.06.06 0 0 1-.035.012M.632.683C.583.683.555.72.555.768v.784c0 .049.029.09.077.09h.212a.06.06 0 0 1 .06.061L.9 1.867l.3-.215a.06.06 0 0 1 .035-.012h.602c.048 0 .1-.041.1-.09V.768c0-.048-.05-.085-.1-.085z"/><path d="M.201 1.264q-.019 0-.034-.015a.2.2 0 0 1-.062-.147V.318c0-.113.082-.205.197-.205h1.204c.114 0 .22.092.22.205v.035a.06.06 0 0 1-.12 0V.318c0-.048-.05-.085-.1-.085H.301C.252.233.224.27.224.318v.784c0 .023.003.042.021.058.025.022.024.06.002.084a.07.07 0 0 1-.048.02"/><path d="M1.023.952h-.24a.03.03 0 1 1 0-.06h.24a.03.03 0 1 1 0 .06m.421 0h-.3a.03.03 0 1 1 0-.06h.3a.03.03 0 1 1 0 .06m.24 0h-.12a.03.03 0 1 1 0-.06h.12a.03.03 0 1 1 0 .06m-.781.15h-.12a.03.03 0 1 1 0-.06h.12a.03.03 0 1 1 0 .06m.36 0h-.24a.03.03 0 1 1 0-.06h.24a.03.03 0 1 1 0 .06m.421 0h-.3a.03.03 0 1 1 0-.06h.3a.03.03 0 1 1 0 .06m-.6.181H.783a.03.03 0 1 1 0-.06h.3a.03.03 0 1 1 0 .06m.42 0h-.3a.03.03 0 1 1 0-.06h.3a.03.03 0 1 1 0 .06m.181 0h-.06a.03.03 0 1 1 0-.06h.06a.03.03 0 1 1 0 .06m-.781.149h-.12a.03.03 0 1 1 0-.06h.12a.03.03 0 1 1 0 .06m.331 0h-.21a.03.03 0 1 1 0-.06h.21a.03.03 0 1 1 0 .06"/></svg></button></div>')
+
+    $('.se-message-templates-btn').off().on('click', function(e) {
+      
+      if($(this).closest('.model-chat-public').find('.model-chat__smiles-block .se-message-templates').length) {
+        $('.se-message-templates').toggleClass('hidden').prev().toggleClass('hidden')
+      } else {
+        $('.model-chat__smiles-block').append('<div class="SmilesWidgetContainer#AW se-message-templates visible-enter-done"><div class="SmilesWidgetContainer__titleBlock#Uy title-block"><div class="search"><input class="ModelSearch__input#st inline-block input text-default theme-default se-msg-tpl-search" name="s" type="search" value="" placeholder="Search message templates ..."></div><button type="button" class="se-close-message-tpl SmilesWidgetContainer__closeBtn#GV" title="Close Languages"><svg style="height:20px;width:20px" class="IconV2__icon#YR" viewBox="0 0 24 24"><path fill="currentColor" d="M20.027 3.985a1.27 1.27 0 0 0-1.796 0L12 10.203l-6.23-6.23a1.27 1.27 0 0 0-1.797 0 1.27 1.27 0 0 0 0 1.796L10.203 12l-6.23 6.23a1.27 1.27 0 0 0 0 1.797c.497.497 1.3.497 1.796 0L12 13.797l6.23 6.23c.498.497 1.3.497 1.797 0s.497-1.3 0-1.796L13.797 12l6.23-6.23c.485-.485.485-1.3 0-1.785"/></svg></button></div><ul class="se-messages-tpl-list"><li class="se-message-tpl">Lorem ipsum dolor amet Lorem ipsum dolor amet Lorem ipsum dolor amet Lorem ipsum dolor amet ...</li></ul></div>')
+        $('.se-message-templates').prev().toggleClass('hidden')
+        
+        $('.se-close-message-tpl').on('click', function() {
+          $('.se-message-templates').toggleClass('hidden')
+        })
+      }
+    })
+
+  }
+  
+
   /**
    * Hide Chat Users
    */
   
-    // add "Hide User" button
+  // add "Hide User" button
   waitForKeyElements(".message-more-menu__popover", hideChatUsersButton, false);
   function hideChatUsersButton(el) {
     if(!$(el).find('.HideUserButton').length) {
@@ -510,7 +542,7 @@ function hideFavoritesFromFeaturedListings(el) {
   /**
    * Normal Emojis
    */
-  waitForKeyElements('.model-chat__smiles-block [class*="SmilesWidgetContainer__closeBtn"]', addRegularEmojis);
+  waitForKeyElements('[class*="SmilesWidgetContainer__chat"] [class*="SmilesWidgetContainer__closeBtn"]', addRegularEmojis);
   function addRegularEmojis(jNode) {
     let modelChat = $(jNode).closest('.model-chat-public')
 
@@ -1180,18 +1212,24 @@ function addFavoritesFilters() {
   })
 
   // switch grid template
+  var cols = localStorage.getItem("SE_gridTemplate")
   $('.filters-favorites').on('click', '.switch-grid-tpl', function(e) {
     e.preventDefault()
-    let columns = localStorage.getItem("SE_gridTemplate")
-    if(!columns) columns = window.getComputedStyle(document.querySelector('.list-items-container')).getPropertyValue('--columns-count')
-    columns = (parseInt(columns) <= 9 ? parseInt(columns) + 1 : 1)
-    localStorage.setItem("SE_gridTemplate", columns)
-    $('.list-items-container').attr('data-grid', columns)
+    if(!cols) cols = window.getComputedStyle(document.querySelector('.list-items-container')).getPropertyValue('--columns-count')
+    cols = (parseInt(cols) <= 9 ? parseInt(cols) + 1 : 1)
+    updateGridColumns(cols)
   })
+  
+  $('.filters-favorites').on('contextmenu', '.switch-grid-tpl', function(e) {
+    e.preventDefault()
+    if(!cols) cols = window.getComputedStyle(document.querySelector('.list-items-container')).getPropertyValue('--columns-count')
+    cols = (parseInt(cols) > 1 ? parseInt(cols) - 1 : 10)
+    updateGridColumns(cols)
+  })
+
 }
 waitForKeyElements(".favorites-page .model-list-item", filterFavoritesPageListing, false);
 function filterFavoritesPageListing(el) {
-  console.log("yoo")
 
   if($(el).find('.filters-favorites .search input').val()) {
     let username = $(this).val().toLowerCase()
@@ -1199,6 +1237,10 @@ function filterFavoritesPageListing(el) {
       return $(this).find('[class^="ModelThumbUsername"]').text().toLowerCase().indexOf(username) === -1
     }).hide();
   }
+}
+function updateGridColumns(cols) {
+  localStorage.setItem("SE_gridTemplate", cols)
+  $('.list-items-container').attr('data-grid', cols)
 }
 
 

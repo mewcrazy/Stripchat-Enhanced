@@ -190,17 +190,17 @@ input[type="search"].input.language-search:hover { background: rgba(0,0,0,1) }
 .view-cam-controls__btn-wrapper .send-tip-button__icon-container { display: none }
 
 /* Model Info Nav */
-.header-sub .container .header-sub-item-wrapper.se-info-more .flex { display: flex; align-items: center gap: 5px; }
+.nav-left .visible-items .country-flag { cursor: pointer; }
+.header-sub .container .header-sub-item-wrapper.se-info-more .flex { display: flex; align-items: center; gap: 5px; }
 .header-sub .container .header-sub-item-wrapper.se-info-more { color: rgba(255,255,255,.6); font-size: 0.875em; line-height: 1.4; letter-spacing: 0.05em; display: flex; flex-direction: column; justify-content: center; gap: 2px; align-items: flex-start; }
 .header-sub .container .header-sub-item-wrapper.se-info-more .icon { height: 13px; width: 16px; display: inline; margin-top: -4px; }
 .header-sub .container .header-sub-item-wrapper.se-info-more span { line-height: 13px; }
 .header-sub .container .header-sub-item-wrapper.se-info-more.pvt { align-items: center; }
-span.stars, span.stars span {
-display: block;
-background: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTMiIGhlaWdodD0iMTMiIHZpZXdCb3g9IjAgMCAwLjUyIDAuNTIiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGcgY2xpcC1wYXRoPSJ1cmwoI2EpIj48cGF0aCBkPSJtMC4zODYgMC4zMjcgMC4wMzcgMC4xNTFjMC4wMDggMC4wMyAtMC4wMTYgMC4wMjkgLTAuMDMyIDAuMDE5TDAuMjU5IDAuNDA0IDAuMTI3IDAuNDk4QzAuMTEzIDAuNTA4IDAuMDg3IDAuNTA5IDAuMDk4IDAuNDc5TDAuMTQxIDAuMzI4IDAuMDI0IDAuMjQxQzAuMDEyIDAuMjMyIDAuMDExIDAuMjA4IDAuMDMzIDAuMjA2TDAuMTg0IDAuMTkzIDAuMjQyIDAuMDM0YzAuMDA3IC0wLjAyMiAwLjAyOCAtMC4wMjMgMC4wMzcgMGwwLjA2NCAwLjE2IDAuMTQzIDAuMDEzQzAuNTA3IDAuMjA5IDAuNTA5IDAuMjM0IDAuNDk2IDAuMjQ0TDAuMzg2IDAuMzI5IiBmaWxsPSIjRkZDNDREIi8+PHBhdGggY2xpcC1ydWxlPSJldmVub2RkIiBkPSJtMC4yNzkgMC4wMzMgMC4wNjQgMC4xNiAwLjE0MyAwLjAxM0MwLjUwNyAwLjIwNyAwLjUwOSAwLjIzMiAwLjQ5NiAwLjI0M0wwLjM4NiAwLjMyOCAwLjQyMyAwLjQ3OWMwLjAwOCAwLjAzIC0wLjAxNiAwLjAyOSAtMC4wMzIgMC4wMTlMMC4yNTkgMC40MDUgMC4xMjcgMC40OTlDMC4xMTMgMC41MDkgMC4wODcgMC41MSAwLjA5OCAwLjQ4TDAuMTQxIDAuMzI5UzAuMDM0IDAuMjUxIDAuMDI0IDAuMjQyQzAuMDEyIDAuMjMzIDAuMDEyIDAuMjA5IDAuMDMzIDAuMjA3TDAuMTg0IDAuMTk0IDAuMjQyIDAuMDM1YzAuMDA3IC0wLjAyMiAwLjAyOCAtMC4wMjMgMC4wMzcgMCIgc3Ryb2tlPSIjMDAwIiBzdHJva2Utd2lkdGg9IjAuMDMyNSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIi8+PC9nPjxkZWZzPjxjbGlwUGF0aCBpZD0iYSI+PHBhdGggZmlsbD0iI2ZmZiIgZD0iTTAgMGgwLjUydjAuNTJIMHoiLz48L2NsaXBQYXRoPjwvZGVmcz48L3N2Zz4=) 0 -13px repeat-x;
-width: 65px;
-height: 13px;
-}
-span.stars span {
-background-position: 0 0;
-}
+span.stars, span.stars span { display: block; background: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTMiIGhlaWdodD0iMTMiIHZpZXdCb3g9IjAgMCAwLjUyIDAuNTIiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGcgY2xpcC1wYXRoPSJ1cmwoI2EpIj48cGF0aCBkPSJtMC4zODYgMC4zMjcgMC4wMzcgMC4xNTFjMC4wMDggMC4wMyAtMC4wMTYgMC4wMjkgLTAuMDMyIDAuMDE5TDAuMjU5IDAuNDA0IDAuMTI3IDAuNDk4QzAuMTEzIDAuNTA4IDAuMDg3IDAuNTA5IDAuMDk4IDAuNDc5TDAuMTQxIDAuMzI4IDAuMDI0IDAuMjQxQzAuMDEyIDAuMjMyIDAuMDExIDAuMjA4IDAuMDMzIDAuMjA2TDAuMTg0IDAuMTkzIDAuMjQyIDAuMDM0YzAuMDA3IC0wLjAyMiAwLjAyOCAtMC4wMjMgMC4wMzcgMGwwLjA2NCAwLjE2IDAuMTQzIDAuMDEzQzAuNTA3IDAuMjA5IDAuNTA5IDAuMjM0IDAuNDk2IDAuMjQ0TDAuMzg2IDAuMzI5IiBmaWxsPSIjRkZDNDREIi8+PHBhdGggY2xpcC1ydWxlPSJldmVub2RkIiBkPSJtMC4yNzkgMC4wMzMgMC4wNjQgMC4xNiAwLjE0MyAwLjAxM0MwLjUwNyAwLjIwNyAwLjUwOSAwLjIzMiAwLjQ5NiAwLjI0M0wwLjM4NiAwLjMyOCAwLjQyMyAwLjQ3OWMwLjAwOCAwLjAzIC0wLjAxNiAwLjAyOSAtMC4wMzIgMC4wMTlMMC4yNTkgMC40MDUgMC4xMjcgMC40OTlDMC4xMTMgMC41MDkgMC4wODcgMC41MSAwLjA5OCAwLjQ4TDAuMTQxIDAuMzI5UzAuMDM0IDAuMjUxIDAuMDI0IDAuMjQyQzAuMDEyIDAuMjMzIDAuMDEyIDAuMjA5IDAuMDMzIDAuMjA3TDAuMTg0IDAuMTk0IDAuMjQyIDAuMDM1YzAuMDA3IC0wLjAyMiAwLjAyOCAtMC4wMjMgMC4wMzcgMCIgc3Ryb2tlPSIjMDAwIiBzdHJva2Utd2lkdGg9IjAuMDMyNSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIi8+PC9nPjxkZWZzPjxjbGlwUGF0aCBpZD0iYSI+PHBhdGggZmlsbD0iI2ZmZiIgZD0iTTAgMGgwLjUydjAuNTJIMHoiLz48L2NsaXBQYXRoPjwvZGVmcz48L3N2Zz4=) 0 -13px repeat-x; width: 65px; height: 13px; }
+span.stars span { background-position: 0 0; }
+
+/* Message templates */
+.se-message-templates { background: #383838; border-radius: 8px 8px 0 0; padding: 16px 16px 8px; }
+.se-message-templates .title-block { display: flex; justify-content: space-between; }
+/*.block { bottom: 0; display: flex; max-height: 80%; position: absolute; width: 100%; z-index: 2;}*/
+.se-message-templates .se-message-templates-btn:hover { color: rgb(99,161,99) !important; }
