@@ -27,7 +27,7 @@ jobs:
       # Step 2: Remove Google API Key from codebase
       - name: Remove Google API Key from codebase
         id: remove_api_keys
-        run: sed -i -e 's/var googleApiKey = "${{ secrets.GOOGLE_TRANSLATION_APIKEY }}"/var googleApiKey = ""/g' deploy/stripchat-enhanced.script.js
+        run: sed -i -e 's/var googleApiKey = "${{ secrets.GOOGLE_TRANSLATION_APIKEY }}"/var googleApiKey = ""/g' deploy/stripchat-enhanced.user.js
 
       # Step 3: Check for any changes
       - name: Check for any changes
