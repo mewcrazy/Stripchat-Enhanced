@@ -45,6 +45,7 @@ jobs:
           git add deploy/waitForKeyElements.min.js
           git add deploy/jquery.min.js
           git commit -am "Update repository files [skip ci]" 
+          git tag -d main
           git push -f origin main
 
       # Step 5: Push
