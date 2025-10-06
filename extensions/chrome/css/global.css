@@ -187,14 +187,14 @@ input[type="search"].input.language-search:hover { background: rgba(0,0,0,1) }
 
 /* Show Category Link on Model Pages */
 .view-cam-controls .view-cam-controls-wrapper .btn { font-size: 0.875em; height: 28px; }
-.user-fan-club-status-btn { width: max-content; font-size: 0.75em !important; }
+.user-fan-club-status-btn { width: max-content; font-size: 0.8em !important; }
 .header-sub .container .header-sub-item-wrapper.local-link { display: none }
 [class*="GroupShowControlButton__announcement"] { font-size: 0.875em; }
 .view-cam-controls__btn-wrapper .send-tip-button__icon-container { display: none }
 
 /* Model Info Nav */
-.nav-left .visible-items .country-flag { cursor: pointer; }
-.header-sub .container .header-sub-item-wrapper.se-info-more .flex { display: flex; align-items: center; gap: 5px; }
+.nav-left .visible-items .country-flag { cursor: pointer; width: 17px; height: 12px; }
+.header-sub .container .header-sub-item-wrapper.se-info-more .flex { display: flex; align-items: center; gap: 5px; justify-content: center; }
 .header-sub .container .header-sub-item-wrapper.se-info-more { color: rgba(255,255,255,.6); font-size: 0.875em; line-height: 1.4; letter-spacing: 0.05em; display: flex; flex-direction: column; justify-content: center; gap: 2px; align-items: flex-start; }
 .header-sub .container .header-sub-item-wrapper.se-info-more .icon { height: 13px; width: 16px; display: inline; margin-top: -4px; }
 .header-sub .container .header-sub-item-wrapper.se-info-more span { line-height: 13px; }
@@ -205,8 +205,8 @@ span.stars span { background-position: 0 0; }
 /* Message templates */
 .se-message-templates { background: #383838; border-radius: 8px 8px 0 0; padding: 16px 16px 8px; }
 .se-message-templates .title-block { display: flex; justify-content: space-between; }
-/*.block { bottom: 0; display: flex; max-height: 80%; position: absolute; width: 100%; z-index: 2;}*/
 .se-message-templates .se-message-templates-btn:hover { color: rgb(99,161,99) !important; }
-.se-message-tpl { margin-top: 10px; }
+.se-messages-tpl-list { columns: 2; }
+.se-message-tpl { margin-top: 7px; }
 .se-message-tpl:first-child { margin-top: 0; }
-.se-message-tpl span { padding: 10px; border-radius: 6px; display: inline-block; background: #222; font-size: 0.875em; }
+.se-message-tpl span { padding: 10px; border-radius: 6px; display: inline-block; background: #222; font-size: 0.875em; cursor: pointer; }
