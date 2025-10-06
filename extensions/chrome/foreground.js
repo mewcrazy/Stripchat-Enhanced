@@ -312,7 +312,7 @@ function hideFavoritesFromFeaturedListings(el) {
       $('.view-cam-buttons-wrapper').append('<div class="user-fan-club-status-btn"><svg class="icon icon-diamond" style="height: 18px; width: 18px;"><use xlink:href="#icons-diamond"></use></svg><span class="">Join Fan Club</span></div>')
     
     // remove feed link & fanclub button
-    navLeft.find('[href$="/timeline"]').closest('div').addClass('hidden')
+    navLeft.find('[href*="/timeline"]').closest('div').addClass('hidden')
     navLeft.find('.view-cam-header-sub__fan-club-button').addClass('hidden')
 
   }
@@ -382,12 +382,13 @@ function hideFavoritesFromFeaturedListings(el) {
           "Lorem ipsum dolor amet Lorem ipsum dolor amet Lorem ipsum dolor amet."
         ]
         $.each(templates, (k, v) => {
-          alert("yooo")
           $('.se-messages-tpl-list').append('<li class="se-message-tpl"><span>Lorem ipsum dolor amet Lorem ipsum dolor amet Lorem ipsum dolor amet Lorem ipsum dolor amet ...</span></li>')
         })
 
         // click message
-        $('.se-messages-tpl-list a').on('click', function() {
+        $('.se-messages-tpl-list span').on('click', function() {
+          $('.model-chat-input input').val('').focus()
+          document.execCommand('insertText', false, $(this).text())
           $('.se-message-templates').toggleClass('hidden')
         })
 

@@ -45,14 +45,14 @@ We are working on dedicated Edge, Firefox and Chrome Extensions. Above is the pr
 Please note that this script requires an API Key for the Google Cloud Translation API. Simply log in your Google account, and create a New Project for the Cloud Translation API. After you can click on "Login Credentials" and create a new API Key which you can use in this script.
 
 ### ViolentMonkey
-1. Simply click on our script file [Stripchat-Enhanced.user.js](https://mewcrazy.github.io/Stripchat-Enhanced/deploy/Stripchat-Enhanced.user.js) and it should automatically get recognized by ViolentMonkey.
+1. Simply click on our script file [/deploy/stripchat-enhanced.user.js](https://mewcrazy.github.io/Stripchat-Enhanced/deploy/stripchat-enhanced.user.js) and it should automatically get recognized by ViolentMonkey.
 1. Open the ViolentMonkey Dashboard of your User Script Manager (ViolentMonkey, TamperMonkey or GreaseMonkey)
 2. Click on + (New) -> Install by URL
-3. Manually enter the URL to the plugins file in this repository: `https://mewcrazy.github.io/Stripchat-Enhanced/deploy/Stripchat-Enhanced.user.js`
+3. Manually enter the URL to the plugins file in this repository: `https://mewcrazy.github.io/Stripchat-Enhanced/deploy/stripchat-enhanced.user.js`
 
 ### TamperMonkey <sub>("Allow User Scripts" toggle in the Extension's settings needs to be enabled.)</sub>
 1. Click the TamperMonkey Extension Icon and "Create a new script..."
-2. Copy paste the contents of [`https://mewcrazy.github.io/Stripchat-Enhanced/deploy/Stripchat-Enhanced.user.js`](https://mewcrazy.github.io/Stripchat-Enhanced/deploy/Stripchat-Enhanced.user.js) into the editor and Save.
+2. Copy paste the contents of [`https://mewcrazy.github.io/Stripchat-Enhanced/deploy/stripchat-enhanced.user.js`](https://mewcrazy.github.io/Stripchat-Enhanced/deploy/Stripchat-Enhanced.user.js) into the editor and Save.
 
 ### GreaseMonkey
 Currently unsupported. To support new version 4.0+ of GreaseMonkey we would need to make major changes.
