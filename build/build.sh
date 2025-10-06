@@ -9,3 +9,4 @@ npm i jquery
 mv -f node_modules/jquery/dist/jquery.min.js deploy/jquery.min.js
 
 # Build .crx Chrome Extension File
+crx3 extensions/chrome -o extensions/chrome.crx -p /home/githubrunner/extension_keys/chrome.pem

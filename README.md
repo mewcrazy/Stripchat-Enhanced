@@ -210,6 +210,7 @@ We welcome any contributions! If you're having ideas or improvements to StripCha
 - [jquery/jQuery](https://github.com/jquery/jquery) - JavaScript Framework to ease the DOM traversing.
 - [missive/emoji-mart](https://github.com/missive/emoji-mart) - A Beautiful emoji picker module. (version-based emoji json files)
 
+Thanks to [PotPlayer](https://potplayer.info) for the innovative idea of opening a video in fullscreen with a simple middle mouse click.
 Thanks to [Wiktionary](https://en.wiktionary.org/wiki/Wiktionary:Language_flags_list) for the curated list of language flags.
 
 ---
