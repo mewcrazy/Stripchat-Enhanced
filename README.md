@@ -34,8 +34,9 @@
 # Installation
 
 <p width="100%">
-    <a href="https://github.com/mewcrazy/Stripchat-Enhanced/raw/refs/heads/main/extensions/chrome-latest.crx"><img width="206" src="https://github.com/mewcrazy/Stripchat-Enhanced/raw/main/img/get-it-for-chrome.png"></a>
-    <a href="https://github.com/mewcrazy/Stripchat-Enhanced/raw/refs/heads/main/extensions/firefox-latest.zip"><img width="206" src="https://github.com/mewcrazy/Stripchat-Enhanced/raw/main/img/get-it-for-firefox.png"></a>
+    <a href="https://github.com/mewcrazy/Stripchat-Enhanced/raw/refs/heads/main/extensions/chrome.crx"><img width="206" src="https://github.com/mewcrazy/Stripchat-Enhanced/raw/main/img/get-it-for-chrome.png"></a>
+    <a href="https://github.com/mewcrazy/Stripchat-Enhanced/raw/refs/heads/main/extensions/firefox.zip"><img width="206" src="https://github.com/mewcrazy/Stripchat-Enhanced/raw/main/img/get-it-for-firefox.png"></a>
+    <a href="https://github.com/mewcrazy/Stripchat-Enhanced/raw/refs/heads/main/extensions/opera.crx"><img width="206" src="https://github.com/mewcrazy/Stripchat-Enhanced/raw/main/img/get-it-for-opera.png"></a>
 </p>
 We are working on dedicated Edge, Firefox and Chrome Extensions. Above is the preview of the Chrome Extension, but we strongly recommend to use a User Script Manager for now. The script was made in ViolentMonkey, but should work in TamperMonkey and GreaseMonkey as well.
 

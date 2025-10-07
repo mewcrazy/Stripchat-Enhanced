@@ -6,7 +6,7 @@ mv -f git_waitForKeyElements/waitForKeyElements.js deploy/waitForKeyElements.min
 
 # Download jquery/jquery & Move to directory
 npm i jquery
-mv -f ../../node_modules/jquery/dist/jquery.min.js deploy/jquery.min.js
+ln -s ../../../../node_modules/jquery/dist/jquery.min.js deploy/jquery.min.js
 
 # Build .crx Chrome Extension File
 /usr/local/bin/crx3 extensions/chrome -o extensions/chrome.crx -p /home/githubrunner/extension_keys/chrome.pem
@@ -15,3 +15,4 @@ mv -f ../../node_modules/jquery/dist/jquery.min.js deploy/jquery.min.js
 /usr/local/bin/web-ext build -o -s extensions/chrome -a ./extensions -n firefox.zip
 
 # Build Opera Extension File
+/usr/local/bin/crx3 extensions/chrome -o extensions/opera.crx -p /home/githubrunner/extension_keys/opera.pem
