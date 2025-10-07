@@ -111,7 +111,7 @@ function hideFavoritesFromFeaturedListings(el) {
   waitForKeyElements('[class*="Sidebar__language"]', presetFavoritess, false);
   function presetFavoritess(el) {
     let path = localStorage.getItem("SE_favoritesSorting")
-    if(path.length) {
+    if(path && path.length) {
       $("[class*='SidebarLink'][href*='/favorites']").attr("href", path)
     }
 
