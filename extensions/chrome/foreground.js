@@ -332,7 +332,7 @@ function hideFavoritesFromFeaturedListings(el) {
         $.each(data.user.user.languages, function(k, v) {
           langsHtml += '<span class="country-flag" data-lang="'+v+'" style="background-image: url(&quot;//mewcrazy.github.io/Stripchat-Enhanced/flags/'+v+'.svg&quot;);"></span>'
         })
-        navLeftItems.append('<div class="header-sub-item-wrapper se-info-more"><span class="flex"><img src="https://web.static.mmcdn.com/images/ico-'+data.user.user.contestGender+'.svg">'+langsHtml+'</span><span title="'+data.user.user.birthDate+'"><svg class="icon icon-best-models"><use xlink:href="#icons-best-models"></use></svg>'+data.user.user.age+' years old</span></div>')
+        navLeftItems.append('<div class="header-sub-item-wrapper se-info-more"><span class="flex"><img src="https://web.static.mmcdn.com/images/ico-'+data.user.user.contestGender+'.svg">'+langsHtml+'</span><span title="'+data.user.user.birthDate+'"><svg class="icon icon-best-models"><use xlink:href="#icons-best-models"></use></svg>'+(data.user.user.age ? data.user.user.age+' years old' : 'no age given')+'</span></div>')
         navLeftItems.append('<div class="header-sub-item-wrapper se-info-more"><span title="StripRank"><svg class="icon icon-best-models"><use xlink:href="#icons-best-models"></use></svg>#'+data.user.currPosition+'</span><span title="StripPoints"><svg class="icon icon-best-models"><use xlink:href="#icons-stripchat-logo"></use></svg>'+data.user.currPoints+'</span></div>')
         navLeftItems.append('<div class="header-sub-item-wrapper se-info-more pvt">'+data.user.user.privateRate+' pvt/min.'+(data.user.user.ratingPrivate ? '<br><a href="/Cumonmme/profile"><span class="stars">'+data.user.user.ratingPrivate+'</span></a></div>' : ''))
         navLeftItems.append('<div class="header-sub-item-wrapper se-info-more">'+data.user.user.p2pRate+' p2p/min. - '+data.user.user.spyRate+' spy/min.</div>')
@@ -371,18 +371,28 @@ function hideFavoritesFromFeaturedListings(el) {
       if($(this).closest('.model-chat-public').find('.model-chat__smiles-block .se-message-templates').length) {
         $('.se-message-templates').toggleClass('hidden').prev().toggleClass('hidden')
       } else {
-        $('.model-chat__smiles-block').append('<div class="SmilesWidgetContainer#AW se-message-templates visible-enter-done"><div class="SmilesWidgetContainer__titleBlock#Uy title-block"><div class="search"><input class="ModelSearch__input#st inline-block input text-default theme-default se-msg-tpl-search" name="s" type="search" value="" placeholder="Search message templates ..."></div><button type="button" class="se-close-message-tpl SmilesWidgetContainer__closeBtn#GV" title="Close Languages"><svg style="height:20px;width:20px" class="IconV2__icon#YR" viewBox="0 0 24 24"><path fill="currentColor" d="M20.027 3.985a1.27 1.27 0 0 0-1.796 0L12 10.203l-6.23-6.23a1.27 1.27 0 0 0-1.797 0 1.27 1.27 0 0 0 0 1.796L10.203 12l-6.23 6.23a1.27 1.27 0 0 0 0 1.797c.497.497 1.3.497 1.796 0L12 13.797l6.23 6.23c.498.497 1.3.497 1.797 0s.497-1.3 0-1.796L13.797 12l6.23-6.23c.485-.485.485-1.3 0-1.785"/></svg></button></div><ul class="se-messages-tpl-list"></ul></div>')
+        $('.model-chat__smiles-block').append('<div class="SmilesWidgetContainer#AW se-message-templates visible-enter-done"><div class="SmilesWidgetContainer__titleBlock#Uy title-block"><span class="se-add-message add-icon-wrapper"><svg class="icon icon-add"><use xlink:href="#icons-add"></use></svg></span><div class="search"><input class="ModelSearch__input#st inline-block input text-default theme-default se-msg-tpl-search" name="s" type="search" value="" placeholder="Search message templates ..."></div><button type="button" class="se-close-message-tpl SmilesWidgetContainer__closeBtn#GV" title="Close Languages"><svg style="height:20px;width:20px" class="IconV2__icon#YR" viewBox="0 0 24 24"><path fill="currentColor" d="M20.027 3.985a1.27 1.27 0 0 0-1.796 0L12 10.203l-6.23-6.23a1.27 1.27 0 0 0-1.797 0 1.27 1.27 0 0 0 0 1.796L10.203 12l-6.23 6.23a1.27 1.27 0 0 0 0 1.797c.497.497 1.3.497 1.796 0L12 13.797l6.23 6.23c.498.497 1.3.497 1.797 0s.497-1.3 0-1.796L13.797 12l6.23-6.23c.485-.485.485-1.3 0-1.785"/></svg></button></div><ul class="se-messages-tpl-list"><li class="empty">You haven\'t added any messages yet</ul><span class="no-results hidden">No messages found.</span></div>')
         $('.se-message-templates').prev().toggleClass('hidden')
         
         // fetch & insert templates
         let templates = [
-          "Lorem ipsum dolor amet Lorem ipsum dolor amet Lorem ipsum dolor amet.",
-          "Lorem ipsum dolor amet Lorem ipsum dolor amet Lorem ipsum dolor amet.",
-          "Lorem ipsum dolor amet Lorem ipsum dolor amet Lorem ipsum dolor amet.",
-          "Lorem ipsum dolor amet Lorem ipsum dolor amet Lorem ipsum dolor amet."
+          "Lorem ipsum dolor amet Lorem ipsum dolor amet Lorem ipsum dolor amet2.",
+          "Lorem ipsum dolor amet Lorem ipsum dolor amet Lorem ipsum dolor amet2.",
+          "Lorem ipsum dolor amet Lorem ipsum dolor amet Lorem ipsum dolor amet3.",
+          "Lorem ipsum dolor amet Lorem ipsum dolor amet Lorem ipsum dolor amet4."
         ]
-        $.each(templates, (k, v) => {
-          $('.se-messages-tpl-list').append('<li class="se-message-tpl"><span>Lorem ipsum dolor amet Lorem ipsum dolor amet Lorem ipsum dolor amet Lorem ipsum dolor amet ...</span></li>')
+        if(templates) {
+          $.each(templates, (k, v) => {
+            $('.se-messages-tpl-list').append('<li class="se-message-tpl"><span>'+v+'</span></li>')
+          })
+          $('.empty').addClass('hidden')
+        } else {
+          $('.empty').removeClass('hidden')
+        }
+
+        // click message
+        $('.se-add-message').off().on('click', function() {
+          alert("add message")
         })
 
         // click message
@@ -395,6 +405,18 @@ function hideFavoritesFromFeaturedListings(el) {
         // close overlay
         $('.se-close-message-tpl').on('click', function() {
           $('.se-message-templates').toggleClass('hidden')
+        })
+
+        // search messages
+        $(".se-msg-tpl-search").off().on("keyup", function() {
+          var value = this.value.toLowerCase().trim();
+          if(value.length) {
+            let results = $(".se-message-tpl").show().filter(function() {
+                return $(this).text().toLowerCase().indexOf(value) == -1;
+            }).hide();
+          } else {
+            $(".se-message-tpl").show();
+          }
         })
       }
     })

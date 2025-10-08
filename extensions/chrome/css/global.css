@@ -204,9 +204,14 @@ span.stars span { background-position: 0 0; }
 
 /* Message templates */
 .se-message-templates { background: #383838; border-radius: 8px 8px 0 0; padding: 16px 16px 8px; }
-.se-message-templates .title-block { display: flex; justify-content: space-between; }
+.se-message-templates .title-block { display: flex; }
+.se-message-templates .title-block .search { flex: 1; }
 .se-message-templates .se-message-templates-btn:hover { color: rgb(99,161,99) !important; }
 .se-messages-tpl-list { columns: 2; }
 .se-message-tpl { margin-top: 7px; }
-.se-message-tpl:first-child { margin-top: 0; }
+.se-message-tpl:first-of-type { margin-top: 0; }
 .se-message-tpl span { padding: 10px; border-radius: 6px; display: inline-block; background: #222; font-size: 0.875em; cursor: pointer; }
+.se-message-tpl span:hover { background: #141414; }
+.se-add-message { cursor: pointer; }
+.se-add-message .icon-add { width: 30px; height: 30px; fill: #141414; }
+.se-add-message:hover .icon-add { fill: #000; }
