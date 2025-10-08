@@ -57,13 +57,7 @@ jobs:
           branch: ${{ github.ref }}
           force: true
 
-  release:
-    name: Release pushed tag
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
-      
-    steps:
+      # Step 6: Release pushed tag
       - name: Create release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
