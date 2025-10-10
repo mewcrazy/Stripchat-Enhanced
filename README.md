@@ -1,5 +1,5 @@
 # <p align="center">StripChat Enhanced</p>
-<p align="center">An user script, and soon to be a browser extension, for ViolentMonkey, Tampermonkey & Greasemonkey to extend StripChat with new useful features like translations of public chat and private chat messages.</p>
+<p align="center">A browser extension to extend StripChat with new useful features like on-the-fly translations of your sent text message as well as received public chat and private chat messages, and many more features.</p>
 
 <p align="center" width="100%">
   <a href="https://github.com/mewcrazy/Stripchat-Enhanced/archive/refs/heads/main.zip"><img src="https://shields.io/github/downloads/mewcrazy/Stripchat-Enhanced/total"></a>
@@ -217,4 +217,4 @@ Thanks to [Wiktionary](https://en.wiktionary.org/wiki/Wiktionary:Language_flags_
 
 ---
 
-<p align="center">Inspired by a beautiful woman and made with <span title="aalliyahh">❤️</span> in Düsseldorf, Germany</p>
+<p align="center">Inspired by a <a href="//chaturbate.com/aalliyahh" target="_blank">beautiful woman</a> and made with <span title="aalliyahh">❤️</span> in Düsseldorf, Germany</p>

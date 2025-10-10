@@ -215,3 +215,10 @@ span.stars span { background-position: 0 0; }
 .se-add-message { cursor: pointer; }
 .se-add-message .icon-add { width: 30px; height: 30px; fill: #141414; }
 .se-add-message:hover .icon-add { fill: #000; }
+
+/* pin category */
+[class*="SidebarLink"] { position: relative; }
+.se-pin-cat { position: absolute; top:0; right: 0; display: inline-block; width: 0; overflow: hidden; text-align: center; transition: width .3s ease; z-index: 100; cursor: pointer; }
+[class*="SidebarLink"]:hover .se-pin-cat { width: 18px; }
+.se-pin-cat svg { fill: rgba(255,255,255,.6) }
+.se-pin-cat:hover svg { fill: rgba(255,255,255,1) }

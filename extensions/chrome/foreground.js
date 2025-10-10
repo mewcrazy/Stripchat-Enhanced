@@ -40,7 +40,37 @@ waitForKeyElements("[class*='SidebarMainLinks']", addSidebarLinks, false);
 function addSidebarLinks(el) {
 
   $(el).append('<a class="SidebarLink#Ot SidebarLink__variant-main#HJ" href="/not-interested"><span class="SidebarLink__icon#un">​<span class="SidebarLink__icon-frame#Fy"><svg class="IconV2__icon#YR" style="height: 16px; width: 16px;"><use xlink:href="#icons-watch-history"></use></svg></span></span><span class="SidebarLink__text#gq">Not Interested</span></a>')
+
+  // pinned categories
+  $('nav.SidebarGroup#Lj').prepend('<nav class="SidebarGroup#Lj" aria-label="specials"><div class="SidebarGroupTitle#Wk">Pinned</div></nav>')
+
+  $('[class*="SidebarContent"]').on('click', '.se-pin-cat', function(e) {
+    e.preventDefault
+    e.stopImmediatePropagation
+    e.stopPropagation
+    let link = $(this).closest('a[class*="SidebarLink"]').html()
+    let pinnedLinks = localStorage.getItem("SE_pinnedLinks")
+  
+    // append localStorage
+    if(!pinnedLinks) {
+        pinnedLinks = [link]
+    } else {
+      pinnedLinks = JSON.parse(pinnedLinks)
+      pinnedLinks.push(link);
+    }
+
+    // save localStorage
+    localStorage.setItem('SE_pinnedLinks', JSON.stringify(pinnedLinks))
+  })
 }
+
+waitForKeyElements("[class*='SidebarLink']", addSidebarLinks2, false);
+function addSidebarLinks2(el) {
+  
+  // add pin button to category links
+  $(el).find('[class*="SidebarLink__counter"]').append('<span class="se-pin-cat"><svg class="icon icon-add"><use xlink:href="#icons-add"></use></svg></span>')
+}
+
 
 // Hide Favorites From "Featured Model" Listings
 waitForKeyElements(".featured-model-list", hideFavoritesFromFeaturedListings);
@@ -319,28 +349,22 @@ function hideFavoritesFromFeaturedListings(el) {
   waitForKeyElements(".view-cam-page .nav-right", addModelInfo, false);
   function addModelInfo(el) {
 
-    // add category link
-    if(!$('#body').hasClass('.se-category-info-processed')) {
-      
-      // get api data
-      let username = $('.viewcam-profile-menu-item .viewcam-profile-menu-item__label').eq(0).text()
-      let navLeftItems = $(el).closest('div').find('.nav-left .visible-items')
-      $.getJSON('/api/front/v2/models/username/'+username+'/cam').done((data) => {
-        $('#body').addClass('se-category-info-processed')
+    // get api data
+    let username = $('.viewcam-profile-menu-item .viewcam-profile-menu-item__label').eq(0).text()
+    let navLeftItems = $(el).closest('div').find('.nav-left .visible-items')
+    $.getJSON('/api/front/v2/models/username/'+username+'/cam').done((data) => {
+      $('#body').addClass('se-category-info-processed')
 
-        let langsHtml = ""
-        $.each(data.user.user.languages, function(k, v) {
-          langsHtml += '<span class="country-flag" data-lang="'+v+'" style="background-image: url(&quot;//mewcrazy.github.io/Stripchat-Enhanced/flags/'+v+'.svg&quot;);"></span>'
-        })
-        navLeftItems.append('<div class="header-sub-item-wrapper se-info-more"><span class="flex"><img src="https://web.static.mmcdn.com/images/ico-'+data.user.user.contestGender+'.svg">'+langsHtml+'</span><span title="'+data.user.user.birthDate+'"><svg class="icon icon-best-models"><use xlink:href="#icons-best-models"></use></svg>'+(data.user.user.age ? data.user.user.age+' years old' : 'no age given')+'</span></div>')
-        navLeftItems.append('<div class="header-sub-item-wrapper se-info-more"><span title="StripRank"><svg class="icon icon-best-models"><use xlink:href="#icons-best-models"></use></svg>#'+data.user.currPosition+'</span><span title="StripPoints"><svg class="icon icon-best-models"><use xlink:href="#icons-stripchat-logo"></use></svg>'+data.user.currPoints+'</span></div>')
-        navLeftItems.append('<div class="header-sub-item-wrapper se-info-more pvt">'+data.user.user.privateRate+' pvt/min.'+(data.user.user.ratingPrivate ? '<br><a href="/Cumonmme/profile"><span class="stars">'+data.user.user.ratingPrivate+'</span></a></div>' : ''))
-        navLeftItems.append('<div class="header-sub-item-wrapper se-info-more">'+data.user.user.p2pRate+' p2p/min. - '+data.user.user.spyRate+' spy/min.</div>')
-        $('span.stars').stars();
-        
-        //navLeft.find('.visible-items').append('<div class="header-sub-item-wrapper se-link-more"><a class="link" href="/Small_Titss/profile">More</a></div>')
-      });
-    }
+      let langsHtml = ""
+      $.each(data.user.user.languages, function(k, v) {
+        langsHtml += '<span class="country-flag" data-lang="'+v+'" style="background-image: url(&quot;//mewcrazy.github.io/Stripchat-Enhanced/flags/'+v+'.svg&quot;);"></span>'
+      })
+      navLeftItems.append('<div class="header-sub-item-wrapper se-info-more"><span class="flex"><img src="https://web.static.mmcdn.com/images/ico-'+data.user.user.contestGender+'.svg">'+langsHtml+'</span><span title="'+data.user.user.birthDate+'"><svg class="icon icon-best-models"><use xlink:href="#icons-best-models"></use></svg>'+(data.user.user.age ? data.user.user.age+' years old' : 'no age given')+'</span></div>')
+      navLeftItems.append('<div class="header-sub-item-wrapper se-info-more"><span title="StripRank"><svg class="icon icon-best-models"><use xlink:href="#icons-best-models"></use></svg>#'+data.user.currPosition+'</span><span title="StripPoints"><svg class="icon icon-best-models"><use xlink:href="#icons-stripchat-logo"></use></svg>'+data.user.currPoints+'</span></div>')
+      navLeftItems.append('<div class="header-sub-item-wrapper se-info-more pvt">'+data.user.user.privateRate+' pvt/min.'+(data.user.user.ratingPrivate ? '<br><a href="/Cumonmme/profile"><span class="stars">'+data.user.user.ratingPrivate+'</span></a></div>' : ''))
+      navLeftItems.append('<div class="header-sub-item-wrapper se-info-more">'+data.user.user.p2pRate+' p2p/min. - '+data.user.user.spyRate+' spy/min.</div>')
+      $('span.stars').stars();
+    });
 
     // switch translation lang on country flag click
     $('.country-flag').on('click', function(e) {

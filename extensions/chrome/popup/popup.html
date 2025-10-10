@@ -11,29 +11,92 @@
         <meta name="theme-color" content="#a2252d">
     </head>
     <body class="text-center">
-        <header class="text-center">
-            <img class="my-3 mx-auto d-block" src="/img/se-logo.svg" alt="" width="200" height="45">
-        </header>
-        <main class="form-signin">
-            <form>
-                <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
+        <div class="tab tab-sign-in" id="sign-in">
+            <header class="text-center">
+                <img class="my-3 mx-auto d-block" src="/img/se-logo.svg" alt="" width="200" height="45">
+            </header>
+            <main class="form-signin">
+                <form>
+                    <h1 class="h4 mb-3 fw-normal">Please sign in</h1>
 
-                <div class="form-floating">
-                    <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
-                    <label for="floatingInput">Email address</label>
-                </div>
-                <div class="form-floating">
-                    <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
-                    <label for="floatingPassword">Password</label>
-                </div>
+                    <div class="form-floating">
+                        <input type="email" class="se-email form-control" id="floatingInput" placeholder="">
+                        <label for="floatingInput">Email address</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="password" class="se-password form-control" id="floatingPassword" placeholder="">
+                        <label for="floatingPassword">Password</label>
+                    </div>
+                    <button class="se-sign-in w-100 btn btn-lg btn-primary mb-3" type="submit">Sign in</button>
+                    <a class="d-block se-sign-up goto-tab" href="#" data-tab="sign-up">Don't have an account yet?</a>
+                    <a class="d-block se-forget-password goto-tab" href="#" data-tab="forget-password">Forgot your password?</a>
+                    <p class="footer-text mt-5 mb-2 text">2025 &copy; 247CAMMING</p>
+                </form>
+            </main>
+        </div>
+        <div class="tab tab-sign-up hidden" id="sign-up">
+            <header class="text-center">
+                <img class="my-3 mx-auto d-block" src="/img/se-logo.svg" alt="" width="200" height="45">
+            </header>
+            <main class="form-signin">
+                <form>
+                    <h1 class="h4 mb-3 fw-normal">Sign Up</h1>
 
-                <div class="checkbox mb-3">
-                    <label><input type="checkbox" value="remember-me"> Remember me</label>
-                </div>
-                <button class="w-100 btn btn-lg btn-primary mb-3" type="submit">Sign in</button>
-                <a class="" href="#">Don't have an account yet?</a>
-                <p class="footer-text mt-5 mb-2 text">Stripchat Enhanced &copy; 2025 247CAMMING</p>
-            </form>
-        </main>
+                    <div class="form-floating">
+                        <input type="email" class="se-email form-control" id="floatingInput" placeholder="">
+                        <label for="floatingInput">Email address</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="password" class="se-password form-control" id="floatingPassword" placeholder="">
+                        <label for="floatingPassword">Password</label>
+                    </div>
+                    <button class="se-sign-in w-100 btn btn-lg btn-primary mb-3" type="submit">Sign up</button>
+                    <a class="login goto-tab" href="#" data-tab="sign-in">Back to Login</a>
+                    <p class="footer-text mt-5 mb-2 text">2025 &copy; 247CAMMING</p>
+                </form>
+            </main>
+        </div>
+        <div class="tab tab-sign-up hidden" id="forget-password">
+            <header class="text-center">
+                <img class="my-3 mx-auto d-block" src="/img/se-logo.svg" alt="" width="200" height="45">
+            </header>
+            <main class="form-signin">
+                <form>
+                    <h1 class="h4 mb-3 fw-normal">Request New Password</h1>
+
+                    <div class="form-floating mb-3">
+                        <input type="email" class="se-email form-control" id="floatingInput" placeholder="">
+                        <label for="floatingInput">Email address</label>
+                    </div>
+                    <button class="se-sign-in w-100 btn btn-lg btn-primary mb-3" type="submit">Sign up</button>
+                    <a class="login goto-tab" href="#" data-tab="sign-in">Back to Login</a>
+                    <p class="footer-text mt-5 mb-2 text">2025 &copy; 247CAMMING</p>
+                </form>
+            </main>
+        </div>
+        <div class="tab tab-logged-in hidden" id="logged-in">
+            <header class="text-center logged-in">
+                <img class="my-2 mx-3 d-block" src="/img/se-logo.svg" alt="" width="200" height="45">
+                <nav>
+                    <a href="#">Test</a>
+                    <a href="#">Test2</a>
+                </nav>
+            </header>
+            <main class="form-signin">
+                <form>
+                    <h1 class="h4 mb-3 fw-normal">Request New Password</h1>
+
+                    <div class="form-floating mb-3">
+                        <input type="email" class="se-email form-control" id="floatingInput" placeholder="">
+                        <label for="floatingInput">Email address</label>
+                    </div>
+                    <button class="se-sign-in w-100 btn btn-lg btn-primary mb-3" type="submit">Sign up</button>
+                    <a class="login goto-tab" href="#" data-tab="sign-in">Back to Login</a>
+                    <p class="footer-text mt-5 mb-2 text">2025 &copy; 247CAMMING</p>
+                </form>
+            </main>
+        </div>
+        <script src="../js/jquery.min.js"></script>
+        <script src="popup.js"></script>
     </body>
 </html>
