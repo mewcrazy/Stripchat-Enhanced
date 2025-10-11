@@ -26,3 +26,8 @@ header.logged-in  { display: flex; }
 header.logged-in img { flex: 1; max-width: 150px; }
 header.logged-in nav { display: block; }
 .hidden { display: none; }
+
+/* notices */
+.error { background: rgba(162, 37, 45, .66); letter-spacing: 0.03em; text-align: center; color: #fff; cursor: pointer; padding: 5px; font-size: .65rem; line-height: 1rem; border-radius: 20px; margin-bottom: 10px; transition: background-color .6s ease; }
+.error a { color: inherit; text-decoration: underline; }
+.error:hover { background: rgba(162, 37, 45, 1); }

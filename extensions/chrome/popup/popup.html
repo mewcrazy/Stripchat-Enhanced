@@ -2,9 +2,7 @@
 <html lang="en">
     <head>
         <meta charset="utf-8">
-        <meta name="description" content="">
         <meta name="author" content="Dennis Bitsch">
-        <meta name="generator" content="Hugo 0.84.0">
         <title>Log in / Sign up · Stripchat Enhanced</title>
         <link href="bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
         <link href="popup.css" rel="stylesheet">
@@ -18,11 +16,11 @@
                 <a href="#">Test2</a>
             </nav>
         </header>
-        <div class="tab tab-sign-in" id="sign-in">
+        <div class="tab" id="sign-in">
             <main class="form-signin">
-                <form>
+                <form class=" se-form-sign-in">
                     <h1 class="h4 mb-3 fw-normal" data-i18n="signin">Sign In</h1>
-
+                    <div class="error hidden"></div>
                     <div class="form-floating">
                         <input type="email" class="se-email form-control" id="floatingInput" placeholder="">
                         <label for="floatingInput" data-i18n="email">Email address</label>
@@ -31,56 +29,48 @@
                         <input type="password" class="se-password form-control" id="floatingPassword" placeholder="">
                         <label for="floatingPassword">Password</label>
                     </div>
-                    <button class="se-sign-in w-100 btn btn-lg btn-primary mb-3" type="submit">Sign in</button>
-                    <a class="d-block se-sign-up goto-tab" href="#" data-tab="sign-up">Don't have an account yet?</a>
+                    <button class="w-100 btn btn-lg btn-primary mb-3" type="submit" data-i18n="signin">Sign in</button>
+                    <a class="d-block goto-tab" href="#" data-tab="sign-up">Don't have an account yet?</a>
                     <a class="d-block se-forget-password goto-tab" href="#" data-tab="forget-password">Forgot your password?</a>
                 </form>
             </main>
         </div>
-        <div class="tab tab-sign-up hidden" id="sign-up">
+        <div class="tab hidden" id="sign-up">
             <main class="form-signin">
-                <form>
+                <form class="se-form-sign-up">
                     <h1 class="h4 mb-3 fw-normal" data-i18n="signup">Sign Up</h1>
-
+                    <div class="error hidden"></div>
                     <div class="form-floating">
                         <input type="email" class="se-email form-control" id="floatingInput" placeholder="">
-                        <label for="floatingInput">Email address</label>
+                        <label for="floatingInput" data-i18n="email">Email address</label>
                     </div>
                     <div class="form-floating mb-3">
                         <input type="password" class="se-password form-control" id="floatingPassword" placeholder="">
                         <label for="floatingPassword">Password</label>
                     </div>
-                    <button class="se-sign-in w-100 btn btn-lg btn-primary mb-3" type="submit">Sign up</button>
+                    <button class="w-100 btn btn-lg btn-primary mb-3" type="submit">Sign up</button>
                     <a class="login goto-tab" href="#" data-tab="sign-in">Back to Login</a>
                 </form>
             </main>
         </div>
-        <div class="tab tab-sign-up hidden" id="forget-password">
+        <div class="tab hidden" id="forget-password">
             <main class="form-signin">
-                <form>
+                <form class="se-form-forget-password">
                     <h1 class="h4 mb-3 fw-normal">Request New Password</h1>
-
+                    <div class="error hidden"></div>
                     <div class="form-floating mb-3">
                         <input type="email" class="se-email form-control" id="floatingInput" placeholder="">
                         <label for="floatingInput">Email address</label>
                     </div>
-                    <button class="se-sign-in w-100 btn btn-lg btn-primary mb-3" type="submit">Sign up</button>
+                    <button class="w-100 btn btn-lg btn-primary mb-3" type="submit">Request Password</button>
                     <a class="login goto-tab" href="#" data-tab="sign-in">Back to Login</a>
                 </form>
             </main>
         </div>
-        <div class="tab tab-logged-in hidden" id="logged-in">
+        <div class="tab hidden" id="logged-in">
             <main class="form-signin">
-                <form>
-                    <h1 class="h4 mb-3 fw-normal">Request New Password</h1>
-
-                    <div class="form-floating mb-3">
-                        <input type="email" class="se-email form-control" id="floatingInput" placeholder="">
-                        <label for="floatingInput">Email address</label>
-                    </div>
-                    <button class="se-sign-in w-100 btn btn-lg btn-primary mb-3" type="submit">Sign up</button>
-                    <a class="login goto-tab" href="#" data-tab="sign-in">Back to Login</a>
-                </form>
+                <h1 class="h4 mb-3 fw-normal">Stripchat Enhanced</h1>
+                <p>Lorem ipsum dolor amtet...</p>
             </main>
         </div>
         <p class="footer-text pt-3 pb-2 text">2025 &copy; 247CAMMING</p>

@@ -1,6 +1,9 @@
 {
   "email": {
-    "message": "Awesome extension."
+    "message": "Email address"
+  },
+  "password": {
+    "message": "Password*"
   },
   "signin": {
     "message": "Sign In*"

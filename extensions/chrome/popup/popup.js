@@ -11,31 +11,43 @@ $(function() {
   }
 
   // sign in
-  $('.se-sign-in2').on('click', function() {
+  $('.se-form-sign-in').on('submit', function(e) {
+    e.preventDefault
     let email = $('.se-email').val()
     let password = $('.se-password').val()
-    if(!email || !password) return "empty nicht man"
-    if(!validateEmail(email)) return "email invalid"
-
-    SeRequest('https://stripchat-enhanced.247camming.com/api/users/register', {"key" : "value"}, function(data) {
+    $('.error').addClass('hidden').text("")
+    if(!email || !password) { throwError("Please enter your email address and password."); return false;  }
+    if(!validateEmail(email)) { throwError("Please enter a valid email address."); return false; }
+    
+    SeRequest('https://247camming-2025.local.dev/api/users/login', {"key" : "value"}, function(data) {
         console.log("sign in data : %o", data);
     });
+    return false
   })
   
   // sign up
-  $('.se-sign-up2').on('click', function() {
-    alert("sign up")
-
-    SeRequest('https://stripchat-enhanced.247camming.com/api/users/register', {"key" : "value"}, function(data) {
+  $('.se-form-sign-up').on('submit', function(e) {
+    e.preventDefault
+    let email = $('.se-email').val()
+    let password = $('.se-password').val()
+    $('.error').addClass('hidden').text("")
+    if(!email || !password) { throwError("Please enter your email address and password."); return false;  }
+    if(!validateEmail(email)) { throwError("Please enter a valid email address."); return false; }
+    
+    SeRequest('https://247camming-2025.local.dev/api/users/register', {"key" : "value"}, function(data) {
         console.log("sign in data : %o", data);
     });
   })
 
   // forget password
-  $('.se-forget-password2').on('click', function() {
-    alert("forget password")
-
-    SeRequest('https://stripchat-enhanced.247camming.com/api/users/register', {"key" : "value"}, function(data) {
+  $('.se-form-forget-password').on('submit', function(e) {
+    e.preventDefault
+    let email = $('.se-email').val()
+    $('.error').addClass('hidden').text("")
+    if(!email) { throwError("Please enter a valid email address."); return false;  }
+    if(!validateEmail(email)) { throwError("Please enter a valid email address."); return false; }
+    
+    SeRequest('https://247camming-2025.local.dev/api/users/forget-password', {"key" : "value"}, function(data) {
         console.log("forget password data : %o", data);
     });
   })
@@ -52,8 +64,9 @@ $(function() {
   // tabs
   $('.tab.hidden').hide().removeClass('hidden')
   $('.goto-tab').on('click', function(e) {
-      $('.tab').hide()
-      $("#"+$(this).attr('data-tab')).fadeIn("fast")
+    $('.error').addClass('hidden').text("")
+    $('.tab').hide()
+    $("#"+$(this).attr('data-tab')).fadeIn("fast")
   });
 
   // i18n
@@ -61,5 +74,10 @@ $(function() {
     $('[data-i18n]').each(function(k, v) {
       $(v).text(chrome.i18n.getMessage($(v).attr("data-i18n")))
     })
+  }
+
+  // error handling
+  function throwError(msg) {
+    $('.error').removeClass('hidden').text(msg)
   }
 });
