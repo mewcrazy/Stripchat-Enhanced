@@ -50,8 +50,16 @@ $(function() {
   };
   
   // tabs
+  $('.tab.hidden').hide().removeClass('hidden')
   $('.goto-tab').on('click', function(e) {
-      $('.tab').addClass('hidden')
-      $("#"+$(this).attr('data-tab')).removeClass('hidden')
+      $('.tab').hide()
+      $("#"+$(this).attr('data-tab')).fadeIn("fast")
   });
+
+  // i18n
+  if(chrome.i18n.getUILanguage()) {
+    $('[data-i18n]').each(function(k, v) {
+      $(v).text(chrome.i18n.getMessage($(v).attr("data-i18n")))
+    })
+  }
 });

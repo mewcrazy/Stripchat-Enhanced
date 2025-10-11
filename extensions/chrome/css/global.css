@@ -220,5 +220,188 @@ span.stars span { background-position: 0 0; }
 [class*="SidebarLink"] { position: relative; }
 .se-pin-cat { position: absolute; top:0; right: 0; display: inline-block; width: 0; overflow: hidden; text-align: center; transition: width .3s ease; z-index: 100; cursor: pointer; }
 [class*="SidebarLink"]:hover .se-pin-cat { width: 18px; }
+[class*="SidebarLink__counter"] { padding-right: 24px; }
 .se-pin-cat svg { fill: rgba(255,255,255,.6) }
 .se-pin-cat:hover svg { fill: rgba(255,255,255,1) }
+
+
+/* STRIPCHAT BUGFIX */
+@media screen and (min-width: 1600px) {
+    .page.FavoritesPage\#J8 {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+}
+.FavoritesPage__content\#Cj {
+    min-height: 100%;
+}
+.FavoritesEditableCollection__wrapper\#jH {
+    position: relative;
+}
+.FavoritesList\#B5.editable-list {
+    background: 0 0;
+    padding: 0;
+}
+
+.editable-list:not(.scrollable) {
+    padding-bottom: 0 !important;
+}
+.FavoritesList\#B5 {
+    min-height: 100%;
+    position: relative;
+}
+.editable-list {
+    text-align: left;
+    border-radius: 4px;
+}
+.editable-list .list-header {
+    position: relative;
+}
+.FavoritesSectionHeaderContainer\#sM {
+    margin: 20px 0 11px;
+}
+.FavoritesHeaderWithActions__title_wrapper\#hz {
+    display: flex;
+    justify-content: space-between;
+}
+.FavoritesHeaderWithActions__action_buttons\#v9 {
+    align-items: center;
+    display: flex;
+}
+.FavoritesList\#B5.editable-list .list-items-container {
+    margin-top: 0;
+}
+.editable-list .list-items-container {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 20px;
+    min-height: 170px;
+    position: relative;
+}
+.ModelThumb\#lq {
+    position: relative;
+    width: 100%;
+}
+.ModelThumb__content\#AX {
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+}
+.ModelThumbPreview\#d4 {
+    background-color: #202020;
+    background-position: 50%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: block;
+    height: 100%;
+    position: absolute;
+    width: 100%;
+}
+.ModelThumbInfo\#sf {
+    display: flex
+;
+    flex-direction: column;
+    height: 100%;
+    padding: 8px;
+    position: relative;
+    width: 100%;
+}
+.ModelThumbSpacer\#T7 {
+    margin: auto;
+}
+.ModelThumbUpper\#G3 {
+    align-items: flex-start;
+    display: flex
+;
+    flex-wrap: nowrap;
+    margin: -8px -8px 0;
+    padding: 2px 2px 0;
+}
+.ModelThumbViewers\#V0 {
+    align-items: center;
+    color: #fff;
+    display: flex
+;
+    font-size: 10px;
+    font-weight: 500;
+    line-height: 16px;
+    margin-bottom: 2px;
+    opacity: .9;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, .5);
+    width: 100%;
+}
+.ModelThumbIdentity\#dS {
+    align-items: center;
+    display: flex
+;
+}
+.ModelThumbUsername\#qC {
+    align-self: center;
+    color: #fff;
+    font-size: .75rem;
+    font-weight: 500;
+    letter-spacing: .3px;
+    margin: 0;
+    max-width: 100%;
+    padding: 1px 0;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, .3);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.ModelsOrder__label\#Af {
+    color: rgba(248, 248, 248, .6);
+    font-size: 13px;
+    font-weight: 500;
+}
+.FavoritesHeaderWithActions__action_buttons\#v9 {
+    align-items: center;
+    display: flex
+;
+}
+.FavoritesHeaderWithActions__action_buttons_divider\#QJ {
+    background: #f8f8f8;
+    height: 16px;
+    margin-left: 16px;
+    opacity: .2;
+    width: 1px;
+}
+.FavoritesHeaderWithActions__edit_button\#mW {
+    margin-left: 16px;
+}
+.edit-collection-button {
+    color: #f8f8f8;
+    margin: 0;
+}
+.ModelsOrderButton\#fz {
+    align-items: center;
+    border: 1px solid #f8f8f8;
+    border-radius: 36px;
+    color: #f8f8f8;
+    display: flex
+;
+    margin: 0;
+    opacity: .8;
+    padding: 3px 12px;
+    white-space: nowrap;
+}
+.ModelsOrder__button_icon\#W5 {
+    fill: #f8f8f8;
+    margin-right: 4px;
+    min-height: 16px;
+    min-width: 16px;
+}
+.ModelsOrder__button_title\#KD {
+    font-size: 13px;
+    font-weight: 500;
+}
+.ModelsOrderButton__icon_arrow\#tQ {
+    transition: 120ms 
+ease-in-out;
+    fill: #f8f8f8;
+    height: 5px;
+    margin-left: 4px;
+    margin-right: 0;
+}

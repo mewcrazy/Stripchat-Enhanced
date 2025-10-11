@@ -1,0 +1,11 @@
+{
+  "email": {
+    "message": "Awesome extension."
+  },
+  "signin": {
+    "message": "Sign In*"
+  },
+  "signup": {
+    "message": "Sign Up*"
+  }
+}

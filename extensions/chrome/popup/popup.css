@@ -24,4 +24,5 @@ a:hover { color: rgba(248, 248, 248, 0.66); }
 /* logged in */
 header.logged-in  { display: flex; }
 header.logged-in img { flex: 1; max-width: 150px; }
+header.logged-in nav { display: block; }
 .hidden { display: none; }

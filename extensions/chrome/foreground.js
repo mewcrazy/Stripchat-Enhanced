@@ -608,7 +608,7 @@ function hideFavoritesFromFeaturedListings(el) {
   /**
    * Normal Emojis
    */
-  waitForKeyElements('[class*="SmilesWidgetContainer__chat"] [class*="SmilesWidgetContainer__closeBtn"]', addRegularEmojis);
+  waitForKeyElements('.model-chat__smiles-block [class*="SmilesWidgetContainer__chat"] [class*="SmilesWidgetContainer__closeBtn"]', addRegularEmojis);
   function addRegularEmojis(jNode) {
     let modelChat = $(jNode).closest('.model-chat-public')
 
@@ -1214,8 +1214,10 @@ function addOverlayButtons(jNode) {
  */
 waitForKeyElements(".favorites-page .model-list-container", preselectFavoritesPageGrid, false);
 function preselectFavoritesPageGrid(el) {
-  let columns = localStorage.getItem("SE_gridTemplate")
-  if(columns) $(el).find('.list-items-container').attr('data-grid', columns)
+  if(!$('.list-items-container[data-grid]').length) {
+    let columns = localStorage.getItem("SE_gridTemplate")
+    if(columns) $(el).find('.list-items-container').attr('data-grid', columns)
+  }
 }
 waitForKeyElements(".favorites h1.title-ds", addFavoritesFilters, false);
 function addFavoritesFilters() {
