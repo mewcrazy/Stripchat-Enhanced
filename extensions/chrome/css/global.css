@@ -262,6 +262,12 @@ span.stars span { background-position: 0 0; }
     position: relative;
     width: 100%;
 }
+.ModelThumb\#lq::before {
+    content: "";
+    display: block;
+    padding-bottom: 75%;
+    width: 100%;
+}
 .ModelThumb__content\#AX {
     height: 100%;
     left: 0;
