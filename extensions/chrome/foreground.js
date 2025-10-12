@@ -14,6 +14,7 @@ var htmlModelOverlay = getResource("html/modelinfo-overlay.html");
 var htmlLangChooser = getResource("html/language-chooser.html");
 var htmlLangChooserPrivates = getResource("html/language-chooser-private.html");
 var htmlLangPicker = getResource("html/language-picker.html")
+var htmlTicketGroupshowsFilters = getResource("html/filters-ticketgroupshows.html");
 var htmlTranslateButton = '<span class="translate-line"><button class="a11y-button TranslateButton#ZN TranslateButton_outline#qg chat-message-translate-button" style="float: none; display: inline-block;" type="button"><svg style="height: 14px; width: 14px;" class="IconV2__icon#YR" viewBox="0 0 16 14"><path fill="currentColor" fill-rule="evenodd" d="M10.28 1.72V3h-1.5a18.53 18.53 0 0 1-2.6 4.52l.05.05c.43.46.86.93 1.3 1.38l-.9.9c-.37-.36-.72-.74-1.07-1.13l-.2-.21c-.9.99-1.9 1.88-3 2.67l-.77-1.02.03-.02a17.36 17.36 0 0 0 2.87-2.58c-.52-.6-1.03-1.19-1.52-1.8L2.1 4.68l1-.8.86 1.08c.44.54.9 1.07 1.36 1.6C6.15 5.46 6.84 4.27 7.4 3H.68V1.72h4.48V.44h1.28v1.28h3.84Zm5.04 11.84h-1.38L13 11.32H9.48l-.93 2.24H7.17l3.32-8H12l3.33 8ZM11.24 7.1l-1.22 2.94h2.45L11.24 7.1Z" clip-rule="evenodd"></path></svg></button></span>'
 var htmlSortByTokensButton = '<p class="se-tipmenu-sort text-center"><button class="a11y-button TipMenuDiscountViewCamPanel__button#be" type="button"><svg class="TipMenuDiscountViewCamPanel__diamond#DY icon icon-watch-history"><use xlink:href="#icons-watch-history"></use></svg><small>Sort by Tokens</small></button></p>'
 
@@ -686,6 +687,35 @@ function hideFavoritesFromFeaturedListings(el) {
       })
   }
 
+
+  /**
+   * Translate Thumbnail Ticket Show Descriptions
+   */
+  waitForKeyElements('[class*="Typewriter__animated"]', addTransButtonCamGroup2, false);
+  function addTransButtonCamGroup2(el) {
+
+    if(!$(el).find('.translate-line').length) {
+      $(el).append(htmlTranslateButton)
+      $(el).append("asdasdasd")
+    }
+
+    // add event click handler
+    $(el).find('.translate-line button').off().on('click', function(e) {
+      alert("aayyoooo")
+        let text = $(this).closest('[class*="ViewCamGroup__description"]').clone().text().trim()
+        let that = $(this)
+        $(this).prop('disabled', true)
+
+        translateGoogle(text, 'en_US', $('.model-chat-content')).then(function(data) {
+          if(!that.closest('[class*="ViewCamGroup__description"] .translated-line').length) {
+              that.closest('[class*="ViewCamGroup__description"]').find('.translate-line').before('<small class="translated-line">'+decodeHtml(data.data.translations[0].translatedText)+'</small>')
+          }
+          $(this).prop('disabled', false)
+        })
+    })
+  }
+  
+
   /**
    *  Add Translation Button to Stream Description
    */
@@ -812,7 +842,7 @@ function hideFavoritesFromFeaturedListings(el) {
 
       // add dropdown html
       if(!modelChat.find('.language-picker').length) {
-          $(jNode).children('div').before(htmlLangPicker);
+          $(jNode).children('div').prepend(htmlLangPicker);
           
           // prepopulate
           populateLanguageDropdowns()
@@ -1058,15 +1088,14 @@ function hideFavoritesFromFeaturedListings(el) {
    */
 
   // add starting soon toggle filter
-  waitForKeyElements(".separated-filters", addTicketShowsFilters);
+  waitForKeyElements(".multiple-categories-wrapper .separated-filters", addTicketShowsFilters, false);
   function addTicketShowsFilters(jNode) {
 
     // only on "ticket and group shows" page
     if(window.location.toString().includes("/girls/ticket-and-group-shows")) {
-
+      
       // add toggle markup
-      let toggleSwitchShowType = '<div class="switch-show-type se-switcher"><div class="default light switcher"><div class="switcher-wrapper"><span class="switcher-label"><svg class="icon icon-check"><use xlink:href="#icons-check"></use></svg></span><span class="switcher-switch"></span><span class="switcher-label"></span></div></div><input type="checkbox" value="1"> <span class="model-chat-nav-item-label">Starting soon</span></div>'
-      $(jNode).append(toggleSwitchShowType)
+      $(jNode).append(htmlTicketGroupshowsFilters)
 
       // preset toggle
       if(localStorage.getItem('ticketGroupShowTypePref') === "1") {
@@ -1084,6 +1113,32 @@ function hideFavoritesFromFeaturedListings(el) {
           return ($(that).find('input[type="checkbox"]').prop('checked') ? $(this).find('[class*="GroupShowTitleBadge"]').length >= 1 : false)
         }).hide();
       })
+      
+      // show all
+      $('.filters-favorites').on('click', '.show-all', function(e) {
+        $('.model-filter-link').removeClass('active')
+        $(this).closest('.model-filter-link').addClass('active')
+        $('.model-list-item').removeClass('hidden')
+        $('.filters-favorites .search input').val("")
+      })
+
+      // in ticket show
+      $('.filters-favorites').on('click', '.in-ticket-show', function(e) {
+        $('.model-filter-link').removeClass('active')
+        $(this).closest('.model-filter-link').addClass('active')
+        $('.model-list-item').removeClass('hidden').filter(function() {
+          return $(this).find('[class*="ModelListItemBadge__ticketShow"]').length === 0
+        }).addClass('hidden')
+      })
+
+      // in group show
+      $('.filters-favorites').on('click', '.in-group-show', function(e) {
+        $('.model-filter-link').removeClass('active')
+        $(this).closest('.model-filter-link').addClass('active')
+        $('.model-list-item').removeClass('hidden').filter(function() {
+          return $(this).find('[class*="ModelListItemBadge__groupShow"]').length === 0
+        }).addClass('hidden')
+      })
     }
   }
   waitForKeyElements(".model-list-item", filterTicketShowsListing, false);
@@ -1098,10 +1153,12 @@ function hideFavoritesFromFeaturedListings(el) {
       ) {
         $(el).hide()
       }
+
+      if($('.features .in-ticket-show.active').length && $(el).find('[class*="ModelListItemBadge__ticketShow"]').length === 0) $(el).addClass('hidden')
+      if($('.features .in-group-show.active').length && $(el).find('[class*="ModelListItemBadge__groupShow"]').length === 0) $(el).addClass('hidden')
     }
   }
-
-
+  
   /**
    * Translate Thumbnail Descriptions
    */
@@ -1321,6 +1378,15 @@ function filterFavoritesPageListing(el) {
 function updateGridColumns(cols) {
   localStorage.setItem("SE_gridTemplate", cols)
   $('.list-items-container').attr('data-grid', cols)
+}
+
+
+/**
+ * Global Functions
+ */
+waitForKeyElements('.tag-page-content-wrapper', addGlobalFunctions);
+function addGlobalFunctions(el) {
+
 }
 
 

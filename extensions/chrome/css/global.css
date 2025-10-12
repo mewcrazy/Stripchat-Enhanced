@@ -1,35 +1,9 @@
 @import "choices.min.css";
 
 /* loading spinner */
-.se-loader {
-    position: absolute;
-    top: calc(50% - 24px);
-    left: calc(50% - 24px);
-    width: 48px;
-    height: 48px;
-    border: 5px solid #aaa;
-    border-bottom-color: transparent;
-    border-radius: 50%;
-    display: inline-block;
-    box-sizing: border-box;
-    animation: rotate 1s linear infinite;
-}
+.se-loader { position: absolute; top: calc(50% - 24px); left: calc(50% - 24px); width: 48px; height: 48px; border: 5px solid #aaa; border-bottom-color: transparent; border-radius: 50%; display: inline-block; box-sizing: border-box; animation: rotate 1s linear infinite; }
 button + .se-loader { display: none; }
-.se-loader-line {
-  width:2px;
-  height:12px;
-  background-color:rgb(248, 248, 248, 0.3);;
-  position: absolute;
-  top:calc(50% - 6px);
-  left:48px;
-  animation:rotate 3s linear 0s infinite normal forwards running;
-}
-@keyframes rotate {
-  0% { transform:rotate(0deg) }
-  100% { transform:rotate(360deg) }
-}
-
-
+.se-loader-line { width:2px; height:12px; background-color:rgb(248, 248, 248, 0.3);; position: absolute; top:calc(50% - 6px); left:48px; animation:rotate 3s linear 0s infinite normal forwards running; }
 
 /* emoji */
 .SmilesWidget__content_default-emojis { display: flex; height: 138px; }
@@ -43,12 +17,13 @@ button + .se-loader { display: none; }
 .enhanced-options-content .switcher .switcher-wrapper { transform: translateX(0); }
   
 /* language picker */
-.se-langpicker { opacity: .6; cursor: pointer; text-align: center; width: 24px; height: 24px; position: absolute; bottom: 1.25em; left: 1.25em; z-index: 1 }
+.se-langpicker { opacity: .6; cursor: pointer; text-align: center; width: 24px; height: 24px; margin-left: 0 !important; margin-right: 8px !important; }
 .se-langpicker:hover { opacity: 1; }
 .se-langpicker option { text-align: center; font-size: 1.35em }
 .se-langpicker .flag { width: 25px; height: 17px; margin-top: 3px; border: 1px solid rgba(255, 255, 255, .25); }
 .se-langpicker svg+svg { display: none !important }
-.model-chat-input input, .chat-input textarea { padding-left: 25px }
+.chat-input textarea { padding-left: 25px }
+.ChatInput__inputBlock\#xL { padding-left: 8px !important; }
 
 /* language chooser */
 .language-chooser { bottom: 60px; display: flex; max-height: 80%; position: absolute; width: 100%; z-index: 2; overflow: hidden }
@@ -69,7 +44,7 @@ input[type="search"].input.language-search:hover { background: rgba(0,0,0,1) }
 /* hide user button */
 .HideUserButton svg { height: 20px; width: 20px; }
 
-/* Translate chat */
+/* translate chat */
 .translated-line + .translate-line { visibility: hidden !important; pointer-events: none; }
 .message-body .translate-line button { display: inline; }
 .translated-line { padding-left: 7px; }
@@ -79,7 +54,7 @@ input[type="search"].input.language-search:hover { background: rgba(0,0,0,1) }
 [class*="ViewCamGroup__description"] .translate-line { padding-left: 5px; }
 [class*="ViewCamGroup__description"] .translate-line + .translated-line { display: none; }
 
-/* Translate Private Messsages */
+/* translate Private Messsages */
 .messenger-chat .language-search { max-width: 140px; }
 .messenger-chat .content-messages .message-base.m-bg-error { background-color: #ab262e; }
 .messenger-chat .content-messages .message-base { font-size: .65rem; line-height: 1.15rem; background-color: transparent; border-bottom: 1px solid #2e2e2e; color: #e1e1e1; padding: 15px; }
@@ -91,7 +66,7 @@ input[type="search"].input.language-search:hover { background: rgba(0,0,0,1) }
 .view-cam-info-goal__title.view-cam-info-topic { display: inline !important }
 .view-cam-info-goal .translated-line { padding: 0 0 0 10px; display: inline-block; color: rgba(248, 248, 248, 0.8) }
 
-/* Show time in website header */
+/* show time in website header */
 .personal-notifications-modal.enhanced-options-modal { z-index: 314 }
 .personal-notifications-modal-panel .current-time { padding: 0 14px; }
 
@@ -113,7 +88,7 @@ input[type="search"].input.language-search:hover { background: rgba(0,0,0,1) }
 .se-emoji-cat_symbols a { background-image: url(https://mewcrazy.github.io/StripChat-Enhanced/icons/flags.svg) }
 .se-emoji-cat_flags { display: none }
 
-/* Remove unsupported Emojis */
+/* remove unsupported Emojis */
 .se-emoji-relaxed, .se-emoji-white_frowning_face, .se-emoji-skull_and_crossbones, .se-emoji-heavy_heart_exclamation_mark_ornament, .se-emoji-raised_hand_with_fingers_splayed, .se-emoji-heart, .se-emoji-v, .se-emoji-eye, .se-emoji-writing_hand, .se-emoji-sleuth_or_spy, .se-emoji-man_in_business_suit_levitating, .se-emoji-skier, .se-emoji-golfer, .se-emoji-person_with_ball, .se-emoji-weight_lifter, .se-emoji-woman-kiss-man, .se-emoji-man-kiss-man, .se-emoji-woman-kiss-woman, .se-emoji-woman-heart-man { display: none !important; }
 .se-emoji-point_up, .se-emoji-man-heart-man, .se-emoji-man-heart-woman, .se-emoji-man-woman-boy, .se-emoji-man-woman-girl, .se-emoji-man-woman-girl-boy, .se-emoji-man-woman-boy-boy, .se-emoji-man-woman-girl-girl, .se-emoji-man-man-boy, .se-emoji-man-man-girl,
 .se-emoji-man-man-girl-boy, .se-emoji-man-man-boy-boy, .se-emoji-man-man-girl-girl, .se-emoji-woman-woman-boy { display: none !important; }
@@ -177,7 +152,7 @@ input[type="search"].input.language-search:hover { background: rgba(0,0,0,1) }
 .list-items-container[data-grid="10"] [class*="ModelThumbShowTopic"] { visibility: hidden }
 
 /* stripchat bugfix: messages are hidden behind model listings after coming from opening an image */
-/*.main-layout-main-right { z-index: 0; }*/
+.main-layout-main-right { z-index: 0; }
 
 /* stripchat : messages are hidden behind model listings after coming from opening an image */
 .model-list-item [class*="ModelThumbShowTopic"] { overflow: visible !important; }
@@ -224,8 +199,13 @@ span.stars span { background-position: 0 0; }
 .se-pin-cat svg { fill: rgba(255,255,255,.6) }
 .se-pin-cat:hover svg { fill: rgba(255,255,255,1) }
 
+/* keyframes */
+@keyframes rotate {
+  0% { transform:rotate(0deg) }
+  100% { transform:rotate(360deg) }
+}
 
-/* STRIPCHAT BUGFIX */
+/* TEMP STRIPCHAT BUGFIX */
 @media screen and (min-width: 1600px) {
     .page.FavoritesPage\#J8 {
         padding-left: 20px;
