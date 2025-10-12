@@ -9,8 +9,8 @@
     <img width="100%" src="https://github.com/mewcrazy/Stripchat-Enhanced/raw/main/img/animation-translate-chat.gif"> 
 </p>
 
-> [!WARNING]  
-> StripChat Enhanced is currently in active development. It's safe to use already, and has Auto Update enabled, so expect regular updates with minor layout changes.
+> [!WARNING]
+> StripChat Enhanced is currently in active development. Please use the new Chrome Extension which has all below features included.
 
 ## Features:
 - Translate chat messages, tip menus, tip goals and private show testimonials <sub style="color:rgba(255,255,255,.55)">(in over different 100 languages with 1-click)</sub>

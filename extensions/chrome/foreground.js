@@ -354,7 +354,6 @@ function hideFavoritesFromFeaturedListings(el) {
     if(!$('#body').hasClass('se-category-info-processed')) {
       let username = $(el).find('.viewcam-profile-menu-item__label').eq(0).text()
       let navLeftItems = $(el).parent()
-      console.log(navLeftItems)
       $.getJSON('/api/front/v2/models/username/'+username+'/cam').done((data) => {
 
         let langsHtml = ""
@@ -362,7 +361,7 @@ function hideFavoritesFromFeaturedListings(el) {
           langsHtml += '<span class="country-flag" data-lang="'+v+'" style="background-image: url(&quot;//mewcrazy.github.io/Stripchat-Enhanced/flags/'+v+'.svg&quot;);"></span>'
         })
         navLeftItems.after('<div class="header-sub-item-wrapper se-info-more">'+data.user.user.p2pRate+' p2p/min. - '+data.user.user.spyRate+' spy/min.</div>')
-        navLeftItems.after('<div class="header-sub-item-wrapper se-info-more pvt">'+data.user.user.privateRate+' pvt/min.'+(data.user.user.ratingPrivate ? '<br><a href="/Cumonmme/profile"><span class="stars">'+data.user.user.ratingPrivate+'</span></a></div>' : ''))
+        navLeftItems.after('<div class="header-sub-item-wrapper se-info-more pvt">'+data.user.user.privateRate+' pvt/min.'+(data.user.user.ratingPrivate ? '<br><a href="/'+username+'/profile"><span class="stars">'+data.user.user.ratingPrivate+'</span></a></div>' : ''))
         navLeftItems.after('<div class="header-sub-item-wrapper se-info-more"><span title="StripRank"><svg class="icon icon-best-models"><use xlink:href="#icons-best-models"></use></svg>#'+data.user.currPosition+'</span><span title="StripPoints"><svg class="icon icon-best-models"><use xlink:href="#icons-stripchat-logo"></use></svg>'+data.user.currPoints+'</span></div>')
         navLeftItems.after('<div class="header-sub-item-wrapper se-info-more"><span class="flex"><img src="https://web.static.mmcdn.com/images/ico-'+data.user.user.contestGender+'.svg">'+langsHtml+'</span><span title="'+data.user.user.birthDate+'"><svg class="icon icon-best-models"><use xlink:href="#icons-best-models"></use></svg>'+(data.user.user.age ? data.user.user.age+' years old' : 'no age given')+'</span></div>')
         $('span.stars').stars();
