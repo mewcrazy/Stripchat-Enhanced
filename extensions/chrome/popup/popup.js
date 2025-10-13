@@ -34,7 +34,7 @@ $(function() {
     if(!email || !password) { throwError("Please enter your email address and password."); return false;  }
     if(!validateEmail(email)) { throwError("Please enter a valid email address."); return false; }
     
-    SeRequest('https://247camming-2025.local.dev/api/users/register', {"key" : "value"}, function(data) {
+    SeRequest('https://247camming-2025.local.dev/api/users/register', {"email" : email, "password": password}, (data) => {
         console.log("sign in data : %o", data);
     });
   })
