@@ -20,6 +20,95 @@ var htmlSortByTokensButton = '<p class="se-tipmenu-sort text-center"><button cla
 
 
 /**
+ * Sort Tip Menu by Token Price
+ */
+waitForKeyElements(".tip-menu__table", addTipmenuByPrice);
+function addTipmenuByPrice(el) {
+
+  $(el).before(htmlSortByTokensButton)
+
+  $('.tip-menu').on('click', '.se-tipmenu-sort button', function(e) {
+    sortTipmenuByPrice('.tip-menu__table tbody', 'tr', '.tip-menu-item-price-cell span')
+    return false
+  })
+}
+
+
+/**
+ * Add sidebar links
+ */ 
+waitForKeyElements("[class*='SidebarMainLinks']", addSidebarLinks, false);
+function addSidebarLinks(el) {
+
+  $(el).append('<a class="SidebarLink#Ot SidebarLink__variant-main#HJ" href="/not-interested"><span class="SidebarLink__icon#un">​<span class="SidebarLink__icon-frame#Fy"><svg class="IconV2__icon#YR" style="height: 16px; width: 16px;"><use xlink:href="#icons-watch-history"></use></svg></span></span><span class="SidebarLink__text#gq">Not Interested</span></a>')
+
+  // pinned categories
+  $('nav.SidebarGroup#Lj').prepend('<nav class="SidebarGroup#Lj" aria-label="specials"><div class="SidebarGroupTitle#Wk">Pinned</div></nav>')
+
+  $('[class*="SidebarContent"]').on('click', '.se-pin-cat', function(e) {
+    e.preventDefault
+    e.stopImmediatePropagation
+    e.stopPropagation
+    let link = $(this).closest('a[class*="SidebarLink"]').html()
+    let pinnedLinks = localStorage.getItem("SE_pinnedLinks")
+  
+    // append localStorage
+    if(!pinnedLinks) {
+        pinnedLinks = [link]
+    } else {
+      pinnedLinks = JSON.parse(pinnedLinks)
+      pinnedLinks.push(link);
+    }
+
+    // save localStorage
+    localStorage.setItem('SE_pinnedLinks', JSON.stringify(pinnedLinks))
+  })
+}
+
+waitForKeyElements("[class*='SidebarLink']", addSidebarLinks2, false);
+function addSidebarLinks2(el) {
+  
+  // add pin button to category links
+  $(el).find('[class*="SidebarLink__counter"]').append('<span class="se-pin-cat"><svg class="icon icon-add"><use xlink:href="#icons-add"></use></svg></span>')
+}
+
+
+// Hide Favorites From "Featured Model" Listings
+waitForKeyElements(".featured-model-list", hideFavoritesFromFeaturedListings);
+function hideFavoritesFromFeaturedListings(el) {
+
+  $(el).find('.model-list-item').each(function() {
+    if($(this).find('.ModelListItemBadge__favorite#vd')) {
+      // $(this).remove()
+    }
+  })
+}
+
+// Block Websockets
+WebSocket2 = WebSocket
+WebSocket = function(addy) {
+    var ws;
+    if (!this.blocked) {
+        ws = new WebSocket2(addy);
+        this.open_sockets.push(ws);
+        return ws;
+    }
+}
+WebSocket.toggle = function() {
+    WebSocket.prototype.blocked = !WebSocket.prototype.blocked;
+    var sockets = WebSocket.prototype.open_sockets;
+    if (WebSocket.prototype.blocked) {
+        sockets.forEach(function(socket, index, sockets) {
+            socket.close();
+        });
+        WebSocket.prototype.open_sockets = [];
+    }
+}
+WebSocket.prototype.open_sockets = []
+WebSocket.prototype.blocked = true
+
+
+/**
  * Save Player Volume
  */
 waitForKeyElements(".mse-player video", savePlayerVolume, false);
@@ -49,6 +138,47 @@ function saveFavoritesSorting(el) {
     localStorage.setItem("SE_favoritesSortingName", $(this).text())
   })
 }
+
+waitForKeyElements('[class*="Sidebar__language"]', presetFavoritess, false);
+function presetFavoritess(el) {
+  let path = localStorage.getItem("SE_favoritesSorting")
+  if(path && path.length) {
+    $("[class*='SidebarLink'][href*='/favorites']").attr("href", path)
+  }
+
+  $("[class*='SidebarLink'][href^='/favorites/']").on('click', function(e) {
+    e.preventDefault()
+    window.location.replace($(this).attr("href"))
+  })
+}
+
+waitForKeyElements("[class*='ModelsOrder__button_title']", presetFavoritesSortingDropdown, false);
+function presetFavoritesSortingDropdown(el) {
+  let name = localStorage.getItem("SE_favoritesSortingName")
+  if(name.length && $('[class*="ModelsOrder__button_title"]').text() !== name) {
+    $('[class*="ModelsOrderButton"]').click()
+    setTimeout(() => {
+      $('[class*="ModelsOrderDropdownItem__label"]:contains("'+name+'")').click()
+    }, 250);
+    setTimeout(() => {
+      $('[href*="/favorites"]').addClass("SidebarLink__active#z9")
+    }, 500);
+  }
+}
+
+
+/**
+ * Open Streams in New Tab
+ */
+waitForKeyElements("[class*='SlidableCategorySegment__scrollable-container']", addOpenInNewTabLinks);
+function addOpenInNewTabLinks(element) {
+  $(element).find('.model-list-item-upper-right').append('<div class="model-additional-menu-newtab model-additional-menu model-additional-menu--model-list-item model-list-item-additional-menu-wrapper"><div id="model-additional-menu-button-567" class="model-additional-menu__button"><svg width="16" height="16" viewBox="0 0 0.48 0.48" xmlns="http://www.w3.org/2000/svg"><path d="M.066.414a.02.02 0 0 1 0-.028L.352.1H.24a.02.02 0 0 1 0-.04H.4a.02.02 0 0 1 .02.02v.16a.02.02 0 0 1-.04 0V.128L.094.414a.02.02 0 0 1-.028 0" fill="#fff" /></svg></div></div>')
+}
+
+$('#body').on('click', '.model-additional-menu-newtab', function(e) {
+    window.open($(this).closest('a').prop('href'), '_blank');
+    return false;
+})
 
 
 /**
@@ -145,6 +275,100 @@ function parseTime( t ) {
 
 
 /**
+ * Disable Watch History
+ */
+localStorage.setItem('userWatchHistoryIds', JSON.stringify([]))
+
+
+/**
+ * Set model chat font size
+ */
+localStorage.setItem('modelChatFontSize', "small")
+
+
+/**
+ * Disable MOE Data (Tracking)
+ */
+localStorage.setItem('MOE_DATA', JSON.stringify([]))
+
+
+/**
+ * Disable "Ghost History"
+ */
+localStorage.setItem('ghost-history', JSON.stringify([]))
+
+
+/**
+ * Disable "Active Tab ID"
+ */
+localStorage.setItem('ActiveTabId', "")
+
+
+/**
+ * Disable "Auto Rotate Images"
+ */
+localStorage.setItem('browser_auto_rotates_images', "false")
+
+
+/**
+ * Disable "Instant Top Up"
+ */
+localStorage.setItem('disableInstantTopUp', "true")
+
+
+/**
+ * Show Category Link on Model Pages
+ */
+waitForKeyElements(".view-cam-page .nav-left .user-fan-club-status-btn", addCategoryLinkModelPages, false);
+function addCategoryLinkModelPages(el) {
+  let navLeft = $(el).closest('.nav-left')
+
+  // Move Fanclub button next to Tip Button
+  if(!$('.view-cam-buttons-wrapper .user-fan-club-status-btn').length)
+    $('.view-cam-buttons-wrapper').append('<div class="user-fan-club-status-btn"><svg class="icon icon-diamond" style="height: 18px; width: 18px;"><use xlink:href="#icons-diamond"></use></svg><span class="">Join Fan Club</span></div>')
+  
+  // remove feed link & fanclub button
+  navLeft.find('[href*="/timeline"]').closest('div').addClass('hidden')
+  navLeft.find('.view-cam-header-sub__fan-club-button').addClass('hidden')
+
+}
+waitForKeyElements(".view-cam-page .viewcam-profile-menu-item", addModelInfo, false);
+function addModelInfo(el) {
+
+  // get api data
+  if(!$('#body').hasClass('se-category-info-processed')) {
+    let username = $(el).find('.viewcam-profile-menu-item__label').eq(0).text()
+    let navLeftItems = $(el).parent()
+    $.getJSON('/api/front/v2/models/username/'+username+'/cam').done((data) => {
+
+      let langsHtml = ""
+      $.each(data.user.user.languages, function(k, v) {
+        langsHtml += '<span class="country-flag" data-lang="'+v+'" style="background-image: url(&quot;//mewcrazy.github.io/Stripchat-Enhanced/flags/'+v+'.svg&quot;);"></span>'
+      })
+      navLeftItems.after('<div class="header-sub-item-wrapper se-info-more">'+data.user.user.p2pRate+' p2p/min. - '+data.user.user.spyRate+' spy/min.</div>')
+      navLeftItems.after('<div class="header-sub-item-wrapper se-info-more pvt">'+data.user.user.privateRate+' pvt/min.'+(data.user.user.ratingPrivate ? '<br><a href="/'+username+'/profile"><span class="stars">'+data.user.user.ratingPrivate+'</span></a></div>' : ''))
+      navLeftItems.after('<div class="header-sub-item-wrapper se-info-more"><span title="StripRank"><svg class="icon icon-best-models"><use xlink:href="#icons-best-models"></use></svg>#'+data.user.currPosition+'</span><span title="StripPoints"><svg class="icon icon-best-models"><use xlink:href="#icons-stripchat-logo"></use></svg>'+data.user.currPoints+'</span></div>')
+      navLeftItems.after('<div class="header-sub-item-wrapper se-info-more"><span class="flex"><img src="https://web.static.mmcdn.com/images/ico-'+data.user.user.contestGender+'.svg">'+langsHtml+'</span><span title="'+data.user.user.birthDate+'"><svg class="icon icon-best-models"><use xlink:href="#icons-best-models"></use></svg>'+(data.user.user.age ? data.user.user.age+' years old' : 'no age given')+'</span></div>')
+      $('span.stars').stars();
+    });
+    $('#body').addClass('se-category-info-processed')
+  }
+
+  // switch translation lang on country flag click
+  $('.country-flag').on('click', function(e) {
+    let lang = $(this).attr("data-lang")
+    $('.se-langpicker').attr('data-active', lang)
+    $('.se-langpicker').prepend('<svg class="flag flag-'+lang+'"><use xlink:href="#'+lang+'"></use></svg>')
+  })
+}
+$.fn.stars = function() {
+    return $(this).each(function() {
+        $(this).html($('<span />').width(Math.max(0, (Math.min(5, parseFloat($(this).html())))) * 13));
+    });
+}
+
+
+/**
  * Message templates
  */
 waitForKeyElements('[class*="ChatInput__inputActionBtn"]', addMessageTemplates, false);
@@ -213,13 +437,52 @@ function addMessageTemplates(el) {
 
 
 /**
- * Message Translation
+ * Hide Chat Users
  */
+
+// add "Hide User" button
+waitForKeyElements(".message-more-menu__popover", hideChatUsersButton, false);
+function hideChatUsersButton(el) {
+  if(!$(el).find('.HideUserButton').length) {
+    $(el).append('<button class="a11y-button MessageModeMenuItem#Iw ReportButton#X2 ReportButton__text#IV HideUserButton" type="button"><svg class="icon icon-warning-triangle-outline-ds" style="height: 20px; width: 20px;"><use xlink:href="#icons-warning-triangle-outline-ds"></use></svg><span>Hide User</span></button>')
+  }
+
+  // "Hide User" button click event
+  $('.HideUserButton').on('click', function(e) {
+    let username = $(el).closest('.user-info-popup').find('.user-levels-username-text').html()
+    alert(username) // TODO FIX
+
+    // get localStorage
+    let hiddenChatUsersStore = localStorage.getItem("SE_hiddenChatUsers")
+    let hiddenChatUsers = JSON.parse(hiddenChatUsersStore)
+
+    // append localStorage
+    if(!hiddenChatUsersStore) {
+        hiddenChatUsers = [username]
+    } else {
+        hiddenChatUsers.push(username);
+    }
+
+    // save localStorage
+    localStorage.setItem('SE_hiddenChatUsers', JSON.stringify(hiddenChatUsers))
+  })
+}
 waitForKeyElements(".messages", hideChatUsers, false);
 function hideChatUsers(jNode) {
 
+
+
   // observe messages div
   var observer = new MutationObserver(function(e) {
+
+      // filter model pages only
+
+      // hide local storage users:
+      let hiddenChatUsers = JSON.parse(localStorage.getItem("SE_hiddenChatUsers"))
+      console.log("SE_hiddenChatUsers", hiddenChatUsers)
+      // $.each(hiddenChatUsers, function(index, item) {
+      //     // do something with `item` (or `this` is also `item` if you like)
+      // });
 
       // add translation button to regular messages
       $(jNode).find('.regular-message.message__more-menu--hidden:not(.se-processed)').slice(-50).each(function(index, item) {
@@ -228,6 +491,38 @@ function hideChatUsers(jNode) {
             $(this).addClass("se-processed")
           }
       })
+
+      // add translation button to tip notes
+      $(jNode).find('.m-bg-public-tip:not(.se-processed)').slice(-50).each(function(index, item) {
+          if(!$(this).find('.tip-comment .translate-line').length) {
+            $(this).find('.tip-comment').append(htmlTranslateButton)
+            $(this).addClass("se-processed")
+          }
+      })
+
+      // add translation button to goal messages
+      $(jNode).find('.goal-message:not(.se-processed)').slice(-50).each(function(index, item) {
+          if(!$(this).find('.goal-description__message .translate-line').length) {
+            $(this).find('.goal-description__message').append(htmlTranslateButton)
+            $(this).addClass("se-processed")
+          }
+      })
+
+      // add translation button to group show starting messages
+      $(jNode).find('.group-show-message:not(.se-processed)').slice(-50).each(function(index, item) {
+          if(!$(this).find('.group-show-announce-topic .translate-line').length) {
+            $(this).find('.group-show-announce-topic').append(htmlTranslateButton)
+            $(this).addClass("se-processed")
+          }
+      })
+
+      // DND Mode (filter everything else)
+      if($('.switch-dnd-mode input[type="checkbox"]').is(':checked')) {
+        let scrollContainer = $(jNode).closest('.scroll-bar-container')
+        $(jNode).find('.message__more-menu--hidden.regular-message:not(.se-hidden):not(.m-bg-model)').slice(-50).each(function(index, item) {
+            $(this).addClass("se-hidden")
+        })
+      }
 
       // auto translate
       if($('.switch-auto-translate input[type="checkbox"]').is(':checked')) {
@@ -299,6 +594,114 @@ function translatePrivateTestimonials(jNode) {
 
 
 /**
+ * Normal Emojis
+ */
+waitForKeyElements('.model-chat__smiles-block [class*="SmilesWidgetContainer__chat"] [class*="SmilesWidgetContainer__closeBtn"]', addRegularEmojis);
+function addRegularEmojis(jNode) {
+  let modelChat = $(jNode).closest('.model-chat-public')
+
+  // add switch emoji style button
+  $(jNode).before('<div class="se-switch-emoji"><a class="subscribe-switch-container switch-emoji-style" href="#" aria-label="White" class="btn-tags-inline-badge inline-badge inline-badge__button inline-badge__override model-filter-link"><span>Switch Emojis</span></a></div>')
+
+
+  $('.model-chat-content').off().on('click', '.switch-emoji-style', function(e) {
+    e.preventDefault
+
+    if($(this).closest('.model-chat__smiles-block').find('.SmilesWidget__content_default-emojis').length) {
+      $('.SmilesWidget__content_default-emojis').toggleClass('hidden').prev().toggleClass('hidden')
+    } else {
+
+      $('.model-chat__smiles-block [class^="SmilesWidgetContainer__content#"]').after('<div class="SmilesWidget__content_default-emojis"><div class="emoji-list"></div><ul class="emoji-categories"><li class="se-emoji-cat se-emoji-cat_recent"><a class="se-emoji se-emoji-recent" data-tab="recent" href="#">recent</a></li></ul></div>')
+      $('.SmilesWidget__content_default-emojis').prev().toggleClass('hidden')
+
+      // output recent emojis from localStorage
+      let recent_cat = $('<div class="se-emoji-list se-emoji-list hidden"></div>')
+      recent_cat.append('<button aria-label="v" class="se-emoji-v SmilersWidgetSpicyList__smile#mG active-smile" type="button">x</button>')
+      $('.emoji-list').append(recent_cat)
+
+      // output cats + emojis
+      $.each(emojis.categories, (k, v) => {
+        $('.emoji-categories').append('<li class="se-emoji-cat se-emoji-cat_'+v.id+'"><a class="se-emoji se-emoji-'+v.id+'" data-tab="'+v.id+'" href="#">'+v.id+'</a></li>')
+
+        // all emojis of category
+        let cat = $('<div class="se-emoji-list se-emoji-list-'+v.id+''+(k>0 ? " hidden" : "")+'"></div>')
+        $.each(v.emojis, (k, v) => {
+          if([v.matchAll(/\p{RGI_Emoji}/vg)].length) {
+            cat.append('<button aria-label="'+v+'" class="se-emoji-'+emojis.emojis[v].id+' SmilersWidgetSpicyList__smile#mG active-smile" type="button">&#x'+emojis.emojis[v].skins[0].unified.split("-").join("")+';</button>')
+          }
+        })
+        $('.emoji-list').append(cat)
+      })
+    }
+  })
+
+  // simple emoji category tabbing
+  $('#body').on('click', '.emoji-categories .se-emoji', function(e) {
+    $('.se-emoji-list').addClass('hidden')
+    $('.se-emoji-list-'+$(this).attr('data-tab')).removeClass('hidden')
+  })
+
+  // insert emoji on click
+  $('.model-chat-content').on('click', '.SmilesWidget__content_default-emojis .active-smile', function(e) {
+      let text = $('.model-chat-input input').val()
+      $('.model-chat-input input').val('').focus()
+      document.execCommand('insertText', false, text+$(this).text())
+  })
+}
+
+
+/**
+ *  Add Translation Button to Stream Goal
+ */
+waitForKeyElements('.view-cam-info-goal', addTransButtonCamInfo, false);
+function addTransButtonCamInfo() {
+
+    if(!$('.view-cam-info-goal .translate-line').length) {
+        $('.view-cam-info-topic:not(.view-cam-info-topic__in-player)').after(htmlTranslateButton)
+    }
+
+    $('.view-cam-info-goal').off().on('click', '.translate-line button', function(e) {
+        let text = $(this).closest('.view-cam-info-goal').find('.view-cam-info-topic').clone().text().trim()
+        let that = $(this)
+        $(this).prop('disabled', true)
+
+        translateGoogle(text, 'en_US', $('.model-chat-content')).then(function(data) {
+          if(!that.closest('.view-cam-info-goal .translated-line').length) {
+              that.closest('.view-cam-info-goal').find('.view-cam-info-topic').after('<small class="translated-line">'+decodeHtml(data.data.translations[0].translatedText)+'</small>')
+          }
+          $(this).prop('disabled', false)
+        })
+    })
+}
+
+
+/**
+ * Translate Ticket Show Thumbnail Descriptions
+ */
+waitForKeyElements('[class*="Typewriter__animated"]', addTransButtonCamGroup2, false);
+function addTransButtonCamGroup2(el) {
+
+  if(!$(el).find('.translate-line').length) {
+    $(el).append(htmlTranslateButton)
+  }
+
+  // add event click handler
+  $(el).find('.translate-line button').off().on('click', function(e) {
+      let text = $(this).closest('div').clone().text().trim()
+      let that = $(this)
+      $(this).prop('disabled', true)
+
+      translateGoogle(text, 'en_US', $('.model-chat-content')).then(function(data) {
+        if(!that.closest('div').find('.translated-line').length) {
+            that.closest('div').html('<small class="translated-line">'+decodeHtml(data.data.translations[0].translatedText)+'</small>')
+        }
+        $(this).prop('disabled', false)
+      })
+  })
+}
+
+
+/**
  *  Add Translation Button to Stream Description
  */
 waitForKeyElements('[class*="ViewCamShutterWrapper__status"]', addTransButtonCamGroup, false);
@@ -326,6 +729,27 @@ function addTransButtonCamGroup() {
         $(this).prop('disabled', false)
       })
   })
+}
+
+
+/**
+ * Auto Participate in StripChat's 50 Tokens Giveaway
+ */
+waitForKeyElements(".lottery", autoParticipate);
+function autoParticipate(jNode) {
+
+  // observe messages div
+  var observeParticipation = new MutationObserver(function(e) {
+
+      if(
+        $(jNode).find('.lottery-item:contains("in giveaway.")').length > 0 // only if button is found (= giveaway is ready)
+        && $('.nav-right .avatar').length // is logged in
+      ) {
+          $(jNode).find('.a11y-button.lottery-title-wrapper').click()
+          $(jNode).find('.btn').click()
+      }
+  });
+  observeParticipation.observe($('.lottery-content')[0], {characterData: true, childList: true, subtree: true});
 }
 
 
@@ -530,6 +954,120 @@ function addLangDropdown(jNode) {
 }
 
 
+// add lang dropdown to private chats
+waitForKeyElements(".messenger-chat .chat-input", addLangDropdownPrivateChats, false);
+function addLangDropdownPrivateChats(jNode) {
+  let privateChat = $(jNode).closest('.messenger-chat')
+  let privateChatSubmit = $(jNode).find('[class*="ChatInput__sendBtn"]')
+  let privateChatInput = $(jNode).closest('.messenger-chat').find('[class*="ChatInput__input"]')
+  let privateLangSelect = $(jNode).closest('.messenger-chat').find('.se-langpicker')
+
+  // add language dropdown
+  if(!$(jNode).find('.language-picker').length) {
+    $(jNode).find('[class*="ChatInput__inputBlock"]').before(htmlLangPicker);
+
+    // preselect if choosen before
+    if(prefTranslationLang) {
+      setTimeout(function() {
+        privateChat.find('.se-langpicker').attr('data-active', prefTranslationLang)
+        privateChat.find('.se-langpicker').prepend('<svg class="flag flag-'+prefTranslationLang+'"><use xlink:href="#'+prefTranslationLang+'"></use></svg>')
+      }, 500);
+    }
+  }
+
+  // add own keypress event
+  $(jNode).find('[class*="ChatInput__input"]').off().on('keydown', function(e) {
+  
+      if(e.which == 13) {
+        e.preventDefault()
+        e.stopImmediatePropagation()
+        e.stopPropagation()
+
+        $(this).closest('.messenger-chat').find('.language-chooser').addClass("hidden")
+
+        if(privateChat.find('.se-langpicker').attr('data-active')) {
+            let lang = privateChat.find('.se-langpicker').attr('data-active').toLowerCase()
+            $(this).closest('.messenger-chat').find('[class*="ChatInput__inputBlock"]').append('<span class="se-loader-line"></span>') // TODO please as before
+
+            translateGoogle(privateChatInput.val(), lang, privateChat.find('.content-messages')).then(function(data) {
+              alert("ok translated")
+                // TODO: console.log missing/wrong languages
+                privateChatInput.val('')
+                $('.messenger-chat .se-loader-line').remove()
+                privateChatInput.focus()
+                document.execCommand('insertText', false, decodeHtml(data.data.translations[0].translatedText))
+                privateChatSubmit.click()
+            });
+        } else {
+            // no translation needed
+            privateChatSubmit.click()
+        }
+      }
+  })
+
+  // open language picker click handler
+  privateChat.on('click', '.se-langpicker', function(e) {
+
+      if(!privateChat.find('.language-chooser').length) {
+
+        // add language picker overlay
+        if(!privateChat.find('.language-chooser').length) {
+            privateChat.find('.content-messages').append(htmlLangChooser);
+        }
+
+        // add all languages
+        populateLanguageDropdowns()
+
+        setTimeout(() => { $('.flag[data-lang="'+prefTranslationLang+'"]').addClass("active") }, 300);
+      } else {
+        privateChat.find('.language-chooser').toggleClass("hidden")
+      }
+  })
+
+    // select/switch language
+    privateChat.on('click', 'button.flag', function(e) {
+
+      privateChat.find('.se-langpicker .flag').remove()
+      if($(this).hasClass('active')) {
+          $(this).removeClass('active')
+          privateChat.find('.se-langpicker').attr('data-active', '')
+          localStorage.setItem('prefTranslationLang', "")
+      } else {
+          privateChat.find('.se-langpicker').prepend($(this).html())
+          privateChat.find('.language-chooser .flag.active').removeClass('active')
+          $(this).addClass('active')
+          privateChat.find('.se-langpicker').attr('data-active', $(this).attr('data-lang'))
+          localStorage.setItem('prefTranslationLang', $(this).attr('data-lang'))
+          privateChat.find('.language-chooser').addClass("hidden")
+      }
+    })
+
+    // search language by html attributes
+    privateChat.on("keyup", ".language-search", function() {
+        var value = this.value.toLowerCase().trim();
+      if(value.length) {
+        privateChat.find(".language-list button").show().filter(function() {
+            return $(this).attr("data-search").toLowerCase().trim().indexOf(value) == -1;
+        }).hide();
+      } else {
+        privateChat.find(".language-list button").show();
+      }
+    });
+
+    // clear search input
+    privateChat.on('search', '.language-search', function() {
+      if(this.value === "") {
+        privateChat.find(".language-list button").show()
+      }
+    });
+
+    // close language chooser
+    privateChat.on('click', '.close-language-chooser', function(e) {
+      privateChat.find('.language-chooser').toggleClass("hidden")
+    })
+}
+
+
 /**
  * Ticket Shows Filtering
  */
@@ -604,6 +1142,72 @@ function filterTicketShowsListing(el) {
     if($('.features .in-ticket-show.active').length && $(el).find('[class*="ModelListItemBadge__ticketShow"]').length === 0) $(el).addClass('hidden')
     if($('.features .in-group-show.active').length && $(el).find('[class*="ModelListItemBadge__groupShow"]').length === 0) $(el).addClass('hidden')
   }
+}
+
+/**
+ * Translate Thumbnail Descriptions
+ */
+waitForKeyElements('.model-list-item [class*="ModelThumbShowTopic"]', translateThumbnailDescriptions, false);
+function translateThumbnailDescriptions(jNode) {
+
+  // append translate button
+  $(jNode).append(htmlTranslateButton)
+
+
+    $(jNode).off().on('click', '.translate-line button', function(e) {
+      e.preventDefault
+      let text = $(jNode).text().trim()
+      let that = $(this)
+      $(this).prop('disabled', true)
+
+      translateGoogle(text, 'en_US', $('.model-chat-content')).then(function(data) {
+        that.text(decodeHtml(data.data.translations[0].translatedText))
+        $(this).prop('disabled', false).remove()
+      })
+    })
+}
+
+/**
+ * Profile Tip Menu Translation & Sorting
+ */
+waitForKeyElements(".profile-tip-menu", translateProfileTipMenu, false);
+function translateProfileTipMenu(jNode) {
+
+    // add translate button
+    let test = '<div class="profile-tip-menu__activity-wrapper se-translate"><div class="TipMenuGoogleTranslateButton#Rv"><button class="a11y-button TipMenuGoogleTranslateButton__button#T2" type="button"><span class="TipMenuGoogleTranslateButton__icon#jh"></span><span class=""><span class="TipMenuGoogleTranslateButton__translate#WA">Translate</span> Tip menu into English</span></button></div>'
+    $(jNode).find('.profile-tip-menu__activities > div').prepend(test)
+
+    // add sorting button
+    $(jNode).find('.profile-tip-menu__header').append(htmlSortByTokensButton)
+
+
+    $('.profile-tip-menu').on('click', '.se-tipmenu-sort button', function(e) {
+      sortTipmenuByPrice('.profile-tip-menu__scroll-container', '.profile-tip-menu__activity-wrapper', '.profile-tip-menu__activity span:last-child')
+      return false
+    })
+
+    $('.profile-tip-menu__activity-wrapper').on('click', '.se-translate button', function(e) {
+
+      var tableArr = [];
+      $(".profile-tip-menu__activity-wrapper:not(.se-translate)").each(function(index) {
+        tableArr.push($(this).find('span:first-child').text());
+        $(this).attr("data-index", index)
+      });
+
+      // TEMP: Replace with GM_xmlHttpRequest
+      $.ajax('https://translation.googleapis.com/language/translate/v2?key='+googleApiKey, {
+        data : JSON.stringify({"q": tableArr,"target": "en_US"}),
+        contentType: "application/json; charset=utf-8",
+        type : 'POST',
+        dataType: 'json',
+        success: function(data){
+          if(!data.data.translations) return
+          $(data.data.translations).each(function(index, val) {
+            $('.profile-tip-menu__activity-wrapper[data-index="'+index+'"] span:first-child').text(val.translatedText)
+          });
+        }
+      })
+  })
 }
 
 
@@ -761,6 +1365,27 @@ function updateGridColumns(cols) {
   $('.list-items-container').attr('data-grid', cols)
 }
 
+
+/**
+ * Global Functions
+ */
+waitForKeyElements('.tag-page-content-wrapper', addGlobalFunctions);
+function addGlobalFunctions(el) {
+
+}
+
+
+/**
+ * Do Not Disturb Mode
+ */
+waitForKeyElements('.model-chat-nav', addDefaultEmojis);
+function addDefaultEmojis(jNode) {
+
+  // append dnd toggle
+  $(jNode).find('.chat-settings').before('<div class="switch-dnd-mode model-chat-nav-item se-switcher"><span class="model-chat-nav-item-label">DND</span><div class="default light switcher"><div class="switcher-wrapper"><span class="switcher-label"><svg class="icon icon-check"><use xlink:href="#icons-check"></use></svg></span><span class="switcher-switch"></span><span class="switcher-label"></span></div></div><input type="checkbox" value="1"></div>')
+}
+
+
 /**
  * Global Functions
  */
@@ -825,5 +1450,17 @@ function populateLanguageDropdowns() {
       //$('.language-list').prepend( '<button aria-label="'+val.name+'" class="SmilersWidgetSpicyList__smile#mG flag" type="button" title="'+val.name+'" data-search="'+val.name+'|'+val.nativeName+'|'+key+'" data-lang="'+key+'"><span class="fi fi-'+key+'" title="'+val.name+' ('+val.nativeName+')"></span></button>');
       $('.language-list').prepend('<button aria-label="'+val.name+'" class="SmilersWidgetSpicyList__smile#mG flag" type="button" title="'+val.name+'" data-search="'+val.name+'|'+val.nativeName+'|'+key+'" data-lang="'+key+'"><svg class="flag flag-'+key+'"><use xlink:href="#'+key+'"></use></svg></button>')
     }
+  });
+}
+
+// sort tip menu by token price
+function sortTipmenuByPrice(el, sub, item) {
+  var tb = $(el)
+  var rows = tb.find(sub)
+  rows.sort((a, b) => {
+    return $(a).find(item).text() - $(b).find(item).text()
+  });
+  $.each(rows, (index, row) => {
+    tb.append(row)
   });
 }

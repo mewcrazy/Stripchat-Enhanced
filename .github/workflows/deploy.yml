@@ -58,15 +58,15 @@ jobs:
           force: true
 
       # Step 6: Release pushed tag
-      # - name: Create release
-      #   env:
-      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      #     tag: ${{ github.ref_name }}
-      #   run: |
-      #     gh release create "$tag" \
-      #         'extensions/chrome.crx#chrome_extension_${tag#v}.crx' \
-      #         'extensions/firefox.zip#firefox_extension_${tag#v}.zip' \
-      #         'extensions/opera.crx#opera_extension_${tag#v}.crx' \
-      #         --repo="$GITHUB_REPOSITORY" \
-      #         --title="${tag#v}" \
-      #         --generate-notes
+      - name: Create release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          tag: ${{ github.ref_name }}
+        run: |
+          gh release create "$tag" \
+              'extensions/chrome.crx#chrome_extension_${tag#v}.crx' \
+              'extensions/firefox.zip#firefox_extension_${tag#v}.zip' \
+              'extensions/opera.crx#opera_extension_${tag#v}.crx' \
+              --repo="$GITHUB_REPOSITORY" \
+              --title="${tag#v}" \
+              --generate-notes
