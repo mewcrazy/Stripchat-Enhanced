@@ -199,6 +199,13 @@ span.stars span { background-position: 0 0; }
 .se-pin-cat svg { fill: rgba(255,255,255,.6) }
 .se-pin-cat:hover svg { fill: rgba(255,255,255,1) }
 
+/* disable chat */
+.se-disabled { background: #222; }
+.se-disabled input { background: #222; }
+
+/* misc */
+.se-hidden { display: none !important; }
+
 /* keyframes */
 @keyframes rotate {
   0% { transform:rotate(0deg) }

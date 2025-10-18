@@ -517,9 +517,9 @@ function hideChatUsers(jNode) {
       })
 
       // DND Mode (filter everything else)
-      if($('.switch-dnd-mode input[type="checkbox"]').is(':checked')) {
+      if(localStorage.getItem('SE_dndMode') === "1") {
         let scrollContainer = $(jNode).closest('.scroll-bar-container')
-        $(jNode).find('.message__more-menu--hidden.regular-message:not(.se-hidden):not(.m-bg-model)').slice(-50).each(function(index, item) {
+        $(jNode).find('.goal-threshold:not(:last),.m-bg-fan-club-tip-discount,.welcome-bot-message,.toy-message-tip,.message__more-menu--hidden.regular-message:not(.se-hidden):not(.m-bg-model),.public-menu-announcement-message:not(.se-hidden)').slice(-50).each(function(index, item) {
             $(this).addClass("se-hidden")
         })
       }
@@ -1367,6 +1367,26 @@ function updateGridColumns(cols) {
 
 
 /**
+ * Disable Chat
+ */
+waitForKeyElements('.model-chat-input', disableChat);
+function disableChat(el) {
+
+  // get api data
+  let username = $('.header-sub-item-wrapper .viewcam-profile-menu-item__label').eq(0).text().toLowerCase()
+  let data = $.getJSON('/api/front/v2/models/username/'+username+'/cam')
+  if(data.status == 200) {
+    data = data.responseText
+    //data.user.user.hasChatRestrictions &&
+    if(data.user.user.whoCanChat == "registered" && parseInt($('.tokens-amount').text()) == 0
+    ) {
+      $(el).addClass('se-disabled')
+    }
+  }
+}
+
+
+/**
  * Global Functions
  */
 waitForKeyElements('.tag-page-content-wrapper', addGlobalFunctions);
@@ -1378,11 +1398,15 @@ function addGlobalFunctions(el) {
 /**
  * Do Not Disturb Mode
  */
-waitForKeyElements('.model-chat-nav', addDefaultEmojis);
-function addDefaultEmojis(jNode) {
+waitForKeyElements('.model-chat-nav', addDoNotDisturbMode, false);
+function addDoNotDisturbMode(el) {
 
   // append dnd toggle
-  $(jNode).find('.chat-settings').before('<div class="switch-dnd-mode model-chat-nav-item se-switcher"><span class="model-chat-nav-item-label">DND</span><div class="default light switcher"><div class="switcher-wrapper"><span class="switcher-label"><svg class="icon icon-check"><use xlink:href="#icons-check"></use></svg></span><span class="switcher-switch"></span><span class="switcher-label"></span></div></div><input type="checkbox" value="1"></div>')
+  $(el).find('.chat-settings').before('<div class="switch-dnd-mode model-chat-nav-item se-switcher"><span class="model-chat-nav-item-label">DND</span><div class="default light switcher"><div class="switcher-wrapper"><span class="switcher-label"><svg class="icon icon-check"><use xlink:href="#icons-check"></use></svg></span><span class="switcher-switch"></span><span class="switcher-label"></span></div></div><input name="SE_dndMode" type="checkbox" value="1"></div>')
+  if(localStorage.getItem('SE_dndMode') === "1") {
+    $('.switch-dnd-mode .switcher').toggleClass("on")
+    $('.switch-dnd-mode input[type="checkbox"]').prop('checked', true)
+  }
 }
 
 
@@ -1410,6 +1434,7 @@ waitForKeyElements('#body', addBodyShit);
 function addBodyShit(jNode) {
 
   $('#body').on('click', '.se-switcher', function(e) {
+    localStorage.setItem($(this).find('input').attr('name'), $(this).find('input').val())
     $(this).find('.switcher').toggleClass("on")
     $(this).find('input[type="checkbox"]').prop('checked', function (i, val) {
       return !val;

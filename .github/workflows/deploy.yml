@@ -3,10 +3,7 @@ name: Deploy mewcrazy/StripChat-Enhanced
 on:
   push:
     branches:
-      - main
-    # Sequence of patterns matched against refs/tags
-    tags:
-      - 'v*' # Push events to matching v*, i.e. v1.0, v20.15.10
+      - 'v*'
   workflow_dispatch:
 
 
@@ -22,7 +19,7 @@ jobs:
         with:
           fetch-depth: 0
       - name: Downloading waitForKeyElements.js
-        run: build/build.sh
+        run: chmod +x build/build.sh && build/build.sh
 
       # Step 2: Remove Google API Key from codebase
       - name: Remove Google API Key from codebase
@@ -44,8 +41,7 @@ jobs:
           git fetch
           git add deploy/waitForKeyElements.min.js
           git add deploy/jquery.min.js
-          git commit -am "Update repository files [skip ci]" 
-          git tag -d main
+          git commit -am "Update repository files [skip ci]"
           git push -f origin main
 
       # Step 5: Push
@@ -64,9 +60,9 @@ jobs:
           tag: ${{ github.ref_name }}
         run: |
           gh release create "$tag" \
-              'extensions/chrome.crx#chrome_extension_${tag#v}.crx' \
-              'extensions/firefox.zip#firefox_extension_${tag#v}.zip' \
-              'extensions/opera.crx#opera_extension_${tag#v}.crx' \
+              "extensions/chrome.crx#chrome_extension_$tag.crx" \
+              "extensions/firefox.zip#firefox_extension_$tag.zip" \
+              "extensions/opera.crx#opera_extension_$tag.crx" \
               --repo="$GITHUB_REPOSITORY" \
               --title="${tag#v}" \
               --generate-notes
