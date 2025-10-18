@@ -3,7 +3,7 @@ name: Deploy mewcrazy/StripChat-Enhanced
 on:
   push:
     branches:
-      - 'v*'
+      - '*'
   workflow_dispatch:
 
 
