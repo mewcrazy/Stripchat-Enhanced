@@ -217,4 +217,7 @@ Thanks to [Wiktionary](https://en.wiktionary.org/wiki/Wiktionary:Language_flags_
 
 ---
 
-<p align="center">Inspired by a <a href="//chaturbate.com/aalliyahh" target="_blank">beautiful woman</a> and made with <span title="aalliyahh">❤️</span> in Düsseldorf, Germany</p>
+<p>
+  <span align="left">Inspired by <a href="//stripchat.com" target="_blank">StripChat</a> and made with ❤️ in Düsseldorf, Germany.</span>
+  <a href="https://www.paypal.com/donate/?hosted_button_id=UEUQP2P24Y98S" target="_blank" align="right"><img width="206" src="https://github.com/mewcrazy/Stripchat-Enhanced/raw/main/img/donate-button.png"></a>
+</p>

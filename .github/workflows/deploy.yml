@@ -24,7 +24,10 @@ jobs:
       # Step 2: Remove Google API Key from codebase
       - name: Remove Google API Key from codebase
         id: remove_api_keys
-        run: sed -i -e 's/var googleApiKey = "${{ secrets.GOOGLE_TRANSLATION_APIKEY }}"/var googleApiKey = ""/g' deploy/stripchat-enhanced.user.js
+        run: |
+          sed -i -e 's/version="[0-9]\+\.[0-9]\+\.[0-9]\+" \/>/version="${{ github.ref_name }}" \/>/g' extensions/chrome/updates.xml
+          sed -i -e 's/"version": "[0-9]\+\.[0-9]\+\.[0-9]\+"/"version": "${{ github.ref_name }}"/g' extensions/chrome/manifest.json
+          sed -i -e 's/var googleApiKey = "${{ secrets.GOOGLE_TRANSLATION_APIKEY }}"/var googleApiKey = ""/g' deploy/stripchat-enhanced.user.js
 
       # Step 3: Check for any changes
       - name: Check for any changes

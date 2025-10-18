@@ -20,6 +20,16 @@ var htmlSortByTokensButton = '<p class="se-tipmenu-sort text-center"><button cla
 
 
 /**
+ * Global jQuery Functions
+ */
+$.fn.stars = function() {
+  return $(this).each(function() {
+      $(this).html($('<span />').width(Math.max(0, (Math.min(5, parseFloat($(this).html())))) * 13));
+  });
+}
+
+
+/**
  * Sort Tip Menu by Token Price
  */
 waitForKeyElements(".tip-menu__table", addTipmenuByPrice);
@@ -155,7 +165,7 @@ function presetFavoritess(el) {
 waitForKeyElements("[class*='ModelsOrder__button_title']", presetFavoritesSortingDropdown, false);
 function presetFavoritesSortingDropdown(el) {
   let name = localStorage.getItem("SE_favoritesSortingName")
-  if(name.length && $('[class*="ModelsOrder__button_title"]').text() !== name) {
+  if(name && name.length && $('[class*="ModelsOrder__button_title"]').text() !== name) {
     $('[class*="ModelsOrderButton"]').click()
     setTimeout(() => {
       $('[class*="ModelsOrderDropdownItem__label"]:contains("'+name+'")').click()
@@ -360,11 +370,6 @@ function addModelInfo(el) {
     $('.se-langpicker').attr('data-active', lang)
     $('.se-langpicker').prepend('<svg class="flag flag-'+lang+'"><use xlink:href="#'+lang+'"></use></svg>')
   })
-}
-$.fn.stars = function() {
-    return $(this).each(function() {
-        $(this).html($('<span />').width(Math.max(0, (Math.min(5, parseFloat($(this).html())))) * 13));
-    });
 }
 
 

@@ -121,6 +121,7 @@ input[type="search"].input.language-search:hover { background: rgba(0,0,0,1) }
 .profile-tip-menu .se-tipmenu-sort { margin: 0; }
 
 /* dnd mode */
+.model-chat-messages-wrapper .messages { display: block !important; }
 .switch-dnd-mode { display: flex; align-items: center; flex: 1; justify-content: flex-end; margin-right: 46px; }
 .switcher + input[type="checkbox"] { display: none }
 
