@@ -201,8 +201,9 @@ span.stars span { background-position: 0 0; }
 .se-pin-cat:hover svg { fill: rgba(255,255,255,1) }
 
 /* disable chat */
-.se-disabled { background: #222; }
-.se-disabled input { background: #222; }
+.se-disabled [class*="ChatInput__inputBlock"] { background: #222; }
+.se-disabled input { background: #222; cursor: auto; pointer-events: none; }
+.se-disabled [class*="is-in"] { background: #222; position: absolute; left: 40px; font-size: 0.75em; top: calc(50% - 4px); line-height: 1em; color: rgba(255, 255, 255, 0.5); }
 
 /* misc */
 .se-hidden { display: none !important; }

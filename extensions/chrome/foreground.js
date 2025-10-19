@@ -1372,22 +1372,31 @@ function updateGridColumns(cols) {
 
 
 /**
- * Disable Chat
+ * Disable Chat Notices
  */
-waitForKeyElements('.model-chat-input', disableChat);
-function disableChat(el) {
+waitForKeyElements('.model-chat-controls', addDisableChat);
+function addDisableChat(el) {
 
   // get api data
   let username = $('.header-sub-item-wrapper .viewcam-profile-menu-item__label').eq(0).text().toLowerCase()
   let data = $.getJSON('/api/front/v2/models/username/'+username+'/cam')
   if(data.status == 200) {
-    data = data.responseText
-    //data.user.user.hasChatRestrictions &&
-    if(data.user.user.whoCanChat == "registered" && parseInt($('.tokens-amount').text()) == 0
-    ) {
-      $(el).addClass('se-disabled')
+    data = JSON.parse(data.responseText)
+    if(data.cam.show && data.cam.show.mode === "groupShow" && data.cam.show.details.groupShow.type === "ticket") {
+      $(el).find('.model-chat-input').addClass('se-disabled').find('.se-langpicker').after('<div class="is-in-ticket">You can\'t chat while the model is in a Ticket Show.</div>')
+    }
+    else if(data.cam.show && (data.cam.show.mode === "p2p" || data.cam.show.mode === "virtualPrivate")) {
+      $(el).find('.model-chat-input').addClass('se-disabled').find('.se-langpicker').after('<div class="is-in-p2p">You can\'t chat while the model is in a Private Show.</div>')
+    }
+    else if(data.cam.show && data.cam.show.mode && data.cam.show.details.groupShow.type === "perMinute") {
+      $(el).find('.model-chat-input').addClass('se-disabled').find('.se-langpicker').after('<div class="is-in-group">You can\'t chat while the model is in a Group Show.</div>')
     }
   }
+}
+waitForKeyElements('.video-element-wrapper--show-first-frame', addEnableChat, false);
+function addEnableChat() {
+  $('.model-chat-input').addClass('se-disabled')
+  $('[class*="is-in"]').remove()
 }
 
 
