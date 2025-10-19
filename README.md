@@ -2,15 +2,13 @@
 <p align="center">A browser extension to extend StripChat with new useful features like on-the-fly translations of your sent text message as well as received public chat and private chat messages, and many more features.</p>
 
 <p align="center" width="100%">
-  <a href="https://github.com/mewcrazy/Stripchat-Enhanced/archive/refs/heads/main.zip"><img src="https://shields.io/github/downloads/mewcrazy/Stripchat-Enhanced/total"></a>
+  <a href="https://github.com/mewcrazy/Stripchat-Enhanced/releases/latest"><img src="https://shields.io/github/downloads/mewcrazy/Stripchat-Enhanced/total"></a>
 </p>
 
 <p align="center" width="100%">
     <img width="100%" src="https://github.com/mewcrazy/Stripchat-Enhanced/raw/main/img/animation-translate-chat.gif"> 
 </p>
 
-> [!WARNING]
-> StripChat Enhanced is currently in active development. Please use the new Chrome Extension which has all below features included.
 
 ## Features:
 - Translate chat messages, tip menus, tip goals and private show testimonials <sub style="color:rgba(255,255,255,.55)">(in over different 100 languages with 1-click)</sub>
@@ -219,5 +217,5 @@ Thanks to [Wiktionary](https://en.wiktionary.org/wiki/Wiktionary:Language_flags_
 
 <p>
   <span align="left">Inspired by <a href="//stripchat.com" target="_blank">StripChat</a> and made with ❤️ in Düsseldorf, Germany.</span>
-  <a href="https://www.paypal.com/donate/?hosted_button_id=UEUQP2P24Y98S" target="_blank" align="right"><img width="206" src="https://github.com/mewcrazy/Stripchat-Enhanced/raw/main/img/donate-button.png"></a>
+  <a href="https://www.paypal.com/donate/?hosted_button_id=UEUQP2P24Y98S" target="_blank" align="right"><img width="206" src="https://raw.githubusercontent.com/mewcrazy/Stripchat-Enhanced/refs/heads/0.4.9/img/donate-button.png"></a>
 </p>
