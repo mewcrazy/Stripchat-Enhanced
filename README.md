@@ -32,30 +32,12 @@
 # Installation
 
 <p width="100%">
-    <a href="https://github.com/mewcrazy/Stripchat-Enhanced/raw/refs/heads/main/extensions/chrome.crx"><img width="206" src="https://github.com/mewcrazy/Stripchat-Enhanced/raw/main/img/get-it-for-chrome.png"></a>
-    <a href="https://github.com/mewcrazy/Stripchat-Enhanced/raw/refs/heads/main/extensions/firefox.zip"><img width="206" src="https://github.com/mewcrazy/Stripchat-Enhanced/raw/main/img/get-it-for-firefox.png"></a>
-    <a href="https://github.com/mewcrazy/Stripchat-Enhanced/raw/refs/heads/main/extensions/opera.crx"><img width="206" src="https://github.com/mewcrazy/Stripchat-Enhanced/raw/main/img/get-it-for-opera.png"></a>
+    <a href="https://github.com/mewcrazy/Stripchat-Enhanced/releases/latest/download/chrome.crx"><img width="206" src="https://github.com/mewcrazy/Stripchat-Enhanced/raw/main/img/get-it-for-chrome.png"></a>
+    <a href="https://github.com/mewcrazy/Stripchat-Enhanced/releases/latest/download/firefox.zip"><img width="206" src="https://github.com/mewcrazy/Stripchat-Enhanced/raw/main/img/get-it-for-firefox.png"></a>
+    <a href="https://github.com/mewcrazy/Stripchat-Enhanced/releases/latest/download/opera.crx"><img width="206" src="https://github.com/mewcrazy/Stripchat-Enhanced/raw/main/img/get-it-for-opera.png"></a>
 </p>
-We are working on dedicated Edge, Firefox and Chrome Extensions. Above is the preview of the Chrome Extension, but we strongly recommend to use a User Script Manager for now. The script was made in ViolentMonkey, but should work in TamperMonkey and GreaseMonkey as well.
 
-- [TamperMonkey](https://www.tampermonkey.net/) <sub>(Chrome, Microsoft Edge, Firefox, Safari, Opera Next)</sub>
-- [ViolentMonkey](https://violentmonkey.github.io/) <sub>(Chrome, Firefox, Microsoft Edge)</sub>
-- <s>[GreaseMonkey](https://www.greasespot.net/)</s> <sub>(Firefox; currently unsupported)</sub>
-
-Please note that this script requires an API Key for the Google Cloud Translation API. Simply log in your Google account, and create a New Project for the Cloud Translation API. After you can click on "Login Credentials" and create a new API Key which you can use in this script.
-
-### ViolentMonkey
-1. Simply click on our script file [/deploy/stripchat-enhanced.user.js](https://mewcrazy.github.io/Stripchat-Enhanced/deploy/stripchat-enhanced.user.js) and it should automatically get recognized by ViolentMonkey.
-1. Open the ViolentMonkey Dashboard of your User Script Manager (ViolentMonkey, TamperMonkey or GreaseMonkey)
-2. Click on + (New) -> Install by URL
-3. Manually enter the URL to the plugins file in this repository: `https://mewcrazy.github.io/Stripchat-Enhanced/deploy/stripchat-enhanced.user.js`
-
-### TamperMonkey <sub>("Allow User Scripts" toggle in the Extension's settings needs to be enabled.)</sub>
-1. Click the TamperMonkey Extension Icon and "Create a new script..."
-2. Copy paste the contents of [`https://mewcrazy.github.io/Stripchat-Enhanced/deploy/stripchat-enhanced.user.js`](https://mewcrazy.github.io/Stripchat-Enhanced/deploy/Stripchat-Enhanced.user.js) into the editor and Save.
-
-### GreaseMonkey
-Currently unsupported. To support new version 4.0+ of GreaseMonkey we would need to make major changes.
+Please note that this extension requires your own API Key for the Google Cloud Translation API. Simply log in your Google account, and create a New Project for the Cloud Translation API. After you can click on "Login Credentials" and create a new API Key which you can use in this script.
 
 ## Language list
 Stripchat Enhanced supports all available languages offered by Google's Cloud Translation API, in total *123 languages*.
@@ -213,9 +195,7 @@ We welcome any contributions! If you're having ideas or improvements to StripCha
 Thanks to [PotPlayer](https://potplayer.info) for the innovative idea of opening a video in fullscreen with a simple middle mouse click.
 Thanks to [Wiktionary](https://en.wiktionary.org/wiki/Wiktionary:Language_flags_list) for the curated list of language flags.
 
----
-
 <p>
   <span align="left">Inspired by <a href="//stripchat.com" target="_blank">StripChat</a> and made with ❤️ in Düsseldorf, Germany.</span>
-  <a href="https://www.paypal.com/donate/?hosted_button_id=UEUQP2P24Y98S" target="_blank" align="right"><img width="206" src="https://raw.githubusercontent.com/mewcrazy/Stripchat-Enhanced/refs/heads/0.4.9/img/donate-button.png"></a>
+  <a href="https://www.paypal.com/donate/?hosted_button_id=UEUQP2P24Y98S" target="_blank" align="right"><img align="right" width="206" src="https://raw.githubusercontent.com/mewcrazy/Stripchat-Enhanced/refs/heads/0.5.0/img/donate-button.png"></a>
 </p>
