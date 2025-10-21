@@ -63,9 +63,9 @@ jobs:
           tag: ${{ github.ref_name }}
         run: |
           gh release create "$tag" \
-              "extensions/chrome.crx#chrome_extension.crx" \
-              "extensions/firefox.zip#firefox_extension.zip" \
-              "extensions/opera.crx#opera_extension.crx" \
+              "extensions/chrome.crx#chrome_extension_$tag.crx" \
+              "extensions/firefox.zip#firefox_extension_$tag.zip" \
+              "extensions/opera.crx#opera_extension_$tag.crx" \
               --repo="$GITHUB_REPOSITORY" \
-              --title="${tag#v}" \
+              --title="Stripchat Enhanced ${tag#v}" \
               --generate-notes

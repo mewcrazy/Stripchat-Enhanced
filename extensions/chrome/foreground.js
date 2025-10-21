@@ -1374,7 +1374,7 @@ function updateGridColumns(cols) {
 /**
  * Disable Chat Notices
  */
-waitForKeyElements('.model-chat-controls', addDisableChat);
+waitForKeyElements('.model-chat-controls', addDisableChat, false);
 function addDisableChat(el) {
 
   // get api data
@@ -1383,19 +1383,26 @@ function addDisableChat(el) {
   if(data.status == 200) {
     data = JSON.parse(data.responseText)
     if(data.cam.show && data.cam.show.mode === "groupShow" && data.cam.show.details.groupShow.type === "ticket") {
-      $(el).find('.model-chat-input').addClass('se-disabled').find('.se-langpicker').after('<div class="is-in-ticket">You can\'t chat while the model is in a Ticket Show.</div>')
+      if(!$('.is-in-ticket').length) $(el).find('.model-chat-input').addClass('se-disabled').find('[class*="ChatInput__inputBlock"]').append('<div class="is-in-ticket">You can\'t chat while the model is in a Ticket Show.</div>')
     }
     else if(data.cam.show && (data.cam.show.mode === "p2p" || data.cam.show.mode === "virtualPrivate")) {
-      $(el).find('.model-chat-input').addClass('se-disabled').find('.se-langpicker').after('<div class="is-in-p2p">You can\'t chat while the model is in a Private Show.</div>')
+      if(!$('.is-in-p2p').length) $(el).find('.model-chat-input').addClass('se-disabled').find('[class*="ChatInput__inputBlock"]').append('<div class="is-in-p2p">You can\'t chat while the model is in a Private Show.</div>')
     }
     else if(data.cam.show && data.cam.show.mode && data.cam.show.details.groupShow.type === "perMinute") {
-      $(el).find('.model-chat-input').addClass('se-disabled').find('.se-langpicker').after('<div class="is-in-group">You can\'t chat while the model is in a Group Show.</div>')
+      if(!$('.is-in-group').length) $(el).find('.model-chat-input').addClass('se-disabled').find('[class*="ChatInput__inputBlock"]').append('<div class="is-in-group">You can\'t chat while the model is in a Group Show.</div>')
     }
   }
 }
+waitForKeyElements('[class*="ViewCamGroupV2__wrapper"] svg[xlink\\:href*="icons-ticket-ds"]', addDisableChatOnTicketshowStart, false);
+function addDisableChatOnTicketshowStart(el) {
+
+  if(!$('.is-in-ticket').length)
+    $('.model-chat-input').addClass('se-disabled').find('.ChatInput__inputBlock#xL').append('<div class="is-in-ticket">You can\'t chat while the model is in a Ticket Show.</div>')
+}
+
 waitForKeyElements('.video-element-wrapper--show-first-frame', addEnableChat, false);
 function addEnableChat() {
-  $('.model-chat-input').addClass('se-disabled')
+  $('.model-chat-input').removeClass('se-disabled')
   $('[class*="is-in"]').remove()
 }
 
