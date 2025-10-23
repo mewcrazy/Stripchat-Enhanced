@@ -327,7 +327,7 @@ localStorage.setItem('disableInstantTopUp', "true")
 
 
 /**
- * Show Category Link on Model Pages
+ * Show Model Info in Header Nav
  */
 waitForKeyElements(".view-cam-page .nav-left .user-fan-club-status-btn", addCategoryLinkModelPages, false);
 function addCategoryLinkModelPages(el) {
@@ -340,29 +340,32 @@ function addCategoryLinkModelPages(el) {
   // remove feed link & fanclub button
   navLeft.find('[href*="/timeline"]').closest('div').addClass('hidden')
   navLeft.find('.view-cam-header-sub__fan-club-button').addClass('hidden')
-
 }
-waitForKeyElements(".view-cam-page .viewcam-profile-menu-item", addModelInfo, false);
+waitForKeyElements(".view-cam-page .viewcam-profile-menu-item__label", addModelInfo, false);
 function addModelInfo(el) {
 
   // get api data
   if(!$('#body').hasClass('se-category-info-processed')) {
-    let username = $(el).find('.viewcam-profile-menu-item__label').eq(0).text()
-    let navLeftItems = $(el).parent()
-    $.getJSON('/api/front/v2/models/username/'+username+'/cam').done((data) => {
-
-      let langsHtml = ""
-      $.each(data.user.user.languages, function(k, v) {
-        langsHtml += '<span class="country-flag" data-lang="'+v+'" style="background-image: url(&quot;//mewcrazy.github.io/Stripchat-Enhanced/flags/'+v+'.svg&quot;);"></span>'
-      })
-      navLeftItems.after('<div class="header-sub-item-wrapper se-info-more">'+data.user.user.p2pRate+' p2p/min. - '+data.user.user.spyRate+' spy/min.</div>')
-      navLeftItems.after('<div class="header-sub-item-wrapper se-info-more pvt">'+data.user.user.privateRate+' pvt/min.'+(data.user.user.ratingPrivate ? '<br><a href="/'+username+'/profile"><span class="stars">'+data.user.user.ratingPrivate+'</span></a></div>' : ''))
-      navLeftItems.after('<div class="header-sub-item-wrapper se-info-more"><span title="StripRank"><svg class="icon icon-best-models"><use xlink:href="#icons-best-models"></use></svg>#'+data.user.currPosition+'</span><span title="StripPoints"><svg class="icon icon-best-models"><use xlink:href="#icons-stripchat-logo"></use></svg>'+data.user.currPoints+'</span></div>')
-      navLeftItems.after('<div class="header-sub-item-wrapper se-info-more"><span class="flex"><img src="https://web.static.mmcdn.com/images/ico-'+data.user.user.contestGender+'.svg">'+langsHtml+'</span><span title="'+data.user.user.birthDate+'"><svg class="icon icon-best-models"><use xlink:href="#icons-best-models"></use></svg>'+(data.user.user.age ? data.user.user.age+' years old' : 'no age given')+'</span></div>')
-      $('span.stars').stars();
-    });
+    $(el).parent().parent().append('<div class="header-model-info"></div>')
     $('#body').addClass('se-category-info-processed')
   }
+
+  let username = $(el).eq(0).text()
+  let headerModelInfo = $('.header-model-info')
+  $.getJSON('/api/front/v2/models/username/'+username+'/cam').done((data) => {
+    if(data.cam.newModelPromoSettings) $(el).after('<small style="display: block;padding-left: 40px;font-size: 85%;">Joined '+data.cam.newModelPromoSettings.finishPromoDate.split("T")[0]+'</small>')
+    let langsHtml = ""
+    let htmlModelInfo = ""
+    $.each(data.user.user.languages, function(k, v) {
+      langsHtml += '<span class="country-flag" data-lang="'+v+'" style="background-image: url(&quot;//mewcrazy.github.io/Stripchat-Enhanced/flags/'+v+'.svg&quot;);"></span>'
+    })
+    htmlModelInfo += '<div class="header-sub-item-wrapper se-info-more">'+data.user.user.p2pRate+' p2p/min. - '+data.user.user.spyRate+' spy/min.</div>'
+    htmlModelInfo += '<div class="header-sub-item-wrapper se-info-more pvt">'+data.user.user.privateRate+' pvt/min.'+(data.user.user.ratingPrivate ? '<br><a href="/'+username+'/profile"><span class="stars">'+data.user.user.ratingPrivate+'</span></a></div>' : '')
+    htmlModelInfo += '<div class="header-sub-item-wrapper se-info-more"><span title="StripRank"><svg class="icon icon-best-models"><use xlink:href="#icons-best-models"></use></svg>#'+data.user.currPosition+'</span><span title="StripPoints"><svg class="icon icon-best-models"><use xlink:href="#icons-stripchat-logo"></use></svg>'+data.user.currPoints+'</span></div>'
+    htmlModelInfo += '<div class="header-sub-item-wrapper se-info-more"><span class="flex"><img src="https://web.static.mmcdn.com/images/ico-'+data.user.user.contestGender+'.svg">'+langsHtml+'</span><span title="'+data.user.user.birthDate+'"><svg class="icon icon-best-models"><use xlink:href="#icons-best-models"></use></svg>'+(data.user.user.age ? data.user.user.age+' years old' : 'no age given')+'</span></div>'
+    headerModelInfo.html(htmlModelInfo)
+    $('span.stars').stars();
+  });
 
   // switch translation lang on country flag click
   $('.country-flag').on('click', function(e) {
@@ -370,6 +373,27 @@ function addModelInfo(el) {
     $('.se-langpicker').attr('data-active', lang)
     $('.se-langpicker').prepend('<svg class="flag flag-'+lang+'"><use xlink:href="#'+lang+'"></use></svg>')
   })
+
+  // reload model info on model change
+  var observerModelInfo = new MutationObserver(function(e) {
+
+      let username = $(el).eq(0).text()
+      $.getJSON('/api/front/v2/models/username/'+username+'/cam').done((data) => {
+
+        let langsHtml = ""
+        let htmlModelInfo = ""
+        $.each(data.user.user.languages, function(k, v) {
+          langsHtml += '<span class="country-flag" data-lang="'+v+'" style="background-image: url(&quot;//mewcrazy.github.io/Stripchat-Enhanced/flags/'+v+'.svg&quot;);"></span>'
+        })
+        htmlModelInfo += '<div class="header-sub-item-wrapper se-info-more">'+data.user.user.p2pRate+' p2p/min. - '+data.user.user.spyRate+' spy/min.</div>'
+        htmlModelInfo += '<div class="header-sub-item-wrapper se-info-more pvt">'+data.user.user.privateRate+' pvt/min.'+(data.user.user.ratingPrivate ? '<br><a href="/'+username+'/profile"><span class="stars">'+data.user.user.ratingPrivate+'</span></a></div>' : '')
+        htmlModelInfo += '<div class="header-sub-item-wrapper se-info-more"><span title="StripRank"><svg class="icon icon-best-models"><use xlink:href="#icons-best-models"></use></svg>#'+data.user.currPosition+'</span><span title="StripPoints"><svg class="icon icon-best-models"><use xlink:href="#icons-stripchat-logo"></use></svg>'+data.user.currPoints+'</span></div>'
+        htmlModelInfo += '<div class="header-sub-item-wrapper se-info-more"><span class="flex"><img src="https://web.static.mmcdn.com/images/ico-'+data.user.user.contestGender+'.svg">'+langsHtml+'</span><span title="'+data.user.user.birthDate+'"><svg class="icon icon-best-models"><use xlink:href="#icons-best-models"></use></svg>'+(data.user.user.age ? data.user.user.age+' years old' : 'no age given')+'</span></div>'
+        $('.header-model-info').html(htmlModelInfo)
+        $('span.stars').stars();
+    })
+  })
+  observerModelInfo.observe($(el)[0], {characterData: true, childList: true, subtree: true});
 }
 
 
@@ -442,59 +466,87 @@ function addMessageTemplates(el) {
 
 
 /**
+ * Translate Model Feeds
+ */
+waitForKeyElements(".feed .feed-post", addModelFeedTranslataion, false);
+function addModelFeedTranslataion(el) {
+  
+  // append translate button
+  if(!$(el).hasClass('se-procesed')) {
+    $(el).find('.text').append('<div class="translate-line"><button class="a11y-button TranslateButton#ZN TranslateButton_outline#qg" style="padding: 6px 14px; min-height: 32px; border-radius: 16px; font-size: 12px; font-weight: 500; float: none; display: block; border-width: 2px; border-style: solid; text-decoration: none;" type="button"><svg style="height: 14px; width: 14px;" class="IconV2__icon#YR" viewBox="0 0 16 14"><path fill="currentColor" fill-rule="evenodd" d="M10.28 1.72V3h-1.5a18.53 18.53 0 0 1-2.6 4.52l.05.05c.43.46.86.93 1.3 1.38l-.9.9c-.37-.36-.72-.74-1.07-1.13l-.2-.21c-.9.99-1.9 1.88-3 2.67l-.77-1.02.03-.02a17.36 17.36 0 0 0 2.87-2.58c-.52-.6-1.03-1.19-1.52-1.8L2.1 4.68l1-.8.86 1.08c.44.54.9 1.07 1.36 1.6C6.15 5.46 6.84 4.27 7.4 3H.68V1.72h4.48V.44h1.28v1.28h3.84Zm5.04 11.84h-1.38L13 11.32H9.48l-.93 2.24H7.17l3.32-8H12l3.33 8ZM11.24 7.1l-1.22 2.94h2.45L11.24 7.1Z" clip-rule="evenodd"></path></svg> Translate</button></div>')
+    $(el).addClass("se-processed")
+  }
+
+  // translate button click handler
+  $('.feed-post').off().on('click', '.translate-line button', function(e) {
+    translateButtonHandler(this, '.translate-line', '.toast-notifications', e)
+  })
+}
+
+
+/**
+ * White Mode TODO
+ */
+waitForKeyElements(".header-dropdown-content", addProfileMenuItems);
+function addProfileMenuItems(el) {
+  
+  // add white mode nav item
+  $(el).find('.invisible-mode-switch').after('<li class="invisible-mode-switch"><div><svg class="icon icon-invisible"><use xlink:href="#icons-invisible"></use></svg>Invisible Mode</div><div class="dark default on switcher"><div class="switcher-wrapper"><span class="switcher-label"><svg class="icon icon-check"><use xlink:href="#icons-check"></use></svg></span><span class="switcher-switch"></span><span class="switcher-label"></span></div></div></li>')
+}
+
+
+/**
  * Hide Chat Users
  */
 
 // add "Hide User" button
+localStorage.setItem('SE_hiddenChatUsers', JSON.stringify(["Chuyillto"])) // TODO TEMP
 waitForKeyElements(".message-more-menu__popover", hideChatUsersButton, false);
 function hideChatUsersButton(el) {
-  if(!$(el).find('.HideUserButton').length) {
+  
+  // append "Hide User" button
+  if(!$(el).find('.HideUserButton').length)
     $(el).append('<button class="a11y-button MessageModeMenuItem#Iw ReportButton#X2 ReportButton__text#IV HideUserButton" type="button"><svg class="icon icon-warning-triangle-outline-ds" style="height: 20px; width: 20px;"><use xlink:href="#icons-warning-triangle-outline-ds"></use></svg><span>Hide User</span></button>')
-  }
 
   // "Hide User" button click event
   $('.HideUserButton').on('click', function(e) {
-    let username = $(el).closest('.user-info-popup').find('.user-levels-username-text').html()
-    alert(username) // TODO FIX
+    let username = $(el).attr('data-username')
+    alert(username)
 
-    // get localStorage
-    let hiddenChatUsersStore = localStorage.getItem("SE_hiddenChatUsers")
-    let hiddenChatUsers = JSON.parse(hiddenChatUsersStore)
-
-    // append localStorage
-    if(!hiddenChatUsersStore) {
-        hiddenChatUsers = [username]
+    // append username to localStorage
+    let hiddenChatUsers = localStorage.getItem("SE_hiddenChatUsers")
+    if(!hiddenChatUsers) {
+      hiddenChatUsers = [username]
     } else {
-        hiddenChatUsers.push(username);
+      hiddenChatUsers = JSON.parse(hiddenChatUsersStore)
+      hiddenChatUsers.push(username);
     }
-
-    // save localStorage
     localStorage.setItem('SE_hiddenChatUsers', JSON.stringify(hiddenChatUsers))
   })
 }
 waitForKeyElements(".messages", hideChatUsers, false);
 function hideChatUsers(jNode) {
 
-
-
   // observe messages div
   var observer = new MutationObserver(function(e) {
 
-      // filter model pages only
-
-      // hide local storage users:
+      // get hidden chat users array
       let hiddenChatUsers = JSON.parse(localStorage.getItem("SE_hiddenChatUsers"))
-      console.log("SE_hiddenChatUsers", hiddenChatUsers)
-      // $.each(hiddenChatUsers, function(index, item) {
-      //     // do something with `item` (or `this` is also `item` if you like)
-      // });
 
+      // "Hide User" button: pass username var
+      $(jNode).find('.message-more-menu').on('click', function(e) {
+        $('.message-more-menu__popover').attr('data-username', $(this).attr('data-username'))
+      })
+      
       // add translation button to regular messages
       $(jNode).find('.regular-message.message__more-menu--hidden:not(.se-processed)').slice(-50).each(function(index, item) {
-          if(!$(this).find('.message-body .translate-line').length) {
-            $(this).find('.message-body').append(htmlTranslateButton)
-            $(this).addClass("se-processed")
-          }
+        let username = $(this).find('.username').text()
+        if(hiddenChatUsers.includes(username)) $(this).addClass('se-hidden')
+        if(!$(this).find('.message-body .translate-line').length) {
+          $(this).find('.message-body').append(htmlTranslateButton)
+          $(this).addClass("se-processed")
+          $(this).find('.message-more-menu').attr('data-username', username)
+        }
       })
 
       // add translation button to tip notes
@@ -552,18 +604,7 @@ function hideChatUsers(jNode) {
 
   // translate button click handler
   $('.messages').off().on('click', '.translate-line button', function(e) {
-      let ell = $(this).closest('.message-body').clone()
-      ell.find('.username,.message-body-mention,.message-timestamp,>span,button,.goal-block,.group-show-message-title,.group-show-announce-topic-label,.group-show-announce-controls').remove()
-      let text = ell.text().trim()
-      let that = $(this)
-      $(this).prop('disabled', true)
-
-      translateGoogle(text, 'en_US', $('.model-chat-content')).then(function(data) {
-        if(!that.closest('.message-body').find('.translated-line').length) {
-            that.closest('.message-body').find('.translate-line').before('<small class="translated-line">'+decodeHtml(data.data.translations[0].translatedText)+'</small>')
-        }
-        $(this).prop('disabled', false)
-      })
+    translateButtonHandler(this, '.username,.message-body-mention,.message-timestamp,>span,button,.goal-block,.group-show-message-title,.group-show-announce-topic-label,.group-show-announce-controls', '.model-chat-content', e)
   })
 }
 
@@ -582,18 +623,7 @@ function translatePrivateTestimonials(jNode) {
 
   // translate button click handler
   $('.testimonial__description').off().on('click', '.translate-line button', function(e) {
-    let ell = $(this).closest('div').clone()
-    ell.find('.translate-line').remove()
-    let text = ell.text().trim()
-    let that = $(this)
-    $(this).prop('disabled', true)
-
-    translateGoogle(text, 'en_US', $('.model-chat-content')).then(function(data) {
-      if(!that.closest('div').find('.translated-line').length) {
-          that.closest('div').find('.translate-line').before('<small class="translated-line">'+decodeHtml(data.data.translations[0].translatedText)+'</small>')
-      }
-      $(this).prop('disabled', false)
-    })
+    translateButtonHandler(this, '.translate-line', '.model-chat-content', e)
   })
 }
 
@@ -658,56 +688,35 @@ function addRegularEmojis(jNode) {
 /**
  *  Add Translation Button to Stream Goal
  */
-waitForKeyElements('.view-cam-info-goal', addTransButtonCamInfo, false);
-function addTransButtonCamInfo() {
+waitForKeyElements('.view-cam-info-goal .view-cam-info-topic:not(.view-cam-info-topic__in-player)', addTransButtonCamInfo, false);
+function addTransButtonCamInfo(el) {
 
-    if(!$('.view-cam-info-goal .translate-line').length) {
-        $('.view-cam-info-topic:not(.view-cam-info-topic__in-player)').after(htmlTranslateButton)
-    }
+  // append translate button
+  if(!$(el).find('.translate-line').length) $(el).after(htmlTranslateButton)
 
-    $('.view-cam-info-goal').off().on('click', '.translate-line button', function(e) {
-        let text = $(this).closest('.view-cam-info-goal').find('.view-cam-info-topic').clone().text().trim()
-        let that = $(this)
-        $(this).prop('disabled', true)
-
-        translateGoogle(text, 'en_US', $('.model-chat-content')).then(function(data) {
-          if(!that.closest('.view-cam-info-goal .translated-line').length) {
-              that.closest('.view-cam-info-goal').find('.view-cam-info-topic').after('<small class="translated-line">'+decodeHtml(data.data.translations[0].translatedText)+'</small>')
-          }
-          $(this).prop('disabled', false)
-        })
-    })
+  $('.view-cam-info-goal').off().on('click', '.translate-line button', function(e) {
+    translateButtonHandler(this, '.translate-line,.epic-goal-progress__wrap', '.model-chat-content', e)
+  })
 }
 
 
 /**
  * Translate Ticket Show Thumbnail Descriptions
  */
-waitForKeyElements('[class*="Typewriter__animated"]', addTransButtonCamGroup2, false);
-function addTransButtonCamGroup2(el) {
+waitForKeyElements('[class*="Typewriter__animated"]', addTranslationTicketShowDescription, false);
+function addTranslationTicketShowDescription(el) {
 
-  if(!$(el).find('.translate-line').length) {
-    $(el).append(htmlTranslateButton)
-  }
+  if(!$(el).find('.translate-line').length) $(el).append(htmlTranslateButton)
 
   // add event click handler
   $(el).find('.translate-line button').off().on('click', function(e) {
-      let text = $(this).closest('div').clone().text().trim()
-      let that = $(this)
-      $(this).prop('disabled', true)
-
-      translateGoogle(text, 'en_US', $('.model-chat-content')).then(function(data) {
-        if(!that.closest('div').find('.translated-line').length) {
-            that.closest('div').html('<small class="translated-line">'+decodeHtml(data.data.translations[0].translatedText)+'</small>')
-        }
-        $(this).prop('disabled', false)
-      })
+    translateButtonHandler(this, '.translate-line,.epic-goal-progress__wrap', '.model-chat-content', e)
   })
 }
 
 
 /**
- *  Add Translation Button to Stream Description
+ *  Add Translation Button to Stream Description TODO
  */
 waitForKeyElements('[class*="ViewCamShutterWrapper__status"]', addTransButtonCamGroup, false);
 function addTransButtonCamGroup() {
@@ -723,16 +732,7 @@ function addTransButtonCamGroup() {
 
   // add event click handler
   $('[class*="ViewCamShutterWrapper__status"]').off().on('click', '.translate-line button', function(e) {
-      let text = $(this).closest('[class*="ViewCamGroup__description"]').clone().text().trim()
-      let that = $(this)
-      $(this).prop('disabled', true)
-
-      translateGoogle(text, 'en_US', $('.model-chat-content')).then(function(data) {
-        if(!that.closest('[class*="ViewCamGroup__description"] .translated-line').length) {
-            that.closest('[class*="ViewCamGroup__description"]').find('.translate-line').before('<small class="translated-line">'+decodeHtml(data.data.translations[0].translatedText)+'</small>')
-        }
-        $(this).prop('disabled', false)
-      })
+    translateButtonHandler(this, '.translate-line', '.model-chat-content', e)
   })
 }
 
@@ -1219,7 +1219,7 @@ function translateProfileTipMenu(jNode) {
 /**
  * Model info overlay on listing pages
  */
-waitForKeyElements('.favorites .list-items-container', addOverlayButtons);
+waitForKeyElements('.favorites .list-items-container', addOverlayButtons, false);
 function addOverlayButtons(jNode) {
 
   $(jNode).find('[class*="ModelThumbUpper"]').append('<div class="se-model-info model-additional-menu-newtab model-additional-menu model-additional-menu--model-list-item model-list-item-additional-menu-wrapper"><div id="model-additional-menu-button-567" class="model-additional-menu__button">+</div></div>')
@@ -1374,11 +1374,12 @@ function updateGridColumns(cols) {
 /**
  * Disable Chat Notices
  */
-waitForKeyElements('.model-chat-controls', addDisableChat, false);
+waitForKeyElements('.model-chat-public .model-chat-controls', addDisableChat, false);
 function addDisableChat(el) {
 
   // get api data
   let username = $('.header-sub-item-wrapper .viewcam-profile-menu-item__label').eq(0).text().toLowerCase()
+  let myTokens = $('.header-top .tokens-amount').eq(0).text()
   let data = $.getJSON('/api/front/v2/models/username/'+username+'/cam')
   if(data.status == 200) {
     data = JSON.parse(data.responseText)
@@ -1391,7 +1392,14 @@ function addDisableChat(el) {
     else if(data.cam.show && data.cam.show.mode && data.cam.show.details.groupShow.type === "perMinute") {
       if(!$('.is-in-group').length) $(el).find('.model-chat-input').addClass('se-disabled').find('[class*="ChatInput__inputBlock"]').append('<div class="is-in-group">You can\'t chat while the model is in a Group Show.</div>')
     }
+    else if(data.user.user.whoCanChat == "paying" && myTokens == "0") {
+      if(!$('.is-in-payingchat').length) $(el).find('.model-chat-input').addClass('se-disabled').find('[class*="ChatInput__inputBlock"]').append('<div class="is-in-payingchat">You can\'t chat without buying tokens first.</div>')
+    }    
   }
+
+  // observer .video-element-wrapper--show-first-frame
+  //$('.model-chat-input').removeClass('se-disabled')
+  //$('[class*="is-in"]').remove()
 }
 waitForKeyElements('[class*="ViewCamGroupV2__wrapper"] svg[xlink\\:href*="icons-ticket-ds"]', addDisableChatOnTicketshowStart, false);
 function addDisableChatOnTicketshowStart(el) {
@@ -1400,11 +1408,6 @@ function addDisableChatOnTicketshowStart(el) {
     $('.model-chat-input').addClass('se-disabled').find('.ChatInput__inputBlock#xL').append('<div class="is-in-ticket">You can\'t chat while the model is in a Ticket Show.</div>')
 }
 
-waitForKeyElements('.video-element-wrapper--show-first-frame', addEnableChat, false);
-function addEnableChat() {
-  $('.model-chat-input').removeClass('se-disabled')
-  $('[class*="is-in"]').remove()
-}
 
 
 /**
@@ -1509,4 +1512,19 @@ function sortTipmenuByPrice(el, sub, item) {
   $.each(rows, (index, row) => {
     tb.append(row)
   });
+}
+
+// translate button handler
+function translateButtonHandler(that, removeElements, errorDiv, event) {
+  let ell = $(that).parent().parent().clone()
+  ell.find(removeElements).remove()
+  let text = ell.text().trim()
+  $(that).prop('disabled', true)
+
+  translateGoogle(text, 'en_US', $(errorDiv)).then(function(data) {
+    if(!$(that).parent().parent().find('.translated-line').length) {
+        $(that).parent().parent().find('.translate-line').before('<small class="translated-line">'+decodeHtml(data.data.translations[0].translatedText)+'</small>')
+    }
+    $(that).prop('disabled', false)
+  })
 }

@@ -64,7 +64,7 @@ input[type="search"].input.language-search:hover { background: rgba(0,0,0,1) }
 
 /* translate topic */
 .view-cam-info-goal__title.view-cam-info-topic { display: inline !important }
-.view-cam-info-goal .translated-line { padding: 0 0 0 10px; display: inline-block; color: rgba(248, 248, 248, 0.8) }
+.view-cam-info-goal .translate-line, .view-cam-info-goal .translated-line { padding: 0 0 0 10px; display: inline-block; color: rgba(248, 248, 248, 0.8) }
 
 /* show time in website header */
 .personal-notifications-modal.enhanced-options-modal { z-index: 314 }
@@ -169,6 +169,7 @@ input[type="search"].input.language-search:hover { background: rgba(0,0,0,1) }
 .view-cam-controls__btn-wrapper .send-tip-button__icon-container { display: none }
 
 /* Model Info Nav */
+.header-model-info { display: flex; flex-direction: row-reverse; margin-left: 24px; }
 .nav-left .visible-items .country-flag { cursor: pointer; width: 17px; height: 12px; }
 .header-sub .container .header-sub-item-wrapper.se-info-more .flex { display: flex; align-items: center; gap: 5px; justify-content: center; }
 .header-sub .container .header-sub-item-wrapper.se-info-more { color: rgba(255,255,255,.6); font-size: 0.875em; line-height: 1.4; letter-spacing: 0.05em; display: flex; flex-direction: column; justify-content: center; gap: 2px; align-items: flex-start; }
@@ -182,7 +183,8 @@ span.stars span { background-position: 0 0; }
 .se-message-templates { background: #383838; border-radius: 8px 8px 0 0; padding: 16px 16px 8px; }
 .se-message-templates .title-block { display: flex; }
 .se-message-templates .title-block .search { flex: 1; }
-.se-message-templates .se-message-templates-btn:hover { color: rgb(99,161,99) !important; }
+.se-message-templates-btn { background: none; outline: 0; border: 0; color: rgba(255,255,255,.6) }
+.se-message-templates-btn:hover { color: rgb(99,161,99) !important; }
 .se-messages-tpl-list { columns: 2; }
 .se-message-tpl { margin-top: 7px; }
 .se-message-tpl:first-of-type { margin-top: 0; }
@@ -204,6 +206,16 @@ span.stars span { background-position: 0 0; }
 .se-disabled [class*="ChatInput__inputBlock"] { background: #222; }
 .se-disabled input { background: #222; cursor: auto; pointer-events: none; }
 .se-disabled [class*="is-in"] { background: #222; position: absolute; left: 40px; font-size: 0.75em; top: calc(50% - 4px); line-height: 1em; color: rgba(255, 255, 255, 0.5); }
+
+/* translate model feeds */
+.feed .feed-post .a11y-button { border-color: rgba(255,255,255,.5); color: rgba(255,255,255,.5); }
+.feed .feed-post .a11y-button:hover { border-color: #fff; color: #fff; }
+.feed .feed-post .translate-line { margin-top: 15px; }
+.feed .feed-post .translated-line { display: block; padding: 15px 0 0 0; }
+.feed .feed-post .translated-line + .translate-line { display: none; }
+
+/* translate private show testimonials */
+.testimonial .testimonial__description .translate-line { padding-left: 10px; }
 
 /* misc */
 .se-hidden { display: none !important; }
