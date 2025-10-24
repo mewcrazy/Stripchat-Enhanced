@@ -196,6 +196,7 @@ Thanks to [PotPlayer](https://potplayer.info) for the innovative idea of opening
 Thanks to [Wiktionary](https://en.wiktionary.org/wiki/Wiktionary:Language_flags_list) for the curated list of language flags.
 
 <p>
-  <span align="left">Inspired by <a href="//stripchat.com" target="_blank">StripChat</a> and made with ❤️ in Düsseldorf, Germany.</span>
+  <br><br>
+  <span align="left">Inspired by <a href="https://stripchat.com/?action=showTokensGiveawayModalDirectLink&userId=ba50e5f9e0884961cf511e4c0b785fe576f6f697ac445c05f8b1ef56aa74396f" target="_blank">StripChat</a> and made with ❤️ in Düsseldorf, Germany.</span>
   <a href="https://www.paypal.com/donate/?hosted_button_id=UEUQP2P24Y98S" target="_blank" align="right"><img align="right" width="206" src="https://raw.githubusercontent.com/mewcrazy/Stripchat-Enhanced/refs/heads/0.5.0/img/donate-button.png"></a>
 </p>

@@ -44,7 +44,7 @@ jobs:
           git fetch
           git add deploy/waitForKeyElements.min.js
           git add deploy/jquery.min.js
-          git commit -am "Update repository files [skip ci]"
+          git commit -am "${{ 'github.event.head_commit.message' }} (Automated Repository File Updates)[skip ci]"
           git push -f origin main
 
       # Step 5: Push
