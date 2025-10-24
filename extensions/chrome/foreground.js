@@ -362,7 +362,7 @@ function addModelInfo(el) {
     htmlModelInfo += '<div class="header-sub-item-wrapper se-info-more">'+data.user.user.p2pRate+' p2p/min. - '+data.user.user.spyRate+' spy/min.</div>'
     htmlModelInfo += '<div class="header-sub-item-wrapper se-info-more pvt">'+data.user.user.privateRate+' pvt/min.'+(data.user.user.ratingPrivate ? '<br><a href="/'+username+'/profile"><span class="stars">'+data.user.user.ratingPrivate+'</span></a></div>' : '')
     htmlModelInfo += '<div class="header-sub-item-wrapper se-info-more"><span title="StripRank"><svg class="icon icon-best-models"><use xlink:href="#icons-best-models"></use></svg>#'+data.user.currPosition+'</span><span title="StripPoints"><svg class="icon icon-best-models"><use xlink:href="#icons-stripchat-logo"></use></svg>'+data.user.currPoints+'</span></div>'
-    htmlModelInfo += '<div class="header-sub-item-wrapper se-info-more"><span class="flex"><img src="https://web.static.mmcdn.com/images/ico-'+data.user.user.contestGender+'.svg">'+langsHtml+'</span><span title="'+data.user.user.birthDate+'"><svg class="icon icon-best-models"><use xlink:href="#icons-best-models"></use></svg>'+(data.user.user.age ? data.user.user.age+' years old' : 'no age given')+'</span></div>'
+    //htmlModelInfo += '<div class="header-sub-item-wrapper se-info-more"><span class="flex"><img src="https://web.static.mmcdn.com/images/ico-'+data.user.user.contestGender+'.svg">'+langsHtml+'</span><span title="'+data.user.user.birthDate+'"><svg class="icon icon-best-models"><use xlink:href="#icons-best-models"></use></svg>'+(data.user.user.age ? data.user.user.age+' years old' : 'no age given')+'</span></div>'
     headerModelInfo.html(htmlModelInfo)
     $('span.stars').stars();
   });
@@ -1431,6 +1431,11 @@ function addDoNotDisturbMode(el) {
     $('.switch-dnd-mode .switcher').toggleClass("on")
     $('.switch-dnd-mode input[type="checkbox"]').prop('checked', true)
   }
+  
+  $('.switch-dnd-mode').on('click', function(e) {
+    if(!$(this).find('input').prop('checked'))
+      $('.message.se-hidden').removeClass('se-hidden')
+  })
 }
 
 
@@ -1458,11 +1463,11 @@ waitForKeyElements('#body', addBodyShit);
 function addBodyShit(jNode) {
 
   $('#body').on('click', '.se-switcher', function(e) {
-    localStorage.setItem($(this).find('input').attr('name'), $(this).find('input').val())
     $(this).find('.switcher').toggleClass("on")
-    $(this).find('input[type="checkbox"]').prop('checked', function (i, val) {
+    $(this).find('input').prop('checked', function (i, val) {
       return !val;
     }).trigger('change');
+    localStorage.setItem($(this).find('input').attr('name'), ($(this).find('input').prop('checked') ? $(this).find('input').val() : 0))
   })
 }
 
