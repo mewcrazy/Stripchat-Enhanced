@@ -2,7 +2,7 @@
     "manifest_version": 3,
     "name": "Stripchat Enhanced",
     "description": "A browser extension to extend Stripchat with new useful features like translations of public chat and private chat messages.",
-    "version": "0.5.1",
+    "version": "0.5.2",
     "update_url": "https://mewcrazy.github.io/Stripchat-Enhanced/extensions/chrome/updates.xml",
     "default_locale": "en_US",
     "icons": {
