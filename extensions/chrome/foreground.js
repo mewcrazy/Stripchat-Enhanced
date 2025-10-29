@@ -142,21 +142,21 @@ waitForKeyElements("[class*='ModelsOrderDropdown__content']", saveFavoritesSorti
 function saveFavoritesSorting(el) {
 
   $("[class*='ModelsOrderDropdown__content']").off().on('click', 'a', function() {
-    let path = location.pathname
+    let path = $(this).attr("href")
     $("[class*='SidebarLink'][href='/favorites']").attr("href", path)
     localStorage.setItem("SE_favoritesSorting", path)
-    localStorage.setItem("SE_favoritesSortingName", $(this).text())
+    localStorage.setItem("SE_favoritesSortingName", $(this).find('span').text())
   })
 }
 
-waitForKeyElements('[class*="Sidebar__language"]', presetFavoritess, false);
-function presetFavoritess(el) {
+waitForKeyElements('.app-sidebar-lang-select', presetFavoritesss, false);
+function presetFavoritesss(el) {
   let path = localStorage.getItem("SE_favoritesSorting")
   if(path && path.length) {
-    $("[class*='SidebarLink'][href*='/favorites']").attr("href", path)
+    $("a[href*='/favorites']").attr("href", path)
   }
 
-  $("[class*='SidebarLink'][href^='/favorites/']").on('click', function(e) {
+  $("a[href*='/favorites/']").on('click', function(e) {
     e.preventDefault()
     window.location.replace($(this).attr("href"))
   })
