@@ -464,12 +464,24 @@ function addMessageTemplates(el) {
 
 }
 
+/**
+ * Translate Wheel Of Fortune
+ */
+waitForKeyElements(".plugin-message .plugin-message-accent", addWheelOfFortuneTranslation, false);
+function addWheelOfFortuneTranslation(el) {
+  
+  // append translate button
+  if(!$(el).closest('.message-body').hasClass('se-procesed')) {
+    $(el).append(htmlTranslateButton)
+    $(el).closest('.message-body').addClass("se-processed")
+  }
+}
 
 /**
  * Translate Model Feeds
  */
-waitForKeyElements(".feed .feed-post", addModelFeedTranslataion, false);
-function addModelFeedTranslataion(el) {
+waitForKeyElements(".feed .feed-post", addModelFeedTranslatation, false);
+function addModelFeedTranslatation(el) {
   
   // append translate button
   if(!$(el).hasClass('se-procesed')) {
