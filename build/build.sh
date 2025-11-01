@@ -2,6 +2,7 @@
 
 # Download npm Modules
 npm i jquery uglify-js
+npm update
 npm audit fix --force
 
 # Download waitForKeyElements.js & move to ~/deploy/
