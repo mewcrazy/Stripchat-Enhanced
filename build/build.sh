@@ -5,11 +5,11 @@ npm i jquery uglify-js
 npm update
 npm audit fix --force
 
-# Download waitForKeyElements.js & move to ~/deploy/
+# Download waitForKeyElements.js & move to extension js
 git clone https://github.com/CoeJoder/waitForKeyElements.js.git git_waitForKeyElements
 cp -rf git_waitForKeyElements/waitForKeyElements.js extensions/chrome/js/waitForKeyElements.min.js
 
-# Download jquery/jquery & Move to directory
+# Download jquery/jquery & move to directory
 rm extensions/chrome/js/jquery.min.js
 cp -rf ../../../../node_modules/jquery/dist/jquery.min.js extensions/chrome/js/jquery.min.js
 

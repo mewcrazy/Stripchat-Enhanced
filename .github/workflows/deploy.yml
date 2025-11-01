@@ -27,7 +27,6 @@ jobs:
         run: |
           sed -i -e 's/version="[0-9]\+\.[0-9]\+\.[0-9]\+" \/>/version="${{ github.ref_name }}" \/>/g' extensions/chrome/updates.xml
           sed -i -e 's/"version": "[0-9]\+\.[0-9]\+\.[0-9]\+"/"version": "${{ github.ref_name }}"/g' extensions/chrome/manifest.json
-      #   sed -i -e 's/var googleApiKey = "${{ secrets.GOOGLE_TRANSLATION_APIKEY }}"/var googleApiKey = ""/g' deploy/stripchat-enhanced.user.js
 
       # Step 3: Check for any changes
       - name: Check for any changes
@@ -42,9 +41,9 @@ jobs:
           git config --local user.name mewcrazy
           git config --local user.email "kontakt@dennis-bitsch.de"      
           git fetch
-          git add deploy/waitForKeyElements.min.js
-          git add deploy/jquery.min.js
-          git commit -am "${{ 'github.event.head_commit.message' }} (Automated Repository File Updates)[skip ci]"
+          git add extensions/chrome/js/waitForKeyElements.min.js
+          git add extensions/chrome/js/jquery.min.js
+          git commit -am "${{ 'github.event.head_commit.message' }} (Automated Repository File Updates) [skip ci]"
           git push -f origin main
 
       # Step 5: Push
