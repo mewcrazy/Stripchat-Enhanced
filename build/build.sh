@@ -6,11 +6,11 @@ npm audit fix --force
 
 # Download waitForKeyElements.js & move to ~/deploy/
 git clone https://github.com/CoeJoder/waitForKeyElements.js.git git_waitForKeyElements
-mv -f git_waitForKeyElements/waitForKeyElements.js deploy/waitForKeyElements.min.js
+cp -rf git_waitForKeyElements/waitForKeyElements.js extensions/chrome/js/waitForKeyElements.min.js
 
 # Download jquery/jquery & Move to directory
 rm extensions/chrome/js/jquery.min.js
-cp -rf ../../../../node_modules/jquery/dist/jquery.min.js deploy/jquery.min.js
+cp -rf ../../../../node_modules/jquery/dist/jquery.min.js extensions/chrome/js/jquery.min.js
 
 # Obfuscate JavaScript files
 # ./../../../../node_modules/javascript-obfuscator/bin/javascript-obfuscator extensions/chrome/foreground.js --output extensions/chrome/foreground-obfuscated.js
