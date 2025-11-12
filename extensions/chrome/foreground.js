@@ -351,18 +351,22 @@ function addModelInfo(el) {
   }
 
   let username = $(el).eq(0).text()
-  let headerModelInfo = $('.header-model-info')
   $.getJSON('/api/front/v2/models/username/'+username+'/cam').done((data) => {
+    let headerModelInfo = $('.header-model-info')
+
     if(data.cam.newModelPromoSettings) $(el).after('<small style="display: block;padding-left: 40px;font-size: 85%;">Joined '+data.cam.newModelPromoSettings.finishPromoDate.split("T")[0]+'</small>')
     let langsHtml = ""
     let htmlModelInfo = ""
+    if(data.user.user.country) $(el).prepend('<span class="country-flag" data-lang="'+data.user.user.country+'" style="margin-right: 5px; background-image: url(&quot;//raw.githubusercontent.com/lipis/flag-icons/refs/heads/main/flags/4x3/'+data.user.user.country+'.svg&quot;);"></span>')
     $.each(data.user.user.languages, function(k, v) {
-      langsHtml += '<span class="country-flag" data-lang="'+v+'" style="background-image: url(&quot;//mewcrazy.github.io/Stripchat-Enhanced/flags/'+v+'.svg&quot;);"></span>'
+      let lang = '<span class="country-flag" data-lang="'+v+'" style="background-image: url(&quot;//mewcrazy.github.io/Stripchat-Enhanced/flags/'+v+'.svg&quot;);"></span>';
+      
+      langsHtml += lang
     })
     htmlModelInfo += '<div class="header-sub-item-wrapper se-info-more">'+data.user.user.p2pRate+' p2p/min. - '+data.user.user.spyRate+' spy/min.</div>'
     htmlModelInfo += '<div class="header-sub-item-wrapper se-info-more pvt">'+data.user.user.privateRate+' pvt/min.'+(data.user.user.ratingPrivate ? '<br><a href="/'+username+'/profile"><span class="stars">'+data.user.user.ratingPrivate+'</span></a></div>' : '')
     htmlModelInfo += '<div class="header-sub-item-wrapper se-info-more"><span title="StripRank"><svg class="icon icon-best-models"><use xlink:href="#icons-best-models"></use></svg>#'+data.user.currPosition+'</span><span title="StripPoints"><svg class="icon icon-best-models"><use xlink:href="#icons-stripchat-logo"></use></svg>'+data.user.currPoints+'</span></div>'
-    //htmlModelInfo += '<div class="header-sub-item-wrapper se-info-more"><span class="flex"><img src="https://web.static.mmcdn.com/images/ico-'+data.user.user.contestGender+'.svg">'+langsHtml+'</span><span title="'+data.user.user.birthDate+'"><svg class="icon icon-best-models"><use xlink:href="#icons-best-models"></use></svg>'+(data.user.user.age ? data.user.user.age+' years old' : 'no age given')+'</span></div>'
+    htmlModelInfo += '<div class="header-sub-item-wrapper se-info-more"><span class="flex"><img src="https://web.static.mmcdn.com/images/ico-'+data.user.user.contestGender+'.svg">'+langsHtml+'</span><span title="'+data.user.user.birthDate+'"><svg class="icon icon-best-models"><use xlink:href="#icons-best-models"></use></svg>'+(data.user.user.age ? data.user.user.age+' years old' : 'no age given')+'</span></div>'
     headerModelInfo.html(htmlModelInfo)
     $('span.stars').stars();
   });

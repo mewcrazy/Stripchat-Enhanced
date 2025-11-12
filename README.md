@@ -1,5 +1,5 @@
 # <p align="center">StripChat Enhanced</p>
-<p align="center">A browser extension to extend StripChat with new useful features like on-the-fly translations of your sent text message as well as received public chat and private chat messages, and many more features.</p>
+<p align="center">A browser extension to enhance StripChat with new useful features like on-the-fly translations of your sent text message as well as received public chat and private chat messages, and many more features.</p>
 
 <p align="center" width="100%">
   <a href="https://github.com/mewcrazy/Stripchat-Enhanced/releases/latest"><img src="https://shields.io/github/downloads/mewcrazy/Stripchat-Enhanced/total"></a>
